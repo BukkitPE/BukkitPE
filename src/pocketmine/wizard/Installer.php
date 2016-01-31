@@ -9,10 +9,10 @@ use pocketmine\utils\Config;
 use pocketmine\utils\Utils;
 
 class Installer{
-	const DEFAULT_NAME = "A BukkitPE: Server";
+	const DEFAULT_NAME = "A BukkitPE Server";
 	const DEFAULT_PORT = 19132;
 	const DEFAULT_MEMORY = 256;
-	const DEFAULT_PLAYERS = 20;
+	const DEFAULT_PLAYERS = 30;
 	const DEFAULT_GAMEMODE = 0;
 
 	private $lang;
