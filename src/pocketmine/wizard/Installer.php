@@ -9,7 +9,7 @@ use pocketmine\utils\Config;
 use pocketmine\utils\Utils;
 
 class Installer{
-	const DEFAULT_NAME = "Minecraft: PE Server";
+	const DEFAULT_NAME = "BukkitPE: Server";
 	const DEFAULT_PORT = 19132;
 	const DEFAULT_MEMORY = 256;
 	const DEFAULT_PLAYERS = 20;
@@ -18,7 +18,7 @@ class Installer{
 	private $lang;
 
 	public function __construct(){
-		echo "[*] ClearSky set-up wizard\n";
+		echo "[*] BukkitPE set-up wizard\n";
 		echo "[*] Please select a language:\n";
 		foreach(InstallerLang::$languages as $short => $native){
 			echo " $native => $short\n";
