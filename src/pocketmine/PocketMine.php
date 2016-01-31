@@ -54,7 +54,7 @@ namespace pocketmine {
 
 	const VERSION = "1.0dev";
 	const API_VERSION = "1.13.1";
-	const CODENAME = "Blue";
+	const CODENAME = "Stable_V1";
 	const MINECRAFT_VERSION = "v0.13.1 alpha";
 	const MINECRAFT_VERSION_NETWORK = "0.13.1";
 
@@ -73,7 +73,7 @@ namespace pocketmine {
 
 	if(!extension_loaded("pthreads")){
 		echo "[CRITICAL] Unable to find the pthreads extension." . PHP_EOL;
-		echo "[CRITICAL] Please use the installer provided on the homepage." . PHP_EOL;
+		echo "[CRITICAL] Please use the installer provided at: BukkitPE.net." . PHP_EOL;
 		exit(1);
 	}
 	
@@ -360,7 +360,7 @@ namespace pocketmine {
 	}
 
 	if(php_sapi_name() !== "cli"){
-		$logger->critical("You must run PocketMine-MP using the CLI.");
+		$logger->critical("You must run BukkitPE using the CLI.");
 		++$errors;
 	}
 
@@ -383,7 +383,7 @@ namespace pocketmine {
 			$logger->critical("You have the native PocketMine extension, but your version is lower than 0.0.1.");
 			++$errors;
 		}elseif(version_compare(phpversion("pocketmine"), "0.0.4") > 0){
-			$logger->critical("You have the native PocketMine extension, but your version is higher than 0.0.4.");
+			$logger->critical("You have the native BukkitPE extension, but your version is higher than 0.0.4.");
 			++$errors;
 		}
 	}
@@ -414,7 +414,7 @@ namespace pocketmine {
 	}
 
 	if($errors > 0){
-		$logger->critical("Please use the installer provided on the homepage, or recompile PHP again.");
+		$logger->critical("Please use the installer provided at BukkitPE.net, or recompile PHP again.");
 		$logger->shutdown();
 		$logger->join();
 		exit(1); //Exit with error
@@ -435,7 +435,7 @@ namespace pocketmine {
 	}
 
 	if(\Phar::running(true) === ""){
-		$logger->warning("Non-packaged PocketMine-MP installation detected, do not use on production.");
+		$logger->warning("Non-packaged BukkitPE installation detected, do not use on production.");
 	}
 
 	ThreadManager::init();
