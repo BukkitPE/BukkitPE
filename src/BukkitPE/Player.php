@@ -346,7 +346,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	public function setBanned($value){
 		if($value === true){
 			$this->server->getNameBans()->addBan($this->getName(), null, null, null);
-			$this->kick("You have been banned");
+			$this->getLeaveMessage("You have been banned");
 		}else{
 			$this->server->getNameBans()->remove($this->getName());
 		}
@@ -1643,7 +1643,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 						if(!$this->hasEffect(Effect::JUMP) and $diff > 0.6 and $expectedVelocity < $this->speed->y and !$this->server->getAllowFlight()){
 							if($this->inAirTicks < 100){
 								$this->setMotion(new Vector3(0, $expectedVelocity, 0));
-							}elseif($this->kick("Flying is not enabled on this server")){
+							}elseif($this->kick("§cYou are not allowed to have fly mods on this server!")){
 								$this->timings->stopTiming();
 								return false;
 							}
@@ -1803,11 +1803,11 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 	protected function processLogin(){
 		if(!$this->server->isWhitelisted(strtolower($this->getName()))){
-			$this->close($this->getLeaveMessage(), "Server is white-listed");
+			$this->close($this->getLeaveMessage(), "§cThis server is whitelisted. Contact the administrator to join.");
 
 			return;
 		}elseif($this->server->getNameBans()->isBanned(strtolower($this->getName())) or $this->server->getIPBans()->isBanned($this->getAddress())){
-			$this->close($this->getLeaveMessage(), "You are banned");
+			$this->close($this->getLeaveMessage(), "§cError while connecting to server. §l§4You are banned!");
 
 			return;
 		}
