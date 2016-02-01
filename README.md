@@ -17,6 +17,8 @@ BukkitPE is a server software for Minecraft: Pocket Edition, Which allows you to
 - Click the link above to download.
 - Run start.cmd for windows
 - Or start.sh for linux users.
-- Also, you can download a zip folder of this. Then download the bin folder from our github then run the start.sh or start.cmd (depending on system type. start.cmd for window and start.sh  for linux users.
+
+# Run from source?
+- You can run BukkitPE from source by downloading a zip folder of this repo and extracting it on you're desktop. Use any of these bin folders [Here](https://github.com/BukkitPE/PHP-Bin-Folder) Remember if you are running linux, then download a zip then open the linux folder and move the bin folder to your BukkitPE Installation folder then run start.sh Other then that if you are running windows use the window bin folder and repeat same step as linux but instead run start.cmd Enjoy!
 
 
