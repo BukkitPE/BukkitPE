@@ -22,5 +22,5 @@ Download the lastest release, [Here](https://github.com/BukkitPE/BukkitPE/releas
 # Run from source?
 - You can run BukkitPE from source by downloading a zip folder of this repo and extracting it on you're desktop. Use any of these bin folders [Here](https://github.com/BukkitPE/PHP-Bin-Folder) Remember if you are running linux, then download a zip then open the linux folder and move the bin folder to your BukkitPE Installation folder then run start.sh Other then that if you are running windows use the windows bin folder and repeat same step as linux but instead run start.cmd Enjoy!
 
-# Todo <br />Add the enchanting API <br /> Add mob AI
+# Todo
 
