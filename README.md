@@ -13,6 +13,10 @@ BukkitPE is a server software for Minecraft: Pocket Edition, Which allows you to
 - [x] Nether
 - [x] Plugin API (So you can extend it)
 
+#What is this?
+
+BukkitPE is software for hosting Minecraft : Pocket Edition servers. From controlling everything you can possibly do on MCPE to everything players can ever imagine on a server, BukkitPE also has an API which lets developer extend it. Let's face it plain BukkitPE isn't fun :P That's mainly why we have an API. BukkitPE ha Clean feels and Stable Features / Performance optimization.
+
 # How do I install BukkitPE?
 Download the lastest release, [Here](https://github.com/BukkitPE/BukkitPE/releases/download/1.0.0/BukkitPE.zip) extract the zip folder then inside that folder run start.cmd for (Windows) or start.sh for linux users.
 
