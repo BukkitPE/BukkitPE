@@ -17,66 +17,66 @@ abstract class Achievement{
 			"requires" => [],
 		),*/
 		"mineWood" => [
-			"name" => "Getting Wood",
+			"name" => "§l[Getting Wood]",
 			"requires" => [ //"openInventory",
 			],
 		],
 		"buildWorkBench" => [
-			"name" => "Benchmarking",
+			"name" => "§l[Benchmarking]",
 			"requires" => [
 				"mineWood",
 			],
 		],
 		"buildPickaxe" => [
-			"name" => "Time to Mine!",
+			"name" => "§l[Time to Mine!]",
 			"requires" => [
 				"buildWorkBench",
 			],
 		],
 		"buildFurnace" => [
-			"name" => "Hot Topic",
+			"name" => "§l[Hot Topic]",
 			"requires" => [
 				"buildPickaxe",
 			],
 		],
 		"acquireIron" => [
-			"name" => "Acquire hardware",
+			"name" => "§l[Acquire hardware]",
 			"requires" => [
 				"buildFurnace",
 			],
 		],
 		"buildHoe" => [
-			"name" => "Time to Farm!",
+			"name" => "§l[Time to Farm!]",
 			"requires" => [
 				"buildWorkBench",
 			],
 		],
 		"makeBread" => [
-			"name" => "Bake Bread",
+			"name" => "§l[Bake Bread]",
 			"requires" => [
 				"buildHoe",
 			],
 		],
 		"bakeCake" => [
-			"name" => "The Lie",
+			"name" => "§l[The Lie]",
 			"requires" => [
 				"buildHoe",
 			],
 		],
 		"buildBetterPickaxe" => [
-			"name" => "Getting an Upgrade",
+			"name" => "§l[Getting an Upgrade]",
 			"requires" => [
 				"buildPickaxe",
 			],
 		],
 		"buildSword" => [
-			"name" => "Time to Strike!",
+"name" => "§l[Time to Strike!]",
 			"requires" => [
 				"buildWorkBench",
 			],
 		],
 		"diamonds" => [
-			"name" => "DIAMONDS!",
+			"name" => "§l[DIAMONDS!]",
 			"requires" => [
 				"acquireIron",
 			],
