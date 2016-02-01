@@ -1,7 +1,17 @@
+####
+# There are the main settings for BukkitPE, If you made a mistake just delete it and the default config will come
+# back. Do not touch if you don't know what you are doing
+###
+
+######
+# Query plugins makes server listing sites know the plugin you're using.
+######
+# ShutDown-Message is the message the player will recieve when server shuts down.
+######
 settings:
  language: "eng"
  force-language: false
- shutdown-message: "Server closed"
+ shutdown-message: "Server Closed"
  query-plugins: true
  deprecated-verbose: true
  enable-profiling: false
@@ -38,7 +48,9 @@ weather:
 I/O:
  title-usage: true
  log-to-file: true
-
+###
+# Increase the Main-Hard-Limit to how much ram you wan't BukkitPE to use. Ex: 2048 = 1GB
+###
 memory:
  global-limit: 0
  main-limit: 0
