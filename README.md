@@ -13,10 +13,8 @@ BukkitPE is a server software for Minecraft: Pocket Edition, Which allows you to
 - [x] Nether
 - [x] Plugin API (So you can extend it)
 
-# [Download? - Click here](https://github.com/BukkitPE/BukkitPE/releases/download/1.0.0/BukkitPE.zip)
-- Click the link above to download.
-- Run start.cmd for windows
-- Or start.sh for linux users.
+# How do I install BukkitPE?
+Download the lastest release, [Here](https://github.com/BukkitPE/BukkitPE/releases/download/1.0.0/BukkitPE.zip) extract the zip folder then inside that folder run start.cmd for (Windows) or start.sh for linux users.
 
 # Run from source?
 - You can run BukkitPE from source by downloading a zip folder of this repo and extracting it on you're desktop. Use any of these bin folders [Here](https://github.com/BukkitPE/PHP-Bin-Folder) Remember if you are running linux, then download a zip then open the linux folder and move the bin folder to your BukkitPE Installation folder then run start.sh Other then that if you are running windows use the windows bin folder and repeat same step as linux but instead run start.cmd Enjoy!
