@@ -2,8 +2,14 @@
 BukkitPE is a server software for Minecraft: Pocket Edition, With Clean feels and Stable Features.
 
 # FEATURES
-- [x] Hunger <br />
-- [x]
-- - [x]
-
+- [x] Performance optimization (Our #1 Goal!)
+- [x] XP
+- [x] Weather
+- [x] Mobs AI (Including Animals)
+- [x] Potions
+- [x] Fast Chunk loading and sending
+- [x] Redstone
+- [x] Effects
+- [x] Nether
+- [x] Plugin API (So you can extend it)
 
