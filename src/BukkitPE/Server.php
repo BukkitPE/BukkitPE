@@ -378,7 +378,7 @@ class Server{
 	 * @deprecated
 	 */
 	public function getServerName(){
-		return $this->getConfigString("motd", "Minecraft: PE Server");
+		return $this->getConfigString("motd", "BukkitPE: Server");
 	}
 
 	public function getServerUniqueId(){
@@ -562,7 +562,7 @@ class Server{
 	 * @return string
 	 */
 	public function getMotd(){
-		return $this->getConfigString("motd", "Minecraft: PE Server");
+		return $this->getConfigString("motd", "BukkitPE: Server");
 	}
 
 	/**
@@ -1496,7 +1496,7 @@ class Server{
 
 		$this->logger->info("Loading server properties...");
 		$this->properties = new Config($this->dataPath . "server.properties", Config::PROPERTIES, [
-			"motd" => "Minecraft: PE Server",
+			"motd" => "BukkitPE: Server",
 			"server-port" => 19132,
 			"white-list" => false,
 			"announce-player-achievements" => true,
