@@ -1,11 +1,5 @@
 <?php
-namespace BukkitPE;
 
-use BukkitPE\block\Block;
-use BukkitPE\command\CommandReader;
-use BukkitPE\command\CommandSender;
-use BukkitPE\command\ConsoleCommandSender;
-use BukkitPE\command\PluginIdentifiableCommand;
 namespace BukkitPE;
 
 use BukkitPE\block\Block;
