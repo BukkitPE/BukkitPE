@@ -9,10 +9,14 @@ use BukkitPE\utils\Config;
 use BukkitPE\utils\Utils;
 
 class Installer{
+<<<<<<< HEAD:src/BukkitPE/wizard/Installer.php
 	const DEFAULT_NAME = "BukkitPE: Server";
+=======
+	const DEFAULT_NAME = "A BukkitPE Server";
+>>>>>>> origin/master:src/pocketmine/wizard/Installer.php
 	const DEFAULT_PORT = 19132;
 	const DEFAULT_MEMORY = 256;
-	const DEFAULT_PLAYERS = 20;
+	const DEFAULT_PLAYERS = 30;
 	const DEFAULT_GAMEMODE = 0;
 
 	private $lang;

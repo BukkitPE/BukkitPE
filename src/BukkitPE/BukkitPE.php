@@ -382,7 +382,11 @@ namespace BukkitPE {
 		if(version_compare(phpversion("BukkitPE"), "0.0.1") < 0){
 			$logger->critical("You have the native BukkitPE extension, but your version is lower than 0.0.1.");
 			++$errors;
+<<<<<<< HEAD:src/BukkitPE/BukkitPE.php
 		}elseif(version_compare(phpversion("BukkitPE"), "0.0.4") > 0){
+=======
+		}elseif(version_compare(phpversion("pocketmine"), "0.0.4") > 0){
+>>>>>>> origin/master:src/pocketmine/PocketMine.php
 			$logger->critical("You have the native BukkitPE extension, but your version is higher than 0.0.4.");
 			++$errors;
 		}
