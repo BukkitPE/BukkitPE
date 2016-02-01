@@ -4,7 +4,7 @@
 - [x] Performance optimization (Our #1 Goal!)
 - [x] XP
 - [x] Weather
-- [x] Mobs AI (Including Animals)
+- [x] Mob AI (Including Animals)
 - [x] Potions
 - [x] Fast Chunk loading and sending
 - [x] Redstone
