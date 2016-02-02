@@ -129,3 +129,4 @@ abstract class AsyncTask extends \Collectable{
 	}
 
 }
+// Fixed some bugs
