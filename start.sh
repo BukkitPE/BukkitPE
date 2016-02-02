@@ -35,9 +35,9 @@ fi
 
 if [ "$BukkitPE_FILE" == "" ]; then
 	if [ -f ./BukkitPE.phar ]; then
-		POCKETMINE_FILE="./BukkitPE.phar"
+		BukkitPE_FILE="./BukkitPE.phar"
 	elif [ -f ./src/BukkitPE/BukkitPE.php ]; then
-		POCKETMINE_FILE="./src/BukkitPE/BukkitPE.php"
+		BukkitPEE_FILE="./src/BukkitPE/BukkitPE.php"
 	else
 		echo "Couldn't find a valid BukkitPE installation"
 		exit 1
