@@ -34,7 +34,7 @@ if [ "$PHP_BINARY" == "" ]; then
 fi
 
 if [ "$BukkitPE_FILE" == "" ]; then
-	if [ -f ./PocketMine-MP.phar ]; then
+	if [ -f ./BukkitPE.phar ]; then
 		POCKETMINE_FILE="./BukkitPE.phar"
 	elif [ -f ./src/pocketmine/PocketMine.php ]; then
 		POCKETMINE_FILE="./src/BukkitPE/BukkitPE.php"
