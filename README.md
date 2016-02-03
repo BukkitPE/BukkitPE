@@ -2,7 +2,7 @@
 
 #Notices:
 
-BukkitPE supports MCPE 0.14.0 by providing an experimental build. You can checkout the mcpe-0.14 branch and get the latest phar [Here](https://github.com/BukkitPE/BukkitPE/releases/tag/1.1) For more info on how to install please check [here](https://github.com/BukkitPE/Installation)
+BukkitPE supports MCPE 0.14.4 by providing an experimental build. You can checkout the mcpe-0.14 branch and get the latest phar [Here](https://github.com/BukkitPE/BukkitPE/releases/tag/1.1) For more info on how to install please check [here](https://github.com/BukkitPE/Installation)
 
 # FEATURES
 - [x] Performance optimization (Our #1 Goal!)
