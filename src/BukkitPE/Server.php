@@ -1485,7 +1485,7 @@ class Server{
 		$this->console = new CommandReader();
 
 		$version = new VersionString($this->getBukkitPEVersion());
-		$this->logger->info("Loading BukkitPE.yml...");
+		$this->logger->info("§l§c------> BukkitPE.yml Has been loaded");
 		if(!file_exists($this->dataPath . "BukkitPE.yml")){
 			$content = file_get_contents($this->filePath . "src/BukkitPE/resources/BukkitPE.yml");
 			if($version->isDev()){
