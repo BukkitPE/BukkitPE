@@ -1,5 +1,7 @@
 # ![BukkitPE](https://gyazo.com/b972ad341bceff44a1eb82a75d9db502.png) ![BukkitPE](http://i1279.photobucket.com/albums/y523/textcraft/Jan%202016%20-%204/f73b39b3b74672b3c0ba5a038a930c2a960add0eda39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd80709bc1f_zpswlyk59ss.png)
 
+[![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # FEATURES
 - [x] Performance optimization (Our #1 Goal!)
 - [x] XP
