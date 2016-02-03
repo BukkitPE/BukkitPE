@@ -24,12 +24,7 @@ Why not? We're always looking for developers to help out with the project! Make 
 Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) now!
 
 # How do I install BukkitPE?
-[Install](
-
-http://dabuttonfactory.com/button.png?t=How+to+install&f=Calibri-Italic&ts=24&tc=f00&tshs=1&tshc=000&hp=20&vp=8&c=0&bgt=gradient&bgc=f1c232&ebgc=073763)
-Download the lastest release, [Here](https://github.com/BukkitPE/BukkitPE/releases/download/1.0.0/BukkitPE.zip) extract the zip folder then inside that folder run start.cmd for (Windows) or start.sh for linux users.
-
-Can I help out the team and contribute to ImagicalMine?
+![Install](http://dabuttonfactory.com/button.png?t=How+to+install&f=Calibri-Italic&ts=24&tc=f00&tshs=1&tshc=000&hp=20&vp=8&c=0&bgt=gradient&bgc=f1c232&ebgc=073763)
 
 # Todo
 
