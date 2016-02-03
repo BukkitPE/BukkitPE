@@ -24,7 +24,7 @@ Why not? We're always looking for developers to help out with the project! Make 
 Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) now!
 
 # How do I install BukkitPE?
-!(https://gyazo.com/2eea3b538431eb54e243c785b7ec02eb)
+[Logo]!(https://gyazo.com/2eea3b538431eb54e243c785b7ec02eb)
 
 # Todo
 
