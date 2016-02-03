@@ -24,7 +24,10 @@ Why not? We're always looking for developers to help out with the project! Make 
 Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) now!
 
 # How do I install BukkitPE?
-![](https://gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)
+
+Read the documentation for installing BukkitPE [here](https://github.com/BukkitPE/Installation).
+You can download lastest release by clicking the picturre below.<br>
+ <a href="https://github.com/BukkitPE/BukkitPE/releases">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
 
 # Todo
 
