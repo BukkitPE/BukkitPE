@@ -33,6 +33,6 @@ Read the documentation for installing BukkitPE [here](https://github.com/BukkitP
 You can download lastest release by clicking the picturre below.<br>
  <a href="https://github.com/BukkitPE/BukkitPE/releases">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
 
-# Todo
-- [] Add Mob AI
-- [] Nether Support
+# Todo - Working on.
+- [ ] Add Mob AI
+- [ ] Nether Support
