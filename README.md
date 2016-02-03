@@ -19,6 +19,10 @@ BukkitPE is software for hosting Minecraft : Pocket Edition servers. From contro
 #Can I help out the team and contribute to BukkitPE?
 
 Why not? We're always looking for developers to help out with the project! Make sure you check out the [Contributing Guidelines](https://github.com/BukkitPE/BukkitPE/releases/download/1.0.0/BukkitPE.zip) first though. After just create a pull request. :)
+
+#Can I join the BukkitPE community?
+Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) now!
+
 # How do I install BukkitPE?
 Download the lastest release, [Here](https://github.com/BukkitPE/BukkitPE/releases/download/1.0.0/BukkitPE.zip) extract the zip folder then inside that folder run start.cmd for (Windows) or start.sh for linux users.
 
