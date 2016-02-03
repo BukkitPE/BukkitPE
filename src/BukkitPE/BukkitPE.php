@@ -435,7 +435,14 @@ namespace BukkitPE {
 	}
 
 	if(\Phar::running(true) === ""){
-		$logger->warning("Non-packaged BukkitPE installation detected, do not use on production.");
+	$logger->info("§c{--------------------====================--------------------}");
+	$logger->info("§6BukkitPE - MCPE Server Software");
+	$logger->info("§9- §eYou may use on production");
+	$logger->info("§9- §ePlugins: Forums.BukkitPE.net/plugins (Being work on)");
+	$logger->info("§9- §eSite: BukkitPE.net (Being work on)");
+	$logger->info("§9- §eBugs?: https://github.com/BukkitPE/BukkitPE/issues");
+	$logger->info("§9- §3BukkitPE was made by: AndreTheGamer , DelxHQ");
+	$logger->info("§c{---------------------====================--------------------}");
 	}
 
 	ThreadManager::init();
