@@ -36,3 +36,4 @@ You can download lastest release by clicking the picturre below.<br>
 # Todo - Working on.
 - [ ] Add Mob AI
 - [ ] Nether Support
+- [x] Weather
