@@ -10,10 +10,10 @@ if exist bin\php\php.exe (
 )
 
 if exist BukkitPE.phar (
-	set POCKETMINE_FILE=BukkitPE.phar
+	set BukkitPE_FILE=BukkitPE.phar
 ) else (
 	if exist src\BukkitPE\BukkitPE.php (
-		set POCKETMINE_FILE=src\BukkitPE\BukkitPE.php
+		set BukkitPE_FILE=src\BukkitPE\BukkitPE.php
 	) else (
 		echo "Couldn't find a valid BukkitPE installation"
 		pause
@@ -25,7 +25,7 @@ REM if exist bin\php\php_wxwidgets.dll (
 REM 	%PHP_BINARY% %POCKETMINE_FILE% --enable-gui %*
 REM ) else (
 	if exist bin\mintty.exe (
-		start "" bin\mintty.exe -o Columns=88 -o Rows=32 -o AllowBlinking=0 -o FontQuality=3 -o Font="DejaVu Sans Mono" -o FontHeight=10 -o CursorType=0 -o CursorBlinks=1 -h error -t "BukkitPE server software" -i bin/pocketmine.ico -w max %PHP_BINARY% %POCKETMINE_FILE% --enable-ansi %*
+		start "" bin\mintty.exe -o Columns=88 -o Rows=32 -o AllowBlinking=0 -o FontQuality=3 -o Font="DejaVu Sans Mono" -o FontHeight=10 -o CursorType=0 -o CursorBlinks=1 -h error -t "BukkitPE server software" -i bin/pocketmine.ico -w max %PHP_BINARY% %BukkitPE_FILE% --enable-ansi %*
 	) else (
 		%PHP_BINARY% -c bin\php %POCKETMINE_FILE% %*
 	)
