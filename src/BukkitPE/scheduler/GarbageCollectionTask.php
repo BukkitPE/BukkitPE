@@ -1,5 +1,5 @@
 <?php
-namespace pocketmine\scheduler;
+namespace BukkitPE\scheduler;
 
 class GarbageCollectionTask extends AsyncTask{
 
