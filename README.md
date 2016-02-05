@@ -33,8 +33,12 @@ Read the documentation for installing BukkitPE [here](https://github.com/BukkitP
 You can download lastest release by clicking the picturre below.<br>
  <a href="https://github.com/BukkitPE/BukkitPE/releases">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
 
-# Quick Links
-# ![Website](https://www.BukkitPE.net)
+## Quick Links
+
+* __[Homepage](https://bukkitpe.net/)__
+* __[Forums](http://forums.bukkitpe.net/)__
+* __[Documentation](https://github.com/BukkitPE/Installation)__
+* __[Plugin Repository](https://forums.bukkitpe.net/index.php?plugins/)__
 
 # Todo - Working on.
 - [ ] Add Mob AI
