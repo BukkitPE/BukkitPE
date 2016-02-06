@@ -49,7 +49,7 @@ I/O:
  title-usage: true
  log-to-file: true
 ###
-# Increase the Main-Hard-Limit to how much ram you wan't BukkitPE to use. Ex: 2048 = 1GB
+# Increase the Main-Hard-Limit to how much ram you wan't BukkitPE to use. Ex: 1024 = 1GB
 ###
 memory:
  global-limit: 0
