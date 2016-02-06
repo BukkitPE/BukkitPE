@@ -1,5 +1,5 @@
 # ![BukkitPE](https://gyazo.com/b972ad341bceff44a1eb82a75d9db502.png) 
-
+![LOL](http://bukkitpe.net/BukkitPE.gif)
 ## Quick Links
 
 * __[Homepage](https://bukkitpe.net/)__
