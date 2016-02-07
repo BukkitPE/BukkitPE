@@ -6,6 +6,7 @@
 * __[Documentation](https://github.com/BukkitPE/Installation)__
 * __[Plugin Repository](https://forums.bukkitpe.net/index.php?plugins/)__
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 #Notices:
 
 BukkitPE supports MCPE 0.14.4 by providing an experimental build. You can checkout the mcpe-0.14 branch and get the latest phar [Here](https://github.com/BukkitPE/BukkitPE/releases/tag/1.1) For more info on how to install please check [here](https://github.com/BukkitPE/Installation)
