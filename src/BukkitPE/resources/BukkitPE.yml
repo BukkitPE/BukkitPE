@@ -11,26 +11,34 @@
 settings:
  language: "eng"
  force-language: false
- shutdown-message: "Server Closed"
+ shutdown-message: "BukkitPE server closed."
  query-plugins: true
  deprecated-verbose: true
  enable-profiling: false
  profile-report-trigger: 20
  async-workers: auto
-
+ ######
+# toggles hunger and regeneration on and off.
+######
 hunger:
  enable: true
-
+######
+# Turns XP on and off aswell as setting what drops XP.
+######
 experience:
  enable: true
  player-drop: true
  mob-drop: true
  break-drop: true
  smelt-drop: true
- 
+######
+# toggles redstone on your server.
+######
 redstone:
  enable: true
-
+######
+# toggles weather swtich on your server.
+######
 weather:
  enable: true
  
@@ -49,7 +57,7 @@ I/O:
  title-usage: true
  log-to-file: true
 ###
-# Increase the Main-Hard-Limit to how much ram you wan't BukkitPE to use. Ex: 1024 = 1GB
+# Increase the Main-Hard-Limit to alocate much ram you wan't BukkitPE to use. Ex: 2048 = 2GB
 ###
 memory:
  global-limit: 0
