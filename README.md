@@ -28,6 +28,11 @@ BukkitPE supports MCPE 0.14.4 by providing an experimental build. You can checko
 
 BukkitPE is software for hosting Minecraft : Pocket Edition servers. From controlling everything you can possibly do on MCPE to everything players can ever imagine on a server, BukkitPE also has an API which lets developer extend it. Let's face it plain BukkitPE isn't fun :P That's mainly why we have an API. BukkitPE has Clean feels and Stable Features / Performance optimization.
 
+#Can I extend BukkitPE to my own needs?
+
+sure you can! Check out [API Documentation](https://github.com/BukkitPE/Plugin-Documentation) to start making plugins to transform your server into something you never thought you'd be able to even do!
+
+
 #Can I help out the team and contribute to BukkitPE?
 
 Why not? We're always looking for developers to help out with the project! Make sure you check out the [Contributing Guidelines](https://github.com/BukkitPE/BukkitPE/blob/master/CONTRIBUTING.md) first though. After just create a pull request. :)
