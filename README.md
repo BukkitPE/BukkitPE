@@ -46,4 +46,4 @@ You can download lastest release by clicking the picturre below.<br>
 - [x] Weather
 
 # Credits
-ClearSky for most of the code.
+- [ClearSky] - Mostly the source of BukkitPE was taken from ClearSky. We would like to give credit to the developer
