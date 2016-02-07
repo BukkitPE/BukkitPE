@@ -45,4 +45,5 @@ You can download lastest release by clicking the picturre below.<br>
 - [ ] Nether Support
 - [x] Weather
 
-# Credits <br />ClearSky for most of the code.
+# Credits
+ClearSky for most of the code.
