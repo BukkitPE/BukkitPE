@@ -5,6 +5,7 @@
 * __[Forums](http://forums.bukkitpe.net/)__
 * __[Documentation](https://github.com/BukkitPE/Installation)__
 * __[Plugin Repository](https://forums.bukkitpe.net/index.php?plugins/)__
+
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 #Notices:
