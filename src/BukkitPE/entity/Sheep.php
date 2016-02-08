@@ -4,9 +4,9 @@ namespace BukkitPE\entity;
 
 use pocketmine\entity\Colorable;
 use pocketmine\item\Item;
-use pocketmine\Player;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\entity\Creature;
+use BukkitPE\Player;
+use BukkitPE\event\entity\EntityDamageByEntityEvent;
+use BukkitPE\entity\Creature;
 
 class Sheep extends WalkingAnimal implements Colorable{
     const NETWORK_ID = 13;
