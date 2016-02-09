@@ -26,10 +26,13 @@ class Noteblock extends Solid implements RedstoneConsumer{
 		if($this->meta < 24) $this->meta ++;
 		else $this->meta = 0;
 		$this->getLevel()->setBlock($this, $this);
-		return $this->meta * 1;
+		return $this->meta;
+	}
+	public function getInstrument(){
+		return NoteblockSound::getInstrument($this->getSide(0));
 	}
 	public function onActivate(Item $item, Player $player = null){
-		$this->getLevel()->addSound(new NoteblockSound($this, NoteblockSound::INSTRUMENT_PIANO, $this->getStrength()));
+		$this->getLevel()->addSound(new NoteblockSound($this, $this->getInstrument(), $this->getStrength()));
 		return true;
 	}
 	public function getName(){
