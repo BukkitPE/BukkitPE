@@ -1,43 +1,31 @@
 <?php
-
 namespace BukkitPE\entity;
-
-use pocketmine\entity\Colorable;
-use pocketmine\item\Item;
+use BukkitPE\item\Item as ItemItem;
 use BukkitPE\Player;
-use BukkitPE\event\entity\EntityDamageByEntityEvent;
-use BukkitPE\entity\Creature;
-
-class Sheep extends WalkingAnimal implements Colorable{
+class Sheep extends Animal implements Colorable{
     const NETWORK_ID = 13;
-
-    public $width = 1.3;
-    public $height = 1.12;
-
-    public function getName() : string{
+    public $lenght = 1.484;
+    public $width = 0.719;
+    public $height = 1.406;
+	
+	protected $exp_min = 1;
+	protected $exp_max = 3;
+    public function initEntity(){
+        $this->setMaxHealth(8);
+        parent::initEntity();
+    }
+    public function getName(){
         return "Sheep";
     }
-
-    public function initEntity(){
-        parent::initEntity();
-
-        $this->setMaxHealth(8);
+    public function spawnTo(Player $player){
+        $pk = $this->addEntityDataPacket($player);
+        $pk->type = Sheep::NETWORK_ID;
+        $player->dataPacket($pk);
+        parent::spawnTo($player);
     }
-
-    public function targetOption(Creature $creature, float $distance) : bool{
-        if($creature instanceof Player){
-            return $creature->spawned && $creature->isAlive() && !$creature->closed && $creature->getInventory()->getItemInHand()->getId() == Item::SEEDS && $distance <= 49;
-        }
-        return false;
-    }
-
     public function getDrops(){
-        if($this->lastDamageCause instanceof EntityDamageByEntityEvent){
-            return [
-                Item::get(Item::WOOL, mt_rand(0, 15), 1)
-            ];
-        }
-        return [];
+        return[
+            ItemItem::get(ItemItem::WOOL, 0, 1) //haven't found Network IDs for coloured sheeps (not wools) so can't check the color of the sheep.
+        ];
     }
-
 }
