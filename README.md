@@ -61,5 +61,8 @@ BukkitPE is run under "GPL" lincense
 - [x] You may not sell any part of BukkitPE or claim as your own.
 - [x] You may not renamed anything on our  source such as ***BukiitPE.php***, although you are allowed to change things inside ***.php*** files to fit your needs
 - [x] All files of ***BukkitPE*** is owned and maintained by ***BukkitPE***
+- [x] You are allowed to fork (create a new project), and edit it as long you provide us ***credits*** and link us back
+- [x] You are allowed to use it for production, and modify
 - [x] Any forks of BukkitPE must use the same ***Lincense*** with same ***limitations***
+- [x] By using ***BukkitPE*** these terms/lincense automatically applied
 - [x] Thats, it! if we missed somethings it mostly means that you ***may*** do it. Although any questions about the lincense please open a issue request
