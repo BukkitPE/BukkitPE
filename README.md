@@ -54,3 +54,17 @@ You can download lastest release by clicking the picturre below.<br>
 
 # Credits
 - There are some things that was taken from other ***MCPE Server Software*** and we would like to give credits to them, although name isn't listed on here. But will credits are given
+
+# Lincense
+
+Type?
+------
+- BukkitPE is run under the GPL lincense
+You may not
+-----
+ 
+- [x] You may not sell any part of BukkitPE or claim as your own.
+- [x] You may not renamed anything on our  source such as BukiitPE.php, although you are allowed to change things inside ***.php*** files to fit your needs
+- [x] All files of ***BukkitPE*** is owned and maintained by ***BukkitPE***
+- 
+- [x] Any forks of BukkitPE must use the same ***Lincense*** with same ***limitations***
