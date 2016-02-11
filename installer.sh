@@ -3,7 +3,7 @@ echo 'BukkitPE Installer script'
 
 sleep 2
 
-echo "Please chose which PHP-binary you want to install"
+echo "Please choose which PHP-binary you want to install"
 echo "	1) Linux x86"
 echo "	2) Linux x64"
 echo -n "Type 1 or 2): "
