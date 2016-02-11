@@ -53,4 +53,4 @@ You can download lastest release by clicking the picturre below.<br>
 - [x] Weather
 
 # Credits
-- [ClearSky] - Mostly the source of BukkitPE was taken from ClearSky. We would like to give credit to the developer
+- There are some things that was taken from other ***MCPE Server Software*** and we would like to give credits to them, although name isn't listed on here. But will credits are given
