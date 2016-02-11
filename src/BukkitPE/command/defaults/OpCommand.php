@@ -34,7 +34,7 @@ class OpCommand extends VanillaCommand{
 		$player = $sender->getServer()->getOfflinePlayer($name);
 		Command::broadcastCommandMessage($sender, new TranslationContainer("commands.op.success", [$player->getName()]));
 		if($player instanceof Player){
-			$player->sendMessage(TextFormat::GREEN . "An administrator gave you administrator privileges!");
+			$player->sendMessage(TextFormat::GREEN . "You now administrator privileges!");
 		}
 		$player->setOp(true);
 		return true;
