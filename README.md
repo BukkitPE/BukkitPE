@@ -65,4 +65,4 @@ BukkitPE is run under "GPL" lincense with few limitations
 - [ ] Working carts , " rails
 - [x] Weather
 - [x] Hunger
--  Have an ***suggestions?*** tell us on the [issue page](www.github.com/bukkitpe/bukkitpe/issues)
+-  Have an ***suggestions?*** tell us on the [issue page](https://www.github.com/bukkitpe/bukkitpe/issues)
