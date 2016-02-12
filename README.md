@@ -47,11 +47,6 @@ You can download lastest release by clicking the picturre below.<br>
  <a href="https://github.com/BukkitPE/BukkitPE/releases">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
 
 
-# Todo - Working on.
-- [ ] Add Mob AI
-- [ ] Nether Support
-- [x] Weather
-
 # Credits
 - There are some things that was taken from other ***MCPE Server Software*** and we would like to give credits to them, although name isn't listed on here. But will credits are given
 
@@ -63,3 +58,8 @@ BukkitPE is run under "GPL" lincense with few limitations
 - [x] Any copy you made of BukkitPE you must provide us ***credits***
 - [x] You can use it for production
 - [ ] Thats, it! if we've missed something it mostly means you are ***allowed*** to do it, although if you have any questions please open a issue request ;) 
+
+# Todo - Working on.
+- [ ] Add Mob AI
+- [ ] Nether Support
+- [x] Weather
