@@ -59,7 +59,10 @@ BukkitPE is run under "GPL" lincense with few limitations
 - [x] You can use it for production
 - [ ] Thats, it! if we've missed something it mostly means you are ***allowed*** to do it, although if you have any questions please open a issue request ;) 
 
-# Todo - Working on.
-- [ ] Add Mob AI
-- [ ] Nether Support
+# Todo - List
+- [ ] Mob AI
+- [ ] Nether support
+- [ ] Working carts , " rails
 - [x] Weather
+- [x] Hunger
+-  Have an ***suggestions?*** tell us on the [issue page](www.github.com/bukkitpe/bukkitpe/issues)
