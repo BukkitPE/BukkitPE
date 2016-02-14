@@ -1,10 +1,5 @@
 <?php
-namespace BukkitPE;
 
-use BukkitPE\block\Block;
-use BukkitPE\command\CommandSender;
-use BukkitPE\entity\Arrow;
-use BukkitPE\entity\Boat;
 namespace BukkitPE;
 
 use BukkitPE\block\Block;
