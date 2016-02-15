@@ -1644,7 +1644,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 						if(!$this->hasEffect(Effect::JUMP) and $diff > 0.6 and $expectedVelocity < $this->speed->y and !$this->server->getAllowFlight()){
 							if($this->inAirTicks < 100){
 								$this->setMotion(new Vector3(0, $expectedVelocity, 0));
-							}elseif($player->close("§c§lYou are not allowed to be flying on this server!")){
+							}elseif($this->close("§c§lYou are not allowed to be flying on this server!")){
 								$this->timings->stopTiming();
 								return false;
 							}
@@ -2914,7 +2914,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->server->getPluginManager()->callEvent($ev = new PlayerKickEvent($this, $reason, $this->getLeaveMessage()));
 		if(!$ev->isCancelled()){
 			if($isAdmin){
-				$message = "§4Kicked from server. " . ($reason !== "" ? "" . $reason : "");
+				$message = "§4Kicked from server. Reason:§c " . ($reason !== "" ? "" . $reason : "");
 			}else{
 				if($reason === ""){
 					$message = "disconnectionScreen.noReason";
@@ -2996,7 +2996,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	 *            Reason showed in console
 	 * @param bool   $notify
 	 */
-	public final function close($message = "", $reason = "generic reason", $notify = true){
+	public final function close($message = "", $reason = "§cKicked due to flying!", $notify = true){
 		if($this->connected and !$this->closed){
 			if($notify and strlen((string) $reason) > 0){
 				$pk = new DisconnectPacket();
