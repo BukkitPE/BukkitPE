@@ -861,7 +861,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 		$this->server->getPluginManager()->callEvent($ev = new PlayerJoinEvent($this,
 			new TranslationContainer(TextFormat::YELLOW . "%multiplayer.player.joined", [
-				$this->getDisplayName()
+				$this->getNameTag()
 			])
 		));
 		if(strlen(trim($ev->getJoinMessage())) > 0){
@@ -1644,7 +1644,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 						if(!$this->hasEffect(Effect::JUMP) and $diff > 0.6 and $expectedVelocity < $this->speed->y and !$this->server->getAllowFlight()){
 							if($this->inAirTicks < 100){
 								$this->setMotion(new Vector3(0, $expectedVelocity, 0));
-							}elseif($this->kick("§c§lYou are not allowed to be flying on this server!")){
+							}elseif($player->close("§c§lYou are not allowed to be flying on this server!")){
 								$this->timings->stopTiming();
 								return false;
 							}
