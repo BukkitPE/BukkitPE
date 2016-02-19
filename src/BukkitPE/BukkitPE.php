@@ -55,7 +55,7 @@ namespace BukkitPE {
 	const VERSION = "1.0dev";
 	const API_VERSION = "0.14.0";
 	const CODENAME = "Stable_V2";
-	const MINECRAFT_VERSION = "v0.14.0 alpha";
+	const MINECRAFT_VERSION = "alpha 0.14.0";
 	const MINECRAFT_VERSION_NETWORK = "0.14.0";
 
 	/*
