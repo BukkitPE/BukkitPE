@@ -36,6 +36,11 @@ experience:
 ######
 redstone:
  enable: true
+ ######
+# toggles the nether on and off.
+######
+nether:
+ enable: true
 ######
 # toggles weather swtich on your server.
 ######
