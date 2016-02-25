@@ -45,7 +45,7 @@ Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) 
 
 Read the documentation for installing BukkitPE [here](https://github.com/BukkitPE/Documentation).
 You can download lastest release by clicking the picturre below.<br>
- <a href="https://github.com/BukkitPE/BukkitPE/releases">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
+ <a href="https://jenkins.bukkitpe.net">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
 
 
 # Credits
