@@ -9,6 +9,7 @@
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 #Notices:
+BukkitPE is run under Creative Commons Attribution-NonCommercial-NoDerivatives 4.0, for more information please check out the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
 
 BukkitPE has been updated to 14.0 which is the newest MCPE Version. You can get a phar [Here](https://Jenkins.BukkitPE.net) For more info on how to install please check [here](https://github.com/BukkitPE/Documentation)
 
@@ -49,20 +50,3 @@ You can download lastest release by clicking the picturre below.<br>
 
 # Credits
 - There are some things that was taken from other ***MCPE Server Software*** and we would like to give credits to them, although name isn't listed on here. But will credits are given
-
-# Lincense
-BukkitPE is run under "GPL" lincense with few limitations
-------
-- [x] You may not sell any part of BukkitPE or ***claim*** as your own.
-- [x] If you fork you ***must*** provide us ***credits***
-- [x] Any copy you made of BukkitPE you must provide us ***credits***
-- [x] You can use it for production
-- [ ] Thats, it! if we've missed something it mostly means you are ***allowed*** to do it, although if you have any questions please open a issue request ;) 
-
-# Todo - List
-- [ ] Mob AI
-- [ ] Nether support
-- [ ] Working carts , " rails
-- [x] Weather
-- [x] Hunger
--  Have an ***suggestions?*** tell us on the [issue page](https://www.github.com/bukkitpe/bukkitpe/issues)
