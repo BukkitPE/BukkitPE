@@ -39,7 +39,7 @@ class OfflinePlayer implements IPlayer{
 	public function __construct(Server $server, $name){
 		$this->server = $server;
 		$this->name = $name;
-		if(file_exists($this->server->getDataPath() . "players/" . strtolower($this->getName()) . ".dat")){
+		if(file_exists($this->server->getDataPath() . "players/" . strtolower($this->getName()) . ".json")){
 			$this->namedtag = $this->server->getOfflinePlayerData($this->name);
 		}else{
 			$this->namedtag = null;
