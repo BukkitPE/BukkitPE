@@ -6,7 +6,6 @@ use BukkitPE\event\entity\EntityArmorChangeEvent;
 use BukkitPE\event\entity\EntityInventoryChangeEvent;
 use BukkitPE\event\player\PlayerItemHeldEvent;
 use BukkitPE\item\Item;
-use BukkitPE\network\Network;
 use BukkitPE\network\protocol\ContainerSetContentPacket;
 use BukkitPE\network\protocol\ContainerSetSlotPacket;
 use BukkitPE\network\protocol\MobArmorEquipmentPacket;
@@ -21,7 +20,7 @@ class PlayerInventory extends BaseInventory{
 	protected $hotbar;
 
 	public function __construct(Human $player){
-		$this->hotbar = array_fill(0, $this->getHotbarSize(), -1);
+		$this->hotbar = array_fill(0, $this->getHotbarSize(), 0);
 		parent::__construct($player, InventoryType::get(InventoryType::PLAYER));
 	}
 
