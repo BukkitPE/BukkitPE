@@ -24,7 +24,7 @@ BukkitPE has been updated to 14.0 which is the newest MCPE Version. You can get 
 - [x] Effects
 - [x] Nether
 - [x] Plugin API (So you can extend it)
-- [x] Server logs are in **.txt** so you can view with ease
+- [x] Server logs are in **.txt** format so you can view with ease
 - [x] CrashDumps are now saved in CrashDumos folder to ensure it doesn't get mixed with server files
 - [x] Player files are now saved in **.json** format. To ensure fast reading/writing speed
 
