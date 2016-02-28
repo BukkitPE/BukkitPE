@@ -1,10 +1,4 @@
 # ![BukkitPE](https://gyazo.com/b972ad341bceff44a1eb82a75d9db502.png) ![LOL](http://bukkitpe.net/BukkitPE.gif)
-## Quick Links
-
-* __[Homepage](https://bukkitpe.net/)__
-* __[Forums](http://forums.bukkitpe.net/)__
-* __[Documentation](https://github.com/BukkitPE/Installation)__
-* __[Plugin Repository](https://forums.bukkitpe.net/index.php?plugins/)__
 
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -51,5 +45,9 @@ You can download lastest release by clicking the picturre below.<br>
  <a href="https://jenkins.bukkitpe.net">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
 
 
-# Credits
-- There are some things that was taken from other ***MCPE Server Software*** and we would like to give credits to them, although name isn't listed on here. But will credits are given
+## Quick Links
+
+* __[Homepage](https://bukkitpe.net/)__
+* __[Forums](http://forums.bukkitpe.net/)__
+* __[Documentation](https://github.com/BukkitPE/Installation)__
+* __[Plugin Repository](https://forums.bukkitpe.net/index.php?plugins/)__
