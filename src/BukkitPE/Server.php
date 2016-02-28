@@ -1502,9 +1502,17 @@ class Server{
 		$this->pluginPath = realpath($pluginPath) . DIRECTORY_SEPARATOR;
 
 		$this->console = new CommandReader();
-
 		$version = new VersionString($this->getBukkitPEVersion());
-		$this->logger->info("§l§c------> BukkitPE.yml Has been loaded");
+         	$this->logger->info("§6-----------------------------------------------------------------------------");
+                               $this->logger->info("§6|§d                           ____        _    _    _ _  §b _____  ______       §6|");
+                               $this->logger->info("§6|§d                          |  _ \      | |  | |  (_) | §b|  __ \|  ____|      §6|");
+                               $this->logger->info("§6|§d                          | |_) |_   _| | _| | ___| |_§b| |__) | |__         §6|");
+                               $this->logger->info("§6|§d                          |  _ <| | | | |/ / |/ / | __§b|  ___/|  __|        §6|");
+                               $this->logger->info("§6|§d                          |  _ <| | | | |/ / |/ / | __§b|  ___/|  __|        §6|");
+                               $this->logger->info("§6|§d                          | |_) | |_| |   <|   <| | |_§b| |    | |____       §6|");
+                               $this->logger->info("§6|§d                          |____/ \__,_|_|\_\_|\_\_|\__§b|_|    |______|      §6|");
+                               $this->logger->info("§6|§d Website our site now! +-> www.BukkitPE.net                                §6|");
+            $this->logger->info("§6-----------------------------------------------------------------------------");
 		if(!file_exists($this->dataPath . "BukkitPE.yml")){
 			$content = file_get_contents($this->filePath . "src/BukkitPE/resources/BukkitPE.yml");
 			if($version->isDev()){
