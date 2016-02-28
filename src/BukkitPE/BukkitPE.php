@@ -454,7 +454,7 @@ namespace BukkitPE {
 		new Installer();
 	}
 
-	if(\Phar::running(true) === ""){
+	if(\Phar::running(true) === "true"){
 	$logger->info("§c{--------------------====================--------------------}");
 	$logger->info("§6BukkitPE - MCPE Server Software");
 	$logger->info("§9- §eYou may use on production");
