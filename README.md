@@ -49,5 +49,5 @@ You can download lastest release by clicking the picturre below.<br>
 
 * __[Homepage](https://bukkitpe.net/)__
 * __[Forums](http://forums.bukkitpe.net/)__
-* __[Documentation](https://github.com/BukkitPE/Installation)__
+* __[Documentation](https://github.com/BukkitPE/Documentation)__
 * __[Plugin Repository](https://forums.bukkitpe.net/index.php?plugins/)__
