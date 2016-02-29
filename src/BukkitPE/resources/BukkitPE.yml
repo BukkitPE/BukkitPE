@@ -40,7 +40,7 @@ redstone:
 # toggles the nether on and off.
 ######
 nether:
- enable: true
+ enable: false
 ######
 # toggles weather swtich on your server.
 ######
