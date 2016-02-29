@@ -776,14 +776,14 @@ class Server{
 	public function getOfflinePlayerData($name){
 		$name = strtolower($name);
 		$path = $this->getDataPath() . "players/";
-		if(file_exists($path . "$name.dat")){
+		if(file_exists($path . "$name.json")){
 			try{
 				$nbt = new NBT(NBT::BIG_ENDIAN);
-				$nbt->readCompressed(file_get_contents($path . "$name.dat"));
+				$nbt->readCompressed(file_get_contents($path . "$name.json"));
 
 				return $nbt->getData();
 			}catch(\Exception $e){ //zlib decode error / corrupt data
-				rename($path . "$name.dat", $path . "$name.dat.bak");
+				rename($path . "$name.json", $path . "$name.json.bak");
 				$this->logger->notice($this->getLanguage()->translateString("BukkitPE.data.playerCorrupted", [$name]));
 			}
 		}else{
@@ -900,9 +900,9 @@ class Server{
 			$nbt->setData($nbtTag);
 
 			if($async){
-				$this->getScheduler()->scheduleAsyncTask(new FileWriteTask($this->getDataPath() . "players/" . strtolower($name) . ".dat", $nbt->writeCompressed()));
+				$this->getScheduler()->scheduleAsyncTask(new FileWriteTask($this->getDataPath() . "players/" . strtolower($name) . ".json", $nbt->writeCompressed()));
 			}else{
-				file_put_contents($this->getDataPath() . "players/" . strtolower($name) . ".dat", $nbt->writeCompressed());
+				file_put_contents($this->getDataPath() . "players/" . strtolower($name) . ".json", $nbt->writeCompressed());
 			}
 		}catch(\Exception $e){
 			$this->logger->critical($this->getLanguage()->translateString("BukkitPE.data.saveError", [$name, $e->getMessage()]));
