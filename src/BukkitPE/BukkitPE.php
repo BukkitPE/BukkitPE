@@ -137,7 +137,7 @@ namespace BukkitPE {
 
 	//Logger has a dependency on timezone, so we'll set it to UTC until we can get the actual timezone.
 	date_default_timezone_set("UTC");
-	$logger = new MainLogger(\BukkitPE\DATA . "server.log", \BukkitPE\ANSI);
+	$logger = new MainLogger(\BukkitPE\DATA . "server.txt", \BukkitPE\ANSI);
 
 	if(!ini_get("date.timezone")){
 		if(($timezone = detect_system_timezone()) and date_default_timezone_set($timezone)){
