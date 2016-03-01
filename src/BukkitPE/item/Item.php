@@ -1260,6 +1260,11 @@ class Item{
 		self::addCreativeItem(Item::get(Item::SPLASH_POTION, Potion::STRENGTH_TWO));
 		self::addCreativeItem(Item::get(Item::SPLASH_POTION, Potion::WEAKNESS));
 		self::addCreativeItem(Item::get(Item::SPLASH_POTION, Potion::WEAKNESS_T));
+		self::addCreativeItem(Item::get(Item::MOB_HEAD, 0));
+                self::addCreativeItem(Item::get(Item::MOB_HEAD, 1));
+                self::addCreativeItem(Item::get(Item::MOB_HEAD, 2));
+                self::addCreativeItem(Item::get(Item::MOB_HEAD, 3));
+                self::addCreativeItem(Item::get(Item::MOB_HEAD, 4));
 	}
 	
 	public static function clearCreativeItems(){
