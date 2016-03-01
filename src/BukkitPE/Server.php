@@ -108,6 +108,7 @@ use BukkitPE\nbt\tag\Enum;
 use BukkitPE\nbt\tag\Float;
 use BukkitPE\nbt\tag\Int;
 use BukkitPE\nbt\tag\Long;
+use pocketmine\tile\Skull;
 use BukkitPE\nbt\tag\Short;
 use BukkitPE\nbt\tag\String;
 use BukkitPE\network\CompressBatchedTask;
@@ -2658,6 +2659,7 @@ class Server{
 		Tile::registerTile(FlowerPot::class);
 		Tile::registerTile(Sign::class);
 		Tile::registerTile(EnchantTable::class);
+		Tile::registerTile(Skull::class);
 	}
 
 }
