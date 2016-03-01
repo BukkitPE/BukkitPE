@@ -31,7 +31,7 @@ class PluginsCommand extends VanillaCommand{
 			if(strlen($list) > 0){
 				$list .= TextFormat::WHITE . ", ";
 			}
-			$list .= $plugin->isEnabled() ? TextFormat::GREEN : TextFormat::RED;
+			$list .= $plugin->isEnabled() ? TextFormat::GOLD : TextFormat::RED;
 			$list .= $plugin->getDescription()->getFullName();
 		}
 
