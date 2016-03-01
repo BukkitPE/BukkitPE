@@ -72,7 +72,7 @@ namespace BukkitPE {
 	use BukkitPE\utils\Utils;
 	use BukkitPE\wizard\Installer;
 
-	const VERSION = "1.2"
+	const VERSION = "1.2";
 	const API_VERSION = "1.13.1";
 	const CODENAME = "Stable";
 	const MINECRAFT_VERSION = "alpha 0.14.0";
