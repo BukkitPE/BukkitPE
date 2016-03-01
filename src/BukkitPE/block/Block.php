@@ -209,6 +209,10 @@ class Block extends Position implements Metadatable{
 	const MELON_STEM = 105;
 	const VINE = 106;
 	const VINES = 106;
+	const MOB_HEAD = 144;
+	const SKULL = 144;
+	const ANVIL = 145;
+	const TRAPPED_CHEST = 146;
 	const FENCE_GATE = 107;
 	const BRICK_STAIRS = 108;
 	const STONE_BRICK_STAIRS = 109;
@@ -431,6 +435,7 @@ class Block extends Position implements Metadatable{
 |------------------------------->>>> Location of // is important!! <<<<-----------------------------|
 \***************************************************************************************************/
 			self::$list[self::AIR] = Air::class;
+			self::$list[self::MOB_HEAD] = MobHead::class;
 			self::$list[self::STONE] = Stone::class;
 			self::$list[self::GRASS] = Grass::class;
 			self::$list[self::DIRT] = Dirt::class;
