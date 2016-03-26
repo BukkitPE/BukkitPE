@@ -19,2647 +19,1435 @@
  *
  *
 */
-namespace BukkitPE;
-
-use BukkitPE\block\Block;
-use BukkitPE\command\CommandReader;
-use BukkitPE\command\CommandSender;
-use BukkitPE\command\ConsoleCommandSender;
-use BukkitPE\command\PluginIdentifiableCommand;
-use BukkitPE\command\SimpleCommandMap;
-use BukkitPE\entity\Arrow;
-use BukkitPE\entity\Attribute;
-use BukkitPE\entity\Bat;
-use BukkitPE\entity\Blaze;
-use BukkitPE\entity\Boat;
-use BukkitPE\entity\CavernSpider;
-use BukkitPE\entity\ChargedCreeper;
-use BukkitPE\entity\Chicken;
-use BukkitPE\entity\Cow;
-use BukkitPE\entity\Creeper;
-use BukkitPE\entity\Effect;
-use BukkitPE\entity\Egg;
-use BukkitPE\entity\Enderman;
-use BukkitPE\entity\Entity;
-use BukkitPE\entity\ExperienceOrb;
-use BukkitPE\entity\FallingSand;
-use BukkitPE\entity\Ghast;
-use BukkitPE\entity\Human;
-use BukkitPE\entity\IronGolem;
-use BukkitPE\entity\Item as DroppedItem;
-use BukkitPE\entity\MagmaCube;
-use BukkitPE\entity\Minecart;
-use BukkitPE\entity\Mooshroom;
-use BukkitPE\entity\Ozelot;
-use BukkitPE\entity\Painting;
-use BukkitPE\entity\Pig;
-use BukkitPE\entity\PigZombie;
-use BukkitPE\entity\PrimedTNT;
-use BukkitPE\entity\Rabbit;
-use BukkitPE\entity\Sheep;
-use BukkitPE\entity\Silverfish;
-use BukkitPE\entity\Skeleton;
-use BukkitPE\entity\Slime;
-use BukkitPE\entity\Snowball;
-use BukkitPE\entity\SnowGolem;
-use BukkitPE\entity\Spider;
-use BukkitPE\entity\Squid;
-use BukkitPE\entity\ThrownExpBottle;
-use BukkitPE\entity\ThrownPotion;
-use BukkitPE\entity\Villager;
-use BukkitPE\entity\WitherSkeleton;
-use BukkitPE\entity\Wolf;
-use BukkitPE\entity\Zombie;
-use BukkitPE\entity\ZombieVillager;
-use BukkitPE\event\HandlerList;
-use BukkitPE\event\level\LevelInitEvent;
-use BukkitPE\event\level\LevelLoadEvent;
-use BukkitPE\event\server\QueryRegenerateEvent;
-use BukkitPE\event\server\ServerCommandEvent;
-use BukkitPE\event\Timings;
-use BukkitPE\event\TimingsHandler;
-use BukkitPE\event\TranslationContainer;
-use BukkitPE\inventory\CraftingManager;
-use BukkitPE\inventory\InventoryType;
-use BukkitPE\inventory\Recipe;
-use BukkitPE\inventory\ShapedRecipe;
-use BukkitPE\inventory\ShapelessRecipe;
-use BukkitPE\item\enchantment\Enchantment;
-use BukkitPE\item\Item;
-use BukkitPE\lang\BaseLang;
-use BukkitPE\level\format\anvil\Anvil;
-use BukkitPE\level\format\leveldb\LevelDB;
-use BukkitPE\level\format\LevelProviderManager;
-use BukkitPE\level\format\mcregion\McRegion;
-use BukkitPE\level\generator\biome\Biome;
-use BukkitPE\level\generator\Flat;
-use BukkitPE\level\generator\Generator;
-use BukkitPE\level\generator\hell\Nether;
-use BukkitPE\level\generator\normal\Normal;
-use BukkitPE\level\Level;
-use BukkitPE\metadata\EntityMetadataStore;
-use BukkitPE\metadata\LevelMetadataStore;
-use BukkitPE\metadata\PlayerMetadataStore;
-use BukkitPE\nbt\NBT;
-use BukkitPE\nbt\tag\Byte;
-use BukkitPE\nbt\tag\Compound;
-use BukkitPE\nbt\tag\Double;
-use BukkitPE\nbt\tag\Enum;
-use BukkitPE\nbt\tag\Float;
-use BukkitPE\nbt\tag\Int;
-use BukkitPE\nbt\tag\Long;
-use pocketmine\tile\Skull;
-use BukkitPE\nbt\tag\Short;
-use BukkitPE\nbt\tag\String;
-use BukkitPE\network\CompressBatchedTask;
-use BukkitPE\network\Network;
-use BukkitPE\network\protocol\BatchPacket;
-use BukkitPE\network\protocol\CraftingDataPacket;
-use BukkitPE\network\protocol\DataPacket;
-use BukkitPE\network\protocol\PlayerListPacket;
-use BukkitPE\network\query\QueryHandler;
-use BukkitPE\network\RakLibInterface;
-use BukkitPE\network\rcon\RCON;
-use BukkitPE\network\SourceInterface;
-use BukkitPE\network\upnp\UPnP;
-use BukkitPE\permission\BanList;
-use BukkitPE\permission\DefaultPermissions;
-use BukkitPE\plugin\PharPluginLoader;
-use BukkitPE\plugin\Plugin;
-use BukkitPE\plugin\PluginLoadOrder;
-use BukkitPE\plugin\PluginManager;
-use BukkitPE\plugin\ScriptPluginLoader;
-use BukkitPE\scheduler\FileWriteTask;
-use BukkitPE\scheduler\SendUsageTask;
-use BukkitPE\scheduler\ServerScheduler;
-use BukkitPE\tile\Chest;
-use BukkitPE\tile\EnchantTable;
-use BukkitPE\tile\BrewingStand;
-use BukkitPE\tile\Skull;
-use BukkitPE\tile\FlowerPot;
-use BukkitPE\tile\Furnace;
-use BukkitPE\tile\Sign;
-use BukkitPE\tile\Tile;
-use BukkitPE\utils\Binary;
-use BukkitPE\utils\Config;
-use BukkitPE\utils\LevelException;
-use BukkitPE\utils\MainLogger;
-use BukkitPE\utils\ServerException;
-use BukkitPE\utils\ServerKiller;
-use BukkitPE\utils\Terminal;
-use BukkitPE\utils\TextFormat;
-use BukkitPE\utils\TextWrapper;
-use BukkitPE\utils\Utils;
-use BukkitPE\utils\UUID;
-use BukkitPE\utils\VersionString;
-use BukkitPE\entity\FishingHook;
 
 /**
- * The class that manages everything
+ * All Block classes are in here
  */
-class Server{
-	const BROADCAST_CHANNEL_ADMINISTRATIVE = "BukkitPE.broadcast.admin";
-	const BROADCAST_CHANNEL_USERS = "BukkitPE.broadcast.user";
+namespace BukkitPE\block;
 
-	/** @var Server */
-	private static $instance = null;
+use BukkitPE\entity\Entity;
 
-	/** @var BanList */
-	private $banByName = null;
 
-	/** @var BanList */
-	private $banByIP = null;
+use BukkitPE\item\Item;
+use BukkitPE\item\Tool;
+use BukkitPE\level\Level;
+use BukkitPE\level\MovingObjectPosition;
+use BukkitPE\level\Position;
+use BukkitPE\math\AxisAlignedBB;
+use BukkitPE\math\Vector3;
+use BukkitPE\metadata\Metadatable;
+use BukkitPE\metadata\MetadataValue;
+use BukkitPE\Player;
+use BukkitPE\plugin\Plugin;
+use BukkitPE\nbt\tag\Int;
 
-	/** @var Config */
-	private $operators = null;
 
-	/** @var Config */
-	private $whitelist = null;
+class Block extends Position implements Metadatable{
+	const AIR = 0;
+	const STONE = 1;
+	const GRASS = 2;
+	const DIRT = 3;
+	const COBBLESTONE = 4;
+	const COBBLE = 4;
+	const PLANK = 5;
+	const PLANKS = 5;
+	const WOODEN_PLANK = 5;
+	const WOODEN_PLANKS = 5;
+	const SAPLING = 6;
+	const SAPLINGS = 6;
+	const BEDROCK = 7;
+	const WATER = 8;
+	const STILL_WATER = 9;
+	const LAVA = 10;
+	const STILL_LAVA = 11;
+	const SAND = 12;
+	const GRAVEL = 13;
+	
+	const GOLD_ORE = 14;
+	const IRON_ORE = 15;
+	const COAL_ORE = 16;
+	const LOG = 17;
+	
+	const WOOD = 17;
+	const TRUNK = 17;
+	const LEAVES = 18;
+	const LEAVE = 18;
+	const SPONGE = 19;
+	const GLASS = 20;
+	const LAPIS_ORE = 21;
+	const LAPIS_BLOCK = 22;
+	
+	const DISPENSER = 23;
 
-	/** @var bool */
-	private $isRunning = true;
+	const SANDSTONE = 24;
+	
+	const NOTEBLOCK = 25;
 
-	private $hasStopped = false;
+	const BED_BLOCK = 26;
+	
+	const POWERED_RAIL = 27;
+	const DETECTOR_RAIL = 28;
+	//const STICKY_PISTON = 27;
 
-	/** @var PluginManager */
-	private $pluginManager = null;
 
-	private $profilingTickRate = 20;
+	const COBWEB = 30;
+	const TALL_GRASS = 31;
+	const BUSH = 32;
+	const DEAD_BUSH = 32;
+	const PISTON = 33;
+	const PISTON_HEAD = 34;
+	const WOOL = 35;
+	const PISTON_EXTENSION = 35;
+	const DANDELION = 37;
+	const POPPY = 38;
+	const ROSE = 38;
+	const RED_FLOWER = 38;
+	const BROWN_MUSHROOM = 39;
+	const RED_MUSHROOM = 40;
+	const GOLD_BLOCK = 41;
+	const IRON_BLOCK = 42;
+	const DOUBLE_SLAB = 43;
+	const DOUBLE_SLABS = 43;
+	const SLAB = 44;
+	const SLABS = 44;
+	const BRICKS = 45;
+	const BRICKS_BLOCK = 45;
+	const TNT = 46;
+	const BOOKSHELF = 47;
+	const MOSS_STONE = 48;
+	const MOSSY_STONE = 48;
+	const OBSIDIAN = 49;
+	const TORCH = 50;
+	const FIRE = 51;
+	const MONSTER_SPAWNER = 52;
+	const WOOD_STAIRS = 53;
+	const WOODEN_STAIRS = 53;
+	const OAK_WOOD_STAIRS = 53;
+	const OAK_WOODEN_STAIRS = 53;
+	const CHEST = 54;
+	
+	const REDSTONE_WIRE = 55;
 
-	/** @var AutoUpdater */
-	private $updater = null;
+	const DIAMOND_ORE = 56;
+	const DIAMOND_BLOCK = 57;
+	const CRAFTING_TABLE = 58;
+	const WORKBENCH = 58;
+	const WHEAT_BLOCK = 59;
+	const FARMLAND = 60;
+	const FURNACE = 61;
+	const BURNING_FURNACE = 62;
+	const LIT_FURNACE = 62;
+	const SIGN_POST = 63;
+	const DOOR_BLOCK = 64;
+	const OAK_DOOR_BLOCK = 64;
+	const WOOD_DOOR_BLOCK = 64;
+	const LADDER = 65;
+	const RAIL = 66;
 
-	/** @var ServerScheduler */
-	private $scheduler = null;
+	const COBBLE_STAIRS = 67;
+	const COBBLESTONE_STAIRS = 67;
+	const WALL_SIGN = 68;
+	
+	const LEVER = 69;
+	const STONE_PRESSURE_PLATE = 70;
+	const IRON_DOOR_BLOCK = 71;
+	const WOODEN_PRESSURE_PLATE = 72;
+	const REDSTONE_ORE = 73;
+	const GLOWING_REDSTONE_ORE = 74;
+	const LIT_REDSTONE_ORE = 74;
+	const UNLIT_REDSTONE_TORCH = 75;
+	const LIT_REDSTONE_TORCH = 76;
+	const REDSTONE_TORCH = 76;
+	const STONE_BUTTON = 77;
+
+	const SNOW = 78;
+	const SNOW_LAYER = 78;
+	const ICE = 79;
+	const SNOW_BLOCK = 80;
+	const CACTUS = 81;
+	const CLAY_BLOCK = 82;
+	const REEDS = 83;
+	const SUGARCANE_BLOCK = 83;
+	
+	const JUKEBOX = 83;
+
+	const FENCE = 85;
+	const PUMPKIN = 86;
+	const NETHERRACK = 87;
+	const SOUL_SAND = 88;
+	const GLOWSTONE = 89;
+	const GLOWSTONE_BLOCK = 89;
+	
+	const NETHER_PORTAL = 90;
+	const PORTAL = 90;
+
+	const LIT_PUMPKIN = 91;
+	const JACK_O_LANTERN = 91;
+	const CAKE_BLOCK = 92;
+	
+	const UNPOWERED_REPEATER = 93;
+	const POWERED_REPEATER = 94;
+	
+	const STAINED_GLASS = 95; //INVISIBLE BEDROCK ID
+
+	const TRAPDOOR = 96;
+	
+	const MONSTER_EGG = 97;
+
+	const STONE_BRICKS = 98;
+	const STONE_BRICK = 98;
+	
+	const BROWN_MUSHROOM_BLOCK = 99;
+	const RED_MUSHROOM_BLOCK = 100;
+
+	const IRON_BAR = 101;
+	const IRON_BARS = 101;
+	const GLASS_PANE = 102;
+	const GLASS_PANEL = 102;
+	const MELON_BLOCK = 103;
+	const PUMPKIN_STEM = 104;
+	const MELON_STEM = 105;
+	const VINE = 106;
+	const VINES = 106;
+	const MOB_HEAD = 144;
+	const SKULL = 144;
+	const ANVIL = 145;
+	const TRAPPED_CHEST = 146;
+	const FENCE_GATE = 107;
+	const BRICK_STAIRS = 108;
+	const STONE_BRICK_STAIRS = 109;
+	const MYCELIUM = 110;
+	const WATER_LILY = 111;
+	const LILY_PAD = 111;
+	const NETHER_BRICKS = 112;
+	const NETHER_BRICK_BLOCK = 112;
+	const NETHER_BRICK_FENCE = 113;
+	const NETHER_BRICKS_STAIRS = 114;
+	const NETHER_WART_BLOCK = 115;
+
+	const ENCHANTING_TABLE = 116;
+	const ENCHANT_TABLE = 116;
+	const ENCHANTMENT_TABLE = 116;
+	const BREWING_STAND_BLOCK = 117;
+	
+	const CAULDRON = 118;
+	const END_PORTAL = 119;
+
+	const END_PORTAL_FRAME = 120;
+	const END_STONE = 121;
+	const DRAGON_EGG = 122;
+	
+	const REDSTONE_LAMP = 123;
+	const LIT_REDSTONE_LAMP = 124;
+	
+	//const DOUBLE_WOODEN_SLAB = 125;
+	//const WOODEN_SLAB = 126;
+	const ACTIVATOR_RAIL = 126;
+	
+	const COCOA = 127;
+	const COCOA_BEANS = 127;
+
+	const SANDSTONE_STAIRS = 128;
+	const EMERALD_ORE = 129;
+	
+	const ENDERCHEST = 130;
+	
+	const TRIPWIRE_HOOK = 131;
+	const TRIPWIRE = 132;
+
+	const EMERALD_BLOCK = 133;
+	const SPRUCE_WOOD_STAIRS = 134;
+	const SPRUCE_WOODEN_STAIRS = 134;
+	const BIRCH_WOOD_STAIRS = 135;
+	const BIRCH_WOODEN_STAIRS = 135;
+	const JUNGLE_WOOD_STAIRS = 136;
+	const JUNGLE_WOODEN_STAIRS = 136;
+	
+	const COMMAND_BLOCK = 136;
+	const BEACON = 136;
+
+	const COBBLE_WALL = 139;
+	const STONE_WALL = 139;
+	const COBBLESTONE_WALL = 139;
+	
+	const FLOWER_POT_BLOCK = 140;
+	const CARROT_BLOCK = 141;
+	const POTATO_BLOCK = 142;
+
+	const WOODEN_BUTTON = 143;
+	
+	const SKULL_BLOCK = 144;
+	const HEAD_BLOCK = 144;
+	const MOB_HEAD_BLOCK = 144;
+
+	const ANVIL_BLOCK = 145;
+	const LIGHT_WEIGHTED_PRESSURE_PLATE = 147;
+	const HEAVY_WEIGHTED_PRESSURE_PLATE = 148;
+	const UNPOWERED_COMPARATOR = 149;
+	const POWERED_COMPARATOR = 150;
+	const DAYLIGHT_DETECTOR = 151;
+
+	const REDSTONE_BLOCK = 152;
+	
+	const NETHER_QUARTZ_ORE = 153;
+	const QUARTZ_ORE = 153;
+	
+	const HOPPER = 154;
+	
+	const QUARTZ_BLOCK = 155;
+	const QUARTZ_STAIRS = 156;
+	const DOUBLE_WOOD_SLAB = 157;
+	const DOUBLE_WOODEN_SLAB = 157;
+	const DOUBLE_WOOD_SLABS = 157;
+	const DOUBLE_WOODEN_SLABS = 157;
+	const WOOD_SLAB = 158;
+	const WOODEN_SLAB = 158;
+	const WOOD_SLABS = 158;
+	const WOODEN_SLABS = 158;
+	const STAINED_CLAY = 159;
+	const STAINED_HARDENED_CLAY = 159;
+	
+	const STAINED_GLASS_PANE = 160;
+
+	const LEAVES2 = 161;
+	const LEAVE2 = 161;
+	const WOOD2 = 162;
+	const TRUNK2 = 162;
+	const LOG2 = 162;
+	const ACACIA_WOOD_STAIRS = 163;
+	const ACACIA_WOODEN_STAIRS = 163;
+	const DARK_OAK_WOOD_STAIRS = 164;
+	const DARK_OAK_WOODEN_STAIRS = 164;
+	
+	const SLIME_BLOCK = 165;
+	const SLIMEBLOCK = 165;
+	const BARRIER = 166;
+	const IRON_TRAPDOOR = 167;
+	const PRISMARINE = 168;
+	const SEA_LANTERN = 169;
+
+	const HAY_BALE = 170;
+	const CARPET = 171;
+	const HARDENED_CLAY = 172;
+	const COAL_BLOCK = 173;
+	const PACKED_ICE = 174;
+
+	const DOUBLE_PLANT = 175;
+	const STANDING_BANNER = 176;
+	const WALL_BANNER = 177;
+	
+	const DAYLIGHT_DETECTOR_INVERTED = 178;
+	
+	const RED_SANDSTONE = 179;
+	const RED_SANDSTONE_STAIRS = 180;
+	const DOUBLE_STONE_SLAB2 = 181;
+	const STONE_SLAB2 = 182;
+
+	const FENCE_GATE_SPRUCE = 183;
+	const FENCE_GATE_BIRCH = 184;
+	const FENCE_GATE_JUNGLE = 185;
+	const FENCE_GATE_DARK_OAK = 186;
+	const FENCE_GATE_ACACIA = 187;
+	
+	const SPRUCE_DOOR_BLOCK = 193;
+	const BIRCH_DOOR_BLOCK = 194;
+	const JUNGLE_DOOR_BLOCK = 195;
+	const ACACIA_DOOR_BLOCK = 196;
+	const DARK_OAK_DOOR_BLOCK = 197;
+
+	const GRASS_PATH = 198;
+
+	const PODZOL = 243;
+	const BEETROOT_BLOCK = 244;
+	const STONECUTTER = 245;
+	const GLOWING_OBSIDIAN = 246;
+	const NETHER_REACTOR = 247;
+	const RESERVED = 255;
+
+	const REDSTONEDELAY = 1;
+	const REDSTONESOURCEPOWER = 16;
+	
+	/** @var \SplFixedArray */
+	public static $list = null;
+	/** @var \SplFixedArray */
+	public static $fullList = null;
+
+	/** @var \SplFixedArray */
+	public static $light = null;
+	/** @var \SplFixedArray */
+	public static $lightFilter = null;
+	/** @var \SplFixedArray */
+	public static $solid = null;
+	/** @var \SplFixedArray */
+	public static $hardness = null;
+	/** @var \SplFixedArray */
+	public static $transparent = null;
+
+	protected $id;
+	protected $meta = 0;
+	protected $exp_min = 0;
+	protected $exp_max = 0;
+	protected $exp_smelt = 0;
+
+	/** @var AxisAlignedBB */
+	public $boundingBox = null;
 
 	/**
-	 * Counts the ticks since the server start
+	 * Backwards-compatibility with old way to define block properties
 	 *
-	 * @var int
+	 * @deprecated
+	 *
+	 * @param string $key
+	 *
+	 * @return mixed
 	 */
-	private $tickCounter;
-	private $nextTick = 0;
-	private $tickAverage = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20];
-	private $useAverage = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	private $maxTick = 20;
-	private $maxUse = 0;
+	public function __get($key){
+		static $map = [
+			"hardness" => "getHardness",
+			"lightLevel" => "getLightLevel",
+			"frictionFactor" => "getFrictionFactor",
+			"name" => "getName",
+			"isPlaceable" => "canBePlaced",
+			"isReplaceable" => "canBeReplaced",
+			"isTransparent" => "isTransparent",
+			"isSolid" => "isSolid",
+			"isFlowable" => "canBeFlowedInto",
+			"isActivable" => "canBeActivated",
+			"hasEntityCollision" => "hasEntityCollision"
+		];
+		return isset($map[$key]) ? $this->{$map[$key]}() : null;
+	}
 
-	private $sendUsageTicker = 0;
+	public static function init(){
+		if(self::$list === null){
+			self::$list = new \SplFixedArray(256);
+			self::$fullList = new \SplFixedArray(4096);
+			self::$light = new \SplFixedArray(256);
+			self::$lightFilter = new \SplFixedArray(256);
+			self::$solid = new \SplFixedArray(256);
+			self::$hardness = new \SplFixedArray(256);
+			self::$transparent = new \SplFixedArray(256);
+/***************************************************************************************************\
+|------------------------------->>>> Location of // is important!! <<<<-----------------------------|
+|			// <-- this level of indentation means that it is not yet in BukkitPE     |
+|		// <-- This level of indentation means the class is not yet made                    |
+|------------------------------->>>> Location of // is important!! <<<<-----------------------------|
+\***************************************************************************************************/
+			self::$list[self::AIR] = Air::class;
+			self::$list[self::MOB_HEAD] = MobHead::class;
+			self::$list[self::STONE] = Stone::class;
+			self::$list[self::GRASS] = Grass::class;
+			self::$list[self::DIRT] = Dirt::class;
+			self::$list[self::COBBLESTONE] = Cobblestone::class;
+			self::$list[self::PLANKS] = Planks::class;
+			self::$list[self::SAPLING] = Sapling::class;
+			self::$list[self::BEDROCK] = Bedrock::class;
+			self::$list[self::WATER] = Water::class;
+			self::$list[self::STILL_WATER] = StillWater::class;
+			self::$list[self::LAVA] = Lava::class;
+			self::$list[self::STILL_LAVA] = StillLava::class;
+			self::$list[self::SAND] = Sand::class;
+			self::$list[self::GRAVEL] = Gravel::class;
+			self::$list[self::GOLD_ORE] = GoldOre::class;
+			self::$list[self::IRON_ORE] = IronOre::class;
+			self::$list[self::COAL_ORE] = CoalOre::class;
+			self::$list[self::WOOD] = Wood::class;
+			self::$list[self::LEAVES] = Leaves::class;
+			self::$list[self::SPONGE] = Sponge::class;
+			self::$list[self::GLASS] = Glass::class;
+			self::$list[self::LAPIS_ORE] = LapisOre::class;
+			self::$list[self::LAPIS_BLOCK] = Lapis::class;
+			//self::$list[self::DISPENSER] = Dispenser::class;
+			self::$list[self::SANDSTONE] = Sandstone::class;
+			self::$list[self::NOTEBLOCK] = Noteblock::class;
+			self::$list[self::BED_BLOCK] = Bed::class;
+			self::$list[self::POWERED_RAIL] = PoweredRail::class;
+			self::$list[self::DETECTOR_RAIL] = DetectorRail::class;
+			self::$list[self::ACTIVATOR_RAIL] = ActivatorRail::class;
+			//self::$list[self::STICKY_PISTON] = StickyPiston::class;
+			self::$list[self::COBWEB] = Cobweb::class;
+			self::$list[self::TALL_GRASS] = TallGrass::class;
+			self::$list[self::DEAD_BUSH] = DeadBush::class;
+			//self::$list[self::PISTON] = Piston::class;
+			//self::$list[self::PISTON_HEAD] = PistonHead::class;
+			self::$list[self::WOOL] = Wool::class;
+			//self::$list[self::PISTON_EXTENSION] = PistonExtension::class;
+			self::$list[self::DANDELION] = Dandelion::class;
+			self::$list[self::RED_FLOWER] = Flower::class;
+			self::$list[self::BROWN_MUSHROOM] = BrownMushroom::class;
+			self::$list[self::RED_MUSHROOM] = RedMushroom::class;
+			self::$list[self::GOLD_BLOCK] = Gold::class;
+			self::$list[self::IRON_BLOCK] = Iron::class;
+			self::$list[self::DOUBLE_SLAB] = DoubleSlab::class;
+			self::$list[self::SLAB] = Slab::class;
+			self::$list[self::BRICKS_BLOCK] = Bricks::class;
+			self::$list[self::TNT] = TNT::class;
+			self::$list[self::BOOKSHELF] = Bookshelf::class;
+			self::$list[self::MOSS_STONE] = MossStone::class;
+			self::$list[self::OBSIDIAN] = Obsidian::class;
+			self::$list[self::TORCH] = Torch::class;
+			self::$list[self::FIRE] = Fire::class;
+			self::$list[self::MONSTER_SPAWNER] = MonsterSpawner::class;
+			self::$list[self::WOOD_STAIRS] = WoodStairs::class;
+			self::$list[self::CHEST] = Chest::class;
+			self::$list[self::REDSTONE_WIRE] = RedstoneWire::class;
 
-	private $dispatchSignals = false;
+			self::$list[self::DIAMOND_ORE] = DiamondOre::class;
+			self::$list[self::DIAMOND_BLOCK] = Diamond::class;
+			self::$list[self::WORKBENCH] = Workbench::class;
+			self::$list[self::WHEAT_BLOCK] = Wheat::class;
+			self::$list[self::FARMLAND] = Farmland::class;
+			self::$list[self::FURNACE] = Furnace::class;
+			self::$list[self::BURNING_FURNACE] = BurningFurnace::class;
+			self::$list[self::SIGN_POST] = SignPost::class;
+			self::$list[self::OAK_DOOR_BLOCK] = OakDoor::class;
+			self::$list[self::LADDER] = Ladder::class;
+			self::$list[self::RAIL] = Rail::class;
 
-	/** @var \AttachableThreadedLogger */
-	private $logger;
+			self::$list[self::COBBLESTONE_STAIRS] = CobblestoneStairs::class;
+			self::$list[self::WALL_SIGN] = WallSign::class;
+			self::$list[self::LEVER] = Lever::class;
+			self::$list[self::STONE_PRESSURE_PLATE] = StonePressurePlate::class;
+			self::$list[self::WOODEN_PRESSURE_PLATE] = WoodenPressurePlate::class;
 
-	/** @var MemoryManager */
-	private $memoryManager;
+			self::$list[self::IRON_DOOR_BLOCK] = IronDoor::class;
+			self::$list[self::REDSTONE_ORE] = RedstoneOre::class;
+			self::$list[self::GLOWING_REDSTONE_ORE] = GlowingRedstoneOre::class;
+			self::$list[self::UNLIT_REDSTONE_TORCH] = UnlitRedstoneTorch::class;
+			self::$list[self::LIT_REDSTONE_TORCH] = LitRedstoneTorch::class;
+			self::$list[self::STONE_BUTTON] = StoneButton::class;
 
-	/** @var CommandReader */
-	private $console = null;
-	private $consoleThreaded;
+			self::$list[self::SNOW_LAYER] = SnowLayer::class;
+			self::$list[self::ICE] = Ice::class;
+			self::$list[self::SNOW_BLOCK] = Snow::class;
+			self::$list[self::CACTUS] = Cactus::class;
+			self::$list[self::CLAY_BLOCK] = Clay::class;
+			self::$list[self::SUGARCANE_BLOCK] = Sugarcane::class;
+			//self::$list[self::JUKEBOX] = JukeBox::class;
 
-	/** @var SimpleCommandMap */
-	private $commandMap = null;
+			self::$list[self::FENCE] = Fence::class;
+			self::$list[self::PUMPKIN] = Pumpkin::class;
+			self::$list[self::NETHERRACK] = Netherrack::class;
+			self::$list[self::SOUL_SAND] = SoulSand::class;
+			self::$list[self::GLOWSTONE_BLOCK] = Glowstone::class;
+			
+			self::$list[self::NETHER_PORTAL] = NetherPortal::class;
 
-	/** @var CraftingManager */
-	private $craftingManager;
+			self::$list[self::LIT_PUMPKIN] = LitPumpkin::class;
+			self::$list[self::CAKE_BLOCK] = Cake::class;
+			//self::$list[self::UNPOWERED_REPEATER] = UnpoweredRepeater::class;
+			//self::$list[self::POWERED_REPEATER] = PoweredRepeater::class;
+			//self::$list[self::STAINED_GLASS] = StainedGlass::class;
 
-	/** @var ConsoleCommandSender */
-	private $consoleSender;
+			self::$list[self::TRAPDOOR] = Trapdoor::class;
+			//self::$list[self::MONSTER_EGG] = MonsterEgg::class;
 
-	/** @var int */
-	private $maxPlayers;
+			self::$list[self::STONE_BRICKS] = StoneBricks::class;
+			
+			self::$list[self::RED_MUSHROOM_BLOCK] = RedMushroomBlock::class;
+			self::$list[self::BROWN_MUSHROOM_BLOCK] = BrownMushroomBlock::class;
 
-	/** @var bool */
-	private $autoSave;
+			self::$list[self::IRON_BARS] = IronBars::class;
+			self::$list[self::GLASS_PANE] = GlassPane::class;
+			self::$list[self::MELON_BLOCK] = Melon::class;
+			self::$list[self::PUMPKIN_STEM] = PumpkinStem::class;
+			self::$list[self::MELON_STEM] = MelonStem::class;
+			self::$list[self::VINE] = Vine::class;
+			self::$list[self::FENCE_GATE] = FenceGate::class;
+			self::$list[self::BRICK_STAIRS] = BrickStairs::class;
+			self::$list[self::STONE_BRICK_STAIRS] = StoneBrickStairs::class;
 
-	/** @var RCON */
-	private $rcon;
+			self::$list[self::MYCELIUM] = Mycelium::class;
+			self::$list[self::WATER_LILY] = WaterLily::class;
+			self::$list[self::NETHER_BRICKS] = NetherBrick::class;
+			self::$list[self::NETHER_BRICK_FENCE] = NetherBrickFence::class;
+			self::$list[self::NETHER_BRICKS_STAIRS] = NetherBrickStairs::class;
+			self::$list[self::NETHER_WART_BLOCK] = NetherWart::class;
 
-	/** @var EntityMetadataStore */
-	private $entityMetadata;
+			self::$list[self::ENCHANTING_TABLE] = EnchantingTable::class;
+			self::$list[self::BREWING_STAND_BLOCK] = BrewingStand::class;
+			//self::$list[self::CAULDRON] = Cauldron::class;
+			//self::$list[self::END_PORTAL] = EndPortal::class;
 
-	/** @var PlayerMetadataStore */
-	private $playerMetadata;
+			self::$list[self::END_PORTAL_FRAME] = EndPortalFrame::class;
+			self::$list[self::END_STONE] = EndStone::class;
+			//self::$list[self::DRAGON_EGG] = DragonEgg::class;
+			
+			self::$list[self::REDSTONE_LAMP] = RedstoneLamp::class;
+			self::$list[self::LIT_REDSTONE_LAMP] = LitRedstoneLamp::class;
 
-	/** @var LevelMetadataStore */
-	private $levelMetadata;
+		//	self::$list[self::COCOA] = Cocoa::class;
+			
+			self::$list[self::SANDSTONE_STAIRS] = SandstoneStairs::class;
+			self::$list[self::EMERALD_ORE] = EmeraldOre::class;
+			
+			//self::$list[self::ENDERCHEST] = Enderchest::class;
+			
+			self::$list[self::TRIPWIRE_HOOK] = TripwireHook::class;
+			self::$list[self::TRIPWIRE] = Tripwire::class;
 
-	/** @var Network */
-	private $network;
+			self::$list[self::EMERALD_BLOCK] = Emerald::class;
+			self::$list[self::SPRUCE_WOOD_STAIRS] = SpruceWoodStairs::class;
+			self::$list[self::BIRCH_WOOD_STAIRS] = BirchWoodStairs::class;
+			self::$list[self::JUNGLE_WOOD_STAIRS] = JungleWoodStairs::class;
+			
+			//self::$list[self::COMMAND_BLOCK] = CommandBlock::class;
+			//self::$list[self::BEACON] = Beacon::class;
+			
+			self::$list[self::STONE_WALL] = StoneWall::class;
 
-	private $networkCompressionAsync = true;
-	public $networkCompressionLevel = 7;
+			self::$list[self::FLOWER_POT_BLOCK] = FlowerPot::class;
+			self::$list[self::CARROT_BLOCK] = Carrot::class;
+			self::$list[self::POTATO_BLOCK] = Potato::class;
+			self::$list[self::WOODEN_BUTTON] = WoodenButton::class;
+			self::$list[self::SKULL_BLOCK] = SkullBlock::class;
+			self::$list[self::ANVIL_BLOCK] = AnvilBlock::class;
+			self::$list[self::TRAPPED_CHEST] = TrappedChest::class;
+			self::$list[self::LIGHT_WEIGHTED_PRESSURE_PLATE] = LightWeightedPressurePlate::class;
+			self::$list[self::HEAVY_WEIGHTED_PRESSURE_PLATE] = HeavyWeightedPressurePlate::class;
+			//self::$list[self::UNPOWERED_COMPARATOR] = UnpoweredComparator::class;
+			//self::$list[self::POWERED_COMPARATOR] = PoweredComparator::class;
+			self::$list[self::DAYLIGHT_DETECTOR] = DaylightDetector::class;
 
-	private $autoTickRate = true;
-	private $autoTickRateLimit = 20;
-	private $alwaysTickPlayers = false;
-	private $baseTickRate = 1;
+			self::$list[self::REDSTONE_BLOCK] = RedstoneBlock::class;
 
-	private $autoSaveTicker = 0;
-	private $autoSaveTicks = 6000;
+			self::$list[self::QUARTZ_ORE] = QuartzOre::class;
+			//self::$list[self::HOPPER] = Hopper::class;
+			self::$list[self::QUARTZ_BLOCK] = Quartz::class;
+			self::$list[self::QUARTZ_STAIRS] = QuartzStairs::class;
+			self::$list[self::DOUBLE_WOOD_SLAB] = DoubleWoodSlab::class;
+			self::$list[self::WOOD_SLAB] = WoodSlab::class;
+			self::$list[self::STAINED_CLAY] = StainedClay::class;
+			//self::$list[self::STAINED_GLASS_PANE] = StainedGlassPain::class;
 
-	/** @var BaseLang */
-	private $baseLang;
+			self::$list[self::LEAVES2] = Leaves2::class;
+			self::$list[self::WOOD2] = Wood2::class;
+			self::$list[self::ACACIA_WOOD_STAIRS] = AcaciaWoodStairs::class;
+			self::$list[self::DARK_OAK_WOOD_STAIRS] = DarkOakWoodStairs::class;
+			//self::$list[self::SLIMEBLOCK] = Slimeblock::class;
+		//	self::$list[self::BARRIER] = Barrier::class;
+			self::$list[self::IRON_TRAPDOOR] = IronTrapdoor::class;
+			//self::$list[self::PRISMARINE] = Prismarine::class;
+			//self::$list[self::SEA_LANTERN] = SeaLantern::class;
 
-	private $forceLanguage = false;
+			self::$list[self::HAY_BALE] = HayBale::class;
+			self::$list[self::CARPET] = Carpet::class;
+			self::$list[self::HARDENED_CLAY] = HardenedClay::class;
+			self::$list[self::COAL_BLOCK] = Coal::class;
+			self::$list[self::PACKED_ICE] = PackedIce::class;
 
-	private $serverID;
+			self::$list[self::DOUBLE_PLANT] = DoublePlant::class;
+			//self::$list[self::STANDING_BANNER] = StandingBanner::class;
+			//self::$list[self::WALL_BANNER] = WallBanner::class;
+			self::$list[self::DAYLIGHT_DETECTOR_INVERTED] = DaylightDetectorInverted::class;
+			//self::$list[self::RED_SANDSTONE] = RedSandstone::class;
+			//self::$list[self::RED_SANDSTONE_STAIRS] = RedSandstoneStairs::class;
+			//self::$list[self::DOUBLE_STONE_SLAB2] = DoubleStoneSlab2::class;
+			//self::$list[self::STONE_SLAB2] = StoneSlab2::class;
 
-	private $autoloader;
-	private $filePath;
-	private $dataPath;
-	private $pluginPath;
+			self::$list[self::FENCE_GATE_SPRUCE] = FenceGateSpruce::class;
+			self::$list[self::FENCE_GATE_BIRCH] = FenceGateBirch::class;
+			self::$list[self::FENCE_GATE_JUNGLE] = FenceGateJungle::class;
+			self::$list[self::FENCE_GATE_DARK_OAK] = FenceGateDarkOak::class;
+			self::$list[self::FENCE_GATE_ACACIA] = FenceGateAcacia::class;
+			
+			self::$list[self::SPRUCE_DOOR_BLOCK] = SpruceDoor::class;
+			self::$list[self::BIRCH_DOOR_BLOCK] = BirchDoor::class;
+			self::$list[self::JUNGLE_DOOR_BLOCK] = JungleDoor::class;
+			self::$list[self::ACACIA_DOOR_BLOCK] = AcaciaDoor::class;
+			self::$list[self::DARK_OAK_DOOR_BLOCK] = DarkOakDoor::class;
+
+			self::$list[self::GRASS_PATH] = GrassPath::class;
+
+			self::$list[self::PODZOL] = Podzol::class;
+			self::$list[self::BEETROOT_BLOCK] = Beetroot::class;
+			self::$list[self::STONECUTTER] = Stonecutter::class;
+			self::$list[self::GLOWING_OBSIDIAN] = GlowingObsidian::class;
+			self::$list[self::NETHER_REACTOR] = NetherReactor::class;
+		//	self::$list[self::RESERVED] = Reserved::class;
+
+			foreach(self::$list as $id => $class){
+				if($class !== null){
+					/** @var Block $block */
+					$block = new $class();
+
+					for($data = 0; $data < 16; ++$data){
+						self::$fullList[($id << 4) | $data] = new $class($data);
+					}
+
+					self::$solid[$id] = $block->isSolid();
+					self::$transparent[$id] = $block->isTransparent();
+					self::$hardness[$id] = $block->getHardness();
+					self::$light[$id] = $block->getLightLevel();
+
+					if($block->isSolid()){
+						if($block->isTransparent()){
+							if($block instanceof Liquid or $block instanceof Ice){
+								self::$lightFilter[$id] = 2;
+							}else{
+								self::$lightFilter[$id] = 1;
+							}
+						}else{
+							self::$lightFilter[$id] = 15;
+						}
+					}else{
+						self::$lightFilter[$id] = 1;
+					}
+				}else{
+					self::$lightFilter[$id] = 1;
+					for($data = 0; $data < 16; ++$data){
+						self::$fullList[($id << 4) | $data] = new Block($id, $data);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * @param int      $id
+	 * @param int      $meta
+	 * @param Position $pos
+	 *
+	 * @return Block
+	 */
+	public static function get($id, $meta = 0, Position $pos = null){
+		try{
+			$block = self::$list[$id];
+			if($block !== null){
+				$block = new $block($meta);
+			}else{
+				$block = new Block($id, $meta);
+			}
+		}catch(\RuntimeException $e){
+			$block = new Block($id, $meta);
+		}
+
+		if($pos !== null){
+			$block->x = $pos->x;
+			$block->y = $pos->y;
+			$block->z = $pos->z;
+			$block->level = $pos->level;
+		}
+
+		return $block;
+	}
+
+	/**
+	 * @param int $id
+	 * @param int $meta
+	 */
+	public function __construct($id, $meta = 0){
+		$this->id = (int) $id;
+		$this->meta = (int) $meta;
+	}
+
+	/**
+	 * Places the Block, using block space and block target, and side. Returns if the block has been placed.
+	 *
+	 * @param Item   $item
+	 * @param Block  $block
+	 * @param Block  $target
+	 * @param int    $face
+	 * @param float  $fx
+	 * @param float  $fy
+	 * @param float  $fz
+	 * @param Player $player = null
+	 *
+	 * @return bool
+	 */
+	public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null){
+		$opreturn = $this->getLevel()->setBlock($this, $this, true, true);
+		if($this->getLevel()->getServer()->getProperty("redstone.enable", true) and $this instanceof Redstone){
+			$this->onRedstoneUpdate(Level::REDSTONE_UPDATE_PLACE,$this->getPower());
+		}
+		return $opreturn;
+	}
+
+	/**
+	 * Returns if the item can be broken with an specific Item
+	 *
+	 * @param Item $item
+	 *
+	 * @return bool
+	 */
+	public function isBreakable(Item $item){
+		return true;
+	}
+
+	/**
+	 * Do the actions needed so the block is broken with the Item
+	 *
+	 * @param Item $item
+	 *
+	 * @return mixed
+	 */
+	public function onBreak(Item $item){
+		if($this instanceof Redstone){
+			$oBreturn = $this->getLevel()->setBlock($this, new Air(), true, true);
+			$this->BroadcastRedstoneUpdate(Level::REDSTONE_UPDATE_BREAK,$this->getPower());
+			return $oBreturn;
+		}
+		return $this->getLevel()->setBlock($this, new Air(), true, true);
+	}
+
+	/**
+	 * Fires a block update on the Block
+	 *
+	 * @param int $type
+	 *
+	 * @return void
+	 */
+	public function onUpdate($type){
+		
+	}
+
+	/**
+	 * Do actions when activated by Item. Returns if it has done anything
+	 *
+	 * @param Item   $item
+	 * @param Player $player
+	 *
+	 * @return bool
+	 */
+	public function onActivate(Item $item, Player $player = null){
+		return false;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getHardness(){
+		return 10;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getResistance(){
+		return $this->getHardness() * 5;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getToolType(){
+		return Tool::TYPE_NONE;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getFrictionFactor(){
+		return 0.6;
+	}
+
+	/**
+	 * @return int 0-15
+	 */
+	public function getLightLevel(){
+		return 0;
+	}
+
+	/**
+	 * AKA: Block->isPlaceable
+	 *
+	 * @return bool
+	 */
+	public function canBePlaced(){
+		return true;
+	}
+
+	/**
+	 * AKA: Block->canBeReplaced()
+	 *
+	 * @return bool
+	 */
+	public function canBeReplaced(){
+		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isTransparent(){
+		return false;
+	}
+
+	public function isSolid(){
+		return true;
+	}
 	
-	/** Additional **/
-	private $shutdownreason;
+	/**
+	 * AKA: Block->isFlowable
+	 *
+	 * @return bool
+	 */
+	public function canBeFlowedInto(){
+		return false;
+	}
+	
+	public function isRedstone(){
+		return false;
+	}
+	
+	public function isRedstoneTransmitter(){
+		return false;
+	}
+	
+	public function isRedstoneConsumer(){
+		return false;
+	}
+	
+	public function isStrongCharged(){
+		if($this instanceof Transparent){
+			return false;
+		}
+		if($this->getSide(0)->getId()==Block::LIT_REDSTONE_TORCH){
+			return true;
+		}
+		for($side=1;$side<=5;$side++){
+			$near = $this->getSide($side);
+			if($near instanceof RedstoneSwitch){
+				$hash = Level::blockHash($this->x,$this->y,$this->z);
+				if($near->chkTarget($hash)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public function isWeakCharged(){
+		if($this instanceof Transparent){
+			return false;
+		}
+		if($this->getSide(1) instanceof RedstoneTransmitter and $this->getSide(1)->getPower()>0){
+			return true;
+		}
+		for($side = 2; $side <= 5; $side++){
+			$around = $this->getSide($side);
+			if($around instanceof RedstoneTransmitter and $around->getPower() > 0){
+				$around_back = $around->getSide($side);
+				$Rcount = 0;
+				$Tcount = 0;
+				if($around_back instanceof RedstoneTransmitter){
+					for($side2 = 2; $side2 <= 5; $side2++){
+						$around2 = $around->getSide($side2);
+						if($around2 instanceof RedstoneTransmitter){
+							$Rcount++;
+						}elseif($around2 ->getId() == Block::LIT_REDSTONE_TORCH){
+							$Tcount++;
+						}elseif(!$around2 instanceof Transparent){
+							$up = $around2->getSide(1);
+							if($up instanceof RedstoneTransmitter){
+								$Rcount++;
+							}
+						}elseif($around2->getId() == Block::AIR){
+							$down = $around2->getSide(0);
+							if($down instanceof RedstoneTransmitter){
+								$Rcount++;
+							}
+						}
+					}
+					if($Tcount > 0){
+						return true;
+					}
+				}else{
+					if($around_back->getPower()>0 or ($around_back->getId() == Block::AIR and $around_back->getSide(0) instanceof RedstoneTransmitter) or ($around_back->getSide(1) instanceof RedstoneTransmitter)){
+						for($side2 = 2; $side2 <= 5; $side2++){
+							$around2 = $around->getSide($side2);
+							if($around2 instanceof RedstoneTransmitter){
+								$Rcount++;
+							}elseif($around2 ->getId() == Block::LIT_REDSTONE_TORCH){
+								$Rcount++;
+							}elseif(!$around2 instanceof Transparent){
+								$up = $around2->getSide(1);
+								if($up instanceof RedstoneTransmitter){
+									$Rcount++;
+								}
+							}elseif($around2->getId() == Block::AIR){
+								$down = $around2->getSide(0);
+								if($down instanceof RedstoneTransmitter){
+									$Rcount++;
+								}
+							}
+						}
+					}
+				}
+				if($Rcount == 1){
+					return true;
+				}
+			}
+		}
+		return false;
+		
+	}
+	
+	public function isPointCharged(){
+		if($this->getSide(1) instanceof RedstoneTransmitter and $this->getSide(1)->getPower()>0){
+			return true;
+		}
+		for($side = 2; $side <= 5; $side++){
+			$around = $this->getSide($side);
+			if($around instanceof RedstoneTransmitter and $around->getPower() > 0){
+				$around_back = $around->getSide($side);
+				if($around_back instanceof RedstoneTransmitter){
+					$Rcount = 0;
+				}
+				else{
+					$Rcount = 1;
+				}
+				for($side2 = 2; $side2 <= 5; $side2++){
+					$around2 = $around->getSide($side2);
+					if($around2 instanceof RedstoneTransmitter){
+						$Rcount++;
+					}
+					else{
+						if(!$around2 instanceof Transparent){
+							$up = $around2->getSide(1);
+							if($up instanceof RedstoneTransmitter){
+								return true;
+							}
+						}
+						else{
+							if($around2->id == self::AIR){
+								$down = $around2->getSide(0);
+								if($down instanceof RedstoneTransmitter){
+									$Rcount++;
+								}
+							}
+						}
+					}
+				}
+				if($Rcount == 1){
+					return true;
+				}
+			}
+		}
+		return false;
+		
+	}
+	
+	public function isCharged($hash){
+		if($this->isWeakCharged() or $this->isStrongCharged()){
+			return true;
+		}
+		return false;
+	}
+	
+	public function isRedstoneSource(){
+		return false;
+	}
+	
+	public function isRedstoneSwitch(){
+		return false;
+	}
+	/**
+	 * AKA: Block->isActivable
+	 *
+	 * @return bool
+	 */
+	public function canBeActivated(){
+		return false;
+	}
 
-	private $uniquePlayers = [];
+	public function hasEntityCollision(){
+		return false;
+	}
 
-	/** @var QueryHandler */
-	private $queryHandler;
-
-	/** @var QueryRegenerateEvent */
-	private $queryRegenerateTask = null;
-
-	/** @var Config */
-	private $properties;
-
-	private $propertyCache = [];
-
-	/** @var Config */
-	private $config;
-
-	/** @var Player[] */
-	private $players = [];
-
-	/** @var Player[] */
-	private $playerList = [];
-
-	private $identifiers = [];
-
-	/** @var Level[] */
-	private $levels = [];
-
-	/** @var Level */
-	private $levelDefault = null;
+	public function canPassThrough(){
+		return false;
+	}
 
 	/**
 	 * @return string
 	 */
 	public function getName(){
-		return "BukkitPE";
+		return "Unknown";
 	}
-
-	/**
-	 * @return bool
-	 */
-	public function isRunning(){
-		return $this->isRunning === true;
+	
+	public function getHash(){
+		return Level::blockHash($this->x,$this->y,$this->z);
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getBukkitPEVersion(){
-		return \BukkitPE\VERSION;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getCodename(){
-		return \BukkitPE\CODENAME;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getVersion(){
-		return \BukkitPE\MINECRAFT_VERSION;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getApiVersion(){
-		return \BukkitPE\API_VERSION;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getFilePath(){
-		return $this->filePath;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getDataPath(){
-		return $this->dataPath;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getPluginPath(){
-		return $this->pluginPath;
-	}
-
+	
 	/**
 	 * @return int
 	 */
-	public function getMaxPlayers(){
-		return $this->maxPlayers;
+	final public function getId(){
+		return $this->id;
 	}
-
-	/**
-	 * @return int
-	 */
-	public function getPort(){
-		return $this->getConfigInt("server-port", 19132);
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getViewDistance(){
-		return max(56, $this->getProperty("chunk-sending.max-chunks", 256));
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getIp(){
-		return $this->getConfigString("server-ip", "0.0.0.0");
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public function getServerName(){
-		return $this->getConfigString("motd", "§cA BukkitPE: Server");
-	}
-
-	public function getServerUniqueId(){
-		return $this->serverID;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function getAutoSave(){
-		return $this->autoSave;
-	}
-
-	/**
-	 * @param bool $value
-	 */
-	public function setAutoSave($value){
-		$this->autoSave = (bool) $value;
-		foreach($this->getLevels() as $level){
-			$level->setAutoSave($this->autoSave);
-		}
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getLevelType(){
-		return $this->getConfigString("level-type", "DEFAULT");
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function getGenerateStructures(){
-		return $this->getConfigBoolean("generate-structures", true);
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getGamemode(){
-		return $this->getConfigInt("gamemode", 0) & 0b11;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function getForceGamemode(){
-		return $this->getConfigBoolean("force-gamemode", false);
-	}
-
-	/**
-	 * Returns the gamemode text name
-	 *
-	 * @param int $mode
-	 *
-	 * @return string
-	 */
-	public static function getGamemodeString($mode){
-		switch((int) $mode){
-			case Player::SURVIVAL:
-				return "%gameMode.survival";
-			case Player::CREATIVE:
-				return "%gameMode.creative";
-			case Player::ADVENTURE:
-				return "%gameMode.adventure";
-			case Player::SPECTATOR:
-				return "%gameMode.spectator";
-		}
-
-		return "UNKNOWN";
-	}
-
-	/**
-	 * Parses a string and returns a gamemode integer, -1 if not found
-	 *
-	 * @param string $str
-	 *
-	 * @return int
-	 */
-	public static function getGamemodeFromString($str){
-		switch(strtolower(trim($str))){
-			case (string) Player::SURVIVAL:
-			case "survival":
-			case "s":
-				return Player::SURVIVAL;
-
-			case (string) Player::CREATIVE:
-			case "creative":
-			case "c":
-				return Player::CREATIVE;
-
-			case (string) Player::ADVENTURE:
-			case "adventure":
-			case "a":
-				return Player::ADVENTURE;
-
-			case (string) Player::SPECTATOR:
-			case "spectator":
-			case "view":
-			case "v":
-				return Player::SPECTATOR;
-		}
-		return -1;
-	}
-
-	/**
-	 * @param string $str
-	 *
-	 * @return int
-	 */
-	public static function getDifficultyFromString($str){
-		switch(strtolower(trim($str))){
-			case "0":
-			case "peaceful":
-			case "p":
-				return 0;
-
-			case "1":
-			case "easy":
-			case "e":
-				return 1;
-
-			case "2":
-			case "normal":
-			case "n":
-				return 2;
-
-			case "3":
-			case "hard":
-			case "h":
-				return 3;
-		}
-		return -1;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getDifficulty(){
-		return $this->getConfigInt("difficulty", 1);
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function hasWhitelist(){
-		return $this->getConfigBoolean("white-list", false);
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getSpawnRadius(){
-		return $this->getConfigInt("spawn-protection", 16);
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function getAllowFlight(){
-		return $this->getConfigBoolean("allow-flight", false);
-	}
-
-
-	/**
-	 * @return bool
-	 */
-	public function isHardcore(){
-		return $this->getConfigBoolean("hardcore", false);
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getDefaultGamemode(){
-		return $this->getConfigInt("gamemode", 0) & 0b11;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getMotd(){
-		return $this->getConfigString("motd", "§cA BukkitPE: Server");
-	}
-
-	/**
-	 * @return \ClassLoader
-	 */
-	public function getLoader(){
-		return $this->autoloader;
-	}
-
-	/**
-	 * @return \AttachableThreadedLogger
-	 */
-	public function getLogger(){
-		return $this->logger;
-	}
-
-	/**
-	 * @return EntityMetadataStore
-	 */
-	public function getEntityMetadata(){
-		return $this->entityMetadata;
-	}
-
-	/**
-	 * @return PlayerMetadataStore
-	 */
-	public function getPlayerMetadata(){
-		return $this->playerMetadata;
-	}
-
-	/**
-	 * @return LevelMetadataStore
-	 */
-	public function getLevelMetadata(){
-		return $this->levelMetadata;
-	}
-
-	/**
-	 * @return PluginManager
-	 */
-	public function getPluginManager(){
-		return $this->pluginManager;
-	}
-
-	/**
-	 * @return CraftingManager
-	 */
-	public function getCraftingManager(){
-		return $this->craftingManager;
-	}
-
-	/**
-	 * @return ServerScheduler
-	 */
-	public function getScheduler(){
-		return $this->scheduler;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getTick(){
-		return $this->tickCounter;
-	}
-
-	/**
-	 * Returns the last server TPS measure
-	 *
-	 * @return float
-	 */
-	public function getTicksPerSecond(){
-		return round($this->maxTick, 2);
-	}
-
-	/**
-	 * Returns the last server TPS average measure
-	 *
-	 * @return float
-	 */
-	public function getTicksPerSecondAverage(){
-		return round(array_sum($this->tickAverage) / count($this->tickAverage), 2);
-	}
-
-	/**
-	 * Returns the TPS usage/load in %
-	 *
-	 * @return float
-	 */
-	public function getTickUsage(){
-		return round($this->maxUse * 100, 2);
-	}
-
-	/**
-	 * Returns the TPS usage/load average in %
-	 *
-	 * @return float
-	 */
-	public function getTickUsageAverage(){
-		return round((array_sum($this->useAverage) / count($this->useAverage)) * 100, 2);
-	}
-
-
-	/**
-	 * @deprecated
-	 *
-	 * @param     $address
-	 * @param int $timeout
-	 */
-	public function blockAddress($address, $timeout = 300){
-		$this->network->blockAddress($address, $timeout);
-	}
-
-	/**
-	 * @deprecated
-	 *
-	 * @param $address
-	 * @param $port
-	 * @param $payload
-	 */
-	public function sendPacket($address, $port, $payload){
-		$this->network->sendPacket($address, $port, $payload);
-	}
-
-	/**
-	 * @deprecated
-	 *
-	 * @return SourceInterface[]
-	 */
-	public function getInterfaces(){
-		return $this->network->getInterfaces();
-	}
-
-	/**
-	 * @deprecated
-	 *
-	 * @param SourceInterface $interface
-	 */
-	public function addInterface(SourceInterface $interface){
-		$this->network->registerInterface($interface);
-	}
-
-	/**
-	 * @deprecated
-	 *
-	 * @param SourceInterface $interface
-	 */
-	public function removeInterface(SourceInterface $interface){
-		$interface->shutdown();
-		$this->network->unregisterInterface($interface);
-	}
-
-	/**
-	 * @return SimpleCommandMap
-	 */
-	public function getCommandMap(){
-		return $this->commandMap;
-	}
-
-	/**
-	 * @return Player[]
-	 */
-	public function getOnlinePlayers(){
-		return $this->playerList;
-	}
-
-	public function addRecipe(Recipe $recipe){
-		$this->craftingManager->registerRecipe($recipe);
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return OfflinePlayer|Player
-	 */
-	public function getOfflinePlayer($name){
-		$name = strtolower($name);
-		$result = $this->getPlayerExact($name);
-
-		if($result === null){
-			$result = new OfflinePlayer($this, $name);
-		}
-
-		return $result;
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return Compound
-	 */
-	public function getOfflinePlayerData($name){
-		$name = strtolower($name);
-		$path = $this->getDataPath() . "players/";
-		if(file_exists($path . "$name.json")){
-			try{
-				$nbt = new NBT(NBT::BIG_ENDIAN);
-				$nbt->readCompressed(file_get_contents($path . "$name.json"));
-
-				return $nbt->getData();
-			}catch(\Exception $e){ //zlib decode error / corrupt data
-				rename($path . "$name.json", $path . "$name.json.bak");
-				$this->logger->notice($this->getLanguage()->translateString("BukkitPE.data.playerCorrupted", [$name]));
-			}
-		}else{
-			$this->logger->notice($this->getLanguage()->translateString("BukkitPE.data.playerNotFound", [$name]));
-		}
-		$spawn = $this->getDefaultLevel()->getSafeSpawn();
-		$nbt = new Compound("", [
-			new Long("firstPlayed", floor(microtime(true) * 1000)),
-			new Long("lastPlayed", floor(microtime(true) * 1000)),
-			new Enum("Pos", [
-				new Double(0, $spawn->x),
-				new Double(1, $spawn->y),
-				new Double(2, $spawn->z)
-			]),
-			new String("Level", $this->getDefaultLevel()->getName()),
-			//new String("SpawnLevel", $this->getDefaultLevel()->getName()),
-			//new Int("SpawnX", (int) $spawn->x),
-			//new Int("SpawnY", (int) $spawn->y),
-			//new Int("SpawnZ", (int) $spawn->z),
-			//new Byte("SpawnForced", 1), //TODO
-			new Enum("Inventory", []),
-			new Compound("Achievements", []),
-			new Int("playerGameType", $this->getGamemode()),
-			new Enum("Motion", [
-				new Double(0, 0.0),
-				new Double(1, 0.0),
-				new Double(2, 0.0)
-			]),
-			new Enum("Rotation", [
-				new Float(0, 0.0),
-				new Float(1, 0.0)
-			]),
-			new Float("FallDistance", 0.0),
-			new Short("Fire", 0),
-			new Short("Air", 300),
-			new Byte("OnGround", 1),
-			new Byte("Invulnerable", 0),
-			new String("NameTag", $name),
-			new Short("Hunger", 20),
-			new Short("Health", 20),
-			new Short("MaxHealth", 20),
-			new Long("Experience", 0),
-			new Long("ExpLevel", 0),
-		]);
-		$nbt->Pos->setTagType(NBT::TAG_Double);
-		$nbt->Inventory->setTagType(NBT::TAG_Compound);
-		$nbt->Motion->setTagType(NBT::TAG_Double);
-		$nbt->Rotation->setTagType(NBT::TAG_Float);
-
-		if(file_exists($path . "$name.yml")){
-			$data = new Config($path . "$name.yml", Config::YAML, []);
-			$nbt["playerGameType"] = (int) $data->get("gamemode");
-			$nbt["Level"] = $data->get("position")["level"];
-			$nbt["Pos"][0] = $data->get("position")["x"];
-			$nbt["Pos"][1] = $data->get("position")["y"];
-			$nbt["Pos"][2] = $data->get("position")["z"];
-			$nbt["SpawnLevel"] = $data->get("spawn")["level"];
-			$nbt["SpawnX"] = (int) $data->get("spawn")["x"];
-			$nbt["SpawnY"] = (int) $data->get("spawn")["y"];
-			$nbt["SpawnZ"] = (int) $data->get("spawn")["z"];
-			$this->logger->notice($this->getLanguage()->translateString("BukkitPE.data.playerOld", [$name]));
-			foreach($data->get("inventory") as $slot => $item){
-				if(count($item) === 3){
-					$nbt->Inventory[$slot + 9] = new Compound("", [
-						new Short("id", $item[0]),
-						new Short("Damage", $item[1]),
-						new Byte("Count", $item[2]),
-						new Byte("Slot", $slot + 9),
-						new Byte("TrueSlot", $slot + 9)
-					]);
+	
+	/*
+		$type 
+			0 Break
+			1 Smelt
+	*/
+	
+	public function getExperience($type = 0){
+		switch($type){
+			case 0:
+				if($this->exp_max == 0){
+					return 0;
+				}else{
+					return mt_rand($this->exp_min, $this->exp_max);
 				}
-			}
-			foreach($data->get("hotbar") as $slot => $itemSlot){
-				if(isset($nbt->Inventory[$itemSlot + 9])){
-					$item = $nbt->Inventory[$itemSlot + 9];
-					$nbt->Inventory[$slot] = new Compound("", [
-						new Short("id", $item["id"]),
-						new Short("Damage", $item["Damage"]),
-						new Byte("Count", $item["Count"]),
-						new Byte("Slot", $slot),
-						new Byte("TrueSlot", $item["TrueSlot"])
-					]);
-				}
-			}
-			foreach($data->get("armor") as $slot => $item){
-				if(count($item) === 2){
-					$nbt->Inventory[$slot + 100] = new Compound("", [
-						new Short("id", $item[0]),
-						new Short("Damage", $item[1]),
-						new Byte("Count", 1),
-						new Byte("Slot", $slot + 100)
-					]);
-				}
-			}
-			foreach($data->get("achievements") as $achievement => $status){
-				$nbt->Achievements[$achievement] = new Byte($achievement, $status == true ? 1 : 0);
-			}
-			unlink($path . "$name.yml");
-		}
-		$this->saveOfflinePlayerData($name, $nbt);
-
-		return $nbt;
-
-	}
-
-	/**
-	 * @param string   $name
-	 * @param Compound $nbtTag
-	 * @param bool     $async
-	 */
-	public function saveOfflinePlayerData($name, Compound $nbtTag, $async = false){
-		$nbt = new NBT(NBT::BIG_ENDIAN);
-		try{
-			$nbt->setData($nbtTag);
-
-			if($async){
-				$this->getScheduler()->scheduleAsyncTask(new FileWriteTask($this->getDataPath() . "players/" . strtolower($name) . ".json", $nbt->writeCompressed()));
-			}else{
-				file_put_contents($this->getDataPath() . "players/" . strtolower($name) . ".json", $nbt->writeCompressed());
-			}
-		}catch(\Exception $e){
-			$this->logger->critical($this->getLanguage()->translateString("BukkitPE.data.saveError", [$name, $e->getMessage()]));
-			if(\BukkitPE\DEBUG > 1 and $this->logger instanceof MainLogger){
-				$this->logger->logException($e);
-			}
-		}
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return Player
-	 */
-	public function getPlayer($name){
-		$found = null;
-		$name = strtolower($name);
-		$delta = PHP_INT_MAX;
-		foreach($this->getOnlinePlayers() as $player){
-			if(stripos($player->getName(), $name) === 0){
-				$curDelta = strlen($player->getName()) - strlen($name);
-				if($curDelta < $delta){
-					$found = $player;
-					$delta = $curDelta;
-				}
-				if($curDelta === 0){
-					break;
-				}
-			}
-		}
-
-		return $found;
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return Player
-	 */
-	public function getPlayerExact($name){
-		$name = strtolower($name);
-		foreach($this->getOnlinePlayers() as $player){
-			if(strtolower($player->getName()) === $name){
-				return $player;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * @param string $partialName
-	 *
-	 * @return Player[]
-	 */
-	public function matchPlayer($partialName){
-		$partialName = strtolower($partialName);
-		$matchedPlayers = [];
-		foreach($this->getOnlinePlayers() as $player){
-			if(strtolower($player->getName()) === $partialName){
-				$matchedPlayers = [$player];
 				break;
-			}elseif(stripos($player->getName(), $partialName) !== false){
-				$matchedPlayers[] = $player;
-			}
+			case 1:
+				return $this->$exp_smelt;
 		}
+	}
+	
+	public function addVelocityToEntity(Entity $entity, Vector3 $vector){
 
-		return $matchedPlayers;
 	}
 
 	/**
-	 * @param Player $player
+	 * @return int
 	 */
-	public function removePlayer(Player $player){
-		if(isset($this->identifiers[$hash = spl_object_hash($player)])){
-			$identifier = $this->identifiers[$hash];
-			unset($this->players[$identifier]);
-			unset($this->identifiers[$hash]);
-			return;
-		}
-
-		foreach($this->players as $identifier => $p){
-			if($player === $p){
-				unset($this->players[$identifier]);
-				unset($this->identifiers[spl_object_hash($player)]);
-				break;
-			}
-		}
+	final public function getDamage(){
+		return $this->meta;
+	}
+	
+	/**
+	 * @param int $meta
+	 */
+	final public function setDamage($meta){
+		$this->meta = $meta & 0x0f;
 	}
 
 	/**
-	 * @return Level[]
+	 * @return int 0-16
+	 * 16 is a source block
 	 */
-	public function getLevels(){
-		return $this->levels;
-	}
-
-	/**
-	 * @return Level
-	 */
-	public function getDefaultLevel(){
-		return $this->levelDefault;
-	}
-
-	/**
-	 * Sets the default level to a different level
-	 * This won't change the level-name property,
-	 * it only affects the server on runtime
-	 *
-	 * @param Level $level
-	 */
-	public function setDefaultLevel($level){
-		if($level === null or ($this->isLevelLoaded($level->getFolderName()) and $level !== $this->levelDefault)){
-			$this->levelDefault = $level;
+	public function getPower(){
+		//return 0;
+		if($this->isStrongCharged()){
+			return Block::REDSTONESOURCEPOWER;
 		}
 	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return bool
-	 */
-	public function isLevelLoaded($name){
-		return $this->getLevelByName($name) instanceof Level;
+	
+	public function getmetaPower(){
+		return 0;
 	}
-
-	/**
-	 * @param int $levelId
-	 *
-	 * @return Level
-	 */
-	public function getLevel($levelId){
-		if(isset($this->levels[$levelId])){
-			return $this->levels[$levelId];
-		}
-
-		return null;
+	
+	public function getcatchPower(){
+		return 0;
 	}
-
 	/**
-	 * @param $name
-	 *
-	 * @return Level
+	 * @param int 0-15
 	 */
-	public function getLevelByName($name){
-		foreach($this->getLevels() as $level){
-			if($level->getFolderName() === $name){
-				return $level;
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * @param Level $level
-	 * @param bool  $forceUnload
-	 *
-	 * @return bool
-	 */
-	public function unloadLevel(Level $level, $forceUnload = false){
-		if($level === $this->getDefaultLevel() and !$forceUnload){
-			throw new \InvalidStateException("The default level cannot be unloaded while running, please switch levels.");
-		}
-		if($level->unload($forceUnload) === true){
-			unset($this->levels[$level->getId()]);
-
-			return true;
-		}
-
+	public function setPower($power){
 		return false;
 	}
-
-	/**
-	 * Loads a level from the data directory
-	 *
-	 * @param string $name
-	 *
-	 * @return bool
-	 *
-	 * @throws LevelException
-	 */
-	public function loadLevel($name){
-		if(trim($name) === ""){
-			throw new LevelException("Invalid empty level name");
-		}
-		if($this->isLevelLoaded($name)){
-			return true;
-		}elseif(!$this->isLevelGenerated($name)){
-			$this->logger->notice($this->getLanguage()->translateString("BukkitPE.level.notFound", [$name]));
-
-			return false;
-		}
-
-		$path = $this->getDataPath() . "worlds/" . $name . "/";
-
-		$provider = LevelProviderManager::getProvider($path);
-
-		if($provider === null){
-			$this->logger->error($this->getLanguage()->translateString("BukkitPE.level.loadError", [$name, "Unknown provider"]));
-
-			return false;
-		}
-		//$entities = new Config($path."entities.yml", Config::YAML);
-		//if(file_exists($path . "tileEntities.yml")){
-		//	@rename($path . "tileEntities.yml", $path . "tiles.yml");
-		//}
-
-		try{
-			$level = new Level($this, $name, $path, $provider);
-		}catch(\Exception $e){
-
-			$this->logger->error($this->getLanguage()->translateString("BukkitPE.level.loadError", [$name, $e->getMessage()]));
-			if($this->logger instanceof MainLogger){
-				$this->logger->logException($e);
-			}
-			return false;
-		}
-
-		$this->levels[$level->getId()] = $level;
-
-		$level->initLevel();
-
-		$this->getPluginManager()->callEvent(new LevelLoadEvent($level));
-
-		$level->setTickRate($this->baseTickRate);
-
-		return true;
+	
+	public function setRedstoneUpdateList($type,$power){
+		return;
 	}
-
-	/**
-	 * Generates a new level if it does not exists
-	 *
-	 * @param string $name
-	 * @param int    $seed
-	 * @param string $generator Class name that extends BukkitPE\level\generator\Noise
-	 * @param array  $options
-	 *
-	 * @return bool
-	 */
-	public function generateLevel($name, $seed = null, $generator = null, $options = []){
-		if(trim($name) === "" or $this->isLevelGenerated($name)){
-			return false;
-		}
-
-		$seed = $seed === null ? Binary::readInt(@Utils::getRandomBytes(4, false)) : (int) $seed;
-
-		if(!isset($options["preset"])){
-			$options["preset"] = $this->getConfigString("generator-settings", "");
-		}
-
-		if(!($generator !== null and class_exists($generator, true) and is_subclass_of($generator, Generator::class))){
-			$generator = Generator::getGenerator($this->getLevelType());
-		}
-
-		if(($provider = LevelProviderManager::getProviderByName($providerName = $this->getProperty("level-settings.default-format", "mcregion"))) === null){
-			$provider = LevelProviderManager::getProviderByName($providerName = "mcregion");
-		}
-
-		try{
-			$path = $this->getDataPath() . "worlds/" . $name . "/";
-			/** @var \BukkitPE\level\format\LevelProvider $provider */
-			$provider::generate($path, $name, $seed, $generator, $options);
-
-			$level = new Level($this, $name, $path, $provider);
-			$this->levels[$level->getId()] = $level;
-
-			$level->initLevel();
-
-			$level->setTickRate($this->baseTickRate);
-		}catch(\Exception $e){
-			$this->logger->error($this->getLanguage()->translateString("BukkitPE.level.generateError", [$name, $e->getMessage()]));
-			if($this->logger instanceof MainLogger){
-				$this->logger->logException($e);
-			}
-			return false;
-		}
-
-		$this->getPluginManager()->callEvent(new LevelInitEvent($level));
-
-		$this->getPluginManager()->callEvent(new LevelLoadEvent($level));
-
-		$this->getLogger()->notice($this->getLanguage()->translateString("BukkitPE.level.backgroundGeneration", [$name]));
-
-		$centerX = $level->getSpawnLocation()->getX() >> 4;
-		$centerZ = $level->getSpawnLocation()->getZ() >> 4;
-
-		$order = [];
-
-		for($X = -3;$X <= 3;++$X){
-			for($Z = -3;$Z <= 3;++$Z){
-				$distance = $X ** 2 + $Z ** 2;
-				$chunkX = $X + $centerX;
-				$chunkZ = $Z + $centerZ;
-				$index = Level::chunkHash($chunkX, $chunkZ);
-				$order[$index] = $distance;
-			}
-		}
-
-		asort($order);
-
-		foreach($order as $index => $distance){
-			Level::getXZ($index, $chunkX, $chunkZ);
-			$level->populateChunk($chunkX, $chunkZ, true);
-		}
-
-		return true;
+	
+	public function chkTarget($hash){
+		return false;
 	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return bool
-	 */
-	public function isLevelGenerated($name){
-		if(trim($name) === ""){
-			return false;
-		}
-		$path = $this->getDataPath() . "worlds/" . $name . "/";
-		if(!($this->getLevelByName($name) instanceof Level)){
-
-			if(LevelProviderManager::getProvider($path) === null){
-				return false;
-			}
-			/*if(file_exists($path)){
-				$level = new LevelImport($path);
-				if($level->import() === false){ //Try importing a world
-					return false;
-				}
-			}else{
-				return false;
-			}*/
-		}
-
-		return true;
-	}
-
-	/**
-	 * @param string $variable
-	 * @param string $defaultValue
-	 *
-	 * @return string
-	 */
-	public function getConfigString($variable, $defaultValue = ""){
-		$v = getopt("", ["$variable::"]);
-		if(isset($v[$variable])){
-			return (string) $v[$variable];
-		}
-
-		return $this->properties->exists($variable) ? $this->properties->get($variable) : $defaultValue;
-	}
-
-	/**
-	 * @param string $variable
-	 * @param mixed  $defaultValue
-	 *
-	 * @return mixed
-	 */
-	public function getProperty($variable, $defaultValue = null){
-		if(!array_key_exists($variable, $this->propertyCache)){
-			$v = getopt("", ["$variable::"]);
-			if(isset($v[$variable])){
-				$this->propertyCache[$variable] = $v[$variable];
-			}else{
-				$this->propertyCache[$variable] = $this->config->getNested($variable);
-			}
-		}
-
-		return $this->propertyCache[$variable] === null ? $defaultValue : $this->propertyCache[$variable];
-	}
-
-	/**
-	 * @param string $variable
-	 * @param string $value
-	 */
-	public function setConfigString($variable, $value){
-		$this->properties->set($variable, $value);
-	}
-
-	/**
-	 * @param string $variable
-	 * @param int    $defaultValue
-	 *
-	 * @return int
-	 */
-	public function getConfigInt($variable, $defaultValue = 0){
-		$v = getopt("", ["$variable::"]);
-		if(isset($v[$variable])){
-			return (int) $v[$variable];
-		}
-
-		return $this->properties->exists($variable) ? (int) $this->properties->get($variable) : (int) $defaultValue;
-	}
-
-	/**
-	 * @param string $variable
-	 * @param int    $value
-	 */
-	public function setConfigInt($variable, $value){
-		$this->properties->set($variable, (int) $value);
-	}
-
-	/**
-	 * @param string  $variable
-	 * @param boolean $defaultValue
-	 *
-	 * @return boolean
-	 */
-	public function getConfigBoolean($variable, $defaultValue = false){
-		$v = getopt("", ["$variable::"]);
-		if(isset($v[$variable])){
-			$value = $v[$variable];
-		}else{
-			$value = $this->properties->exists($variable) ? $this->properties->get($variable) : $defaultValue;
-		}
-
-		if(is_bool($value)){
-			return $value;
-		}
-		switch(strtolower($value)){
-			case "on":
-			case "true":
-			case "1":
-			case "yes":
+	
+	public function isPowered(){
+		$hash = $this->getHash();
+		if($this instanceof Transparent){
+			if($this->isPointCharged()){
 				return true;
-		}
-
-		return false;
-	}
-
-	/**
-	 * @param string $variable
-	 * @param bool   $value
-	 */
-	public function setConfigBool($variable, $value){
-		$this->properties->set($variable, $value == true ? "1" : "0");
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return PluginIdentifiableCommand
-	 */
-	public function getPluginCommand($name){
-		if(($command = $this->commandMap->getCommand($name)) instanceof PluginIdentifiableCommand){
-			return $command;
-		}else{
-			return null;
-		}
-	}
-
-	/**
-	 * @return BanList
-	 */
-	public function getNameBans(){
-		return $this->banByName;
-	}
-
-	/**
-	 * @return BanList
-	 */
-	public function getIPBans(){
-		return $this->banByIP;
-	}
-
-	/**
-	 * @param string $name
-	 */
-	public function addOp($name){
-		$this->operators->set(strtolower($name), true);
-
-		if(($player = $this->getPlayerExact($name)) !== null){
-			$player->recalculatePermissions();
-		}
-		$this->operators->save(true);
-	}
-
-	/**
-	 * @param string $name
-	 */
-	public function removeOp($name){
-		$this->operators->remove(strtolower($name));
-
-		if(($player = $this->getPlayerExact($name)) !== null){
-			$player->recalculatePermissions();
-		}
-		$this->operators->save();
-	}
-
-	/**
-	 * @param string $name
-	 */
-	public function addWhitelist($name){
-		$this->whitelist->set(strtolower($name), true);
-		$this->whitelist->save(true);
-	}
-
-	/**
-	 * @param string $name
-	 */
-	public function removeWhitelist($name){
-		$this->whitelist->remove(strtolower($name));
-		$this->whitelist->save();
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return bool
-	 */
-	public function isWhitelisted($name){
-		return !$this->hasWhitelist() or $this->operators->exists($name, true) or $this->whitelist->exists($name, true);
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return bool
-	 */
-	public function isOp($name){
-		return $this->operators->exists($name, true);
-	}
-
-	/**
-	 * @return Config
-	 */
-	public function getWhitelisted(){
-		return $this->whitelist;
-	}
-
-	/**
-	 * @return Config
-	 */
-	public function getOps(){
-		return $this->operators;
-	}
-
-	public function reloadWhitelist(){
-		$this->whitelist->reload();
-	}
-
-	/**
-	 * @return string[]
-	 */
-	public function getCommandAliases(){
-		$section = $this->getProperty("aliases");
-		$result = [];
-		if(is_array($section)){
-			foreach($section as $key => $value){
-				$commands = [];
-				if(is_array($value)){
-					$commands = $value;
-				}else{
-					$commands[] = $value;
-				}
-
-				$result[$key] = $commands;
 			}
-		}
-
-		return $result;
-	}
-
-	/**
-	 * @return Server
-	 */
-	public static function getInstance(){
-		return self::$instance;
-	}
-	
-	/**
-	 * @param \ClassLoader    $autoloader
-	 * @param \ThreadedLogger $logger
-	 * @param string          $filePath
-	 * @param string          $dataPath
-	 * @param string          $pluginPath
-	 */
-	public function __construct(\ClassLoader $autoloader, \ThreadedLogger $logger, $filePath, $dataPath, $pluginPath){
-		self::$instance = $this;
-
-		$this->autoloader = $autoloader;
-		$this->logger = $logger;
-		$this->filePath = $filePath;
-		if(!file_exists($dataPath . "worlds/")){
-			mkdir($dataPath . "worlds/", 0777);
-		}
-
-		if(!file_exists($dataPath . "players/")){
-			mkdir($dataPath . "players/", 0777);
-		}
-
-		if(!file_exists($pluginPath)){
-			mkdir($pluginPath, 0777);
-		}
-
-		$this->dataPath = realpath($dataPath) . DIRECTORY_SEPARATOR;
-		$this->pluginPath = realpath($pluginPath) . DIRECTORY_SEPARATOR;
-
-		$this->console = new CommandReader();
-		$version = new VersionString($this->getBukkitPEVersion());
-         	$this->logger->info("§6-----------------------------------------------------------------------------");
-                               $this->logger->info("§6|§d                           ____        _    _    _ _  §b _____  ______       §6|");
-                               $this->logger->info("§6|§d                          |  _ \      | |  | |  (_) | §b|  __ \|  ____|      §6|");
-                               $this->logger->info("§6|§d                          | |_) |_   _| | _| | ___| |_§b| |__) | |__         §6|");
-                               $this->logger->info("§6|§d                          |  _ <| | | | |/ / |/ / | __§b|  ___/|  __|        §6|");
-                               $this->logger->info("§6|§d                          |  _ <| | | | |/ / |/ / | __§b|  ___/|  __|        §6|");
-                               $this->logger->info("§6|§d                          | |_) | |_| |   <|   <| | |_§b| |    | |____       §6|");
-                               $this->logger->info("§6|§d                          |____/ \__,_|_|\_\_|\_\_|\__§b|_|    |______|      §6|");
-                               $this->logger->info("§6|§d Website our site now! +-> www.BukkitPE.net                                §6|");
-            $this->logger->info("§6-----------------------------------------------------------------------------");
-		if(!file_exists($this->dataPath . "BukkitPE.yml")){
-			$content = file_get_contents($this->filePath . "src/BukkitPE/resources/BukkitPE.yml");
-			if($version->isDev()){
-				$content = str_replace("preferred-channel: stable", "preferred-channel: beta", $content);
-			}
-			@file_put_contents($this->dataPath . "BukkitPE.yml", $content);
-		}
-		$this->config = new Config($this->dataPath . "BukkitPE.yml", Config::YAML, []);
-
-		$this->logger->info("Loading server properties...");
-		$this->properties = new Config($this->dataPath . "server.properties", Config::PROPERTIES, [
-			"motd" => " A BukkitPE: Server",
-			"server-port" => 19132,
-			"white-list" => false,
-			"announce-player-achievements" => true,
-			"spawn-protection" => 16,
-			"max-players" => 30,
-			"allow-flight" => false,
-			"spawn-animals" => true,
-			"spawn-mobs" => true,
-			"gamemode" => 0,
-			"force-gamemode" => false,
-			"hardcore" => false,
-			"pvp" => true,
-			"difficulty" => 1,
-			"generator-settings" => "",
-			"level-name" => "world",
-			"level-seed" => "",
-			"level-type" => "DEFAULT",
-			"enable-query" => true,
-			"enable-rcon" => false,
-			"rcon.password" => substr(base64_encode(@Utils::getRandomBytes(20, false)), 3, 10),
-			"auto-save" => true,
-		]);
-		$this->forceLanguage = $this->getProperty("settings.force-language", false);
-		$this->baseLang = new BaseLang($this->getProperty("settings.language", BaseLang::FALLBACK_LANGUAGE));
-		$this->logger->info($this->getLanguage()->translateString("language.selected", [$this->getLanguage()->getName(), $this->getLanguage()->getLang()]));
-
-		$this->memoryManager = new MemoryManager($this);
-
-		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.start", [TextFormat::AQUA . $this->getVersion()]));
-
-		if(($poolSize = $this->getProperty("settings.async-workers", "auto")) === "auto"){
-			$poolSize = ServerScheduler::$WORKERS;
-			$processors = Utils::getCoreCount() - 2;
-
-			if($processors > 0){
-				$poolSize = max(1, $processors);
-			}
-		}
-
-		ServerScheduler::$WORKERS = $poolSize;
-
-		if($this->getProperty("network.batch-threshold", 256) >= 0){
-			Network::$BATCH_THRESHOLD = (int) $this->getProperty("network.batch-threshold", 256);
-		}else{
-			Network::$BATCH_THRESHOLD = -1;
-		}
-		$this->networkCompressionLevel = $this->getProperty("network.compression-level", 7);
-		$this->networkCompressionAsync = $this->getProperty("network.async-compression", true);
-
-		$this->autoTickRate = (bool) $this->getProperty("level-settings.auto-tick-rate", true);
-		$this->autoTickRateLimit = (int) $this->getProperty("level-settings.auto-tick-rate-limit", 20);
-		$this->alwaysTickPlayers = (int) $this->getProperty("level-settings.always-tick-players", false);
-		$this->baseTickRate = (int) $this->getProperty("level-settings.base-tick-rate", 1);
-
-		$this->scheduler = new ServerScheduler();
-
-		if($this->getConfigBoolean("enable-rcon", false) === true){
-			$this->rcon = new RCON($this, $this->getConfigString("rcon.password", ""), $this->getConfigInt("rcon.port", $this->getPort()), ($ip = $this->getIp()) != "" ? $ip : "0.0.0.0", $this->getConfigInt("rcon.threads", 1), $this->getConfigInt("rcon.clients-per-thread", 50));
-		}
-
-		$this->entityMetadata = new EntityMetadataStore();
-		$this->playerMetadata = new PlayerMetadataStore();
-		$this->levelMetadata = new LevelMetadataStore();
-
-		$this->operators = new Config($this->dataPath . "ops.txt", Config::ENUM);
-		$this->whitelist = new Config($this->dataPath . "white-list.txt", Config::ENUM);
-		if(file_exists($this->dataPath . "banned.txt") and !file_exists($this->dataPath . "banned-players.txt")){
-			@rename($this->dataPath . "banned.txt", $this->dataPath . "banned-players.txt");
-		}
-		@touch($this->dataPath . "banned-players.txt");
-		$this->banByName = new BanList($this->dataPath . "banned-players.txt");
-		$this->banByName->load();
-		@touch($this->dataPath . "banned-ips.txt");
-		$this->banByIP = new BanList($this->dataPath . "banned-ips.txt");
-		$this->banByIP->load();
-
-		$this->maxPlayers = $this->getConfigInt("max-players", 20);
-		$this->setAutoSave($this->getConfigBoolean("auto-save", true));
-
-		if($this->getConfigBoolean("hardcore", false) === true and $this->getDifficulty() < 3){
-			$this->setConfigInt("difficulty", 3);
-		}
-
-		define("BukkitPE\\DEBUG", (int) $this->getProperty("debug.level", 1));
-		if($this->logger instanceof MainLogger){
-			$this->logger->setLogDebug(\BukkitPE\DEBUG > 1);
-		}
-
-		if(\BukkitPE\DEBUG >= 0){
-			@cli_set_process_title($this->getName() . " " . $this->getBukkitPEVersion());
-		}
-
-		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.networkStart", [$this->getIp() === "" ? "*" : $this->getIp(), $this->getPort()]));
-		define("BOOTUP_RANDOM", @Utils::getRandomBytes(16));
-		$this->serverID = Utils::getMachineUniqueId($this->getIp() . $this->getPort());
-
-		$this->getLogger()->debug("Server unique id: " . $this->getServerUniqueId());
-		$this->getLogger()->debug("Machine unique id: " . Utils::getMachineUniqueId());
-
-		$this->network = new Network($this);
-		$this->network->setName($this->getMotd());
-
-
-		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.info", [
-			$this->getName(),
-			$this->getCodename(),
-			$this->getApiVersion()
-		]));
-		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.license", [$this->getName()]));
-		Timings::init();
-		$this->consoleSender = new ConsoleCommandSender();
-		$this->commandMap = new SimpleCommandMap($this);
-
-		$this->registerEntities();
-		$this->registerTiles();
-
-		InventoryType::init();
-		Block::init();
-		Item::init();
-		Biome::init();
-		Effect::init();
-		Enchantment::init();
-		Attribute::init();
-		/** TODO: @deprecated */
-		TextWrapper::init();
-		$this->craftingManager = new CraftingManager();
-
-		$this->pluginManager = new PluginManager($this, $this->commandMap);
-		$this->pluginManager->subscribeToPermission(Server::BROADCAST_CHANNEL_ADMINISTRATIVE, $this->consoleSender);
-		$this->pluginManager->setUseTimings($this->getProperty("settings.enable-profiling", false));
-		$this->profilingTickRate = (float) $this->getProperty("settings.profile-report-trigger", 20);
-		$this->pluginManager->registerInterface(PharPluginLoader::class);
-		$this->pluginManager->registerInterface(ScriptPluginLoader::class);
-
-		set_exception_handler([$this, "exceptionHandler"]);
-		register_shutdown_function([$this, "crashDump"]);
-
-		$this->queryRegenerateTask = new QueryRegenerateEvent($this, 5);
-
-		$this->network->registerInterface(new RakLibInterface($this));
-
-		$this->pluginManager->loadPlugins($this->pluginPath);
-
-		$this->enablePlugins(PluginLoadOrder::STARTUP);
-
-		LevelProviderManager::addProvider($this, Anvil::class);
-		LevelProviderManager::addProvider($this, McRegion::class);
-		if(extension_loaded("leveldb")){
-			$this->logger->debug($this->getLanguage()->translateString("BukkitPE.debug.enable"));
-			LevelProviderManager::addProvider($this, LevelDB::class);
-		}
-
-
-		Generator::addGenerator(Flat::class, "flat");
-		Generator::addGenerator(Normal::class, "normal");
-		Generator::addGenerator(Normal::class, "default");
-		Generator::addGenerator(Nether::class, "hell");
-		Generator::addGenerator(Nether::class, "nether");
-
-		foreach((array) $this->getProperty("worlds", []) as $name => $worldSetting){
-			if($this->loadLevel($name) === false){
-				$seed = $this->getProperty("worlds.$name.seed", time());
-				$options = explode(":", $this->getProperty("worlds.$name.generator", Generator::getGenerator("default")));
-				$generator = Generator::getGenerator(array_shift($options));
-				if(count($options) > 0){
-					$options = [
-						"preset" => implode(":", $options),
-					];
-				}else{
-					$options = [];
-				}
-
-				$this->generateLevel($name, $seed, $generator, $options);
-			}
-		}
-
-		if($this->getDefaultLevel() === null){
-			$default = $this->getConfigString("level-name", "world");
-			if(trim($default) == ""){
-				$this->getLogger()->warning("level-name cannot be null, using default");
-				$default = "world";
-				$this->setConfigString("level-name", "world");
-			}
-			if($this->loadLevel($default) === false){
-				$seed = $this->getConfigInt("level-seed", time());
-				$this->generateLevel($default, $seed === 0 ? time() : $seed);
-			}
-
-			$this->setDefaultLevel($this->getLevelByName($default));
-		}
-
-
-		$this->properties->save(true);
-
-		if(!($this->getDefaultLevel() instanceof Level)){
-			$this->getLogger()->emergency($this->getLanguage()->translateString("BukkitPE.level.defaultError"));
-			$this->forceShutdown();
-
-			return;
-		}
-
-		if($this->getProperty("ticks-per.autosave", 6000) > 0){
-			$this->autoSaveTicks = (int) $this->getProperty("ticks-per.autosave", 6000);
-		}
-
-		$this->enablePlugins(PluginLoadOrder::POSTWORLD);
-
-		$this->start();
-	}
-
-	/**
-	 * @param string        $message
-	 * @param Player[]|null $recipients
-	 *
-	 * @return int
-	 */
-	public function broadcastMessage($message, $recipients = null){
-		if(!is_array($recipients)){
-			return $this->broadcast($message, self::BROADCAST_CHANNEL_USERS);
-		}
-
-		/** @var Player[] $recipients */
-		foreach($recipients as $recipient){
-			$recipient->sendMessage($message);
-		}
-
-		return count($recipients);
-	}
-
-	/**
-	 * @param string        $tip
-	 * @param Player[]|null $recipients
-	 *
-	 * @return int
-	 */
-	public function broadcastTip($tip, $recipients = null){
-		if(!is_array($recipients)){
-			/** @var Player[] $recipients */
-			$recipients = [];
-
-			foreach($this->pluginManager->getPermissionSubscriptions(self::BROADCAST_CHANNEL_USERS) as $permissible){
-				if($permissible instanceof Player and $permissible->hasPermission(self::BROADCAST_CHANNEL_USERS)){
-					$recipients[spl_object_hash($permissible)] = $permissible; // do not send messages directly, or some might be repeated
-				}
-			}
-		}
-
-		/** @var Player[] $recipients */
-		foreach($recipients as $recipient){
-			$recipient->sendTip($tip);
-		}
-
-		return count($recipients);
-	}
-
-	/**
-	 * @param string        $popup
-	 * @param Player[]|null $recipients
-	 *
-	 * @return int
-	 */
-	public function broadcastPopup($popup, $recipients = null){
-		if(!is_array($recipients)){
-			/** @var Player[] $recipients */
-			$recipients = [];
-
-			foreach($this->pluginManager->getPermissionSubscriptions(self::BROADCAST_CHANNEL_USERS) as $permissible){
-				if($permissible instanceof Player and $permissible->hasPermission(self::BROADCAST_CHANNEL_USERS)){
-					$recipients[spl_object_hash($permissible)] = $permissible; // do not send messages directly, or some might be repeated
-				}
-			}
-		}
-
-		/** @var Player[] $recipients */
-		foreach($recipients as $recipient){
-			$recipient->sendPopup($popup);
-		}
-
-		return count($recipients);
-	}
-
-	/**
-	 * @param string $message
-	 * @param string $permissions
-	 *
-	 * @return int
-	 */
-	public function broadcast($message, $permissions){
-		/** @var CommandSender[] $recipients */
-		$recipients = [];
-		foreach(explode(";", $permissions) as $permission){
-			foreach($this->pluginManager->getPermissionSubscriptions($permission) as $permissible){
-				if($permissible instanceof CommandSender and $permissible->hasPermission($permission)){
-					$recipients[spl_object_hash($permissible)] = $permissible; // do not send messages directly, or some might be repeated
-				}
-			}
-		}
-
-		foreach($recipients as $recipient){
-			$recipient->sendMessage($message);
-		}
-
-		return count($recipients);
-	}
-
-	/**
-	 * Broadcasts a Minecraft packet to a list of players
-	 *
-	 * @param Player[]   $players
-	 * @param DataPacket $packet
-	 */
-	public static function broadcastPacket(array $players, DataPacket $packet){
-		$packet->encode();
-		$packet->isEncoded = true;
-		if(Network::$BATCH_THRESHOLD >= 0 and strlen($packet->buffer) >= Network::$BATCH_THRESHOLD){
-			Server::getInstance()->batchPackets($players, [$packet->buffer], false, $packet->getChannel());
-			return;
-		}
-
-		foreach($players as $player){
-			$player->dataPacket($packet);
-		}
-		if(isset($packet->__encapsulatedPacket)){
-			unset($packet->__encapsulatedPacket);
-		}
-	}
-
-	/**
-	 * Broadcasts a list of packets in a batch to a list of players
-	 *
-	 * @param Player[]            $players
-	 * @param DataPacket[]|string $packets
-	 * @param bool                $forceSync
-	 * @param int                 $channel
-	 */
-	public function batchPackets(array $players, array $packets, $forceSync = false, $channel = 0){
-		Timings::$playerNetworkTimer->startTiming();
-		$str = "";
-
-		foreach($packets as $p){
-			if($p instanceof DataPacket){
-				if(!$p->isEncoded){
-					$p->encode();
-				}
-				$str .= Binary::writeInt(strlen($p->buffer)) . $p->buffer;
-			}else{
-				$str .= Binary::writeInt(strlen($p)) . $p;
-			}
-		}
-
-		$targets = [];
-		foreach($players as $p){
-			if($p->isConnected()){
-				$targets[] = $this->identifiers[spl_object_hash($p)];
-			}
-		}
-
-		if(!$forceSync and $this->networkCompressionAsync){
-			$task = new CompressBatchedTask($str, $targets, $this->networkCompressionLevel, $channel);
-			$this->getScheduler()->scheduleAsyncTask($task);
-		}else{
-			$this->broadcastPacketsCallback(zlib_encode($str, ZLIB_ENCODING_DEFLATE, $this->networkCompressionLevel), $targets, $channel);
-		}
-
-		Timings::$playerNetworkTimer->stopTiming();
-	}
-
-	public function broadcastPacketsCallback($data, array $identifiers){
-		$pk = new BatchPacket();
-		$pk->payload = $data;
-		$pk->encode();
-		$pk->isEncoded = true;
-
-		foreach($identifiers as $i){
-			if(isset($this->players[$i])){
-				$this->players[$i]->dataPacket($pk);
-			}
-		}
-	}
-
-
-	/**
-	 * @param int $type
-	 */
-	public function enablePlugins($type){
-		foreach($this->pluginManager->getPlugins() as $plugin){
-			if(!$plugin->isEnabled() and $plugin->getDescription()->getOrder() === $type){
-				$this->enablePlugin($plugin);
-			}
-		}
-
-		if($type === PluginLoadOrder::POSTWORLD){
-			$this->commandMap->registerServerAliases();
-			DefaultPermissions::registerCorePermissions();
-		}
-	}
-
-	/**
-	 * @param Plugin $plugin
-	 */
-	public function enablePlugin(Plugin $plugin){
-		$this->pluginManager->enablePlugin($plugin);
-	}
-
-	/**
-	 * @param Plugin $plugin
-	 *
-	 * @deprecated
-	 */
-	public function loadPlugin(Plugin $plugin){
-		$this->enablePlugin($plugin);
-	}
-
-	public function disablePlugins(){
-		$this->pluginManager->disablePlugins();
-	}
-
-	public function checkConsole(){
-		Timings::$serverCommandTimer->startTiming();
-		if(($line = $this->console->getLine()) !== null){
-			$this->pluginManager->callEvent($ev = new ServerCommandEvent($this->consoleSender, $line));
-			if(!$ev->isCancelled()){
-				$this->dispatchCommand($ev->getSender(), $ev->getCommand());
-			}
-		}
-		Timings::$serverCommandTimer->stopTiming();
-	}
-
-	/**
-	 * Executes a command from a CommandSender
-	 *
-	 * @param CommandSender $sender
-	 * @param string        $commandLine
-	 *
-	 * @return bool
-	 *
-	 * @throws \Exception
-	 */
-	public function dispatchCommand(CommandSender $sender, $commandLine){
-		if(!($sender instanceof CommandSender)){
-			throw new ServerException("CommandSender is not valid");
-		}
-
-		if($this->commandMap->dispatch($sender, $commandLine)){
+		}elseif($this->isCharged($hash)){
 			return true;
 		}
-
-
-		$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.generic.notFound"));
-
+		for($side = 0; $side <= 5; $side++){
+			$near = $this->getSide($side);
+			if($near->isCharged($hash) or ($near instanceof RedstoneSwitch and $near->getPower()>0)){
+				return true;
+			}
+		}
 		return false;
 	}
 
-	public function reload(){
-		$this->logger->info("Saving levels...");
-
-		foreach($this->levels as $level){
-			$level->save();
+	public function BroadcastRedstoneUpdate($type, $power){
+		if(!$this->getSide(0) instanceof RedstoneSource){
+			$this->getLevel()->setRedstoneUpdate($this->getSide(0), Block::REDSTONEDELAY, $type, $power);
 		}
-
-		$this->pluginManager->disablePlugins();
-		$this->pluginManager->clearPlugins();
-		$this->commandMap->clearCommands();
-
-		$this->logger->info("Reloading properties...");
-		$this->properties->reload();
-		$this->maxPlayers = $this->getConfigInt("max-players", 20);
-
-		if($this->getConfigBoolean("hardcore", false) === true and $this->getDifficulty() < 3){
-			$this->setConfigInt("difficulty", 3);
-		}
-
-		$this->banByIP->load();
-		$this->banByName->load();
-		$this->reloadWhitelist();
-		$this->operators->reload();
-
-		$this->memoryManager->doObjectCleanup();
-
-		foreach($this->getIPBans()->getEntries() as $entry){
-			$this->getNetwork()->blockAddress($entry->getName(), -1);
-		}
-
-		$this->pluginManager->registerInterface(PharPluginLoader::class);
-		$this->pluginManager->registerInterface(ScriptPluginLoader::class);
-		$this->pluginManager->loadPlugins($this->pluginPath);
-		$this->enablePlugins(PluginLoadOrder::STARTUP);
-		$this->enablePlugins(PluginLoadOrder::POSTWORLD);
-		TimingsHandler::reload();
-	}
-	
-	public function setshutdownreason($reason){
-		$this->shutdownreason = $reason;
-	}
-	/**
-	 * Shutdowns the server correctly
-	 */
-	public function shutdown(){
-		if($this->isRunning){
-			$killer = new ServerKiller(90);
-			$killer->start();
-			$killer->detach();
-		}
-		$this->isRunning = false;
-	}
-
-	public function forceShutdown(){
-		if($this->hasStopped){
-			return;
-		}
-
-		try{
-			if(!$this->isRunning()){
-				$this->sendUsage(SendUsageTask::TYPE_CLOSE);
-			}
-
-			$this->hasStopped = true;
-
-			$this->shutdown();
-			if($this->rcon instanceof RCON){
-				$this->rcon->stop();
-			}
-
-			if($this->getProperty("network.upnp-forwarding", false) === true){
-				$this->logger->info("[UPnP] Removing port forward...");
-				UPnP::RemovePortForward($this->getPort());
-			}
-
-			$this->getLogger()->debug("Disabling all plugins");
-			$this->pluginManager->disablePlugins();
-
-			foreach($this->players as $player){
-				$reason = $this->shutdownreason;
-				if(trim($reason) !== ""){
-					$player->close($player->getLeaveMessage(), $reason);
-				}else{
-					$player->close($player->getLeaveMessage(), $this->getProperty("settings.shutdown-message", "Server closed"));
-				}
-			}
-
-			$this->getLogger()->debug("Unloading all levels");
-			foreach($this->getLevels() as $level){
-				$this->unloadLevel($level, true);
-			}
-
-			$this->getLogger()->debug("Removing event handlers");
-			HandlerList::unregisterAll();
-
-			$this->getLogger()->debug("Stopping all tasks");
-			$this->scheduler->cancelAllTasks();
-			$this->scheduler->mainThreadHeartbeat(PHP_INT_MAX);
-
-			$this->getLogger()->debug("Saving properties");
-			$this->properties->save();
-
-			$this->getLogger()->debug("Closing console");
-			$this->console->kill();
-
-			$this->getLogger()->debug("Stopping network interfaces");
-			foreach($this->network->getInterfaces() as $interface){
-				$interface->shutdown();
-				$this->network->unregisterInterface($interface);
-			}
-
-			$this->memoryManager->doObjectCleanup();
-
-			gc_collect_cycles();
-		}catch(\Exception $e){
-			$this->logger->emergency("Crashed while crashing, killing process");
-			@kill(getmypid());
-		}
-
-	}
-
-	public function getQueryInformation(){
-		return $this->queryRegenerateTask;
-	}
-
-	/**
-	 * Starts the BukkitPE server and starts processing ticks and packets
-	 */
-	public function start(){
-		if($this->getConfigBoolean("enable-query", true) === true){
-			$this->queryHandler = new QueryHandler();
-		}
-
-		foreach($this->getIPBans()->getEntries() as $entry){
-			$this->network->blockAddress($entry->getName(), -1);
-		}
-
-		if($this->getProperty("settings.send-usage", true)){
-			$this->sendUsageTicker = 6000;
-			$this->sendUsage(SendUsageTask::TYPE_OPEN);
-		}
-
-
-		if($this->getProperty("network.upnp-forwarding", false) == true){
-			$this->logger->info("[UPnP] Trying to port forward...");
-			UPnP::PortForward($this->getPort());
-		}
-
-		$this->tickCounter = 0;
-
-		if(function_exists("pcntl_signal")){
-			pcntl_signal(SIGTERM, [$this, "handleSignal"]);
-			pcntl_signal(SIGINT, [$this, "handleSignal"]);
-			pcntl_signal(SIGHUP, [$this, "handleSignal"]);
-			$this->dispatchSignals = true;
-		}
-
-		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.defaultGameMode", [self::getGamemodeString($this->getGamemode())]));
-
-		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.startFinished", [round(microtime(true) - \BukkitPE\START_TIME, 3)]));
-
-		$this->tickProcessor();
-		$this->forceShutdown();
-
-		gc_collect_cycles();
-	}
-
-	public function handleSignal($signo){
-		if($signo === SIGTERM or $signo === SIGINT or $signo === SIGHUP){
-			$this->shutdown();
+		for($side = 1; $side <= 5; $side++){
+			$around = $this->getSide($side);
+			$this->getLevel()->setRedstoneUpdate($around, Block::REDSTONEDELAY, $type, $power);
 		}
 	}
 
-	public function exceptionHandler(\Exception $e, $trace = null){
-		if($e === null){
-			return;
-		}
-
-		global $lastError;
-
-		if($trace === null){
-			$trace = $e->getTrace();
-		}
-
-		$errstr = $e->getMessage();
-		$errfile = $e->getFile();
-		$errno = $e->getCode();
-		$errline = $e->getLine();
-
-		$type = ($errno === E_ERROR or $errno === E_USER_ERROR) ? \LogLevel::ERROR : (($errno === E_USER_WARNING or $errno === E_WARNING) ? \LogLevel::WARNING : \LogLevel::NOTICE);
-		if(($pos = strpos($errstr, "\n")) !== false){
-			$errstr = substr($errstr, 0, $pos);
-		}
-
-		$errfile = cleanPath($errfile);
-
-		if($this->logger instanceof MainLogger){
-			$this->logger->logException($e, $trace);
-		}
-
-		$lastError = [
-			"type" => $type,
-			"message" => $errstr,
-			"fullFile" => $e->getFile(),
-			"file" => $errfile,
-			"line" => $errline,
-			"trace" => @getTrace(1, $trace)
-		];
-
-		global $lastExceptionError, $lastError;
-		$lastExceptionError = $lastError;
-		$this->crashDump();
-	}
-
-	public function crashDump(){
-		if($this->isRunning === false){
-			return;
-		}
-		if($this->sendUsageTicker > 0){
-			$this->sendUsage(SendUsageTask::TYPE_CLOSE);
-		}
-		$this->hasStopped = false;
-
-		ini_set("error_reporting", 0);
-		ini_set("memory_limit", -1); //Fix error dump not dumped on memory problems
-		$this->logger->emergency($this->getLanguage()->translateString("BukkitPE.crash.create"));
-		try{
-			$dump = new CrashDump($this);
-		}catch(\Exception $e){
-			$this->logger->critical($this->getLanguage()->translateString("BukkitPE.crash.error", $e->getMessage()));
-			return;
-		}
-
-		$this->logger->emergency($this->getLanguage()->translateString("BukkitPE.crash.submit", [$dump->getPath()]));
-
-
-		if($this->getProperty("auto-report.enabled", true) !== false){
-			$report = true;
-			$plugin = $dump->getData()["plugin"];
-			if(is_string($plugin)){
-				$p = $this->pluginManager->getPlugin($plugin);
-				if($p instanceof Plugin and !($p->getPluginLoader() instanceof PharPluginLoader)){
-					$report = false;
-				}
-			}elseif(\Phar::running(true) == ""){
-				$report = false;
-			}
-			if($dump->getData()["error"]["type"] === "E_PARSE" or $dump->getData()["error"]["type"] === "E_COMPILE_ERROR"){
-				$report = false;
-			}
-
-			if($report){
-				$reply = Utils::postURL("http://" . $this->getProperty("auto-report.host", "crash.BukkitPE.net") . "/submit/api", [
-					"report" => "yes",
-					"name" => $this->getName() . " " . $this->getBukkitPEVersion(),
-					"email" => "crash@BukkitPE.net",
-					"reportPaste" => base64_encode($dump->getEncodedData())
-				]);
-
-				if(($data = json_decode($reply)) !== false and isset($data->crashId)){
-					$reportId = $data->crashId;
-					$reportUrl = $data->crashUrl;
-					$this->logger->emergency($this->getLanguage()->translateString("BukkitPE.crash.archive", [$reportUrl, $reportId]));
-				}
-			}
-		}
-
-		//$this->checkMemory();
-		//$dump .= "Memory Usage Tracking: \r\n" . chunk_split(base64_encode(gzdeflate(implode(";", $this->memoryStats), 9))) . "\r\n";
-
-		$this->forceShutdown();
-		$this->isRunning = false;
-		@kill(getmypid());
-		exit(1);
-	}
-
-	public function __debugInfo(){
-		return [];
-	}
-
-	private function tickProcessor(){
-		$this->nextTick = microtime(true);
-		while($this->isRunning){
-			$this->tick();
-			$next = $this->nextTick - 0.0001;
-			if($next > microtime(true)){
-				try{
-					time_sleep_until($next);
-				}catch(\Exception $e){
-					//Sometimes $next is less than the current time. High load?
-				}
-			}
-		}
-	}
-
-	public function onPlayerLogin(Player $player){
-		if($this->sendUsageTicker > 0){
-			$this->uniquePlayers[$player->getRawUniqueId()] = $player->getRawUniqueId();
-		}
-
-		$this->sendFullPlayerListData($player);
-		$this->sendRecipeList($player);
-	}
-
-	public function addPlayer($identifier, Player $player){
-		$this->players[$identifier] = $player;
-		$this->identifiers[spl_object_hash($player)] = $identifier;
-	}
-
-	public function addOnlinePlayer(Player $player){
-		$this->playerList[$player->getRawUniqueId()] = $player;
-
-		$this->updatePlayerListData($player->getUniqueId(), $player->getId(), $player->getDisplayName(), $player->getSkinName(), $player->getSkinData());
-	}
-
-	public function removeOnlinePlayer(Player $player){
-		if(isset($this->playerList[$player->getRawUniqueId()])){
-			unset($this->playerList[$player->getRawUniqueId()]);
-
-			$pk = new PlayerListPacket();
-			$pk->type = PlayerListPacket::TYPE_REMOVE;
-			$pk->entries[] = [$player->getUniqueId()];
-			Server::broadcastPacket($this->playerList, $pk);
-		}
-	}
-
-	public function updatePlayerListData(UUID $uuid, $entityId, $name, $skinName, $skinData, array $players = null){
-		$pk = new PlayerListPacket();
-		$pk->type = PlayerListPacket::TYPE_ADD;
-		$pk->entries[] = [$uuid, $entityId, $name, $skinName, $skinData];
-		Server::broadcastPacket($players === null ? $this->playerList : $players, $pk);
-	}
-
-	public function removePlayerListData(UUID $uuid, array $players = null){
-		$pk = new PlayerListPacket();
-		$pk->type = PlayerListPacket::TYPE_REMOVE;
-		$pk->entries[] = [$uuid];
-		Server::broadcastPacket($players === null ? $this->playerList : $players, $pk);
-	}
-
-	public function sendFullPlayerListData(Player $p){
-		$pk = new PlayerListPacket();
-		$pk->type = PlayerListPacket::TYPE_ADD;
-		foreach($this->playerList as $player){
-			$pk->entries[] = [$player->getUniqueId(), $player->getId(), $player->getDisplayName(), $player->getSkinName(), $player->getSkinData()];
-		}
-
-		$p->dataPacket($pk);
-	}
-
-	public function sendRecipeList(Player $p){
-		$pk = new CraftingDataPacket();
-		$pk->cleanRecipes = true;
-
-		foreach($this->getCraftingManager()->getRecipes() as $recipe){
-			if($recipe instanceof ShapedRecipe){
-				$pk->addShapedRecipe($recipe);
-			}elseif($recipe instanceof ShapelessRecipe){
-				$pk->addShapelessRecipe($recipe);
-			}
-		}
-
-		foreach($this->getCraftingManager()->getFurnaceRecipes() as $recipe){
-			$pk->addFurnaceRecipe($recipe);
-		}
-
-		$p->dataPacket($pk);
-	}
-
-	private function checkTickUpdates($currentTick, $tickTime){
-		foreach($this->players as $p){
-			if(!$p->loggedIn and ($tickTime - $p->creationTime) >= 10){
-				$p->close("", "Login timeout");
-			}elseif($this->alwaysTickPlayers){
-				$p->onUpdate($currentTick);
-			}
-		}
-
-		//Do level ticks
-		foreach($this->getLevels() as $level){
-			if($level->getTickRate() > $this->baseTickRate and --$level->tickRateCounter > 0){
-				continue;
-			}
-			try{
-				$levelTime = microtime(true);
-				$level->doTick($currentTick);
-				$tickMs = (microtime(true) - $levelTime) * 1000;
-				$level->tickRateTime = $tickMs;
-
-				if($this->autoTickRate){
-					if($tickMs < 50 and $level->getTickRate() > $this->baseTickRate){
-						$level->setTickRate($r = $level->getTickRate() - 1);
-						if($r > $this->baseTickRate){
-							$level->tickRateCounter = $level->getTickRate();
-						}
-						$this->getLogger()->debug("Raising level \"" . $level->getName() . "\" tick rate to " . $level->getTickRate() . " ticks");
-					}elseif($tickMs >= 50){
-						if($level->getTickRate() === $this->baseTickRate){
-							$level->setTickRate(max($this->baseTickRate + 1, min($this->autoTickRateLimit, floor($tickMs / 50))));
-							$this->getLogger()->debug("Level \"" . $level->getName() . "\" took " . round($tickMs, 2) . "ms, setting tick rate to " . $level->getTickRate() . " ticks");
-						}elseif(($tickMs / $level->getTickRate()) >= 50 and $level->getTickRate() < $this->autoTickRateLimit){
-							$level->setTickRate($level->getTickRate() + 1);
-							$this->getLogger()->debug("Level \"" . $level->getName() . "\" took " . round($tickMs, 2) . "ms, setting tick rate to " . $level->getTickRate() . " ticks");
-						}
-						$level->tickRateCounter = $level->getTickRate();
-					}
-				}
-			}catch(\Exception $e){
-				$this->logger->critical($this->getLanguage()->translateString("BukkitPE.level.tickError", [$level->getName(), $e->getMessage()]));
-				if(\BukkitPE\DEBUG > 1 and $this->logger instanceof MainLogger){
-					$this->logger->logException($e);
-				}
-			}
-		}
-	}
-
-	public function doAutoSave(){
-		if($this->getAutoSave()){
-			Timings::$worldSaveTimer->startTiming();
-			foreach($this->players as $index => $player){
-				if($player->isOnline()){
-					$player->save(true);
-				}elseif(!$player->isConnected()){
-					$this->removePlayer($player);
-				}
-			}
-
-			foreach($this->getLevels() as $level){
-				$level->save(false);
-			}
-			Timings::$worldSaveTimer->stopTiming();
-		}
-	}
-
-	public function sendUsage($type = SendUsageTask::TYPE_STATUS){
-		$this->scheduler->scheduleAsyncTask(new SendUsageTask($this, $type, $this->uniquePlayers));
-		$this->uniquePlayers = [];
-	}
-
-
-	/**
-	 * @return BaseLang
-	 */
-	public function getLanguage(){
-		return $this->baseLang;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isLanguageForced(){
-		return $this->forceLanguage;
-	}
-
-	/**
-	 * @return Network
-	 */
-	public function getNetwork(){
-		return $this->network;
-	}
-
-	/**
-	 * @return MemoryManager
-	 */
-	public function getMemoryManager(){
-		return $this->memoryManager;
-	}
-
-	private function titleTick(){
-		if(!Terminal::hasFormattingCodes()){
+	public function onRedstoneUpdate($type, $power){
+		if($type == Level::REDSTONE_UPDATE_BLOCK){
 			return;
 		}
 		
-		if($this->getProperty("I/O.title-usage", true)){
-			$d = Utils::getRealMemoryUsage();
-
-			$u = Utils::getMemoryUsage(true);
-			$usage = round(($u[0] / 1024) / 1024, 2) . "/" . round(($d[0] / 1024) / 1024, 2) . "/" . round(($u[1] / 1024) / 1024, 2) . "/" . round(($u[2] / 1024) / 1024, 2) . " MB @ " . Utils::getThreadCount() . " threads";
-
-			echo "\x1b]0;" . $this->getName() . " " .
-				$this->getBukkitPEVersion() .
-				" | Online " . count($this->players) . "/" . $this->getMaxPlayers() .
-				" | Memory " . $usage .
-				" | U " . round($this->network->getUpload() / 1024, 2) .
-				" D " . round($this->network->getDownload() / 1024, 2) .
-				" kB/s | TPS " . $this->getTicksPerSecondAverage() .
-				" | Load " . $this->getTickUsageAverage() . "%\x07";
+		if($this instanceof Transparent){
+			return;
 		}
 
-		$this->network->resetStatistics();
+		$this->BroadcastRedstoneUpdate(Level::REDSTONE_UPDATE_BLOCK, $power);
+		
+		return;
 	}
-
+	
 	/**
-	 * @param string $address
-	 * @param int    $port
-	 * @param string $payload
+	 * Sets the block position to a new Position object
 	 *
-	 * TODO: move this to Network
+	 * @param Position $v
 	 */
-	public function handlePacket($address, $port, $payload){
-		try{
-			if(strlen($payload) > 2 and substr($payload, 0, 2) === "\xfe\xfd" and $this->queryHandler instanceof QueryHandler){
-				$this->queryHandler->handle($address, $port, $payload);
-			}
-		}catch(\Exception $e){
-			if(\BukkitPE\DEBUG > 1){
-				if($this->logger instanceof MainLogger){
-					$this->logger->logException($e);
-				}
-			}
-
-			$this->getNetwork()->blockAddress($address, 600);
-		}
-		//TODO: add raw packet events
+	final public function position(Position $v){
+		$this->x = (int) $v->x;
+		$this->y = (int) $v->y;
+		$this->z = (int) $v->z;
+		$this->level = $v->level;
+		$this->boundingBox = null;
 	}
 
 	/**
-	 * Tries to execute a server tick
+	 * Returns an array of Item objects to be dropped
+	 *
+	 * @param Item $item
+	 *
+	 * @return array
 	 */
-	private function tick(){
-		$tickTime = microtime(true);
-		if(($tickTime - $this->nextTick) < -0.025){ //Allow half a tick of diff
-			return false;
+	public function getDrops(Item $item){
+		if(!isset(self::$list[$this->getId()])){ //Unknown blocks
+			return [];
+		}else{
+			return [
+				[$this->getId(), $this->getDamage(), 1],
+			];
 		}
+	}
 
-		Timings::$serverTickTimer->startTiming();
-
-		++$this->tickCounter;
-
-		$this->checkConsole();
-
-		Timings::$connectionTimer->startTiming();
-		$this->network->processInterfaces();
-
-		if($this->rcon !== null){
-			$this->rcon->check();
-		}
-
-		Timings::$connectionTimer->stopTiming();
-
-		Timings::$schedulerTimer->startTiming();
-		$this->scheduler->mainThreadHeartbeat($this->tickCounter);
-		Timings::$schedulerTimer->stopTiming();
-
-		$this->checkTickUpdates($this->tickCounter, $tickTime);
-
-		foreach($this->players as $player){
-			$player->checkNetwork();
-		}
-
-		if(($this->tickCounter & 0b1111) === 0){
-			$this->titleTick();
-			$this->maxTick = 20;
-			$this->maxUse = 0;
-
-			if(($this->tickCounter & 0b111111111) === 0){
-				try{
-					$this->getPluginManager()->callEvent($this->queryRegenerateTask = new QueryRegenerateEvent($this, 5));
-					if($this->queryHandler !== null){
-						$this->queryHandler->regenerateInfo();
-					}
-				}catch(\Exception $e){
-					if($this->logger instanceof MainLogger){
-						$this->logger->logException($e);
-					}
+	/**
+	 * Returns the seconds that this block takes to be broken using an specific Item
+	 *
+	 * @param Item $item
+	 *
+	 * @return float
+	 */
+	public function getBreakTime(Item $item){
+		$base = $this->getHardness() * 1.5;
+		if($this->canBeBrokenWith($item)){
+			if($this->getToolType() === Tool::TYPE_SHEARS and $item->isShears()){
+				$base /= 15;
+			}elseif(
+				($this->getToolType() === Tool::TYPE_PICKAXE and ($tier = $item->isPickaxe()) !== false) or
+				($this->getToolType() === Tool::TYPE_AXE and ($tier = $item->isAxe()) !== false) or
+				($this->getToolType() === Tool::TYPE_SHOVEL and ($tier = $item->isShovel()) !== false)
+			){
+				switch($tier){
+					case Tool::TIER_WOODEN:
+						$base /= 2;
+						break;
+					case Tool::TIER_STONE:
+						$base /= 4;
+						break;
+					case Tool::TIER_IRON:
+						$base /= 6;
+						break;
+					case Tool::TIER_DIAMOND:
+						$base /= 8;
+						break;
+					case Tool::TIER_GOLD:
+						$base /= 12;
+						break;
 				}
 			}
-
-			$this->getNetwork()->updateName();
-		}
-
-		if($this->autoSave and ++$this->autoSaveTicker >= $this->autoSaveTicks){
-			$this->autoSaveTicker = 0;
-			$this->doAutoSave();
-		}
-
-		/*if($this->sendUsageTicker > 0 and --$this->sendUsageTicker === 0){
-			$this->sendUsageTicker = 6000;
-			$this->sendUsage(SendUsageTask::TYPE_STATUS);
-		}*/
-
-		if(($this->tickCounter % 100) === 0){
-			foreach($this->levels as $level){
-				$level->clearCache();
-			}
-
-			if($this->getTicksPerSecondAverage() < 12){
-				$this->logger->warning($this->getLanguage()->translateString("BukkitPE.server.tickOverload"));
-			}
-		}
-
-		if($this->dispatchSignals and $this->tickCounter % 5 === 0){
-			pcntl_signal_dispatch();
-		}
-
-		$this->getMemoryManager()->check();
-
-		Timings::$serverTickTimer->stopTiming();
-
-		$now = microtime(true);
-		$tick = min(20, 1 / max(0.001, $now - $tickTime));
-		$use = min(1, ($now - $tickTime) / 0.05);
-
-		TimingsHandler::tick($tick <= $this->profilingTickRate);
-
-		if($this->maxTick > $tick){
-			$this->maxTick = $tick;
-		}
-
-		if($this->maxUse < $use){
-			$this->maxUse = $use;
-		}
-
-		array_shift($this->tickAverage);
-		$this->tickAverage[] = $tick;
-		array_shift($this->useAverage);
-		$this->useAverage[] = $use;
-
-		if(($this->nextTick - $tickTime) < -1){
-			$this->nextTick = $tickTime;
 		}else{
-			$this->nextTick += 0.05;
+			$base *= 3.33;
 		}
 
-		return true;
+		if($item->isSword()){
+			$base *= 0.5;
+		}
+
+		return $base;
 	}
 
-	private function registerEntities(){
-		Entity::registerEntity(Arrow::class);
-		Entity::registerEntity(Bat::class);
-		Entity::registerEntity(Blaze::class);
-		Entity::registerEntity(Boat::class);
-		Entity::registerEntity(CavernSpider::class);
-		Entity::registerEntity(ChargedCreeper::class);
-		Entity::registerEntity(Chicken::class);
-		Entity::registerEntity(Cow::class);
-		Entity::registerEntity(Creeper::class);
-		Entity::registerEntity(DroppedItem::class);
-		Entity::registerEntity(Egg::class);
-		Entity::registerEntity(Enderman::class);
-		Entity::registerEntity(ExperienceOrb::class);
-		Entity::registerEntity(FallingSand::class);
-		Entity::registerEntity(FishingHook::class);
-		Entity::registerEntity(Ghast::class);
-		Entity::registerEntity(IronGolem::class);
-		Entity::registerEntity(MagmaCube::class);
-		Entity::registerEntity(Minecart::class);
-		Entity::registerEntity(Mooshroom::class);
-		Entity::registerEntity(Ozelot::class);
-	        Entity::registerEntity(Painting::class);
-		Entity::registerEntity(Pig::class);
-		Entity::registerEntity(PigZombie::class);
-		Entity::registerEntity(PrimedTNT::class);
-		Entity::registerEntity(Rabbit::class);
-		Entity::registerEntity(Sheep::class);
-		Entity::registerEntity(Silverfish::class);
-		Entity::registerEntity(Skeleton::class);
-		Entity::registerEntity(Slime::class);
-		Entity::registerEntity(Snowball::class);
-		Entity::registerEntity(SnowGolem::class);
-		Entity::registerEntity(Spider::class);
-		Entity::registerEntity(Squid::class);
-		Entity::registerEntity(ThrownExpBottle::class);
-		Entity::registerEntity(ThrownPotion::class);
-		Entity::registerEntity(Villager::class);
-		Entity::registerEntity(WitherSkeleton::class);
-		Entity::registerEntity(Wolf::class);
-		Entity::registerEntity(Zombie::class);
-		Entity::registerEntity(ZombieVillager::class);
-		Entity::registerEntity(Human::class, true);
+	public function canBeBrokenWith(Item $item){
+		return $this->getHardness() !== -1;
 	}
 
-	private function registerTiles(){
-		Tile::registerTile(Chest::class);
-		Tile::registerTile(Furnace::class);
-		Tile::registerTile(BrewingStand::class);
-		Tile::registerTile(Skull::class);
-		Tile::registerTile(FlowerPot::class);
-		Tile::registerTile(Sign::class);
-		Tile::registerTile(EnchantTable::class);
-		Tile::registerTile(Skull::class);
+	/**
+	 * Returns the Block on the side $side, works like Vector3::side()
+	 *
+	 * @param int $side
+	 * @param int $step
+	 *
+	 * @return Block
+	 */
+	public function getSide($side, $step = 1){
+		if($this->isValid()){
+			return $this->getLevel()->getBlock(Vector3::getSide($side, $step));
+		}
+
+		return Block::get(Item::AIR, 0, Position::fromObject(Vector3::getSide($side, $step)));
 	}
 
+	/**
+	 * @return string
+	 */
+	public function __toString(){
+		return "Block[" . $this->getName() . "] (" . $this->getId() . ":" . $this->getDamage() . ")";
+	}
+
+	/**
+	 * Checks for collision against an AxisAlignedBB
+	 *
+	 * @param AxisAlignedBB $bb
+	 *
+	 * @return bool
+	 */
+	public function collidesWithBB(AxisAlignedBB $bb){
+		$bb2 = $this->getBoundingBox();
+
+		return $bb2 !== null and $bb->intersectsWith($bb2);
+	}
+
+	/**
+	 * @param Entity $entity
+	 */
+	public function onEntityCollide(Entity $entity){
+
+	}
+	
+	/**
+	 * @return AxisAlignedBB
+	 */
+	public function getBoundingBox(){
+		if($this->boundingBox === null){
+			$this->boundingBox = $this->recalculateBoundingBox();
+		}
+		return $this->boundingBox;
+	}
+
+	/**
+	 * @return AxisAlignedBB
+	 */
+	protected function recalculateBoundingBox(){
+		return new AxisAlignedBB(
+			$this->x,
+			$this->y,
+			$this->z,
+			$this->x + 1,
+			$this->y + 1,
+			$this->z + 1
+		);
+	}
+
+	/**
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
+	 *
+	 * @return MovingObjectPosition
+	 */
+	public function calculateIntercept(Vector3 $pos1, Vector3 $pos2){
+		$bb = $this->getBoundingBox();
+		if($bb === null){
+			return null;
+		}
+
+		$v1 = $pos1->getIntermediateWithXValue($pos2, $bb->minX);
+		$v2 = $pos1->getIntermediateWithXValue($pos2, $bb->maxX);
+		$v3 = $pos1->getIntermediateWithYValue($pos2, $bb->minY);
+		$v4 = $pos1->getIntermediateWithYValue($pos2, $bb->maxY);
+		$v5 = $pos1->getIntermediateWithZValue($pos2, $bb->minZ);
+		$v6 = $pos1->getIntermediateWithZValue($pos2, $bb->maxZ);
+
+		if($v1 !== null and !$bb->isVectorInYZ($v1)){
+			$v1 = null;
+		}
+
+		if($v2 !== null and !$bb->isVectorInYZ($v2)){
+			$v2 = null;
+		}
+
+		if($v3 !== null and !$bb->isVectorInXZ($v3)){
+			$v3 = null;
+		}
+
+		if($v4 !== null and !$bb->isVectorInXZ($v4)){
+			$v4 = null;
+		}
+
+		if($v5 !== null and !$bb->isVectorInXY($v5)){
+			$v5 = null;
+		}
+
+		if($v6 !== null and !$bb->isVectorInXY($v6)){
+			$v6 = null;
+		}
+
+		$vector = $v1;
+
+		if($v2 !== null and ($vector === null or $pos1->distanceSquared($v2) < $pos1->distanceSquared($vector))){
+			$vector = $v2;
+		}
+
+		if($v3 !== null and ($vector === null or $pos1->distanceSquared($v3) < $pos1->distanceSquared($vector))){
+			$vector = $v3;
+		}
+
+		if($v4 !== null and ($vector === null or $pos1->distanceSquared($v4) < $pos1->distanceSquared($vector))){
+			$vector = $v4;
+		}
+
+		if($v5 !== null and ($vector === null or $pos1->distanceSquared($v5) < $pos1->distanceSquared($vector))){
+			$vector = $v5;
+		}
+
+		if($v6 !== null and ($vector === null or $pos1->distanceSquared($v6) < $pos1->distanceSquared($vector))){
+			$vector = $v6;
+		}
+
+		if($vector === null){
+			return null;
+		}
+
+		$f = -1;
+
+		if($vector === $v1){
+			$f = 4;
+		}elseif($vector === $v2){
+			$f = 5;
+		}elseif($vector === $v3){
+			$f = 0;
+		}elseif($vector === $v4){
+			$f = 1;
+		}elseif($vector === $v5){
+			$f = 2;
+		}elseif($vector === $v6){
+			$f = 3;
+		}
+
+		return MovingObjectPosition::fromBlock($this->x, $this->y, $this->z, $f, $vector->add($this->x, $this->y, $this->z));
+	}
+
+	public function setMetadata($metadataKey, MetadataValue $metadataValue){
+		if($this->getLevel() instanceof Level){
+			$this->getLevel()->getBlockMetadata()->setMetadata($this, $metadataKey, $metadataValue);
+		}
+	}
+
+	public function getMetadata($metadataKey){
+		if($this->getLevel() instanceof Level){
+			return $this->getLevel()->getBlockMetadata()->getMetadata($this, $metadataKey);
+		}
+
+		return null;
+	}
+
+	public function hasMetadata($metadataKey){
+		if($this->getLevel() instanceof Level){
+			$this->getLevel()->getBlockMetadata()->hasMetadata($this, $metadataKey);
+		}
+	}
+
+	public function removeMetadata($metadataKey, Plugin $plugin){
+		if($this->getLevel() instanceof Level){
+			$this->getLevel()->getBlockMetadata()->removeMetadata($this, $metadataKey, $plugin);
+		}
+	}
 }
