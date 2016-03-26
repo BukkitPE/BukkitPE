@@ -281,7 +281,6 @@ class Block extends Position implements Metadatable{
 	const MOB_HEAD_BLOCK = 144;
 
 	const ANVIL_BLOCK = 145;
-	const TRAPPED_CHEST = 146;
 	const LIGHT_WEIGHTED_PRESSURE_PLATE = 147;
 	const HEAVY_WEIGHTED_PRESSURE_PLATE = 148;
 	const UNPOWERED_COMPARATOR = 149;
