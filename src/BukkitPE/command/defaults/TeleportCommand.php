@@ -44,7 +44,7 @@ class TeleportCommand extends VanillaCommand{
 			if(count($args) === 1){
 				$target = $sender->getServer()->getPlayer($args[0]);
 				if($target === null){
-					$sender->sendMessage(TextFormat::RED . "Can't find player " . $args[0]);
+					$sender->sendMessage(TextFormat::RED . "That player isnt online. " . $args[0]);
 
 					return true;
 				}
@@ -52,7 +52,7 @@ class TeleportCommand extends VanillaCommand{
 		}else{
 			$target = $sender->getServer()->getPlayer($args[0]);
 			if($target === null){
-				$sender->sendMessage(TextFormat::RED . "Can't find player " . $args[0]);
+				$sender->sendMessage(TextFormat::RED . "That player isnt online. " . $args[0]);
 
 				return true;
 			}
@@ -60,7 +60,7 @@ class TeleportCommand extends VanillaCommand{
 				$origin = $target;
 				$target = $sender->getServer()->getPlayer($args[1]);
 				if($target === null){
-					$sender->sendMessage(TextFormat::RED . "Can't find player " . $args[1]);
+					$sender->sendMessage(TextFormat::RED . "That player isnt online. " . $args[1]);
 
 					return true;
 				}
