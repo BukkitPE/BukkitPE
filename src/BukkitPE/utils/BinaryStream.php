@@ -164,7 +164,7 @@ class BinaryStream extends \stdClass{
 		$this->putByte($item->getCount());
 		$this->putShort($item->getDamage() === null ? -1 : $item->getDamage());
 		$nbt = $item->getCompoundTag();
-		$this->putLShort(strlen($nbt));;
+		$this->putLShort(strlen($nbt));
 		$this->put($nbt);
 		
 	}
