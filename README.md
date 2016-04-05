@@ -3,7 +3,7 @@
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 #Notices:
-BukkitPE is run under Creative Commons Attribution-NonCommercial-NoDerivatives 4.0, for more information please check out the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
+BukkitPE is run under under the terms of the GNU Lesser General Public License for more information please visit the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
 
 BukkitPE has been updated to 14.0 which is the newest MCPE Version. You can get a phar [Here](https://Jenkins.BukkitPE.net) For more info on how to install please check [here](https://github.com/BukkitPE/Documentation)
 
