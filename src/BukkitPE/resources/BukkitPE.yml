@@ -39,6 +39,8 @@ redstone:
  ######
 # toggles the nether on and off.
 ######
+# If nether is set to true, server will auto generate the nether world for you.
+######
 nether:
  enable: false
 ######
@@ -57,7 +59,9 @@ weather:
   rainfall:
    min: 1000
    max: 100000
- 
+ ###
+ # Log-to-file will log crashdumps,logs..ect) to a file.
+ ###
 I/O:
  title-usage: true
  log-to-file: true
@@ -67,7 +71,7 @@ I/O:
 memory:
  global-limit: 0
  main-limit: 0
- main-hard-limit: 2048
+ main-hard-limit: 1024
  check-rate: 600
  continuous-trigger: true
  continuous-trigger-rate: 30
