@@ -9,7 +9,7 @@ BukkitPE has been updated to 14.0 which is the newest MCPE Version. You can get 
 
 # Acknowledgements
 
-- The in code in BukkitPE is from PocketMine-MP. All original code structure and base was written by the PocketMine Team. But some features was added/removed to make BukkitPE more stable. So we are giving @PocketMine full credit. Without it BukkitPE would of been made
+- The in code in BukkitPE is from[PocketMine-MP](https://github.com/PocketMine/PocketMine-MP). All original code structure and base was written by the PocketMine Team. But some features was added/removed to make BukkitPE more stable. So we are giving @PocketMine full credit. Without it BukkitPE would of been made
 
 # FEATURES
 - [x] Performance optimization (Our #1 Goal!)
