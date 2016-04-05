@@ -7,6 +7,10 @@ BukkitPE is run under Creative Commons Attribution-NonCommercial-NoDerivatives 4
 
 BukkitPE has been updated to 14.0 which is the newest MCPE Version. You can get a phar [Here](https://Jenkins.BukkitPE.net) For more info on how to install please check [here](https://github.com/BukkitPE/Documentation)
 
+# Acknowledgements
+
+- The in code in BukkitPE is from PocketMine-MP. All original code structure and base was written by the PocketMine Team. But some features was added/removed to make BukkitPE more stable. So we are giving @PocketMine full credit. Without it BukkitPE would of been made
+
 # FEATURES
 - [x] Performance optimization (Our #1 Goal!)
 - [x] XP
