@@ -1511,7 +1511,7 @@ class Server{
                                $this->logger->info("§6|§d                          |  _ <| | | | |/ / |/ / | __§b|  ___/|  __|        §6|");
                                $this->logger->info("§6|§d                          | |_) | |_| |   <|   <| | |_§b| |    | |____       §6|");
                                $this->logger->info("§6|§d                          |____/ \__,_|_|\_\_|\_\_|\__§b|_|    |______|      §6|");
-                               $this->logger->info("§6|§d Website our site now! +-> www.BukkitPE.net                                §6|");
+                               $this->logger->info("§6|§d Visit our website for plugins! +-> www.BukkitPE.net                                §6|");
             $this->logger->info("§6-----------------------------------------------------------------------------");
 		if(!file_exists($this->dataPath . "BukkitPE.yml")){
 			$content = file_get_contents($this->filePath . "src/BukkitPE/resources/BukkitPE.yml");
