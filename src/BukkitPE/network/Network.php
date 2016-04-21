@@ -62,7 +62,8 @@ use BukkitPE\Player;
 use BukkitPE\Server;
 use BukkitPE\utils\Binary;
 use BukkitPE\utils\MainLogger;
-
+use BukkitPE\network\protocol\ChunkRadiusUpdatePacket;
+use BukkitPE\network\protocol\RequestChunkRadiusPacket;
 class Network{
 
 	public static $BATCH_THRESHOLD = 512;
@@ -339,5 +340,7 @@ class Network{
 		$this->registerPacket(ProtocolInfo::PLAYER_INPUT_PACKET, PlayerInputPacket::class);
 		$this->registerPacket(ProtocolInfo::SET_PLAYER_GAMETYPE_PACKET, SetPlayerGameTypePacket::class);
 		$this->registerPacket(ProtocolInfo::CHANGE_DIMENSION_PACKET, ChangeDimensionPacket::class);
+		$this->registerPacket(ProtocolInfo::REQUEST_CHUNK_RADIUS_PACKET, RequestChunkRadiusPacket::class);
+ 		$this->registerPacket(ProtocolInfo::CHUNK_RADIUS_UPDATE_PACKET, ChunkRadiusUpdatePacket::class);
 	}
 }
