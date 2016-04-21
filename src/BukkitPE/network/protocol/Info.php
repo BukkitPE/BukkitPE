@@ -67,6 +67,8 @@ interface Info{
 	const PLAYER_LIST_PACKET = 0xc3;
 	//const TELEMETRY_EVENT_PACKET = 0xc4;
     const ATTRIBUTE_PACKET = 0x60;
+    const REQUEST_CHUNK_RADIUS_PACKET = 0xc8;
+    const CHUNK_RADIUS_UPDATE_PACKET = 0xc9;
 
 }
 
