@@ -142,6 +142,7 @@ use BukkitPE\entity\ThrownPotion;
 use BukkitPE\event\player\PlayerExperienceChangeEvent;
 use BukkitPE\item\FishingRod;
 use BukkitPE\event\entity\EntityLaunchFishingRodEvent;
+use BukitPE\network\protocol\ChunkRadiusUpdatePacket;
 
 /**
  * Main class that handles networking, recovery, and packet sending to the server part
@@ -2943,6 +2944,14 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					}
 				}
 				break;
+				case ProtocolInfo::REQUEST_CHUNK_RADIUS_PACKET:
+ 				if($this->spawned){
+ 					$this->viewDistance = $packet->radius ** 2;
+ 				}
+ 				$pk = new ChunkRadiusUpdatePacket();
+ 				$pk->radius = $packet->radius;
+ 				$this->dataPacket($pk);
+ 				break;
 			default:
 				break;
 		}
