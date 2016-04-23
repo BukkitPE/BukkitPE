@@ -1,2 +1,1 @@
-java -Xmx1024M -jar BukkitPE.jar -o true
-PAUSE
+java -jar BukkitPE.jar
