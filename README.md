@@ -3,13 +3,7 @@
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 #Notices:
-BukkitPE is run under the terms of the GNU Lesser General Public License for more information please visit the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
-
-BukkitPE has been updated to 14.1 which is the newest MCPE Version. You can get a phar [Here](https://Jenkins.BukkitPE.net) For more info on how to install please check [here](https://github.com/BukkitPE/Documentation)
-
-# Acknowledgements
-
-- The code in BukkitPE is from [PocketMine-MP](https://github.com/PocketMine/PocketMine-MP). All original code structure and base was written by the PocketMine Team. But some features was added/removed to make BukkitPE more stable. So we are giving @PocketMine full credit. Without it BukkitPE would of been made
+BukkitPE is being re-written in JAVA. Therefore when we are done there will be alot of things added to BukkitPE. So as of now nothing is really working.. Hand tight :)
 
 # FEATURES
 - [x] Performance optimization (Our #1 Goal!)
@@ -22,17 +16,14 @@ BukkitPE has been updated to 14.1 which is the newest MCPE Version. You can get 
 - [x] Effects
 - [x] Nether
 - [x] Plugin API (So you can extend it)
-- [x] Server logs are in **.txt** format so you can view with ease
-- [x] CrashDumps are now saved in /CrashDumps folder to ensure it doesn't get mixed with server files
-- [x] Player files are now saved in **.json** format. To ensure fast reading/writing speed
 
 #What is this?
 
-BukkitPE is software for hosting Minecraft : Pocket Edition servers. From controlling everything you can possibly do on MCPE to everything players can ever imagine on a server, BukkitPE also has an API which lets developer extend it. Let's face it plain BukkitPE isn't fun :P That's mainly why we have an API. BukkitPE has Clean feels and Stable Features / Performance optimization.
+BukkitPE is software for hosting Minecraft : Pocket Edition servers. From controlling everything you can possibly do on MCPE to everything players can ever imagine on a server, BukkitPE also has an API which lets developer extend it. Let's face it plain MCPE Server isn't fun :P That's mainly why we have an API. BukkitPE has Clean feels and Stable Features / Performance optimization.
 
 #Can I extend BukkitPE to my own needs?
 
-sure you can! Check out [API Documentation](https://github.com/BukkitPE/Plugin-Documentation) to start making plugins to transform your server into something you never thought you'd be able to even do!
+sure you can! Check out [API Documentation - coming soon]() to start making plugins to transform your server into something you never thought you'd be able to even do!
 
 
 #Can I help out the team and contribute to BukkitPE?
@@ -44,7 +35,7 @@ Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) 
 
 # How do I install BukkitPE?
 
-Read the documentation for installing BukkitPE [here](https://github.com/BukkitPE/Documentation).
+Read the documentation for installing BukkitPE [here - coming soon]().
 You can download lastest release by clicking the picturre below.<br>
  <a href="https://jenkins.bukkitpe.net">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
 
