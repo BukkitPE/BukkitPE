@@ -1,0 +1,95 @@
+package net.BukkitPE.level.format;
+
+import net.BukkitPE.level.Level;
+import net.BukkitPE.level.format.generic.BaseFullChunk;
+import net.BukkitPE.math.Vector3;
+import net.BukkitPE.scheduler.AsyncTask;
+
+import java.util.Map;
+
+/**
+ * author: MagicDroidX
+ * BukkitPE Project
+ */
+public interface LevelProvider {
+    byte ORDER_YZX = 0;
+    byte ORDER_ZXY = 1;
+
+    AsyncTask requestChunkTask(int x, int z);
+
+    String getPath();
+
+    String getGenerator();
+
+    Map<String, Object> getGeneratorOptions();
+
+    BaseFullChunk getChunk(int X, int Z);
+
+    BaseFullChunk getChunk(int X, int Z, boolean create);
+
+    void saveChunks();
+
+    void saveChunk(int X, int Z);
+
+    void unloadChunks();
+
+    boolean loadChunk(int X, int Z);
+
+    boolean loadChunk(int X, int Z, boolean create);
+
+    boolean unloadChunk(int X, int Z);
+
+    boolean unloadChunk(int X, int Z, boolean safe);
+
+    boolean isChunkGenerated(int X, int Z);
+
+    boolean isChunkPopulated(int X, int Z);
+
+    boolean isChunkLoaded(int X, int Z);
+
+    void setChunk(int chunkX, int chunkZ, FullChunk chunk);
+
+    String getName();
+
+    boolean isRaining();
+
+    void setRaining(boolean raining);
+
+    int getRainTime();
+
+    void setRainTime(int rainTime);
+
+    boolean isThundering();
+
+    void setThundering(boolean thundering);
+
+    int getThunderTime();
+
+    void setThunderTime(int thunderTime);
+
+    long getCurrentTick();
+
+    void setCurrentTick(long currentTick);
+
+    long getTime();
+
+    void setTime(long value);
+
+    long getSeed();
+
+    void setSeed(long value);
+
+    Vector3 getSpawn();
+
+    void setSpawn(Vector3 pos);
+
+    Map<String, ? extends FullChunk> getLoadedChunks();
+
+    void doGarbageCollection();
+
+    Level getLevel();
+
+    void close();
+
+    void saveLevelData();
+}

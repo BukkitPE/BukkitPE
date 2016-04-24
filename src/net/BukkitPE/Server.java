@@ -34,7 +34,7 @@ import net.BukkitPE.level.generator.Flat;
 import net.BukkitPE.level.generator.Generator;
 import net.BukkitPE.level.generator.Normal;
 import net.BukkitPE.level.generator.biome.Biome;
-import net.BukkitPE.math.BukkitPEMath;
+import net.BukkitPE.math.NukkitMath;
 import net.BukkitPE.metadata.EntityMetadataStore;
 import net.BukkitPE.metadata.LevelMetadataStore;
 import net.BukkitPE.metadata.PlayerMetadataStore;
@@ -339,7 +339,7 @@ public class Server {
         this.network = new Network(this);
         this.network.setName(this.getMotd());
 
-        this.logger.info(this.getLanguage().translateString("BukkitPE.server.info", new String[]{this.getName(), TextFormat.YELLOW + this.getBukkitPEVersion() + TextFormat.WHITE, TextFormat.AQUA + this.getCodename() + TextFormat.WHITE, this.getApiVersion()}));
+        this.logger.info(this.getLanguage().translateString("BukkitPE.server.info", new String[]{this.getName(), TextFormat.YELLOW + this.getNukkitVersion() + TextFormat.WHITE, TextFormat.AQUA + this.getCodename() + TextFormat.WHITE, this.getApiVersion()}));
         this.logger.info(this.getLanguage().translateString("BukkitPE.server.license", this.getName()));
 
         this.consoleSender = new ConsoleCommandSender();
@@ -915,10 +915,10 @@ public class Server {
                     } else if (tickMs >= 50) {
                         if (level.getTickRate() == this.baseTickRate) {
                             level.setTickRate((int) Math.max(this.baseTickRate + 1, Math.min(this.autoTickRateLimit, Math.floor(tickMs / 50))));
-                            this.getLogger().debug("Level \"" + level.getName() + "\" took " + BukkitPEMath.round(tickMs, 2) + "ms, setting tick rate to " + level.getTickRate() + " ticks");
+                            this.getLogger().debug("Level \"" + level.getName() + "\" took " + NukkitMath.round(tickMs, 2) + "ms, setting tick rate to " + level.getTickRate() + " ticks");
                         } else if ((tickMs / level.getTickRate()) >= 50 && level.getTickRate() < this.autoTickRateLimit) {
                             level.setTickRate(level.getTickRate() + 1);
-                            this.getLogger().debug("Level \"" + level.getName() + "\" took " + BukkitPEMath.round(tickMs, 2) + "ms, setting tick rate to " + level.getTickRate() + " ticks");
+                            this.getLogger().debug("Level \"" + level.getName() + "\" took " + NukkitMath.round(tickMs, 2) + "ms, setting tick rate to " + level.getTickRate() + " ticks");
                         }
                         level.tickRateCounter = level.getTickRate();
                     }
@@ -1044,16 +1044,16 @@ public class Server {
         }
 
         Runtime runtime = Runtime.getRuntime();
-        double used = BukkitPEMath.round((double) (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024, 2);
-        double max = BukkitPEMath.round(((double) runtime.maxMemory()) / 1024 / 1024, 2);
+        double used = NukkitMath.round((double) (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024, 2);
+        double max = NukkitMath.round(((double) runtime.maxMemory()) / 1024 / 1024, 2);
         String usage = Math.round(used / max * 100) + "%";
         String title = (char) 0x1b + "]0;" + this.getName() + " " +
-                this.getBukkitPEVersion() +
+                this.getNukkitVersion() +
                 " | Online " + this.players.size() + "/" + this.getMaxPlayers() +
                 " | Memory " + usage;
         if (!BukkitPE.shortTitle) {
-            title += " | U " + BukkitPEMath.round((this.network.getUpload() / 1024 * 1000), 2)
-                    + " D " + BukkitPEMath.round((this.network.getDownload() / 1024 * 1000), 2) + " kB/s";
+            title += " | U " + NukkitMath.round((this.network.getUpload() / 1024 * 1000), 2)
+                    + " D " + NukkitMath.round((this.network.getDownload() / 1024 * 1000), 2) + " kB/s";
         }
         title += " | TPS " + this.getTicksPerSecond() +
                 " | Load " + this.getTickUsage() + "%" + (char) 0x07;
@@ -1075,7 +1075,7 @@ public class Server {
         return isRunning;
     }
 
-    public String getBukkitPEVersion() {
+    public String getNukkitVersion() {
         return BukkitPE.VERSION;
     }
 
@@ -1285,11 +1285,11 @@ public class Server {
         for (float aTickAverage : this.tickAverage) {
             sum += aTickAverage;
         }
-        return (float) BukkitPEMath.round(sum / count, 2);
+        return (float) NukkitMath.round(sum / count, 2);
     }
 
     public float getTickUsage() {
-        return (float) BukkitPEMath.round(this.maxUse * 100, 2);
+        return (float) NukkitMath.round(this.maxUse * 100, 2);
     }
 
     public float getTickUsageAverage() {
@@ -1595,9 +1595,12 @@ public class Server {
         this.getPluginManager().callEvent(new LevelLoadEvent(level));
 
         /*this.getLogger().notice(this.getLanguage().translateString("BukkitPE.level.backgroundGeneration", name));
+
         int centerX = (int) level.getSpawnLocation().getX() >> 4;
         int centerZ = (int) level.getSpawnLocation().getZ() >> 4;
+
         TreeMap<String, Integer> order = new TreeMap<>();
+
         for (int X = -3; X <= 3; ++X) {
             for (int Z = -3; Z <= 3; ++Z) {
                 int distance = X * X + Z * Z;
@@ -1606,13 +1609,16 @@ public class Server {
                 order.put(Level.chunkHash(chunkX, chunkZ), distance);
             }
         }
+
         List<Map.Entry<String, Integer>> sortList = new ArrayList<>(order.entrySet());
+
         Collections.sort(sortList, new Comparator<Map.Entry<String, Integer>>() {
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                 return o2.getValue() - o1.getValue();
             }
         });
+
         for (String index : order.keySet()) {
             Chunk.Entry entry = Level.getChunkXZ(index);
             level.populateChunk(entry.chunkX, entry.chunkZ, true);
