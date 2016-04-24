@@ -19,7 +19,7 @@
  *
  *
 */
-package net.BukkitPE\entity;
+package net.BukkitPE.entity;
 
 import net,BukkitPE.Player;
 import net.BukkitPE.event.entity.EntityDamageEvent;
