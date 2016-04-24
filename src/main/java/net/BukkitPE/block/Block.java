@@ -1,4 +1,4 @@
-package cn.nukkit.block;
+package net.BukkitPE.block;
 
 import net.BukkitPE.Player;
 import net.BukkitPE.Server;
