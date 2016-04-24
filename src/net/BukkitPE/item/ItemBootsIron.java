@@ -1,0 +1,30 @@
+package net.BukkitPE.item;
+
+/**
+ * author: MagicDroidX
+ * BukkitPE Project
+ */
+public class ItemBootsIron extends ItemArmor {
+
+    public ItemBootsIron() {
+        this(0, 1);
+    }
+
+    public ItemBootsIron(Integer meta) {
+        this(meta, 1);
+    }
+
+    public ItemBootsIron(Integer meta, int count) {
+        super(IRON_BOOTS, meta, count, "Iron Boots");
+    }
+
+    @Override
+    public int getTier() {
+        return ItemArmor.TIER_IRON;
+    }
+
+    @Override
+    public boolean isBoots() {
+        return true;
+    }
+}
