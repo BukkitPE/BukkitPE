@@ -55,10 +55,10 @@ class Boat extends Vehicle{
 			this.timings.startTiming();
 			hasUpdate = false;
 			
-			if($this.isInsideOfWater()){
-				$hasUpdate = true;
-				$this.move(0,0.1,0);
-				$this.updateMovement();
+			if(this.isInsideOfWater()){
+				hasUpdate = true;
+				this.move(0,0.1,0);
+				this.updateMovement();
 			}
 			
 			this.timings.stopTiming();
