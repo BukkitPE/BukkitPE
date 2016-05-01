@@ -1,0 +1,36 @@
+<?php
+namespace BukkitPE\block;
+
+use BukkitPE\item\Item;
+use BukkitPE\item\Tool;
+
+class JungleDoor extends Door{
+
+	protected $id = self::JUNGLE_DOOR_BLOCK;
+
+	public function __construct($meta = 0){
+		$this->meta = $meta;
+	}
+
+	public function getName(){
+		return "JUNGLE Door Block";
+	}
+
+	public function canBeActivated(){
+		return true;
+	}
+
+	public function getHardness(){
+		return 3;
+	}
+
+	public function getToolType(){
+		return Tool::TYPE_AXE;
+	}
+
+	public function getDrops(Item $item){
+		return [
+			[Item::JUNGLE_DOOR, 0, 1],
+		];
+	}
+}
