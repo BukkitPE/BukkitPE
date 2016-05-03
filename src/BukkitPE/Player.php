@@ -2643,38 +2643,37 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				break;
 
 			case ProtocolInfo::CONTAINER_CLOSE_PACKET:
-				if($this->spawned === false or $packet->windowid === 0){
-					break;
-				}
-				$this->craftingType = 0;
-				$this->currentTransaction = null;
-				if(isset($this->windowIndex[$packet->windowid])){
-					$this->server->getPluginManager()->callEvent(new InventoryCloseEvent($this->windowIndex[$packet->windowid], $this));
-					$this->removeWindow($this->windowIndex[$packet->windowid]);
-				}else{
-					unset($this->windowIndex[$packet->windowid]);
-				}
-				break;
-				}
-				$win10 = false;
- 				if(empty($packet->input)){ // win10
- 					if($recipe instanceof ShapedRecipe && !$win10){
- 						$win10 = true;
- 						$ingredients2 = array();
- 						for($x = 0; $x <= $recipe->getWidth(); $x++){
- 							for($y = 0; $y <= $recipe->getHeight(); $y++){
- 								$ingredients2[] = $recipe->getIngredient($x, $y);
- 							}
- 						}
- 						$recipe = (new ShapedRecipe($packet->output[0], "abc", "def", "ghi"))->setIngredient("a", $ingredients2[0])->setIngredient("b", $ingredients2[1])->setIngredient("c", $ingredients2[2])->setIngredient("d", $ingredients2[3])->setIngredient("e", $ingredients2[4])->setIngredient("f", $ingredients2[5])->setIngredient("g", $ingredients2[6])->setIngredient("h", $ingredients2[7])->setIngredient("i", $ingredients2[8]);
-					}
-				elseif($recipe instanceof ShapelessRecipe){
-					$recipe2 = new ShapelessRecipe($packet->output[0]);
-					foreach($recipe2->getIngredientList() as $content){
- 							if($this->getInventory()->contains($content)) $packet->input[] = $content;
-					}
-				}
- 			}
+                if ($this->spawned === false or $packet->windowid === 0) {
+                    break;
+                }
+                $this->craftingType = 0;
+                $this->currentTransaction = null;
+                if (isset($this->windowIndex[$packet->windowid])) {
+                    $this->server->getPluginManager()->callEvent(new InventoryCloseEvent($this->windowIndex[$packet->windowid], $this));
+                    $this->removeWindow($this->windowIndex[$packet->windowid]);
+                } else {
+                    unset($this->windowIndex[$packet->windowid]);
+                }
+                $win10 = false;
+                $recipe = null;
+                if (empty($packet->input)) { // win10 fixed
+                    if ($recipe instanceof ShapedRecipe && !$win10) {
+                        $win10 = true;
+                        $ingredients2 = array();
+                        for ($x = 0; $x <= $recipe->getWidth(); $x++) {
+                            for ($y = 0; $y <= $recipe->getHeight(); $y++) {
+                                $ingredients2[] = $recipe->getIngredient($x, $y);
+                            }
+                        }
+                        $recipe = (new ShapedRecipe($packet->output[0], "abc", "def", "ghi"))->setIngredient("a", $ingredients2[0])->setIngredient("b", $ingredients2[1])->setIngredient("c", $ingredients2[2])->setIngredient("d", $ingredients2[3])->setIngredient("e", $ingredients2[4])->setIngredient("f", $ingredients2[5])->setIngredient("g", $ingredients2[6])->setIngredient("h", $ingredients2[7])->setIngredient("i", $ingredients2[8]);
+                    } elseif ($recipe instanceof ShapelessRecipe) {
+                        $recipe2 = new ShapelessRecipe($packet->output[0]);
+                        foreach ($recipe2->getIngredientList() as $content) {
+                            if ($this->getInventory()->contains($content)) $packet->input[] = $content;
+                        }
+                    }
+                }
+                break;
 			case ProtocolInfo::CRAFTING_EVENT_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
 					break;
