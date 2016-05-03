@@ -19,7 +19,7 @@
  *
  *
 */
- +namespace BukkitPE\network\protocol;
+namespace BukkitPE\network\protocol;
  
  class ChunkRadiusUpdatePacket extends DataPacket{
  	const NETWORK_ID = Info::CHUNK_RADIUS_UPDATE_PACKET;
