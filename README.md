@@ -25,7 +25,7 @@ BukkitPE has been updated to 0.14.2 which is the newest MCPE Version. You can ge
 - [x] Server logs are in **.txt** format so you can view with ease
 - [x] CrashDumps are now saved in /CrashDumps folder to ensure it doesn't get mixed with server files
 - [x] Player files are now saved in **.json** format. To ensure fast reading/writing speed
-- [ ] blockbreak and blockplace support
+- [ ] blockbreak and blockplace support for 0.14.2
 
 #What is this?
 
