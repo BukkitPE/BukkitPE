@@ -54,7 +54,7 @@ class SpawnEgg extends Item{
 		$entity = Entity::createEntity($this->meta, $chunk, $nbt);
 		if($entity instanceof Entity){
 			$entity->setDataFlag(Entity::DATA_FLAGS, Entity::DATA_NO_AI, true);
-			$entity->getLevel()->getServer()->broadcastTip(TextFormat::RED . "Mob AI isn't implemented into BukkitPE yet!"); //Andre make it send a tip instead of broadcasting it.
+			$entity->getLevel()->getServer()->broadcastPopup(TextFormat::RED . "Mob AI isn't implemented into BukkitPE yet!"); //Andre make it send a tip instead of broadcasting it.
 			if($player->isSurvival()){
 				--$this->count;
 			}
