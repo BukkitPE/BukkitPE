@@ -73,10 +73,10 @@ namespace BukkitPE {
 	use BukkitPE\wizard\Installer;
 
 	const VERSION = "1.2";
-	const API_VERSION = "1.14.2";
+	const API_VERSION = "1.14.3";
 	const CODENAME = "Stable";
-	const MINECRAFT_VERSION = "0.14.2 alpha";
-	const MINECRAFT_VERSION_NETWORK = "0.14.2";
+	const MINECRAFT_VERSION = "0.14.3 alpha";
+	const MINECRAFT_VERSION_NETWORK = "0.14.3";
 
 	/*
 	 * Startup code. Do not look at it, it may harm you.
