@@ -1522,6 +1522,7 @@ class Server{
 		}
 		$this->config = new Config($this->dataPath . "BukkitPE.yml", Config::YAML, []);
 
+		@mkdir($this->getDataPath() . "plugins/BukkitPE");
 		$this->logger->info("Loading server properties...");
 		$this->properties = new Config($this->dataPath . "server.properties", Config::PROPERTIES, [
 			"motd" => " A BukkitPE: Server",

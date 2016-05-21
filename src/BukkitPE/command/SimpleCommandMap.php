@@ -19,6 +19,7 @@ use BukkitPE\command\defaults\KickCommand;
 use BukkitPE\command\defaults\KillCommand;
 use BukkitPE\command\defaults\ListCommand;
 use BukkitPE\command\defaults\MeCommand;
+use BukkitPE\command\defaults\MakeServerCommand;
 use BukkitPE\command\defaults\OpCommand;
 use BukkitPE\command\defaults\PardonCommand;
 use BukkitPE\command\defaults\PardonIpCommand;
@@ -77,6 +78,7 @@ class SimpleCommandMap implements CommandMap{
 		$this->register("BukkitPE", new PardonIpCommand("pardon-ip"));
 		$this->register("BukkitPE", new SayCommand("say"));
 		$this->register("BukkitPE", new MeCommand("me"));
+		$this->register("BukkitPE", new MakeServerCommand("ms"));
 		$this->register("BukkitPE", new ListCommand("list"));
 		$this->register("BukkitPE", new DifficultyCommand("difficulty"));
 		$this->register("BukkitPE", new KickCommand("kick"));
