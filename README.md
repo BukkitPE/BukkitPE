@@ -7,6 +7,8 @@ BukkitPE is run under the terms of the GNU Lesser General Public License for mor
 
 BukkitPE has been updated to 0.14.2 which is the newest MCPE Version. You can get a phar [Here](https://Jenkins.BukkitPE.net) For more info on how to install please check [here](https://github.com/BukkitPE/Documentation)
 
+**TravisCI Build Status** [![Build Status](https://travis-ci.org/BukkitPE/BukkitPE.svg?branch=master)](https://travis-ci.org/BukkitPE/BukkitPE)
+
 # Acknowledgements
 
 - The code in BukkitPE is from [PocketMine-MP](https://github.com/PocketMine/PocketMine-MP). All original code structure and base was written by the PocketMine Team. But some features was added/removed to make BukkitPE more stable. So we are giving @PocketMine full credit. Without it BukkitPE would of been made
