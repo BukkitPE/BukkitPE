@@ -1511,7 +1511,7 @@ class Server{
                                $this->logger->info("§6|§d                          |  _ <| | | | |/ / |/ / | __§b|  ___/|  __|        §6|");
                                $this->logger->info("§6|§d                          | |_) | |_| |   <|   <| | |_§b| |    | |____       §6|");
                                $this->logger->info("§6|§d                          |____/ \__,_|_|\_\_|\_\_|\__§b|_|    |______|      §6|");
-                               $this->logger->info("§6|§d Visit our website for plugins! +-> www.BukkitPE.net                                §6|");
+                               $this->logger->info("§6|§d Visit our website for plugins! +-> www.BukkitPE.net                       §6|");
             $this->logger->info("§6-----------------------------------------------------------------------------");
 		if(!file_exists($this->dataPath . "BukkitPE.yml")){
 			$content = file_get_contents($this->filePath . "src/BukkitPE/resources/BukkitPE.yml");
@@ -1581,7 +1581,6 @@ class Server{
 		$this->baseTickRate = (int) $this->getProperty("level-settings.base-tick-rate", 1);
 
 		$this->scheduler = new ServerScheduler();
-
 		if($this->getConfigBoolean("enable-rcon", false) === true){
 			$this->rcon = new RCON($this, $this->getConfigString("rcon.password", ""), $this->getConfigInt("rcon.port", $this->getPort()), ($ip = $this->getIp()) != "" ? $ip : "0.0.0.0", $this->getConfigInt("rcon.threads", 1), $this->getConfigInt("rcon.clients-per-thread", 50));
 		}
@@ -1619,6 +1618,7 @@ class Server{
 		}
 
 		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.networkStart", [$this->getIp() === "" ? "*" : $this->getIp(), $this->getPort()]));
+
 		define("BOOTUP_RANDOM", @Utils::getRandomBytes(16));
 		$this->serverID = Utils::getMachineUniqueId($this->getIp() . $this->getPort());
 
@@ -1632,6 +1632,7 @@ class Server{
 		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.info", [
 			$this->getName(),
 			$this->getCodename(),
+			$this->getBukkitPEVersion(),
 			$this->getApiVersion()
 		]));
 		$this->logger->info($this->getLanguage()->translateString("BukkitPE.server.license", [$this->getName()]));
