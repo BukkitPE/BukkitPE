@@ -3039,6 +3039,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	public function sendTip($message){
 		$pk = new TextPacket();
 		$pk->type = TextPacket::TYPE_TIP;
+		$pk->source = "";
 		$pk->message = $message;
 		$this->dataPacket($pk);
 	}
