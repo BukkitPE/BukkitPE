@@ -5,7 +5,7 @@
 #Notices:
 BukkitPE is run under the terms of the GNU Lesser General Public License for more information please visit the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
 
-BukkitPE has been updated to 0.14.2 which is the newest MCPE Version. You can get a phar [Here](https://Jenkins.BukkitPE.net) For more info on how to install please check [here](https://github.com/BukkitPE/Documentation)
+BukkitPE is now running java, we will be working on updating our guides to installing it..ect)  If you are in need of help visit Forums.BukkitPE.net thanks!
 
 **TravisCI Build Status** [![Build Status](https://travis-ci.org/BukkitPE/BukkitPE.svg?branch=master)](https://travis-ci.org/BukkitPE/BukkitPE)
 
