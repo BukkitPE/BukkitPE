@@ -34,7 +34,7 @@ BukkitPE is software for hosting Minecraft : Pocket Edition servers. From contro
 
 #Can I extend BukkitPE to my own needs?
 
-sure you can! Check out [API Documentation](https://github.com/BukkitPE/Plugin-Documentation) to start making plugins to transform your server into something you never thought you'd be able to even do!
+sure you can! Check out [Example Plugin](https://github.com/BukkitPE/ExamplePlugin) to start making plugins to transform your server into something you never thought you'd be able to even do!
 
 
 #Can I help out the team and contribute to BukkitPE?
