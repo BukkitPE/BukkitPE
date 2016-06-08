@@ -385,7 +385,11 @@ public abstract class BlockLiquid extends BlockTransparent {
     public double getHardness() {
         return 100;
     }
-
+	
+   @Override
+     public double getResistance() {
+     	return 500;
+     };
     private boolean[] getOptimalFlowDirections() {
         if (this.temporalVector == null) {
             this.temporalVector = new Vector3(0, 0, 0);
