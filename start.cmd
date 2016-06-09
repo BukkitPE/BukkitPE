@@ -1,1 +1,1 @@
-java -jar BukkitPE.jar
+java jar BukkitPE.jar
