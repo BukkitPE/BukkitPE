@@ -7,10 +7,12 @@ import net.BukkitPE.level.Level;
 import net.BukkitPE.level.format.ChunkSection;
 import net.BukkitPE.level.format.FullChunk;
 import net.BukkitPE.level.format.LevelProvider;
+import cn.nukkit.level.format.generic.BaseFullChunk;
 import net.BukkitPE.level.format.leveldb.key.FlagsKey;
 import net.BukkitPE.level.format.leveldb.key.TerrainKey;
 import net.BukkitPE.level.format.leveldb.key.VersionKey;
 import net.BukkitPE.level.generator.Generator;
+import cn.nukkit.level.generator.task.RequestChunkTask;
 import net.BukkitPE.math.Vector3;
 import net.BukkitPE.nbt.NBTIO;
 import net.BukkitPE.nbt.tag.CompoundTag;
@@ -153,10 +155,68 @@ public class LevelDB implements LevelProvider {
     }
 
     @Override
-    public AsyncTask requestChunkTask(int x, int z) {
+    public RequestChunkTask requestChunkTask(int x, int z) {
+		return this.requestChunkTask(x, z, true);
+	}
+	
+	@Override
+	public RequestChunkTask requestChunkTask(int x, int z, boolean create) {
+		String index = Level.chunkHash(x, z);
+		if (!this.chunks.containsKey(index)) {
+			return new RequestChunkTask() {
+				LevelDB level;
+				int chunkX, chunkZ;
+				BaseFullChunk chunk;
+        		
+				public RequestChunkTask setData(LevelDB level, int chunkX, int chunkZ){
+					this.level = level;
+					this.chunkX = chunkX;
+					this.chunkZ = chunkZ;
+					return this;
+				}
+        		
+				@Override
+				public void onRun() {
+					byte[] data;
+					if (!level.chunkExists(x, z) || (data = level.db.get(TerrainKey.create(x, z).toArray())) == null) {
+						chunk = null;
+						return;
+					}
+					
+					byte[] flags = level.db.get(FlagsKey.create(x, z).toArray());
+					if (flags == null) {
+						flags = new byte[]{0x03};
+					}
+					
+					chunk = Chunk.fromBinary(
+						Binary.appendBytes(
+									Binary.writeLInt(x),
+									Binary.writeLInt(z),
+									data,
+									flags)
+								, this.level);
+					}
+				
+				public void onCompletion(Server server) {
+					if (chunk == null && create)
+						chunk = Chunk.getEmptyChunk(chunkX, chunkZ, level);
+					level.requestChunkCallback(x, z, chunk);
+				}
+				
+				@Override
+				public BaseFullChunk getChunk() {
+					return this.chunk;
+				}
+			}.setData(this, x, z);
+        }
         FullChunk chunk = this.getChunk(x, z, false);
+		this.requestChunkCallback(x, z, chunk);
+			return null;
+		}
+	
+		public void requestChunkCallback(int x, int z, FullChunk chunk){
         if (chunk == null) {
-            throw new ChunkException("Invalid Chunk sent");
+			throw new ChunkException("Invalid Chunk sent");
         }
 
         byte[] tiles = new byte[0];
@@ -199,9 +259,8 @@ public class LevelDB implements LevelProvider {
         stream.put(tiles);
 
         this.getLevel().chunkRequestCallback(x, z, stream.getBuffer());
-
-        return null;
-    }
+		
+		}
 
     @Override
     public void unloadChunks() {

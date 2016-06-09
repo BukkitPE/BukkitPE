@@ -34,6 +34,7 @@ import net.BukkitPE.item.ItemArrow;
 import net.BukkitPE.item.ItemBlock;
 import net.BukkitPE.item.ItemGlassBottle;
 import net.BukkitPE.item.food.Food;
+import net.BukkitPE.level.ChunkHandler;
 import net.BukkitPE.level.ChunkLoader;
 import net.BukkitPE.level.Level;
 import net.BukkitPE.level.Location;
@@ -542,11 +543,29 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         this.dataPacket(packet);
 
         if (this.spawned) {
-            for (Entity entity : this.level.getChunkEntities(x, z).values()) {
-                if (this != entity && !entity.closed && entity.isAlive()) {
-                    entity.spawnTo(this);
-                }
-            }
+			this.level.requestChunk(x, z, new ChunkHandler() {
+				String username;
+        		
+				public ChunkHandler setData(String username){
+					this.username = username;
+					return this;
+				}
+				
+				@Override
+				public void onRun(BaseFullChunk chunk, Server server) {
+					Player player = server.getPlayer(username);
+					if(!(player instanceof Player))
+						return;
+					
+					Map<Long, Entity> entities = chunk == null ? chunk.getEntities() : new HashMap<>() ;
+					
+					for(Entity entity : entities.values()){
+						if(player != entity && !entity.closed && entity.isAlive()){
+							entity.spawnTo(player);
+						}
+					}
+				}
+			}.setData(this.getName()));
         }
     }
 
@@ -687,11 +706,29 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             Chunk.Entry chunkEntry = Level.getChunkXZ(index);
             int chunkX = chunkEntry.chunkX;
             int chunkZ = chunkEntry.chunkZ;
-            for (Entity entity : this.level.getChunkEntities(chunkX, chunkZ).values()) {
-                if (this != entity && !entity.closed && entity.isAlive()) {
-                    entity.spawnTo(this);
-                }
-            }
+			
+			this.level.requestChunk(chunkX, chunkZ, new ChunkHandler() {
+				String username;
+        		
+				public ChunkHandler setData(String username){
+					this.username = username;
+					return this;
+				}
+        		
+				@Override
+				public void onRun(BaseFullChunk chunk, Server server) {
+					Player player = server.getPlayer(username);
+					if(!(player instanceof Player))
+						return;
+					Map<Long, Entity> entities = chunk == null ? chunk.getEntities() : new HashMap<>() ;
+					
+					for (Entity entity : entities.values()) {
+						if (player != entity && !entity.closed && entity.isAlive()) {
+							entity.spawnTo(player);
+						}
+					}
+				}
+			}.setData(this.getName()));
         }
 
         this.sendExperience(this.getExperience());

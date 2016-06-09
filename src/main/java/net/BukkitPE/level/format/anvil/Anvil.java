@@ -1,11 +1,15 @@
 package net.BukkitPE.level.format.anvil;
 
+import net.BukkitPE.Server;
 import net.BukkitPE.blockentity.BlockEntity;
 import net.BukkitPE.blockentity.BlockEntitySpawnable;
 import net.BukkitPE.level.Level;
 import net.BukkitPE.level.format.FullChunk;
+import net.BukkitPE.level.format.LevelProvider;
+import net.BukkitPE.level.format.generic.BaseChunk;
 import net.BukkitPE.level.format.generic.BaseLevelProvider;
 import net.BukkitPE.level.generator.Generator;
+import cn.nukkit.level.generator.task.RequestChunkTask;
 import net.BukkitPE.nbt.NBTIO;
 import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.network.protocol.FullChunkDataPacket;
@@ -111,9 +115,60 @@ public class Anvil extends BaseLevelProvider {
     }
 
     @Override
-    public AsyncTask requestChunkTask(int x, int z) throws ChunkException {
+	public RequestChunkTask requestChunkTask(int x, int z) throws ChunkException {
+		return this.requestChunkTask(x, z, true);
+	}
+	
+	public RequestChunkTask requestChunkTask(int x, int z, boolean create) throws ChunkException {
+		String index = Level.chunkHash(x, z);
+        
+		if (!this.chunks.containsKey(index)) {
+			return new RequestChunkTask() {
+				Anvil level;
+				int chunkX, chunkZ, regionX, regionZ;
+				BaseChunk chunk;
+        		
+				public RequestChunkTask setData(Anvil level, int chunkX, int chunkZ, int regionX, int regionZ){
+					this.level = level;
+					this.chunkX = chunkX;
+					this.chunkZ = chunkZ;
+					this.regionX = regionX;
+					this.regionZ = regionZ;
+					return this;
+				}
+        		
+				@Override
+				public void onRun() {
+					RegionLoader loader;
+					try {
+						loader = new RegionLoader((LevelProvider)level, regionX, regionZ);
+						chunk = loader.readChunk(chunkX - regionX * 32, chunkZ - regionZ * 32);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+				
+				@Override
+				public BaseChunk getChunk() {
+					return chunk;
+				}
+				
+				@Override
+				public void onCompletion(Server server) {
+					if (chunk == null && create)
+						chunk = level.getEmptyChunk(chunkX, chunkZ);
+					level.requestChunkCallback(x, z, chunk);
+				}
+			}.setData(this, x, z, getRegionIndexX(x), getRegionIndexZ(z));
+		}
+		
         FullChunk chunk = this.getChunk(x, z, false);
-        if (chunk == null) {
+        this.requestChunkCallback(x, z, chunk);
+		return null;
+	}
+    
+	public void requestChunkCallback(int x, int z, FullChunk chunk){
+		if (chunk == null) {
             throw new ChunkException("Invalid Chunk Set");
         }
 
@@ -157,8 +212,6 @@ public class Anvil extends BaseLevelProvider {
         stream.put(blockEntities);
 
         this.getLevel().chunkRequestCallback(x, z, stream.getBuffer(), FullChunkDataPacket.ORDER_LAYERED);
-
-        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package net.BukkitPE.level.format;
 
 import net.BukkitPE.level.Level;
 import net.BukkitPE.level.format.generic.BaseFullChunk;
+import cn.nukkit.level.generator.task.RequestChunkTask;
 import net.BukkitPE.math.Vector3;
 import net.BukkitPE.scheduler.AsyncTask;
 
@@ -14,8 +15,9 @@ import java.util.Map;
 public interface LevelProvider {
     byte ORDER_YZX = 0;
     byte ORDER_ZXY = 1;
-
-    AsyncTask requestChunkTask(int x, int z);
+	
+	RequestChunkTask requestChunkTask(int x, int z);
+	RequestChunkTask requestChunkTask(int x, int z, boolean create);
 
     String getPath();
 
