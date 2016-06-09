@@ -2,7 +2,7 @@ package net.BukkitPE.level.format;
 
 import net.BukkitPE.level.Level;
 import net.BukkitPE.level.format.generic.BaseFullChunk;
-import cn.nukkit.level.generator.task.RequestChunkTask;
+import net.BukkitPE.level.generator.task.RequestChunkTask;
 import net.BukkitPE.math.Vector3;
 import net.BukkitPE.scheduler.AsyncTask;
 
