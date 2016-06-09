@@ -9,7 +9,7 @@ import net.BukkitPE.level.format.LevelProvider;
 import net.BukkitPE.level.format.generic.BaseChunk;
 import net.BukkitPE.level.format.generic.BaseLevelProvider;
 import net.BukkitPE.level.generator.Generator;
-import cn.nukkit.level.generator.task.RequestChunkTask;
+import net.BukkitPE.level.generator.task.RequestChunkTask;
 import net.BukkitPE.nbt.NBTIO;
 import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.network.protocol.FullChunkDataPacket;
