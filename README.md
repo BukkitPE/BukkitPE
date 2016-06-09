@@ -9,9 +9,6 @@ BukkitPE is now running java, we will be working on updating our guides to insta
 
 **TravisCI Build Status** [![Build Status](https://travis-ci.org/BukkitPE/BukkitPE.svg?branch=master)](https://travis-ci.org/BukkitPE/BukkitPE)
 
-# Acknowledgements
-
-- The code in BukkitPE is from [PocketMine-MP](https://github.com/PocketMine/PocketMine-MP). All original code structure and base was written by the PocketMine Team. But some features was added/removed to make BukkitPE more stable. So we are giving @PocketMine full credit. Without it BukkitPE would of been made
 
 # FEATURES
 - [x] Performance optimization (Our #1 Goal!)
