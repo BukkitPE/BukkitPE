@@ -10,28 +10,17 @@ BukkitPE is now running java, we will be working on updating our guides to insta
 **TravisCI Build Status** [![Build Status](https://travis-ci.org/BukkitPE/BukkitPE.svg?branch=master)](https://travis-ci.org/BukkitPE/BukkitPE)
 
 
-# FEATURES
-- [x] Performance optimization (Our #1 Goal!)
-- [x] XP
-- [x] Weather
-- [x] Mob AI (Including Animals)
-- [x] Potions
-- [x] Fast Chunk loading and sending
-- [x] Redstone
-- [x] Effects
-- [x] Nether
-- [x] Plugin API (So you can extend it)
-- [x] Server logs are in **.txt** format so you can view with ease
-- [x] CrashDumps are now saved in /CrashDumps folder to ensure it doesn't get mixed with server files
-- [x] Player files are now saved in **.json** format. To ensure fast reading/writing speed
 
 #What is this?
 
 BukkitPE is software for hosting Minecraft : Pocket Edition servers. From controlling everything you can possibly do on MCPE to everything players can ever imagine on a server, BukkitPE also has an API which lets developer extend it. Let's face it plain BukkitPE isn't fun :P That's mainly why we have an API. BukkitPE has Clean feels and Stable Features / Performance optimization.
 
-#Can I extend BukkitPE to my own needs?
+# FEATURES
+- [x] Performance optimization
+- [x] Working XP system along with weather!
+- [x] Support PC Bukkit Plugins and Spigot (Beta)
 
-sure you can! Check out [Example Plugin](https://github.com/BukkitPE/ExamplePlugin) to start making plugins to transform your server into something you never thought you'd be able to even do!
+As of now we are adding support for bukkit plugins, this will be a huge change to this software and alot oof you guys would want this along. For up-to-data information about this visit our Forums
 
 
 #Can I help out the team and contribute to BukkitPE?
@@ -41,11 +30,7 @@ Why not? We're always looking for developers to help out with the project! Make 
 #Can I join the BukkitPE community?
 Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) now!
 
-# How do I install BukkitPE?
 
-Read the documentation for installing BukkitPE [here](https://github.com/BukkitPE/Documentation).
-You can download lastest release by clicking the picturre below.<br>
- <a href="https://jenkins.bukkitpe.net">![Unofficial-Downloadpng](https://i.gyazo.com/2eea3b538431eb54e243c785b7ec02eb.png)</a>
 
 
 ## Quick Links
