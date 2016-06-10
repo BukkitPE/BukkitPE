@@ -5,7 +5,7 @@
 #Notices:
 BukkitPE is run under the terms of the GNU Lesser General Public License for more information please visit the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
 
-BukkitPE is also a fork of Nukkit [LICENSE](https://github.com/Nukkit) but we've plan on adding more features to it. You may check otu there project at [here](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE)
+BukkitPE is also a fork of  [Nukkit](https://github.com/Nukkit) but we've plan on adding more features to it. You may check otu there project at [here](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE)
 
 BukkitPE is now running java, we will be working on updating our guides to installing it..ect)  If you are in need of help visit Forums.BukkitPE.net thanks!
 
