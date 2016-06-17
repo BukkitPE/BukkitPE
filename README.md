@@ -1,4 +1,4 @@
-# ![BukkitPE](https://gyazo.com/b972ad341bceff44a1eb82a75d9db502.png) ![LOL](http://bukkitpe.net/BukkitPE.gif)
+# ![BukkitPE](https://gyazo.com/b972ad341bceff44a1eb82a75d9db502.png)
 
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
