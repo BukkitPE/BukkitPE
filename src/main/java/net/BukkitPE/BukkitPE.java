@@ -72,16 +72,12 @@ public class BukkitPE {
 
         try {
             if (ANSI) {
-
-                System.out.print((char) 0x1b + "]0;*  ____         _    _   __     _____  ______   *" + (char) 0x07);
-                System.out.print((char) 0x1b + "]0;*  |  _ \      | |  | |  [_] | |  __ \|  ____|  *" + (char) 0x07);
-                System.out.print((char) 0x1b + "]0;*  | |_) |_   _| | _| | ___| |_| |__) | |__     *" + (char) 0x07);
-                System.out.print((char) 0x1b + "]0;*  |  _ <| | | | |/ / |/ / | __|  ___/|  __|    *" + (char) 0x07);
-                System.out.print((char) 0x1b + "]0;*  | |_) | |_| |   <|   <| | |_| |    | |____   *" + (char) 0x07);
-                System.out.print((char) 0x1b + "]0;*  |____/ \____|_|\_\_|\_\_|\__|_|    |______|  *" + (char) 0x07);
+                
+                System.out.print((char) 0x1b + "]0;" + (char) 0x07);
+                
+                
                 System.out.print((char) 0x1b + "]0;This program is free software, and it's under GNU General Public License v3.0+" + (char) 0x07);
                 System.out.print((char) 0x1b + "]0;You can redistribute it and/or modify under the same license." + (char) 0x07);
-                System.out.print((char) 0x1b + "]0;" + (char) 0x07);
                 System.out.print((char) 0x1b + "]0;@author BukkitPE Team" + (char) 0x07);
                 System.out.print((char) 0x1b + "]0;@link http://www.bukkitpe.net/  " + (char) 0x07);
                 //Below is what was here.
