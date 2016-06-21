@@ -79,7 +79,6 @@ public class BukkitPE {
                 System.out.print((char) 0x1b + "]0;|  _ <| | | | |/ / |/ / | __|  ___/|  __|" + (char) 0x07);
                 System.out.print((char) 0x1b + "]0;| |_) | |_| |   <|   <| | |_| |    | |____" + (char) 0x07);
                 System.out.print((char) 0x1b + "]0;|____/ \__,_|_|\_\_|\_\_|\__|_|    |______|" + (char) 0x07);
-                
                 System.out.print((char) 0x1b + "]0;This program is free software, and it's under GNU General Public License v3.0+" + (char) 0x07);
                 System.out.print((char) 0x1b + "]0;You can redistribute it and/or modify under the same license." + (char) 0x07);
                 System.out.print((char) 0x1b + "]0;author BukkitPE Team" + (char) 0x07);
