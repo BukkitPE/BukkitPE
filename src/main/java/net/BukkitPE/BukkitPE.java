@@ -1,6 +1,6 @@
 /*
  *
- * ____        _    _    _ _   _____  ______ 
+ * ____         _    _   __      _____ ______ 
  * |  _ \      | |  | |  (_) | |  __ \|  ____|
  * | |_) |_   _| | _| | ___| |_| |__) | |__   
  * |  _ <| | | | |/ / |/ / | __|  ___/|  __|  
@@ -37,7 +37,7 @@ public class BukkitPE {
 
     public final static String VERSION = "1.0dev";
     public final static String API_VERSION = "1.0.0";
-    public final static String CODENAME = "CakePHP";
+    public final static String CODENAME = "CakeJava"; //It uses java so that'd only be logical.
     public final static String MINECRAFT_VERSION = "v0.14.3 alpha";
     public final static String MINECRAFT_VERSION_NETWORK = "0.14.3";
 
@@ -72,7 +72,17 @@ public class BukkitPE {
 
         try {
             if (ANSI) {
+                
+                System.out.print((char) 0x1b + "]0;" + (char) 0x07);
+                
+                
+                System.out.print((char) 0x1b + "]0;This program is free software, and it's under GNU General Public License v3.0+" + (char) 0x07);
+                System.out.print((char) 0x1b + "]0;You can redistribute it and/or modify under the same license." + (char) 0x07);
+                System.out.print((char) 0x1b + "]0;@author BukkitPE Team" + (char) 0x07);
+                System.out.print((char) 0x1b + "]0;@link http://www.bukkitpe.net/  " + (char) 0x07);
+                //Below is what was here.
                 System.out.print((char) 0x1b + "]0;Starting BukkitPE Server For Minecraft: PE" + (char) 0x07);
+
             }
             Server server = new Server(logger, PATH, DATA_PATH, PLUGIN_PATH);
         } catch (Exception e) {
