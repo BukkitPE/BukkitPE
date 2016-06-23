@@ -82,7 +82,7 @@ public class BukkitPE {
         }
 
         if (ANSI) {
-            System.out.print((char) 0x1b + "]0;Stopping Server..." + (char) 0x07);
+            System.out.print((char) 0x1b + "]0;Stopping the server..." + (char) 0x07);
         }
         logger.info("Stopping other threads");
 
