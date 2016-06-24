@@ -3,11 +3,11 @@
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 #Notices:
-BukkitPE is run under the terms of the GNU Lesser General Public License for more information please visit the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
+BukkitPE is ran under the terms of the GNU Lesser General Public License for more information please visit the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
 
-BukkitPE is also a fork of Nukkit,  which runs under the  GNU GENERAL PUBLIC LICENSE. So BukkitPE runs under the following terms too! Which allows you to fork, and  distribute it again using the same license. We hope you will find BukkitPE useful
+BukkitPE is also a fork of Nukkit,  which runs under the  GNU GENERAL PUBLIC LICENSE. So BukkitPE runs under the following terms too! Which allows you to fork, and  distribute it again using the same license. We hope you will find BukkitPE useful.
 
-BukkitPE is now running java, we will be working on updating our guides to installing it..ect)  If you are in need of help visit Forums.BukkitPE.net thanks!
+BukkitPE is now running java, we will be working on updating our guides to installing it..ect)  If you are in need of help visit Forums.BukkitPE.net thanks! Please note that you can download the latest update from our jenkins page (see quick links at the bottum).
 
 **TravisCI Build Status** [![Build Status](https://travis-ci.org/BukkitPE/BukkitPE.svg?branch=master)](https://travis-ci.org/BukkitPE/BukkitPE)
 
