@@ -220,7 +220,7 @@ public class Server {
         //todo: VersionString 现在不必要
 
         if (!new File(this.dataPath + "BukkitPE.yml").exists()) {
-            this.getLogger().info(TextFormat.GREEN + "Welcome! Please choose a language first!");
+            this.getLogger().info(TextFormat.GREEN + "Welcome, Please choose a language first!");
             try {
                 String[] lines = Utils.readFile(this.getClass().getClassLoader().getResourceAsStream("lang/language.list")).split("\n");
                 for (String line : lines) {
@@ -650,7 +650,7 @@ public class Server {
     public void reload() {
         this.logger.info("Reloading...");
 
-        this.logger.info("Saving levels...");
+        this.logger.info("Saving the levels...");
 
         for (Level level : this.levels.values()) {
             level.save();
@@ -660,7 +660,7 @@ public class Server {
         this.pluginManager.clearPlugins();
         this.commandMap.clearCommands();
 
-        this.logger.info("Reloading properties...");
+        this.logger.info("Reloading the properties...");
         this.properties.reload();
         this.maxPlayers = this.getPropertyInt("max-players", 20);
 
