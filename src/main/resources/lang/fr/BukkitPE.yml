@@ -8,7 +8,7 @@ settings:
  language: "eng"
  #Whether to send all strings translated to server locale or let the device handle them
  force-language: false
- shutdown-message: "The server is closed"
+ shutdown-message: "Le serveur est fermé"
  #Allow listing plugins via Query
  query-plugins: true
  #Show a console message when a plugin uses deprecated API methods
