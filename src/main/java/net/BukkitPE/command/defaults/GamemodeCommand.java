@@ -32,7 +32,7 @@ public class GamemodeCommand extends VanillaCommand {
 
         int gameMode = Server.getGamemodeFromString(args[0]);
 
-        if (gameMode <= -1 || gamemode >= 4) {
+        if (gameMode == -1 ) {
             sender.sendMessage("Unknown game mode");
 
             return true;
