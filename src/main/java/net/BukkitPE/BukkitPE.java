@@ -37,9 +37,9 @@ public class BukkitPE {
 
     public final static String VERSION = "1.0dev";
     public final static String API_VERSION = "1.0.0";
-    public final static String CODENAME = "CakePHP";
-    public final static String MINECRAFT_VERSION = "v0.14.3 alpha";
-    public final static String MINECRAFT_VERSION_NETWORK = "0.14.3";
+    public final static String CODENAME = "RealmsJava";
+    public final static String MINECRAFT_VERSION = "v0.15.0 alpha";
+    public final static String MINECRAFT_VERSION_NETWORK = "0.15.0.0";
 
     public final static String PATH = System.getProperty("user.dir") + "/";
     public final static String DATA_PATH = System.getProperty("user.dir") + "/";
