@@ -72,7 +72,7 @@ public class StatusCommand extends VanillaCommand {
 
         sender.sendMessage(TextFormat.GOLD + "Used memory: " + usageColor + usedMB + " MB. (" + BukkitPEMath.round(usage, 2) + "%)");
 
-        sender.sendMessage(TextFormat.GOLD + "Total usable memory: " + TextFormat.RED + totalMB + " MB.");
+        sender.sendMessage(TextFormat.GOLD + "Total memory: " + TextFormat.RED + totalMB + " MB.");
 
         sender.sendMessage(TextFormat.GOLD + "Maximum VM memory: " + TextFormat.RED + maxMB + " MB.");
 
