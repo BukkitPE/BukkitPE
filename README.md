@@ -1,6 +1,6 @@
 # ![BukkitPE](https://gyazo.com/b972ad341bceff44a1eb82a75d9db502.png)
 
-[![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://gyazo.com/cca46b9b2eb9984b8bfd2153d3f619f8.png)](Jenkins.BukkitPE.net)
+[![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://gyazo.com/cca46b9b2eb9984b8bfd2153d3f619f8.png)](https://Jenkins.BukkitPE.net)
 
 [![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
