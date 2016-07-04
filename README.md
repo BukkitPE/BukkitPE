@@ -7,9 +7,14 @@
 #Notices:
 BukkitPE is ran under the terms of the GNU Lesser General Public License for more information please visit the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
 
-BukkitPE is also a fork of Nukkit,  which runs under the  GNU GENERAL PUBLIC LICENSE. So BukkitPE runs under the following terms too! Which allows you to fork, and  distribute it again using the same license. We hope you will find BukkitPE useful.
 
-BukkitPE is now running java, we will be working on updating our guides to installing it..ect)  If you are in need of help visit Forums.BukkitPE.net thanks! Please note that you can download the latest update from our jenkins page (see quick links at the bottum).
+#Installation
+- [x] BukkitPE works with multicraft, using our custom BukkitPE.conf file, which can be found   [here~](https://github.com/BukkitPE/Multicraft)
+
+- [x] You can run BukkitPE from a command line, make sure you have java installed. Navigate to the folder were BukkitPE jar is located and use java -jar BukkitPE.jar     (replace the BukkitPE.jar with the jar name or leave it default)
+
+- [x] For new builds check out our jenkins page! Look below the page for the link
+
 
 **TravisCI Build Status** [![Build Status](https://travis-ci.org/BukkitPE/BukkitPE.svg?branch=master)](https://travis-ci.org/BukkitPE/BukkitPE)
 
