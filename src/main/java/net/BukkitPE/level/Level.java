@@ -221,7 +221,7 @@ public class Level implements ChunkManager, Metadatable {
         } catch (Exception e) {
             throw new LevelException("Caused by " + Utils.getExceptionMessage(e));
         }
-
+                   this.provider.updateLevelName(name);
         this.server.getLogger().info(this.server.getLanguage().translateString("BukkitPE.level.preparing",
                 TextFormat.GREEN + this.provider.getName() + TextFormat.WHITE));
 
