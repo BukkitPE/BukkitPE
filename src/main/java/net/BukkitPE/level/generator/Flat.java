@@ -34,11 +34,11 @@ public class Flat extends Generator {
 
     private BukkitPERandom random;
 
-    private List<Populator> populators = new ArrayList<>();
+    private final List<Populator> populators = new ArrayList<>();
 
     private int[][] structure;
 
-    private Map<String, Object> options;
+    private final Map<String, Object> options;
 
     private int floorLevel;
 

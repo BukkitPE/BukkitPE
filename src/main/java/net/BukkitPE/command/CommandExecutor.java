@@ -4,8 +4,8 @@ package net.BukkitPE.command;
  * 能监听命令执行的类实现的接口。<br>
  * An interface what can be implemented by classes which listens command executing.
  *
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see net.BukkitPE.plugin.PluginBase
  * @see net.BukkitPE.command.CommandExecutor#onCommand
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0

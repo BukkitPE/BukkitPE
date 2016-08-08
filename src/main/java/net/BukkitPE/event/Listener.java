@@ -38,7 +38,7 @@ package net.BukkitPE.event;
  * For the priority of handler and whether the handler ignore cancelled events or not, See: {@link EventHandler}.</p>
  *
  * @author Unknown(code) @ BukkitPE Project
-
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see net.BukkitPE.event.Event
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */

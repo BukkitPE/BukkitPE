@@ -20,7 +20,7 @@ import java.util.List;
  */
 public abstract class SimpleConfig {
 
-    private File configFile;
+    private final File configFile;
 
     public SimpleConfig(Plugin plugin) {
         this(plugin, "config.yml");
@@ -36,6 +36,10 @@ public abstract class SimpleConfig {
     }
 
     public boolean save() {
+        return save(false);
+    }
+
+    public boolean save(boolean async) {
         if (configFile.exists()) try {
             configFile.createNewFile();
         } catch (Exception e) {
@@ -51,7 +55,7 @@ public abstract class SimpleConfig {
                 return false;
             }
         }
-        cfg.save();
+        cfg.save(async);
         return true;
     }
 
@@ -76,6 +80,8 @@ public abstract class SimpleConfig {
                     field.set(this, cfg.getDouble(path, field.getDouble(this)));
                 else if (field.getType() == String.class)
                     field.set(this, cfg.getString(path, (String) field.get(this)));
+                else if (field.getType() == ConfigSection.class)
+                    field.set(this, cfg.getSection(path));
                 else if (field.getType() == List.class) {
                     Type genericFieldType = field.getGenericType();
                     if (genericFieldType instanceof ParameterizedType) {

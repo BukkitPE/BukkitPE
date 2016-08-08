@@ -17,25 +17,14 @@ public abstract class BlockStairs extends BlockTransparent {
 
     @Override
     protected AxisAlignedBB recalculateBoundingBox() {
-        if ((this.getDamage() & 0x04) > 0) {
-            return new AxisAlignedBB(
-                    this.x,
-                    this.y + 0.5,
-                    this.z,
-                    this.x + 1,
-                    this.y + 1,
-                    this.z + 1
-            );
-        } else {
-            return new AxisAlignedBB(
-                    this.x,
-                    this.y,
-                    this.z,
-                    this.x + 1,
-                    this.y + 0.5,
-                    this.z + 1
-            );
-        }
+        return new AxisAlignedBB(
+                this.x,
+                this.y,
+                this.z,
+                this.x + 1,
+                this.y + 1, //or 0.5, but for on ground checking must be 1
+                this.z + 1
+        );
     }
 
     @Override
@@ -58,9 +47,11 @@ public abstract class BlockStairs extends BlockTransparent {
     @Override
     public int[][] getDrops(Item item) {
         if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_WOODEN) {
-            return new int[][]{new int[]{this.getId(), 0, 1}};
+            return new int[][]{
+                    {this.getId(), 0, 1}
+            };
         } else {
-            return new int[0][];
+            return new int[0][0];
         }
     }
 }

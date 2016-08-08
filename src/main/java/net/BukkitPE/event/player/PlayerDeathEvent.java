@@ -3,7 +3,7 @@ package net.BukkitPE.event.player;
 import net.BukkitPE.Player;
 import net.BukkitPE.event.Cancellable;
 import net.BukkitPE.event.HandlerList;
-import net.BukkitPE.event.TextContainer;
+import net.BukkitPE.lang.TextContainer;
 import net.BukkitPE.event.entity.EntityDeathEvent;
 import net.BukkitPE.item.Item;
 
@@ -40,6 +40,10 @@ public class PlayerDeathEvent extends EntityDeathEvent implements Cancellable {
 
     public void setDeathMessage(TextContainer deathMessage) {
         this.deathMessage = deathMessage;
+    }
+
+    public void setDeathMessage(String deathMessage) {
+        this.deathMessage = new TextContainer(deathMessage);
     }
 
     public boolean getKeepInventory() {

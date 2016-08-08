@@ -5,9 +5,9 @@ package net.BukkitPE.level.format.leveldb.key;
  * BukkitPE Project
  */
 public class BaseKey {
-    private int chunkX;
-    private int chunkZ;
-    private byte type;
+    private final int chunkX;
+    private final int chunkZ;
+    private final byte type;
 
     public static final byte DATA_VERSION = 0x76;
     public static final byte DATA_FLAGS = 0x66;

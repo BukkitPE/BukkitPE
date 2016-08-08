@@ -30,13 +30,13 @@ import net.BukkitPE.plugin.Plugin;
  * If you want BukkitPE to execute this task with delay or repeat, use {@link ServerScheduler}.</p>
  *
  * @param <T> 这个任务所属的插件。<br>The plugin that owns this task.
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */
 public abstract class PluginTask<T extends Plugin> extends Task {
 
-    protected T owner;
+    protected final T owner;
 
     /**
      * 构造一个插件拥有的任务的方法。<br>Constructs a plugin-owned task.

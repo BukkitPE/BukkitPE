@@ -4,8 +4,8 @@ package net.BukkitPE.blockentity;
  * 表达一个能被命名的事物的接口。<br>
  * An interface describes an object that can be named.
  *
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */
 public interface BlockEntityNameable {

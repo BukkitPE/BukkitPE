@@ -6,6 +6,8 @@ import net.BukkitPE.command.SimpleCommandMap;
 import net.BukkitPE.event.*;
 import net.BukkitPE.permission.Permissible;
 import net.BukkitPE.permission.Permission;
+import net.BukkitPE.timings.Timing;
+import net.BukkitPE.timings.Timings;
 import net.BukkitPE.utils.MainLogger;
 import net.BukkitPE.utils.PluginException;
 import net.BukkitPE.utils.Utils;
@@ -18,30 +20,29 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
-
- * BukkitPE Project
+ * @author MagicDroidX
  */
 public class PluginManager {
 
-    private Server server;
+    private final Server server;
 
-    private SimpleCommandMap commandMap;
+    private final SimpleCommandMap commandMap;
 
-    protected Map<String, Plugin> plugins = new LinkedHashMap<>();
+    protected final Map<String, Plugin> plugins = new LinkedHashMap<>();
 
-    protected Map<String, Permission> permissions = new HashMap<>();
+    protected final Map<String, Permission> permissions = new HashMap<>();
 
-    protected Map<String, Permission> defaultPerms = new HashMap<>();
+    protected final Map<String, Permission> defaultPerms = new HashMap<>();
 
-    protected Map<String, Permission> defaultPermsOp = new HashMap<>();
+    protected final Map<String, Permission> defaultPermsOp = new HashMap<>();
 
-    protected Map<String, WeakHashMap<Permissible, Permissible>> permSubs = new HashMap<>();
+    protected final Map<String, WeakHashMap<Permissible, Permissible>> permSubs = new HashMap<>();
 
-    protected Map<Permissible, Permissible> defSubs = new WeakHashMap<>();
+    protected final Map<Permissible, Permissible> defSubs = new WeakHashMap<>();
 
-    protected Map<Permissible, Permissible> defSubsOp = new WeakHashMap<>();
+    protected final Map<Permissible, Permissible> defSubsOp = new WeakHashMap<>();
 
-    protected Map<String, PluginLoader> fileAssociations = new HashMap<>();
+    protected final Map<String, PluginLoader> fileAssociations = new HashMap<>();
 
     public PluginManager(Server server, SimpleCommandMap commandMap) {
         this.server = server;
@@ -105,6 +106,7 @@ public class PluginManager {
                                 return plugin;
                             }
                         } catch (Exception e) {
+                            Server.getInstance().getLogger().debug("Could not load plugin", e);
                             return null;
                         }
                     }
@@ -356,6 +358,7 @@ public class PluginManager {
     }
 
     private void calculatePermissionDefault(Permission permission) {
+        Timings.permissionDefaultTimer.startTiming();
         if (permission.getDefault().equals(Permission.DEFAULT_OP) || permission.getDefault().equals(Permission.DEFAULT_TRUE)) {
             this.defaultPermsOp.put(permission.getName(), permission);
             this.dirtyPermissibles(true);
@@ -365,6 +368,7 @@ public class PluginManager {
             this.defaultPerms.put(permission.getName(), permission);
             this.dirtyPermissibles(false);
         }
+        Timings.permissionDefaultTimer.startTiming();
     }
 
     private void dirtyPermissibles(boolean op) {
@@ -557,14 +561,11 @@ public class PluginManager {
                     registration.callEvent(event);
                 } catch (Exception e) {
                     this.server.getLogger().critical(this.server.getLanguage().translateString("BukkitPE.plugin.eventError", new String[]{event.getEventName(), registration.getPlugin().getDescription().getFullName(), e.getMessage(), registration.getListener().getClass().getName()}));
-                    MainLogger logger = this.server.getLogger();
-                    if (logger != null) {
-                        logger.logException(e);
-                    }
+                    this.server.getLogger().logException(e);
                 }
             }
         } catch (IllegalAccessException e) {
-            Server.getInstance().getLogger().logException(e);
+            this.server.getLogger().logException(e);
         }
     }
 
@@ -630,7 +631,8 @@ public class PluginManager {
         }
 
         try {
-            this.getEventListeners(event).register(new RegisteredListener(listener, executor, priority, plugin, ignoreCancelled));
+            Timing timing = Timings.getPluginEventTiming(event, listener, executor, plugin);
+            this.getEventListeners(event).register(new RegisteredListener(listener, executor, priority, plugin, ignoreCancelled, timing));
         } catch (IllegalAccessException e) {
             Server.getInstance().getLogger().logException(e);
         }
@@ -660,5 +662,4 @@ public class PluginManager {
             }
         }
     }
-
 }

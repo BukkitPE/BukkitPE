@@ -1,7 +1,7 @@
 package net.BukkitPE.command;
 
 import net.BukkitPE.Server;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.utils.MainLogger;
 import net.BukkitPE.utils.TextFormat;
 

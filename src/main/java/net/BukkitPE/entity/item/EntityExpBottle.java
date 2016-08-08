@@ -12,8 +12,7 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.network.protocol.AddEntityPacket;
 
 /**
- * Created on 2015/12/25 by xtypr.
- * Package net.BukkitPE.entity in project BukkitPE .
+ * @author xtypr
  */
 public class EntityExpBottle extends EntityProjectile {
 
@@ -63,7 +62,7 @@ public class EntityExpBottle extends EntityProjectile {
             return false;
         }
 
-        //this.timings.startTiming();
+        this.timing.startTiming();
 
         int tickDiff = currentTick - this.lastUpdate;
         boolean hasUpdate = super.onUpdate(currentTick);
@@ -89,7 +88,7 @@ public class EntityExpBottle extends EntityProjectile {
             }
         }
 
-        //this.timings.stopTiming();
+        this.timing.stopTiming();
 
         return hasUpdate;
     }

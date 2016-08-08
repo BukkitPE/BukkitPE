@@ -12,6 +12,7 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.nbt.tag.ShortTag;
 import net.BukkitPE.network.protocol.EntityEventPacket;
 import net.BukkitPE.potion.Effect;
+import net.BukkitPE.timings.Timings;
 import net.BukkitPE.utils.BlockIterator;
 
 import java.util.ArrayList;
@@ -179,6 +180,7 @@ public abstract class EntityLiving extends Entity implements EntityDamageable {
 
     @Override
     public boolean entityBaseTick(int tickDiff) {
+        Timings.livingEntityBaseTickTimer.startTiming();
         boolean hasUpdate = super.entityBaseTick(tickDiff);
 
         if (this.isAlive()) {
@@ -224,6 +226,7 @@ public abstract class EntityLiving extends Entity implements EntityDamageable {
         if (this.attackTime > 0) {
             this.attackTime -= tickDiff;
         }
+        Timings.livingEntityBaseTickTimer.stopTiming();
 
         return hasUpdate;
     }
@@ -278,7 +281,7 @@ public abstract class EntityLiving extends Entity implements EntityDamageable {
     }
 
     public Block getTargetBlock(int maxDistance) {
-        return getTargetBlock(maxDistance, new HashMap<Integer, Object>());
+        return getTargetBlock(maxDistance, new HashMap<>());
     }
 
     public Block getTargetBlock(int maxDistance, Map<Integer, Object> transparent) {
@@ -288,7 +291,7 @@ public abstract class EntityLiving extends Entity implements EntityDamageable {
             if (block instanceof Block) {
                 return block;
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 

@@ -3,6 +3,7 @@ package net.BukkitPE.plugin;
 import net.BukkitPE.Server;
 import net.BukkitPE.event.Event;
 import net.BukkitPE.event.Listener;
+import net.BukkitPE.utils.EventException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,18 +14,24 @@ import java.lang.reflect.Method;
  */
 public class MethodEventExecutor implements EventExecutor {
 
-    private Method method;
+    private final Method method;
 
     public MethodEventExecutor(Method method) {
         this.method = method;
     }
 
     @Override
-    public void execute(Listener listener, Event event) {
+    public void execute(Listener listener, Event event) throws EventException {
         try {
             method.invoke(listener, event);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            Server.getInstance().getLogger().logException(e);
+        } catch (InvocationTargetException ex) {
+            throw new EventException(ex.getCause());
+        } catch (Throwable t) {
+            throw new EventException(t);
         }
+    }
+
+    public Method getMethod() {
+        return method;
     }
 }

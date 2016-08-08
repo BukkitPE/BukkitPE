@@ -9,7 +9,7 @@ import net.BukkitPE.event.Event;
  */
 public abstract class BlockEvent extends Event {
 
-    protected Block block;
+    protected final Block block;
 
     public BlockEvent(Block block) {
         this.block = block;

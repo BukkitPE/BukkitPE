@@ -14,8 +14,7 @@ import net.BukkitPE.potion.Effect;
 import net.BukkitPE.potion.Potion;
 
 /**
- * Created on 2015/12/27 by xtypr.
- * Package net.BukkitPE.entity in project BukkitPE .
+ * @author xtypr
  */
 public class EntityPotion extends EntityProjectile {
 
@@ -79,7 +78,7 @@ public class EntityPotion extends EntityProjectile {
             return false;
         }
 
-        //this.timings.startTiming();
+        this.timing.startTiming();
 
         int tickDiff = currentTick - this.lastUpdate;
         boolean hasUpdate = super.onUpdate(currentTick);
@@ -140,7 +139,7 @@ public class EntityPotion extends EntityProjectile {
                 potion.applyPotion(anEntity);
             }
         }
-
+        this.timing.stopTiming();
         return hasUpdate;
     }
 

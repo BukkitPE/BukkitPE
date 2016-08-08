@@ -25,7 +25,7 @@ public class PlayerInventory extends BaseInventory {
 
     protected int itemInHandIndex = 0;
 
-    protected int[] hotbar;
+    protected final int[] hotbar;
 
     public PlayerInventory(EntityHuman player) {
         super(player, InventoryType.get(InventoryType.PLAYER));
@@ -35,12 +35,12 @@ public class PlayerInventory extends BaseInventory {
 
     @Override
     public int getSize() {
-        return super.getSize() - 4 - 9; //Remove armor slots and Hotbar!!
+        return super.getSize() - 4;
     }
 
     @Override
     public void setSize(int size) {
-        super.setSize(size);
+        super.setSize(size + 4);
         this.sendContents(this.getViewers());
     }
 
@@ -61,10 +61,6 @@ public class PlayerInventory extends BaseInventory {
     public void setHeldItemIndex(int index) {
         if (index >= 0 && index < this.getHotbarSize()) {
             this.itemInHandIndex = index;
-
-            if (this.getHolder() instanceof Player) {
-                this.sendHeldItem(((Player) this.getHolder()));
-            }
 
             this.sendHeldItem(this.getHolder().getViewers().values());
         }

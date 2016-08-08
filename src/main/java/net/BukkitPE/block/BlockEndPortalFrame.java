@@ -6,7 +6,7 @@ import net.BukkitPE.math.AxisAlignedBB;
 /**
  * Created by Pub4Game on 26.12.2015.
  */
-public class BlockEndPortalFrame extends BlockSolid {
+public class BlockEndPortalFrame extends BlockTransparent {
 
     public BlockEndPortalFrame() {
         this(0);
@@ -45,7 +45,6 @@ public class BlockEndPortalFrame extends BlockSolid {
     public boolean isBreakable(Item item) {
         return false;
     }
-
 
     @Override
     protected AxisAlignedBB recalculateBoundingBox() {

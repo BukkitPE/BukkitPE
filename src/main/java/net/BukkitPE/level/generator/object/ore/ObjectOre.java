@@ -11,8 +11,8 @@ import net.BukkitPE.math.VectorMath;
  */
 public class ObjectOre {
 
-    private BukkitPERandom random;
-    public OreType type;
+    private final BukkitPERandom random;
+    public final OreType type;
 
     public ObjectOre(BukkitPERandom random, OreType type) {
         this.type = type;

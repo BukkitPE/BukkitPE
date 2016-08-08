@@ -2,7 +2,7 @@ package net.BukkitPE.command;
 
 import net.BukkitPE.Server;
 import net.BukkitPE.command.defaults.*;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.utils.MainLogger;
 import net.BukkitPE.utils.TextFormat;
 import net.BukkitPE.utils.Utils;
@@ -14,9 +14,9 @@ import java.util.*;
  * BukkitPE Project
  */
 public class SimpleCommandMap implements CommandMap {
-    protected Map<String, Command> knownCommands = new HashMap<>();
+    protected final Map<String, Command> knownCommands = new HashMap<>();
 
-    private Server server;
+    private final Server server;
 
     public SimpleCommandMap(Server server) {
         this.server = server;
@@ -57,7 +57,7 @@ public class SimpleCommandMap implements CommandMap {
         this.register("BukkitPE", new SetWorldSpawnCommand("setworldspawn"));
         this.register("BukkitPE", new TeleportCommand("tp"));
         this.register("BukkitPE", new TimeCommand("time"));
-        //this.register("BukkitPE", new TimingsCommand("timings"));
+        this.register("BukkitPE", new TimingsCommand("timings"));
         this.register("BukkitPE", new ReloadCommand("reload"));
         this.register("BukkitPE", new WeatherCommand("weather"));
         this.register("BukkitPE", new XpCommand("xp"));
@@ -112,13 +112,25 @@ public class SimpleCommandMap implements CommandMap {
 
     private boolean registerAlias(Command command, boolean isAlias, String fallbackPrefix, String label) {
         this.knownCommands.put(fallbackPrefix + ":" + label, command);
-        if ((command instanceof VanillaCommand || isAlias) && this.knownCommands.containsKey(label)) {
+
+        //if you're registering a command alias that is already registered, then return false
+        boolean alreadyRegistered = this.knownCommands.containsKey(label);
+        Command existingCommand = this.knownCommands.get(label);
+        boolean existingCommandIsNotVanilla = alreadyRegistered && !(existingCommand instanceof VanillaCommand);
+        //basically, if we're an alias and it's already registered, or we're a vanilla command, then we can't override it
+        if ((command instanceof VanillaCommand || isAlias) && alreadyRegistered && existingCommandIsNotVanilla) {
             return false;
         }
 
-        if (this.knownCommands.containsKey(label) && this.knownCommands.get(label).getLabel() != null && this.knownCommands.get(label).getLabel().equals(label)) {
+        //if you're registering a name (alias or label) which is identical to another command who's primary name is the same
+        //so basically we can't override the main name of a command, but we can override aliases if we're not an alias
+
+        //added the last statement which will allow us to override a VanillaCommand unconditionally
+        if (alreadyRegistered && existingCommand.getLabel() != null && existingCommand.getLabel().equals(label) && existingCommandIsNotVanilla) {
             return false;
         }
+
+        //you can now assume that the command is either uniquely named, or overriding another command's alias (and is not itself, an alias)
 
         if (!isAlias) {
             command.setLabel(label);
@@ -129,24 +141,54 @@ public class SimpleCommandMap implements CommandMap {
         return true;
     }
 
+    private ArrayList<String> parseArguments(String cmdLine) {
+        StringBuilder sb = new StringBuilder(cmdLine);
+        ArrayList<String> args = new ArrayList<>();
+        boolean notQuoted = true;
+        int start = 0;
+
+        for (int i = 0; i < sb.length(); i++) {
+            if (sb.charAt(i) == '\\') {
+                sb.deleteCharAt(i);
+                continue;
+            }
+
+            if (sb.charAt(i) == ' ' && notQuoted) {
+                String arg = sb.substring(start, i);
+                if (!arg.isEmpty()) {
+                    args.add(arg);
+                }
+                start = i + 1;
+            } else if (sb.charAt(i) == '"') {
+                sb.deleteCharAt(i);
+                --i;
+                notQuoted = !notQuoted;
+            }
+        }
+
+        String arg = sb.substring(start);
+        if (!arg.isEmpty()) {
+            args.add(arg);
+        }
+        return args;
+    }
+
     @Override
     public boolean dispatch(CommandSender sender, String cmdLine) {
-        String[] args = cmdLine.split(" ");
-
-        if (args.length == 0) {
+        ArrayList<String> parsed = parseArguments(cmdLine);
+        if (parsed.size() == 0) {
             return false;
         }
 
-        String sentCommandLabel = args[0].toLowerCase();
-        String[] newargs = new String[args.length - 1];
-        System.arraycopy(args, 1, newargs, 0, newargs.length);
-        args = newargs;
+        String sentCommandLabel = parsed.remove(0).toLowerCase();
+        String[] args = parsed.toArray(new String[parsed.size()]);
         Command target = this.getCommand(sentCommandLabel);
 
         if (target == null) {
             return false;
         }
 
+        target.timing.startTiming();
         try {
             target.execute(sender, sentCommandLabel, args);
         } catch (Exception e) {
@@ -157,6 +199,7 @@ public class SimpleCommandMap implements CommandMap {
                 logger.logException(e);
             }
         }
+        target.timing.stopTiming();
 
         return true;
     }

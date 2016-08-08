@@ -9,9 +9,9 @@ package net.BukkitPE.plugin;
  * The load order of a BukkitPE plugin can be {@link net.BukkitPE.plugin.PluginLoadOrder#STARTUP}
  * or {@link net.BukkitPE.plugin.PluginLoadOrder#POSTWORLD}.</p>
  *
- * @author  @ BukkitPE Project
+ * @author MagicDroidX(code) @ BukkitPE Project
  * @author iNevet(code) @ BukkitPE Project
-
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */
 public enum PluginLoadOrder {

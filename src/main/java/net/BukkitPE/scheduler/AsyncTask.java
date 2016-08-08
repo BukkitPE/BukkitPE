@@ -1,6 +1,7 @@
 package net.BukkitPE.scheduler;
 
 import net.BukkitPE.Server;
+import net.BukkitPE.timings.Timings;
 import net.BukkitPE.utils.ThreadStore;
 
 import java.util.Queue;
@@ -75,9 +76,11 @@ public abstract class AsyncTask implements Runnable {
     }
 
     public static void collectTask() {
+        Timings.schedulerAsyncTimer.startTiming();
         while (!FINISHED_LIST.isEmpty()) {
             FINISHED_LIST.poll().onCompletion(Server.getInstance());
         }
+        Timings.schedulerAsyncTimer.stopTiming();
     }
 
 }

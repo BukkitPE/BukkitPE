@@ -8,7 +8,7 @@ import net.BukkitPE.raknet.protocol.Packet;
  * BukkitPE Project
  */
 public class UNCONNECTED_PING extends Packet {
-    public static byte ID = (byte) 0x01;
+    public static final byte ID = (byte) 0x01;
 
     @Override
     public byte getID() {

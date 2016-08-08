@@ -9,8 +9,8 @@ import net.BukkitPE.item.Item;
  * <p>{@code BlockEntityContainer}容器必须包含物品的{@code Item}对象。<br>
  * A {@code BlockEntityContainer} must contain items as {@code Item} objects.</p>
  *
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see BlockEntityChest
  * @see BlockEntityFurnace
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0

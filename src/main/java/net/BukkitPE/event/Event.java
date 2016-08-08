@@ -17,7 +17,7 @@ import net.BukkitPE.utils.EventException;
  * For the way to implement a listener, see: {@link net.BukkitPE.event.Listener}</p>
  *
  * @author Unknown(code) @ BukkitPE Project
-
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see net.BukkitPE.event.EventHandler
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */

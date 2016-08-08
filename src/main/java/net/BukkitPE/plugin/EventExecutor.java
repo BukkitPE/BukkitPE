@@ -2,6 +2,7 @@ package net.BukkitPE.plugin;
 
 import net.BukkitPE.event.Event;
 import net.BukkitPE.event.Listener;
+import net.BukkitPE.utils.EventException;
 
 /**
  * author: iNevet
@@ -9,5 +10,5 @@ import net.BukkitPE.event.Listener;
  */
 public interface EventExecutor {
 
-    void execute(Listener listener, Event event);
+    void execute(Listener listener, Event event) throws EventException;
 }

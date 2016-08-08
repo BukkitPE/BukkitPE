@@ -3,7 +3,6 @@ package net.BukkitPE.block;
 import net.BukkitPE.Player;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.item.ItemTool;
-import net.BukkitPE.math.AxisAlignedBB;
 import net.BukkitPE.utils.BlockColor;
 
 /**
@@ -19,7 +18,6 @@ public class BlockSlabWood extends BlockSlab {
     public BlockSlabWood(int meta) {
         super(meta);
     }
-
 
     @Override
     public String getName() {
@@ -49,29 +47,6 @@ public class BlockSlabWood extends BlockSlab {
     @Override
     public int getBurnAbility() {
         return 20;
-    }
-
-    @Override
-    protected AxisAlignedBB recalculateBoundingBox() {
-        if ((this.meta & 0x08) > 0) {
-            return new AxisAlignedBB(
-                    this.x,
-                    this.y + 0.5,
-                    this.z,
-                    this.x + 1,
-                    this.y + 1,
-                    this.z + 1
-            );
-        } else {
-            return new AxisAlignedBB(
-                    this.x,
-                    this.y,
-                    this.z,
-                    this.x + 1,
-                    this.y + 0.5,
-                    this.z + 1
-            );
-        }
     }
 
     @Override

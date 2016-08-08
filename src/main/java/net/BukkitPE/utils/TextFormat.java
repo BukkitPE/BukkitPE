@@ -32,8 +32,8 @@ package net.BukkitPE.utils;
  * }
  * </pre></p>
  *
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */
 public final class TextFormat {

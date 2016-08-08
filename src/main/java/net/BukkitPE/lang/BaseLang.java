@@ -1,8 +1,6 @@
 package net.BukkitPE.lang;
 
 import net.BukkitPE.Server;
-import net.BukkitPE.event.TextContainer;
-import net.BukkitPE.event.TranslationContainer;
 import net.BukkitPE.utils.Utils;
 
 import java.io.IOException;
@@ -17,7 +15,7 @@ import java.util.Map;
 public class BaseLang {
     public static final String FALLBACK_LANGUAGE = "eng";
 
-    protected String langName;
+    protected final String langName;
 
     protected Map<String, String> lang = new HashMap<>();
     protected Map<String, String> fallbackLang = new HashMap<>();
@@ -136,7 +134,7 @@ public class BaseLang {
         String baseText = this.get(str);
         baseText = this.parseTranslation((baseText != null && (onlyPrefix == null || str.indexOf(onlyPrefix) == 0)) ? baseText : str, onlyPrefix);
         for (int i = 0; i < params.length; i++) {
-            baseText = baseText.replace("{%" + i + "}", this.parseTranslation(params[i]));
+            baseText = baseText.replace("{%" + i + "}", this.parseTranslation(String.valueOf(params[i])));
         }
 
         return baseText;

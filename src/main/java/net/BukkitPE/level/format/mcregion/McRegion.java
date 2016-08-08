@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
  */
 public class McRegion extends BaseLevelProvider {
 
-    protected Map<String, RegionLoader> regions = new HashMap<>();
+    protected final Map<String, RegionLoader> regions = new HashMap<>();
 
     protected Map<String, Chunk> chunks = new HashMap<>();
 
@@ -235,6 +235,7 @@ public class McRegion extends BaseLevelProvider {
         int regionX = getRegionIndexX(chunkX);
         int regionZ = getRegionIndexZ(chunkZ);
         this.loadRegion(regionX, regionZ);
+        this.level.timings.syncChunkLoadDataTimer.startTiming();
         Chunk chunk;
         try {
             chunk = this.getRegion(regionX, regionZ).readChunk(chunkX - regionX * 32, chunkZ - regionZ * 32);
@@ -245,6 +246,7 @@ public class McRegion extends BaseLevelProvider {
         if (chunk == null && create) {
             chunk = this.getEmptyChunk(chunkX, chunkZ);
         }
+        this.level.timings.syncChunkLoadDataTimer.stopTiming();
 
         if (chunk != null) {
             this.chunks.put(index, chunk);

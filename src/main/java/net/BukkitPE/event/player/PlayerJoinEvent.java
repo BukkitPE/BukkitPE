@@ -2,7 +2,7 @@ package net.BukkitPE.event.player;
 
 import net.BukkitPE.Player;
 import net.BukkitPE.event.HandlerList;
-import net.BukkitPE.event.TextContainer;
+import net.BukkitPE.lang.TextContainer;
 
 public class PlayerJoinEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();

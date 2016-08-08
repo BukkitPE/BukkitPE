@@ -1,7 +1,7 @@
 package net.BukkitPE.command;
 
 import net.BukkitPE.Server;
-import net.BukkitPE.event.TextContainer;
+import net.BukkitPE.lang.TextContainer;
 import net.BukkitPE.permission.PermissibleBase;
 import net.BukkitPE.permission.Permission;
 import net.BukkitPE.permission.PermissionAttachment;
@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class ConsoleCommandSender implements CommandSender {
 
-    private PermissibleBase perm;
+    private final PermissibleBase perm;
 
     public ConsoleCommandSender() {
         this.perm = new PermissibleBase(this);

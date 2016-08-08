@@ -9,7 +9,7 @@ import net.BukkitPE.scheduler.AsyncTask;
  */
 public class GeneratorUnregisterTask extends AsyncTask {
 
-    public int levelId;
+    public final int levelId;
 
     public GeneratorUnregisterTask(Level level) {
         this.levelId = level.getId();

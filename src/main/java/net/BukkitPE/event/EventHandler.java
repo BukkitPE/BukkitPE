@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * <p>处理器可以选择忽略或不忽略被取消的事件，这种特性可以在{@link #ignoreCancelled()}中定义。<br>
  * A handler can choose to ignore a cancelled event or not, that can be defined in {@link #ignoreCancelled()}.</p>
  *
- * @author  @ BukkitPE Project
+ * @author MagicDroidX(code) @ BukkitPE Project
  * @author null(javadoc) @ BukkitPE Project
  * @see net.BukkitPE.event.Listener
  * @see net.BukkitPE.event.Event

@@ -15,8 +15,8 @@ import net.BukkitPE.Server;
  * (such as: prevent this task from running if its owner plugin is disabled),
  * it's suggested to use {@link PluginTask} instead of extend this class.</p>
  *
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */
 public abstract class Task implements Runnable {

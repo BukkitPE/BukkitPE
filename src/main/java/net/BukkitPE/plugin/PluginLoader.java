@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * An interface to describe a plugin loader.
  *
  * @author iNevet(code) @ BukkitPE Project
-
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see JavaPluginLoader
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */

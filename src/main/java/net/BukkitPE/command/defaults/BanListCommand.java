@@ -1,7 +1,7 @@
 package net.BukkitPE.command.defaults;
 
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.permission.BanEntry;
 import net.BukkitPE.permission.BanList;
 

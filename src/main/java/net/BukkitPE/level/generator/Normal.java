@@ -30,13 +30,13 @@ public class Normal extends Generator {
         return TYPE_INFINITE;
     }
 
-    private List<Populator> populators = new ArrayList<>();
+    private final List<Populator> populators = new ArrayList<>();
 
     private ChunkManager level;
 
     private BukkitPERandom random;
 
-    private List<Populator> generationPopulators = new ArrayList<>();
+    private final List<Populator> generationPopulators = new ArrayList<>();
 
     private Simplex noiseSeaFloor;
     private Simplex noiseLand;
@@ -200,8 +200,7 @@ public class Normal extends Generator {
                     }
                     canRiver = false;
                 } else if (genyHeight <= beathStopHeight && genyHeight >= beathStartHeight) {
-                    //todo: there is no beach biome, use desert temporarily
-                    biome = Biome.getBiome(Biome.DESERT);
+                    biome = Biome.getBiome(Biome.BEACH);
                 } else {
                     biome = this.pickBiome(chunkX * 16 + genx, chunkZ * 16 + genz);
                     if (canBaseGround) {

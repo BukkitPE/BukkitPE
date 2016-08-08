@@ -11,7 +11,7 @@ import net.BukkitPE.scheduler.AsyncTask;
  */
 public class LightPopulationTask extends AsyncTask {
 
-    public int levelId;
+    public final int levelId;
     public BaseFullChunk chunk;
 
     public LightPopulationTask(Level level, BaseFullChunk chunk) {

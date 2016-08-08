@@ -1,4 +1,4 @@
-package net.BukkitPE.event;
+package net.BukkitPE.lang;
 
 import net.BukkitPE.Server;
 

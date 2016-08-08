@@ -3,7 +3,7 @@ package net.BukkitPE.command.defaults;
 import net.BukkitPE.Player;
 import net.BukkitPE.command.Command;
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.utils.TextFormat;
 

@@ -31,7 +31,6 @@ public class UpdateBlockPacket extends DataPacket {
     @Override
     public void encode() {
         this.reset();
-        this.putInt(this.records.length);
         for (Entry entry : this.records) {
             this.putInt(entry.x);
             this.putInt(entry.z);
@@ -42,12 +41,12 @@ public class UpdateBlockPacket extends DataPacket {
     }
 
     public static class Entry {
-        public int x;
-        public int z;
-        public int y;
-        public int blockId;
-        public int blockData;
-        public int flags;
+        public final int x;
+        public final int z;
+        public final int y;
+        public final int blockId;
+        public final int blockData;
+        public final int flags;
 
         public Entry(int x, int z, int y, int blockId, int blockData, int flags) {
             this.x = x;

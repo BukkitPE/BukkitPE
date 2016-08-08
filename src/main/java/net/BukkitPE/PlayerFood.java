@@ -13,12 +13,12 @@ import net.BukkitPE.potion.Effect;
 public class PlayerFood {
 
     private int foodLevel = 20;
-    private int maxFoodLevel;
+    private final int maxFoodLevel;
     private float foodSaturationLevel = 20f;
     private int foodTickTimer = 0;
     private double foodExpLevel = 0;
 
-    private Player player;
+    private final Player player;
 
     public PlayerFood(Player player, int foodLevel, float foodSaturationLevel) {
         this.player = player;
@@ -128,7 +128,9 @@ public class PlayerFood {
     }
 
     public void sendFoodLevel(int foodLevel) {
-        this.getPlayer().setAttribute(Attribute.getAttribute(Attribute.MAX_HUNGER).setValue(foodLevel));
+        if (this.getPlayer().spawned) {
+            this.getPlayer().setAttribute(Attribute.getAttribute(Attribute.MAX_HUNGER).setValue(foodLevel));
+        }
     }
 
     public void update(int tickDiff) {

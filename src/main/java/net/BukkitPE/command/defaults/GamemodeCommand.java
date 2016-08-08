@@ -4,7 +4,7 @@ import net.BukkitPE.Player;
 import net.BukkitPE.Server;
 import net.BukkitPE.command.Command;
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.utils.TextFormat;
 
 /**
@@ -32,7 +32,7 @@ public class GamemodeCommand extends VanillaCommand {
 
         int gameMode = Server.getGamemodeFromString(args[0]);
 
-        if (gameMode == -1 ) {
+        if (gameMode == -1) {
             sender.sendMessage("Unknown game mode");
 
             return true;

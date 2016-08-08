@@ -3,7 +3,7 @@ package net.BukkitPE.command.defaults;
 import net.BukkitPE.Player;
 import net.BukkitPE.command.Command;
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 
 import java.util.Objects;
 
@@ -44,7 +44,7 @@ public class BanCommand extends VanillaCommand {
 
         Player player = sender.getServer().getPlayerExact(name);
         if (player != null) {
-            player.kick(!Objects.equals(reason, "") ? "Banned by admin reason: " + reason : "Banned by admin");
+            player.kick(!Objects.equals(reason, "") ? "Banned by admin. Reason: " + reason : "Banned by admin");
         }
 
         Command.broadcastCommandMessage(sender, new TranslationContainer("%commands.ban.success", player != null ? player.getName() : name));

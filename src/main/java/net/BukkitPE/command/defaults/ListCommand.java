@@ -2,7 +2,7 @@ package net.BukkitPE.command.defaults;
 
 import net.BukkitPE.Player;
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 
 /**
  * Created on 2015/11/11 by xtypr.

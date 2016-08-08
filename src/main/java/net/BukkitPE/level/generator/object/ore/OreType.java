@@ -7,11 +7,11 @@ import net.BukkitPE.block.Block;
  * BukkitPE Project
  */
 public class OreType {
-    public Block material;
-    public int clusterCount;
-    public int clusterSize;
-    public int maxHeight;
-    public int minHeight;
+    public final Block material;
+    public final int clusterCount;
+    public final int clusterSize;
+    public final int maxHeight;
+    public final int minHeight;
 
     public OreType(Block material, int clusterCount, int clusterSize, int minHeight, int maxHeight) {
         this.material = material;

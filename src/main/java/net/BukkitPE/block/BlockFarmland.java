@@ -2,14 +2,16 @@ package net.BukkitPE.block;
 
 import net.BukkitPE.item.Item;
 import net.BukkitPE.item.ItemTool;
+import net.BukkitPE.level.Level;
 import net.BukkitPE.math.AxisAlignedBB;
+import net.BukkitPE.math.Vector3;
 import net.BukkitPE.utils.BlockColor;
 
 /**
  * Created on 2015/12/2 by xtypr.
  * Package net.BukkitPE.block in project BukkitPE .
  */
-public class BlockFarmland extends BlockSolid {
+public class BlockFarmland extends BlockTransparent {
 
     public BlockFarmland() {
         this(0);
@@ -54,6 +56,41 @@ public class BlockFarmland extends BlockSolid {
                 this.y + 0.9375,
                 this.z + 1
         );
+    }
+
+    @Override
+    public int onUpdate(int type) {
+        if (type == Level.BLOCK_UPDATE_RANDOM) {
+            boolean found = false;
+
+            Vector3 v = new Vector3();
+
+            for (int x = (int) this.x - 1; x <= this.x + 1; x++) {
+                for (int z = (int) this.z - 1; z <= this.z + 1; z++) {
+                    if (z == this.z && x == this.x) {
+                        continue;
+                    }
+
+                    Block block = this.level.getBlock(v.setComponents(x, this.y, z));
+
+                    if (block instanceof BlockWater) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            Block block = this.level.getBlock(v.setComponents(x, y - 1, z));
+            if (found || block instanceof BlockWater) {
+                return Level.BLOCK_UPDATE_RANDOM;
+            }
+
+            this.level.setBlock(this, new BlockDirt(), true, true);
+
+            return Level.BLOCK_UPDATE_RANDOM;
+        }
+
+        return 0;
     }
 
     @Override

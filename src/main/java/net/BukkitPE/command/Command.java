@@ -1,9 +1,11 @@
 package net.BukkitPE.command;
 
 import net.BukkitPE.Server;
-import net.BukkitPE.event.TextContainer;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TextContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.permission.Permissible;
+import net.BukkitPE.timings.Timing;
+import net.BukkitPE.timings.Timings;
 import net.BukkitPE.utils.TextFormat;
 
 import java.util.Set;
@@ -14,7 +16,7 @@ import java.util.Set;
  */
 public abstract class Command {
 
-    private String name;
+    private final String name;
 
     private String nextLabel;
 
@@ -33,6 +35,8 @@ public abstract class Command {
     private String permission = null;
 
     private String permissionMessage = null;
+
+    public Timing timing;
 
     public Command(String name) {
         this(name, "", null, new String[0]);
@@ -54,6 +58,7 @@ public abstract class Command {
         this.usageMessage = usageMessage == null ? "/" + name : usageMessage;
         this.aliases = aliases;
         this.activeAliases = aliases;
+        this.timing = Timings.getCommandTiming(this);
     }
 
     public abstract boolean execute(CommandSender sender, String commandLabel, String[] args);
@@ -107,6 +112,7 @@ public abstract class Command {
         this.nextLabel = name;
         if (!this.isRegistered()) {
             this.label = name;
+            this.timing = Timings.getCommandTiming(this);
             return true;
         }
         return false;

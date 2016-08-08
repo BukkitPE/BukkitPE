@@ -2,17 +2,16 @@ package net.BukkitPE.scheduler;
 
 import net.BukkitPE.Server;
 import net.BukkitPE.plugin.Plugin;
+import net.BukkitPE.timings.Timing;
+import net.BukkitPE.timings.Timings;
 
 /**
-
- * BukkitPE
+ * @author MagicDroidX
  */
 public class TaskHandler {
-
     private final int taskId;
     private final boolean asynchronous;
 
-    private final String timingName;
     private final Plugin plugin;
     private final Runnable task;
 
@@ -24,12 +23,14 @@ public class TaskHandler {
 
     private boolean cancelled;
 
-    public TaskHandler(Plugin plugin, String timingName, Runnable task, int taskId, boolean asynchronous) {
+    public final Timing timing;
+
+    public TaskHandler(Plugin plugin, Runnable task, int taskId, boolean asynchronous) {
         this.asynchronous = asynchronous;
         this.plugin = plugin;
         this.task = task;
         this.taskId = taskId;
-        this.timingName = timingName == null ? "Unknown" : timingName;
+        this.timing = Timings.getTaskTiming(this, period);
     }
 
     public boolean isCancelled() {
@@ -101,8 +102,9 @@ public class TaskHandler {
         }
     }
 
+    @Deprecated
     public String getTaskName() {
-        return this.timingName;
+        return "Unknown";
     }
 
     public boolean isAsynchronous() {

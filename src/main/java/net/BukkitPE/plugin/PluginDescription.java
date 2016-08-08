@@ -100,9 +100,9 @@ import java.util.*;
  * List, the list of permission groups defined.</li>
  * </ul></p>
  *
- * @author  @ BukkitPE Project
+ * @author MagicDroidX(code) @ BukkitPE Project
  * @author iNevet(code and javadoc) @ BukkitPE Project
-
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see Plugin
  * @see PluginLoadOrder
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
@@ -119,7 +119,7 @@ public class PluginDescription {
     private String version;
     private Map<String, Object> commands = new HashMap<>();
     private String description;
-    private List<String> authors = new ArrayList<>();
+    private final List<String> authors = new ArrayList<>();
     private String website;
     private String prefix;
     private PluginLoadOrder order = PluginLoadOrder.POSTWORLD;

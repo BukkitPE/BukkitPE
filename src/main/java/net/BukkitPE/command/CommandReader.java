@@ -3,6 +3,7 @@ package net.BukkitPE.command;
 import net.BukkitPE.InterruptibleThread;
 import net.BukkitPE.Server;
 import net.BukkitPE.event.server.ServerCommandEvent;
+import net.BukkitPE.timings.Timings;
 import jline.console.ConsoleReader;
 import jline.console.CursorBuffer;
 
@@ -62,12 +63,13 @@ public class CommandReader extends Thread implements InterruptibleThread {
             if (line != null && !line.trim().equals("")) {
                 //todo 将即时执行指令改为每tick执行
                 try {
+                    Timings.serverCommandTimer.startTiming();
                     ServerCommandEvent event = new ServerCommandEvent(Server.getInstance().getConsoleSender(), line);
                     Server.getInstance().getPluginManager().callEvent(event);
                     if (!event.isCancelled()) {
                         Server.getInstance().dispatchCommand(event.getSender(), event.getCommand());
                     }
-
+                    Timings.serverCommandTimer.stopTiming();
                 } catch (Exception e) {
                     Server.getInstance().getLogger().logException(e);
                 }
@@ -87,7 +89,7 @@ public class CommandReader extends Thread implements InterruptibleThread {
         this.running = false;
     }
 
-    public void stashLine() {
+    public synchronized void stashLine() {
         this.stashed = reader.getCursorBuffer().copy();
         try {
             reader.getOutput().write("\u001b[1G\u001b[K");
@@ -97,7 +99,7 @@ public class CommandReader extends Thread implements InterruptibleThread {
         }
     }
 
-    public void unstashLine() {
+    public synchronized void unstashLine() {
         try {
             reader.resetPromptLine("> ", this.stashed.toString(), this.stashed.cursor);
         } catch (IOException e) {

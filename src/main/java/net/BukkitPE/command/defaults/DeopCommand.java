@@ -4,7 +4,7 @@ import net.BukkitPE.IPlayer;
 import net.BukkitPE.Player;
 import net.BukkitPE.command.Command;
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.utils.TextFormat;
 
 /**

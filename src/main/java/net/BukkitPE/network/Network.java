@@ -7,7 +7,9 @@ import net.BukkitPE.network.protocol.*;
 import net.BukkitPE.utils.Binary;
 import net.BukkitPE.utils.Zlib;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,11 +31,11 @@ public class Network {
 
     private Class<? extends DataPacket>[] packetPool = new Class[256];
 
-    private Server server;
+    private final Server server;
 
-    private Set<SourceInterface> interfaces = new HashSet<>();
+    private final Set<SourceInterface> interfaces = new HashSet<>();
 
-    private Set<AdvancedSourceInterface> advancedInterfaces = new HashSet<>();
+    private final Set<AdvancedSourceInterface> advancedInterfaces = new HashSet<>();
 
     private double upload = 0;
     private double download = 0;
@@ -120,7 +122,7 @@ public class Network {
         return server;
     }
 
-    public void processBatch(BatchPacket packet, Player p) {
+    public void processBatch(BatchPacket packet, Player player) {
         byte[] data;
         try {
             data = Zlib.inflate(packet.payload, 64 * 1024 * 1024);
@@ -132,6 +134,7 @@ public class Network {
         int len = data.length;
         int offset = 0;
         try {
+            List<DataPacket> packets = new ArrayList<>();
             while (offset < len) {
                 int pkLen = Binary.readInt(Binary.subBytes(data, offset, 4));
                 offset += 4;
@@ -140,23 +143,26 @@ public class Network {
                 offset += pkLen;
 
                 DataPacket pk;
-                //TODO: CHECK THIS HACK FOR 0.14
-                if ((pk = this.getPacket(buf[1])) != null) {
+
+                if ((pk = this.getPacket(buf[0])) != null) {
                     if (pk.pid() == ProtocolInfo.BATCH_PACKET) {
                         throw new IllegalStateException("Invalid BatchPacket inside BatchPacket");
                     }
 
-                    pk.setBuffer(buf);
-                    pk.setOffset(2);
+                    pk.setBuffer(buf, 1);
 
                     pk.decode();
-                    p.handleDataPacket(pk);
+
+                    packets.add(pk);
 
                     if (pk.getOffset() <= 0) {
                         return;
                     }
                 }
             }
+
+            processPackets(player, packets);
+
         } catch (Exception e) {
             if (BukkitPE.DEBUG > 0) {
                 this.server.getLogger().debug("BatchPacket 0x" + Binary.bytesToHexString(packet.payload));
@@ -164,6 +170,31 @@ public class Network {
             }
         }
     }
+
+    /**
+     * Process packets obtained from batch packets
+     * Required to perform additional analyses and filter unnecessary packets
+     *
+     * @param packets
+     */
+    public void processPackets(Player player, List<DataPacket> packets) {
+        if (packets.isEmpty()) return;
+        List<Byte> filter = new ArrayList<>();
+        for (DataPacket packet : packets) {
+            switch (packet.pid()) {
+                case ProtocolInfo.USE_ITEM_PACKET:
+                    // Prevent double fire of PlayerInteractEvent
+                    if (!filter.contains(ProtocolInfo.USE_ITEM_PACKET)) {
+                        player.handleDataPacket(packet);
+                        filter.add(ProtocolInfo.USE_ITEM_PACKET);
+                    }
+                    break;
+                default:
+                    player.handleDataPacket(packet);
+            }
+        }
+    }
+
 
     public DataPacket getPacket(byte id) {
         Class<? extends DataPacket> clazz = this.packetPool[id & 0xff];
@@ -204,7 +235,6 @@ public class Network {
         this.registerPacket(ProtocolInfo.SET_TIME_PACKET, SetTimePacket.class);
         this.registerPacket(ProtocolInfo.START_GAME_PACKET, StartGamePacket.class);
         this.registerPacket(ProtocolInfo.ADD_PLAYER_PACKET, AddPlayerPacket.class);
-        this.registerPacket(ProtocolInfo.REMOVE_PLAYER_PACKET, RemovePlayerPacket.class);
         this.registerPacket(ProtocolInfo.ADD_ENTITY_PACKET, AddEntityPacket.class);
         this.registerPacket(ProtocolInfo.REMOVE_ENTITY_PACKET, RemoveEntityPacket.class);
         this.registerPacket(ProtocolInfo.ADD_ITEM_ENTITY_PACKET, AddItemEntityPacket.class);
@@ -249,6 +279,8 @@ public class Network {
         this.registerPacket(ProtocolInfo.PLAYER_LIST_PACKET, PlayerListPacket.class);
         this.registerPacket(ProtocolInfo.TELEMETRY_EVENT_PACKET, TelemetryEventPacket.class);
         this.registerPacket(ProtocolInfo.REQUEST_CHUNK_RADIUS_PACKET, RequestChunkRadiusPacket.class);
-        this.registerPacket(ProtocolInfo.CHUNK_RADIUS_UPDATE_PACKET, ChunkRadiusUpdatePacket.class);
+        this.registerPacket(ProtocolInfo.CHUNK_RADIUS_UPDATED_PACKET, ChunkRadiusUpdatedPacket.class);
+        this.registerPacket(ProtocolInfo.REPLACE_SELECTED_ITEM_PACKET, ReplaceSelectedItemPacket.class);
+        this.registerPacket(ProtocolInfo.ITEM_FRAME_DROP_ITEM_PACKET, ItemFrameDropItemPacket.class);
     }
 }

@@ -11,7 +11,7 @@ import net.BukkitPE.nbt.NBTIO;
 import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.nbt.tag.ListTag;
 import net.BukkitPE.network.protocol.AddPlayerPacket;
-import net.BukkitPE.network.protocol.RemovePlayerPacket;
+import net.BukkitPE.network.protocol.RemoveEntityPacket;
 import net.BukkitPE.utils.Utils;
 
 import java.nio.charset.StandardCharsets;
@@ -90,7 +90,7 @@ public class EntityHuman extends EntityCreature implements InventoryHolder {
     protected void initEntity() {
         this.setDataFlag(DATA_PLAYER_FLAGS, DATA_PLAYER_FLAG_SLEEP, false);
 
-        this.setDataProperty(new PositionEntityData(DATA_PLAYER_BED_POSITION, 0, 0, 0));
+        this.setDataProperty(new PositionEntityData(DATA_PLAYER_BED_POSITION, 0, 0, 0), false);
 
         this.inventory = new PlayerInventory(this);
         if (this instanceof Player) {
@@ -229,9 +229,8 @@ public class EntityHuman extends EntityCreature implements InventoryHolder {
     public void despawnFrom(Player player) {
         if (this.hasSpawned.containsKey(player.getLoaderId())) {
 
-            RemovePlayerPacket pk = new RemovePlayerPacket();
+            RemoveEntityPacket pk = new RemoveEntityPacket();
             pk.eid = this.getId();
-            pk.uuid = this.getUniqueId();
             player.dataPacket(pk);
             this.hasSpawned.remove(player.getLoaderId());
         }

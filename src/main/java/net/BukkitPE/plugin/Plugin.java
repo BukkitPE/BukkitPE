@@ -15,8 +15,8 @@ import java.io.InputStream;
  * For plugin developers: it's recommended to use {@link net.BukkitPE.plugin.PluginBase} for an actual plugin
  * instead of implement this interface.</p>
  *
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see net.BukkitPE.plugin.PluginBase
  * @see net.BukkitPE.plugin.PluginDescription
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0

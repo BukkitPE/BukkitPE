@@ -2,7 +2,7 @@ package net.BukkitPE.command.defaults;
 
 import net.BukkitPE.command.Command;
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.utils.TextFormat;
 
 /**
@@ -63,7 +63,7 @@ public class WhitelistCommand extends VanillaCommand {
                         ++count;
                     }
                     sender.sendMessage(new TranslationContainer("commands.whitelist.list", new String[]{String.valueOf(count), String.valueOf(count)}));
-                    sender.sendMessage(result.substring(0, result.length() - 2));
+                    sender.sendMessage(result.length() > 0 ? result.substring(0, result.length() - 2) : "");
 
                     return true;
 

@@ -1,7 +1,7 @@
 package net.BukkitPE.command.defaults;
 
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.network.protocol.ProtocolInfo;
 import net.BukkitPE.plugin.Plugin;
 import net.BukkitPE.plugin.PluginDescription;

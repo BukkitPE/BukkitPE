@@ -3,9 +3,10 @@ package net.BukkitPE.command.defaults;
 import net.BukkitPE.Player;
 import net.BukkitPE.command.Command;
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.potion.Effect;
 import net.BukkitPE.potion.InstantEffect;
+import net.BukkitPE.utils.ServerException;
 import net.BukkitPE.utils.TextFormat;
 
 /**
@@ -42,7 +43,7 @@ public class EffectCommand extends Command {
         Effect effect;
         try {
             effect = Effect.getEffect(Integer.parseInt(args[1]));
-        } catch (NumberFormatException a) {
+        } catch (NumberFormatException | ServerException a) {
             try {
                 effect = Effect.getEffectByName(args[1]);
             } catch (Exception e) {

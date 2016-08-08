@@ -7,9 +7,9 @@ import net.BukkitPE.Player;
  * BukkitPE Project
  */
 public interface EntityOwnable {
-    public String getOwnerName();
+    String getOwnerName();
 
-    public void setOwnerName(String playerName);
+    void setOwnerName(String playerName);
 
-    public Player getOwner();
+    Player getOwner();
 }

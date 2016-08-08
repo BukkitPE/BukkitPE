@@ -5,6 +5,8 @@ import net.BukkitPE.block.Block;
 import net.BukkitPE.level.Position;
 import net.BukkitPE.level.format.FullChunk;
 import net.BukkitPE.nbt.tag.CompoundTag;
+import net.BukkitPE.timings.Timing;
+import net.BukkitPE.timings.Timings;
 import net.BukkitPE.utils.ChunkException;
 
 import java.lang.reflect.Constructor;
@@ -12,8 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
- * BukkitPE Project
+ * @author MagicDroidX
  */
 public abstract class BlockEntity extends Position {
     //WARNING: DO NOT CHANGE ANY NAME HERE, OR THE CLIENT WILL CRASH
@@ -28,12 +29,13 @@ public abstract class BlockEntity extends Position {
     public static final String BREWING_STAND = "BrewingStand";
     public static final String DAYLIGHT_DETECTOR = "DaylightDetector";
     public static final String MUSIC = "Music";
+    public static final String ITEM_FRAME = "ItemFrame";
 
 
     public static long count = 1;
 
-    private static Map<String, Class<? extends BlockEntity>> knownBlockEntities = new HashMap<>();
-    private static Map<String, String> shortNames = new HashMap<>();
+    private static final Map<String, Class<? extends BlockEntity>> knownBlockEntities = new HashMap<>();
+    private static final Map<String, String> shortNames = new HashMap<>();
 
     public FullChunk chunk;
     public String name;
@@ -43,12 +45,14 @@ public abstract class BlockEntity extends Position {
     public CompoundTag namedTag;
     protected long lastUpdate;
     protected Server server;
+    protected Timing timing;
 
     public BlockEntity(FullChunk chunk, CompoundTag nbt) {
         if (chunk == null || chunk.getProvider() == null) {
             throw new ChunkException("Invalid garbage Chunk given to Block Entity");
         }
 
+        this.timing = Timings.getBlockEntityTiming(this);
         this.server = chunk.getProvider().getLevel().getServer();
         this.chunk = chunk;
         this.setLevel(chunk.getProvider().getLevel());

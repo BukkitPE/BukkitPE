@@ -9,9 +9,7 @@ import net.BukkitPE.math.BukkitPERandom;
 import net.BukkitPE.math.Vector3;
 import net.BukkitPE.utils.BlockColor;
 
-/**
- * Created by Pub4Game on 03.01.2016.
- */
+
 public class BlockMycelium extends BlockSolid {
 
     public BlockMycelium() {
@@ -29,7 +27,7 @@ public class BlockMycelium extends BlockSolid {
 
     @Override
     public int getId() {
-        return Block.MYCELIUM;
+        return MYCELIUM;
     }
 
     @Override
@@ -44,7 +42,9 @@ public class BlockMycelium extends BlockSolid {
 
     @Override
     public int[][] getDrops(Item item) {
-        return new int[][]{{Item.DIRT, 0, 1}};
+        return new int[][]{
+                {Item.DIRT, 0, 1}
+        };
     }
 
     @Override

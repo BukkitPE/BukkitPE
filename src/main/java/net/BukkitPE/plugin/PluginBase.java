@@ -19,8 +19,8 @@ import java.util.LinkedHashMap;
  * 一般的BukkitPE插件需要继承的类。<br>
  * A class to be extended by a normal BukkitPE plugin.
  *
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see net.BukkitPE.plugin.PluginDescription
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */

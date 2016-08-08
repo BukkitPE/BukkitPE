@@ -8,7 +8,6 @@ import net.BukkitPE.utils.BlockColor;
  */
 public class BlockSponge extends BlockSolid {
 
-
     public BlockSponge() {
         this(0);
     }

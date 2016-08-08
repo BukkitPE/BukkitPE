@@ -13,7 +13,7 @@ import net.BukkitPE.scheduler.AsyncTask;
  */
 public class GenerationTask extends AsyncTask {
     public boolean state;
-    public int levelId;
+    public final int levelId;
     public BaseFullChunk chunk;
 
     public GenerationTask(Level level, BaseFullChunk chunk) {

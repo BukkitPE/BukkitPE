@@ -8,7 +8,7 @@ import net.BukkitPE.raknet.protocol.Packet;
  * BukkitPE Project
  */
 public class DATA_PACKET_F extends DataPacket {
-    public static byte ID = (byte) 0x8f;
+    public static final byte ID = (byte) 0x8f;
 
     @Override
     public byte getID() {

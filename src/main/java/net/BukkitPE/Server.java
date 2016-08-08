@@ -1,22 +1,3 @@
-/*
- *
- * ____        _    _    _ _   _____  ______ 
- * |  _ \      | |  | |  (_) | |  __ \|  ____|
- * | |_) |_   _| | _| | ___| |_| |__) | |__   
- * |  _ <| | | | |/ / |/ / | __|  ___/|  __|  
- * | |_) | |_| |   <|   <| | |_| |    | |____ 
- * |____/ \__,_|_|\_\_|\_\_|\__|_|    |______|
- *                                           
- *                                          
- *
- * This program is free software, and it's under GNU General Public License v3.0+
- * You can redistribute it and/or modify under the same license.
- *
- * @author BukkitPE Team
- * @link http://www.bukkitpe.net/
- *
- *
-*/
 package net.BukkitPE;
 
 import net.BukkitPE.block.Block;
@@ -32,9 +13,7 @@ import net.BukkitPE.entity.passive.*;
 import net.BukkitPE.entity.projectile.EntityArrow;
 import net.BukkitPE.entity.projectile.EntitySnowball;
 import net.BukkitPE.entity.weather.EntityLightning;
-import net.BukkitPE.event.HandlerList;
-import net.BukkitPE.event.TextContainer;
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.event.*;
 import net.BukkitPE.event.level.LevelInitEvent;
 import net.BukkitPE.event.level.LevelLoadEvent;
 import net.BukkitPE.event.server.QueryRegenerateEvent;
@@ -42,6 +21,8 @@ import net.BukkitPE.inventory.*;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.item.enchantment.Enchantment;
 import net.BukkitPE.lang.BaseLang;
+import net.BukkitPE.lang.TextContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.level.Level;
 import net.BukkitPE.level.Position;
 import net.BukkitPE.level.format.LevelProvider;
@@ -71,6 +52,7 @@ import net.BukkitPE.network.protocol.CraftingDataPacket;
 import net.BukkitPE.network.protocol.DataPacket;
 import net.BukkitPE.network.protocol.PlayerListPacket;
 import net.BukkitPE.network.query.QueryHandler;
+import net.BukkitPE.network.rcon.RCON;
 import net.BukkitPE.permission.BanEntry;
 import net.BukkitPE.permission.BanList;
 import net.BukkitPE.permission.DefaultPermissions;
@@ -83,6 +65,7 @@ import net.BukkitPE.potion.Effect;
 import net.BukkitPE.potion.Potion;
 import net.BukkitPE.scheduler.FileWriteTask;
 import net.BukkitPE.scheduler.ServerScheduler;
+import net.BukkitPE.timings.Timings;
 import net.BukkitPE.utils.*;
 
 import java.io.*;
@@ -90,8 +73,8 @@ import java.nio.ByteOrder;
 import java.util.*;
 
 /**
- & Box
- * BukkitPE
+ * @author MagicDroidX
+ * @author Box
  */
 public class Server {
 
@@ -122,9 +105,9 @@ public class Server {
 
     private long nextTick;
 
-    private float[] tickAverage = {20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20};
+    private final float[] tickAverage = {20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20};
 
-    private float[] useAverage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    private final float[] useAverage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     private float maxTick = 20;
 
@@ -134,9 +117,9 @@ public class Server {
 
     private boolean dispatchSignals = false;
 
-    private MainLogger logger;
+    private final MainLogger logger;
 
-    private CommandReader console;
+    private final CommandReader console;
 
     private SimpleCommandMap commandMap;
 
@@ -147,6 +130,8 @@ public class Server {
     private int maxPlayers;
 
     private boolean autoSave;
+
+    private RCON rcon;
 
     private EntityMetadataStore entityMetadata;
 
@@ -173,11 +158,11 @@ public class Server {
 
     private UUID serverID;
 
-    private String filePath;
-    private String dataPath;
-    private String pluginPath;
+    private final String filePath;
+    private final String dataPath;
+    private final String pluginPath;
 
-    private Set<UUID> uniquePlayers = new HashSet<>();
+    private final Set<UUID> uniquePlayers = new HashSet<>();
 
     private QueryHandler queryHandler;
 
@@ -186,13 +171,13 @@ public class Server {
     private Config properties;
     private Config config;
 
-    private Map<String, Player> players = new HashMap<>();
+    private final Map<String, Player> players = new HashMap<>();
 
-    private Map<UUID, Player> playerList = new HashMap<>();
+    private final Map<UUID, Player> playerList = new HashMap<>();
 
-    private Map<Integer, String> identifier = new HashMap<>();
+    private final Map<Integer, String> identifier = new HashMap<>();
 
-    private Map<Integer, Level> levels = new HashMap<>();
+    private final Map<Integer, Level> levels = new HashMap<>();
 
     private Level defaultLevel = null;
 
@@ -220,7 +205,7 @@ public class Server {
         //todo: VersionString 现在不必要
 
         if (!new File(this.dataPath + "BukkitPE.yml").exists()) {
-            this.getLogger().info(TextFormat.GREEN + "Welcome, Please choose a language first!");
+            this.getLogger().info(TextFormat.GREEN + "Welcome! Please choose a language first!");
             try {
                 String[] lines = Utils.readFile(this.getClass().getClassLoader().getResourceAsStream("lang/language.list")).split("\n");
                 for (String line : lines) {
@@ -329,6 +314,10 @@ public class Server {
 
         this.scheduler = new ServerScheduler();
 
+        if (this.getPropertyBoolean("enable-rcon", false)) {
+            this.rcon = new RCON(this, this.getPropertyString("rcon.password", ""), (!this.getIp().equals("")) ? this.getIp() : "0.0.0.0", this.getPropertyInt("rcon.port", this.getPort()));
+        }
+
         this.entityMetadata = new EntityMetadataStore();
         this.playerMetadata = new PlayerMetadataStore();
         this.levelMetadata = new LevelMetadataStore();
@@ -360,6 +349,7 @@ public class Server {
 
         this.logger.info(this.getLanguage().translateString("BukkitPE.server.info", new String[]{this.getName(), TextFormat.YELLOW + this.getBukkitPEVersion() + TextFormat.WHITE, TextFormat.AQUA + this.getCodename() + TextFormat.WHITE, this.getApiVersion()}));
         this.logger.info(this.getLanguage().translateString("BukkitPE.server.license", this.getName()));
+
 
         this.consoleSender = new ConsoleCommandSender();
         this.commandMap = new SimpleCommandMap(this);
@@ -457,9 +447,11 @@ public class Server {
             return;
         }
 
-        this.enablePlugins(PluginLoadOrder.POSTWORLD);
+        if ((int) this.getConfig("ticks-per.autosave", 6000) > 0) {
+            this.autoSaveTicks = (int) this.getConfig("ticks-per.autosave", 6000);
+        }
 
-        this.queryRegenerateEvent = new QueryRegenerateEvent(this, 5);
+        this.enablePlugins(PluginLoadOrder.POSTWORLD);
 
         this.start();
     }
@@ -563,6 +555,7 @@ public class Server {
             return;
         }
 
+        Timings.playerNetworkSendTimer.startTiming();
         byte[][] payload = new byte[packets.length * 2][];
         for (int i = 0; i < packets.length; i++) {
             DataPacket p = packets[i];
@@ -592,6 +585,7 @@ public class Server {
                 throw new RuntimeException(e);
             }
         }
+        Timings.playerNetworkSendTimer.stopTiming();
     }
 
     public void broadcastPacketsCallback(byte[] data, List<String> identifiers) {
@@ -650,7 +644,7 @@ public class Server {
     public void reload() {
         this.logger.info("Reloading...");
 
-        this.logger.info("Saving the levels...");
+        this.logger.info("Saving levels...");
 
         for (Level level : this.levels.values()) {
             level.save();
@@ -660,7 +654,7 @@ public class Server {
         this.pluginManager.clearPlugins();
         this.commandMap.clearCommands();
 
-        this.logger.info("Reloading the properties...");
+        this.logger.info("Reloading properties...");
         this.properties.reload();
         this.maxPlayers = this.getPropertyInt("max-players", 20);
 
@@ -681,6 +675,7 @@ public class Server {
         this.pluginManager.loadPlugins(this.pluginPath);
         this.enablePlugins(PluginLoadOrder.STARTUP);
         this.enablePlugins(PluginLoadOrder.POSTWORLD);
+        Timings.reset();
     }
 
     public void shutdown() {
@@ -708,6 +703,10 @@ public class Server {
 
             this.shutdown();
 
+            if (this.rcon != null) {
+                this.rcon.close();
+            }
+
             this.getLogger().debug("Disabling all plugins");
             this.pluginManager.disablePlugins();
 
@@ -727,9 +726,6 @@ public class Server {
             this.scheduler.cancelAllTasks();
             this.scheduler.mainThreadHeartbeat(Integer.MAX_VALUE);
 
-            this.getLogger().debug("Saving properties");
-            this.properties.save();
-
             this.getLogger().debug("Closing console");
             this.console.interrupt();
 
@@ -739,6 +735,8 @@ public class Server {
                 this.network.unregisterInterface(interfaz);
             }
 
+            this.getLogger().debug("Disabling timings");
+            Timings.stopServer();
             //todo other things
         } catch (Exception e) {
             this.logger.logException(e); //todo remove this?
@@ -954,6 +952,7 @@ public class Server {
 
     public void doAutoSave() {
         if (this.getAutoSave()) {
+            Timings.levelSaveTimer.startTiming();
             for (Player player : new ArrayList<>(this.players.values())) {
                 if (player.isOnline()) {
                     player.save(true);
@@ -965,6 +964,7 @@ public class Server {
             for (Level level : this.getLevels().values()) {
                 level.save();
             }
+            Timings.levelSaveTimer.stopTiming();
         }
     }
 
@@ -975,11 +975,21 @@ public class Server {
             return false;
         }
 
+        Timings.fullServerTickTimer.startTiming();
+
         ++this.tickCounter;
 
+        Timings.connectionTimer.startTiming();
         this.network.processInterfaces();
 
+        if (this.rcon != null) {
+            this.rcon.check();
+        }
+        Timings.connectionTimer.stopTiming();
+
+        Timings.schedulerTimer.startTiming();
         this.scheduler.mainThreadHeartbeat(this.tickCounter);
+        Timings.schedulerTimer.stopTiming();
 
         this.checkTickUpdates(this.tickCounter, tickTime);
 
@@ -1026,6 +1036,8 @@ public class Server {
             }
         }
 
+
+        Timings.fullServerTickTimer.stopTiming();
         //long now = System.currentTimeMillis();
         long nowNano = System.nanoTime();
         //float tick = Math.min(20, 1000 / Math.max(1, now - tickTime));
@@ -1674,6 +1686,11 @@ public class Server {
         return network;
     }
 
+    //Revising later...
+    public Config getConfig() {
+        return this.config;
+    }
+
     public Object getConfig(String variable) {
         return this.getConfig(variable, null);
     }
@@ -1681,6 +1698,10 @@ public class Server {
     public Object getConfig(String variable, Object defaultValue) {
         Object value = this.config.get(variable);
         return value == null ? defaultValue : value;
+    }
+
+    public Config getProperties() {
+        return this.properties;
     }
 
     public Object getProperty(String variable) {
@@ -1693,6 +1714,7 @@ public class Server {
 
     public void setPropertyString(String variable, String value) {
         this.properties.set(variable, value);
+        this.properties.save();
     }
 
     public String getPropertyString(String variable) {
@@ -1713,6 +1735,7 @@ public class Server {
 
     public void setPropertyInt(String variable, int value) {
         this.properties.set(variable, value);
+        this.properties.save();
     }
 
     public boolean getPropertyBoolean(String variable) {
@@ -1736,6 +1759,7 @@ public class Server {
 
     public void setPropertyBoolean(String variable, boolean value) {
         this.properties.set(variable, value ? "1" : "0");
+        this.properties.save();
     }
 
     public PluginIdentifiableCommand getPluginCommand(String name) {
@@ -1844,6 +1868,7 @@ public class Server {
         Entity.registerEntity("Sheep", EntitySheep.class);
         Entity.registerEntity("Wolf", EntityWolf.class);
         Entity.registerEntity("Ocelot", EntityOcelot.class);
+        Entity.registerEntity("Villager", EntityVillager.class);
 
         Entity.registerEntity("ThrownExpBottle", EntityExpBottle.class);
         Entity.registerEntity("XpOrb", EntityXPOrb.class);
@@ -1866,6 +1891,7 @@ public class Server {
         BlockEntity.registerBlockEntity(BlockEntity.SKULL, BlockEntitySkull.class);
         BlockEntity.registerBlockEntity(BlockEntity.FLOWER_POT, BlockEntityFlowerPot.class);
         BlockEntity.registerBlockEntity(BlockEntity.BREWING_STAND, BlockEntityBrewingStand.class);
+        BlockEntity.registerBlockEntity(BlockEntity.ITEM_FRAME, BlockEntityItemFrame.class);
     }
 
     public static Server getInstance() {

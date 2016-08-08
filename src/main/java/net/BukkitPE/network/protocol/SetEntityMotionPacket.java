@@ -29,7 +29,6 @@ public class SetEntityMotionPacket extends DataPacket {
     @Override
     public void encode() {
         this.reset();
-        this.putInt(this.entities.length);
         for (Entry entry : this.entities) {
             this.putLong(entry.entityId);
             this.putFloat((float) entry.motionX);
@@ -39,10 +38,10 @@ public class SetEntityMotionPacket extends DataPacket {
     }
 
     public static class Entry {
-        public long entityId;
-        public double motionX;
-        public double motionY;
-        public double motionZ;
+        public final long entityId;
+        public final double motionX;
+        public final double motionY;
+        public final double motionZ;
 
         public Entry(long entityId, double motionX, double motionY, double motionZ) {
             this.entityId = entityId;

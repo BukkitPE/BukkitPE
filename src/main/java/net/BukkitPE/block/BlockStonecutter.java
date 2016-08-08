@@ -1,6 +1,5 @@
 package net.BukkitPE.block;
 
-import net.BukkitPE.Player;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.item.ItemTool;
 
@@ -9,6 +8,7 @@ import net.BukkitPE.item.ItemTool;
  * Package net.BukkitPE.block in project BukkitPE .
  */
 public class BlockStonecutter extends BlockSolid {
+
     public BlockStonecutter() {
         this(0);
     }
@@ -33,26 +33,14 @@ public class BlockStonecutter extends BlockSolid {
     }
 
     @Override
-    public boolean canBeActivated() {
-        return true;
-    }
-
-    @Override
-    public boolean onActivate(Item item, Player player) {
-        if (player != null) {
-            player.craftingType = 2;
-        }
-        return true;
+    public double getResistance() {
+        return 17.5;
     }
 
     @Override
     public int[][] getDrops(Item item) {
-        if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_WOODEN) {
-            return new int[][]{
-                    {Item.STONECUTTER, 0, 1}
-            };
-        } else {
-            return new int[][]{};
-        }
+        return new int[][]{
+                {Item.STONECUTTER, 0, 1}
+        };
     }
 }

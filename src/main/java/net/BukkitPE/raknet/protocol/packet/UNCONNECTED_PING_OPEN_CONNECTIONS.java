@@ -7,7 +7,7 @@ import net.BukkitPE.raknet.protocol.Packet;
  * BukkitPE Project
  */
 public class UNCONNECTED_PING_OPEN_CONNECTIONS extends UNCONNECTED_PING {
-    public static byte ID = (byte) 0x02;
+    public static final byte ID = (byte) 0x02;
 
     @Override
     public byte getID() {

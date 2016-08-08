@@ -3,7 +3,7 @@ package net.BukkitPE.utils;
 import java.util.*;
 
 /**
-
+ * Created by fromgate on 26.04.2016.
  */
 public class ConfigSection extends LinkedHashMap<String, Object> {
 
@@ -32,6 +32,7 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
      */
     public ConfigSection(LinkedHashMap<String, Object> map) {
         this();
+        if (map == null || map.isEmpty()) return;
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             if (entry.getValue() instanceof LinkedHashMap) {
                 super.put(entry.getKey(), new ConfigSection((LinkedHashMap) entry.getValue()));
@@ -64,9 +65,6 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
 
     /**
      * Get object by key. If section does not contain value, return null
-     *
-     * @param key
-     * @return
      */
     public Object get(String key) {
         return this.get(key, null);
@@ -76,21 +74,20 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
      * Get object by key. If section does not contain value, return default value
      *
      * @param key
-     * @param defaltValue
-     * @param <T>
+     * @param defaultValue
      * @return
      */
-    public <T> T get(String key, T defaltValue) {
-        if (key == null || key.isEmpty()) return defaltValue;
+    public <T> T get(String key, T defaultValue) {
+        if (key == null || key.isEmpty()) return defaultValue;
         if (super.containsKey(key)) return (T) super.get(key);
         String[] keys = key.split("\\.", 2);
-        if (!super.containsKey(keys[0])) return defaltValue;
+        if (!super.containsKey(keys[0])) return defaultValue;
         Object value = super.get(keys[0]);
         if (value != null && value instanceof ConfigSection) {
             ConfigSection section = (ConfigSection) value;
-            return (T) section.get(keys[1], defaltValue);
+            return section.get(keys[1], defaultValue);
         }
-        return defaltValue;
+        return defaultValue;
     }
 
     /**
@@ -131,7 +128,7 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
         return this.get(key, new ConfigSection());
     }
 
-
+    //@formatter:off
     /**
      * Get all ConfigSections in root path.
      * Example config:
@@ -151,6 +148,7 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
      *
      * @return
      */
+    //@formatter:on
     public ConfigSection getSections() {
         return getSections(null);
     }
@@ -167,7 +165,7 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
         if (parent == null) return sections;
         parent.entrySet().forEach(e -> {
             if (e.getValue() instanceof ConfigSection)
-                sections.put(e.getKey(), (ConfigSection) e.getValue());
+                sections.put(e.getKey(), e.getValue());
         });
         return sections;
     }
@@ -319,7 +317,7 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
      * @return
      */
     public boolean getBoolean(String key, boolean defaultValue) {
-        return this.get(key, (Boolean) defaultValue).booleanValue();
+        return this.get(key, defaultValue);
     }
 
     /**
@@ -542,10 +540,10 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
         List<?> list = getList(key);
 
         if (list == null) {
-            return new ArrayList<Byte>(0);
+            return new ArrayList<>(0);
         }
 
-        List<Byte> result = new ArrayList<Byte>();
+        List<Byte> result = new ArrayList<>();
 
         for (Object object : list) {
             if (object instanceof Byte) {
@@ -705,7 +703,7 @@ public class ConfigSection extends LinkedHashMap<String, Object> {
      * @return
      */
     public Set<String> getKeys(boolean child) {
-        Set<String> keys = new HashSet<String>();
+        Set<String> keys = new LinkedHashSet<>();
         this.entrySet().forEach(entry -> {
             keys.add(entry.getKey());
             if (entry.getValue() instanceof ConfigSection) {

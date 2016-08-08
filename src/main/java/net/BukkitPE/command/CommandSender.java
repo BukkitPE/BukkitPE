@@ -1,7 +1,7 @@
 package net.BukkitPE.command;
 
 import net.BukkitPE.Server;
-import net.BukkitPE.event.TextContainer;
+import net.BukkitPE.lang.TextContainer;
 import net.BukkitPE.permission.Permissible;
 
 /**
@@ -11,8 +11,8 @@ import net.BukkitPE.permission.Permissible;
  * <p>可以是一个玩家或者一个控制台。<br>
  * That can be a player or a console.</p>
  *
- * @author  @ BukkitPE Project
-
+ * @author MagicDroidX(code) @ BukkitPE Project
+ * @author 粉鞋大妈(javadoc) @ BukkitPE Project
  * @see net.BukkitPE.command.CommandExecutor#onCommand
  * @since BukkitPE 1.0 | BukkitPE API 1.0.0
  */

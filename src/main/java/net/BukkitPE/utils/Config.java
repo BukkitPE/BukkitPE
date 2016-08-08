@@ -33,12 +33,12 @@ public class Config {
 
     //private LinkedHashMap<String, Object> config = new LinkedHashMap<>();
     private ConfigSection config = new ConfigSection();
-    private Map<String, Object> nestedCache = new HashMap<>();
+    private final Map<String, Object> nestedCache = new HashMap<>();
     private File file;
     private boolean correct = false;
     private int type = Config.DETECT;
 
-    public static Map<String, Integer> format = new TreeMap<>();
+    public static final Map<String, Integer> format = new TreeMap<>();
 
     static {
         format.put("properties", Config.PROPERTIES);
@@ -413,6 +413,15 @@ public class Config {
 
     public Map<String, Object> getAll() {
         return this.config.getAllMap();
+    }
+
+    /**
+     * Get root (main) config section of the Config
+     *
+     * @return
+     */
+    public ConfigSection getRootSection() {
+        return config;
     }
 
     public int setDefault(LinkedHashMap<String, Object> map) {

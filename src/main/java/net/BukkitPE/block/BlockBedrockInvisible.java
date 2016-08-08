@@ -3,9 +3,7 @@ package net.BukkitPE.block;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.utils.BlockColor;
 
-/**
- * Created by Pub4Game on 03.01.2016.
- */
+
 public class BlockBedrockInvisible extends BlockSolid {
 
     public BlockBedrockInvisible() {

@@ -57,6 +57,7 @@ public class BlockVine extends BlockTransparent {
     @Override
     public void onEntityCollide(Entity entity) {
         entity.resetFallDistance();
+        entity.onGround = true;
     }
 
     @Override
@@ -139,9 +140,11 @@ public class BlockVine extends BlockTransparent {
     @Override
     public int[][] getDrops(Item item) {
         if (item.isShears()) {
-            return new int[][]{{this.getId(), 0, 1}};
+            return new int[][]{
+                    {this.getId(), 0, 1}
+            };
         } else {
-            return new int[0][];
+            return new int[0][0];
         }
     }
 

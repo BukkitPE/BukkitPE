@@ -1,6 +1,6 @@
 package net.BukkitPE.command;
 
-import net.BukkitPE.event.TranslationContainer;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.plugin.Plugin;
 
 /**
@@ -9,7 +9,7 @@ import net.BukkitPE.plugin.Plugin;
  */
 public class PluginCommand<T extends Plugin> extends Command implements PluginIdentifiableCommand {
 
-    private T owningPlugin;
+    private final T owningPlugin;
 
     private CommandExecutor executor;
 

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Base64;
 
 /**
 
@@ -101,6 +102,14 @@ public class Skin {
     public Skin(BufferedImage image, String model) {
         this.parseBufferedImage(image);
         this.setModel(model);
+    }
+
+    public Skin(String base64) {
+        this(Base64.getDecoder().decode(base64));
+    }
+
+    public Skin(String base64, String model) {
+        this(Base64.getDecoder().decode(base64), model);
     }
 
     public void parseBufferedImage(BufferedImage image) {

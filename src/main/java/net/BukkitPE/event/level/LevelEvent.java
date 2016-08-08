@@ -9,7 +9,7 @@ import net.BukkitPE.level.Level;
  */
 public abstract class LevelEvent extends Event {
 
-    private Level level;
+    private final Level level;
 
     public LevelEvent(Level level) {
         this.level = level;

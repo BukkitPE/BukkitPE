@@ -15,7 +15,7 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.network.protocol.AddEntityPacket;
 
 /**
- * Created on 15-10-26.
+ * @author MagicDroidX
  */
 public class EntityFallingBlock extends Entity {
 
@@ -103,7 +103,7 @@ public class EntityFallingBlock extends Entity {
             return false;
         }
 
-        // TODO timings.startTiming();
+        this.timing.startTiming();
 
         int tickDiff = currentTick - lastUpdate;
         if (tickDiff <= 0 && !justCreated) {
@@ -136,7 +136,7 @@ public class EntityFallingBlock extends Entity {
             motionY *= 1 - getDrag();
             motionZ *= friction;
 
-            pos = (new Vector3(x - 0.5, y, z - 0.5)).floor();
+            pos = (new Vector3(x - 0.5, y, z - 0.5)).round();
 
             if (onGround) {
                 kill();
@@ -155,6 +155,9 @@ public class EntityFallingBlock extends Entity {
 
             updateMovement();
         }
+
+        this.timing.stopTiming();
+
         return hasUpdate || !onGround || Math.abs(motionX) > 0.00001 || Math.abs(motionY) > 0.00001 || Math.abs(motionZ) > 0.00001;
     }
 

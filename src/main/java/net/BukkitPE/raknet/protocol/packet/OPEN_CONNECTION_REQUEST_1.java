@@ -8,7 +8,7 @@ import net.BukkitPE.raknet.protocol.Packet;
  * BukkitPE Project
  */
 public class OPEN_CONNECTION_REQUEST_1 extends Packet {
-    public static byte ID = (byte) 0x05;
+    public static final byte ID = (byte) 0x05;
 
     @Override
     public byte getID() {

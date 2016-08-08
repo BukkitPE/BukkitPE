@@ -4,9 +4,9 @@ package net.BukkitPE.network.protocol;
 
  * BukkitPE Project
  */
-public class ChunkRadiusUpdatePacket extends DataPacket {
+public class ChunkRadiusUpdatedPacket extends DataPacket {
 
-    public static final byte NETWORK_ID = ProtocolInfo.CHUNK_RADIUS_UPDATE_PACKET;
+    public static final byte NETWORK_ID = ProtocolInfo.CHUNK_RADIUS_UPDATED_PACKET;
 
     public int radius;
 

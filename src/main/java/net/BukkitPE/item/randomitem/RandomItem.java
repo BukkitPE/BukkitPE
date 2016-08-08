@@ -9,7 +9,7 @@ import java.util.Objects;
  * Package net.BukkitPE.item.randomitem in project BukkitPE.
  */
 public final class RandomItem {
-    private static Map<Selector, Float> selectors = new HashMap<>();
+    private static final Map<Selector, Float> selectors = new HashMap<>();
 
     public static final Selector ROOT = new Selector(null);
 
