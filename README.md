@@ -1,40 +1,27 @@
-# ![BukkitPE](https://gyazo.com/b972ad341bceff44a1eb82a75d9db502.png)
-
-[![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://gyazo.com/cca46b9b2eb9984b8bfd2153d3f619f8.png)](https://Jenkins.BukkitPE.net)
-
-[![Join the chat at https://gitter.im/BukkitPE/BukkitPE](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-#Notices:
-BukkitPE is ran under the terms of the GNU Lesser General Public License for more information please visit the [LICENSE](https://github.com/BukkitPE/BukkitPE/blob/master/LICENSE) page.
-
-
-#Installation
-- [x] BukkitPE works with multicraft, using our custom BukkitPE.conf file, which can be found   [here~](https://github.com/BukkitPE/Multicraft)
-
-- [x] You can run BukkitPE from a command line, make sure you have java installed. Navigate to the folder were BukkitPE jar is located and use java -jar BukkitPE.jar     (replace the BukkitPE.jar with the jar name or leave it default)
-
-- [x] For new builds check out our jenkins page! Look below the page for the link
-
-
-**TravisCI Build Status** [![Build Status](https://travis-ci.org/BukkitPE/BukkitPE.svg?branch=master)](https://travis-ci.org/BukkitPE/BukkitPE)
-
-
-
 #What is this?
 
-BukkitPE is software for hosting Minecraft : Pocket Edition servers. From controlling everything you can possibly do on MCPE to everything players can ever imagine on a server, BukkitPE also has an API which lets developer extend it. Let's face it plain BukkitPE isn't fun :P That's mainly why we have an API. BukkitPE has Clean feels and Stable Features / Performance optimization.
+BukkitPE is software for hosting Minecraft : Pocket Edition servers. From controlling everything you can possibly do on MCPE to everything players can ever imagine on a server, BukkitPE also has an API which lets developer extend it. Let's face it plain MCPE Server's isn't fun :P That's mainly why we have an API. BukkitPE has Clean feels and Stable Features / Performance optimization.
 
-# FEATURES
-- [x] Performance optimization
-- [x] Working XP system along with weather!
-- [x] Support PC Bukkit Plugins and Spigot (Beta)
+#Statistics
 
-As of now we are adding support for bukkit plugins, this will be a huge change to this software and alot oof you guys would want this along. For up-to-data information about this visit our Forums
+*TravisCI Build Status*
+      [![Build Status](https://travis-ci.org/BukkitPE/BukkitPE.svg?branch=master)](https://travis-ci.org/BukkitPE/BukkitPE)
 
+*Jenkins Build Status*
+      [![Jenkins Status](http://jenkins.bukkitpe.net:8080/job/BukkitPE/badge/icon)](http://jenkins.bukkitpe.net)
+  
+*Gitter Chat Status*
+    [![Glitter](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+#Download
+
+[![Download via Jenkins](https://gyazo.com/cca46b9b2eb9984b8bfd2153d3f619f8.png)](http://Jenkins.BukkitPE.net)
+
+For more information, please visit Forums.BukkitPE.net
 
 #Can I help out the team and contribute to BukkitPE?
 
-Why not? We're always looking for developers to help out with the project! Make sure you check out the [Contributing Guidelines](https://github.com/BukkitPE/BukkitPE/blob/master/CONTRIBUTING.md) first though. After just create a pull request. :)
+Why not? We're always looking for developers to help out with the project! Just make sure you test everything before and it works well. After that you're good to go! Just create a "Pull Request".
 
 #Can I join the BukkitPE community?
 Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) now!
