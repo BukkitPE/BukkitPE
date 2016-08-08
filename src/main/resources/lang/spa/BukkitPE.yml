@@ -93,3 +93,7 @@ worlds:
  #mundo:
  # semilla: 404
  # generador: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)
+
+ # If you are going to use BungeeCordPE set this to true
+ # This option allows players to retain their own IP addresses.
+BungeeCordPE: false
