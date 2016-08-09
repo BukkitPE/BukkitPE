@@ -278,24 +278,16 @@ public class Server {
         this.baseLang = new BaseLang((String) this.getConfig("settings.language", BaseLang.FALLBACK_LANGUAGE));
         this.logger.info(this.getLanguage().translateString("language.selected", new String[]{getLanguage().getName(), getLanguage().getLang()}));
         this.logger.info(getLanguage().translateString("BukkitPE.server.start", TextFormat.AQUA + this.getVersion() + TextFormat.WHITE));
-  this.logger.info("*");
-  this.logger.info("*");
-  this.logger.info("* ____        _    _    _ _   _____  ______ ");
-  this.logger.info(" * |  _ \      | |  | |  (_) | |  __ \|  ____|");
-  this.logger.info("* | |_) |_   _| | _| | ___| |_| |__) | |__   ");
-  this.logger.info("* |  _ <| | | | |/ / |/ / | __|  ___/|  __|  ");
-  this.logger.info("* | |_) | |_| |   <|   <| | |_| |    | |____ ");
-  this.logger.info("* |____/ \__,_|_|\_\_|\_\_|\__|_|    |______|");
-  this.logger.info("*                                           ");
-  this.logger.info("*                                          ");
-  this.logger.info("*                                           ");
-  this.logger.info("* This program is free software, and it's under GNU General Public License v3.0+");
-  this.logger.info("* You can redistribute it and/or modify under the same license.                   ");
-  this.logger.info("*");
-  this.logger.info("* @author BukkitPE Team");
-  this.logger.info("* @link http://www.bukkitpe.net/");
-  this.logger.info("*");
-  this.logger.info("*");
+  this.logger.info("____        _    _    _ _   _____  ______ ");
+  this.logger.info("|  _ \      | |  | |  (_) | |  __ \|  ____|");
+  this.logger.info("| |_) |_   _| | _| | ___| |_| |__) | |__   ");
+  this.logger.info("|  _ <| | | | |/ / |/ / | __|  ___/|  __|  ");
+  this.logger.info("| |_) | |_| |   <|   <| | |_| |    | |____ ");
+  this.logger.info("|____/ \__,_|_|\_\_|\_\_|\__|_|    |______|");
+  this.logger.info("his program is free software, and it's under GNU General Public License v3.0+");
+  this.logger.info("You can redistribute it and/or modify under the same license.");
+  this.logger.info("@author BukkitPE Team");
+  this.logger.info("@link http://www.bukkitpe.net/");
 
         Object poolSize = this.getConfig("settings.async-workers", "auto");
         if (!(poolSize instanceof Integer)) {
