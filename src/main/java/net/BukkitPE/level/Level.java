@@ -2260,8 +2260,7 @@ public class Level implements ChunkManager, Metadatable {
             this.checkSleep();
         } else {
 		
-		// I've tested this myself, without "entity.close();" server usage seems faster with close();
-            //entity.close();
+            entity.kill();
         }
 
         this.entities.remove(entity.getId());
