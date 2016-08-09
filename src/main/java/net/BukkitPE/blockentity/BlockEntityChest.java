@@ -92,26 +92,30 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
         }
     }
 
-    @Override
-    public void setItem(int index, Item item) {
-        int i = this.getSlotIndex(index);
+ 	@Override
+	public void setItem(int index, Item item) {
+		int i = this.getSlotIndex(index);
 
-        CompoundTag d = new CompoundTag()
-                .putByte("Count", item.getCount())
-                .putByte("Slot", index)
-                .putShort("id", item.getId())
-                .putShort("Damage", item.getDamage());
+		CompoundTag d = new CompoundTag().putByte("Count", item.getCount()).putByte("Slot", index)
+				.putShort("id", item.getId()).putShort("Damage", item.getDamage());
+		if (item.hasEnchantments()) {
+			d.putList(new ListTag<CompoundTag>("ench"));
+			for (Enchantment enchantment : item.getEnchantments()) {
+				d.getList("ench", CompoundTag.class).add(
+						new CompoundTag().putShort("id", enchantment.getId()).putShort("lvl", enchantment.getLevel()));
+			}
+		}
 
-        if (item.getId() == Item.AIR || item.getCount() <= 0) {
-            if (i >= 0) {
-                this.namedTag.getList("Items").remove(i);
-            }
-        } else if (i < 0) {
-            (this.namedTag.getList("Items", CompoundTag.class)).add(d);
-        } else {
-            (this.namedTag.getList("Items", CompoundTag.class)).add(i, d);
-        }
-    }
+		if (item.getId() == Item.AIR || item.getCount() <= 0) {
+			if (i >= 0) {
+				this.namedTag.getList("Items").remove(i);
+			}
+		} else if (i < 0) {
+			(this.namedTag.getList("Items", CompoundTag.class)).add(d);
+		} else {
+			(this.namedTag.getList("Items", CompoundTag.class)).add(i, d);
+		}
+	}
 
     @Override
     public BaseInventory getInventory() {
