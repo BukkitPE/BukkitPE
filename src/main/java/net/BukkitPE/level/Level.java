@@ -2259,7 +2259,8 @@ public class Level implements ChunkManager, Metadatable {
             this.players.remove(entity.getId());
             this.checkSleep();
         } else {
-            entity.kill();
+		
+            entity.close();
         }
 
         this.entities.remove(entity.getId());
