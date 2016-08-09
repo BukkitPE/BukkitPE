@@ -1168,7 +1168,9 @@ public class Server {
     public String getLevelType() {
         return this.getPropertyString("level-type", "DEFAULT");
     }
-
+    public String getBungeeCordPE() { // Supports for BungeeCordPE for feature releases
+        return this.getPropertyString("BungeeCordPE", "false");
+  }
     public boolean getGenerateStructures() {
         return this.getPropertyBoolean("generate-structures", true);
     }
