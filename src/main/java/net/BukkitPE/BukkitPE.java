@@ -91,7 +91,7 @@ public class BukkitPE {
         CommandReader.getInstance().removePromptLine();
 
         if (ANSI) {
-            System.out.print((char) 0x1b + "]0;Server Stopped" + (char) 0x07);
+            System.out.print((char) 0x1b + "]0;Server has stopped" + (char) 0x07);
         }
         System.exit(0);
     }
