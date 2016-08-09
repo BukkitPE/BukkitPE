@@ -1,4 +1,4 @@
-[![Download via Jenkins](https://bukkitpe.net/BukkitPE.png)](BukkitPE.net)
+[![Download via Jenkins](https://bukkitpe.net/BukkitPE.png)](https://BukkitPE.net)
 
 
 #What is this?
