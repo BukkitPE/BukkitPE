@@ -270,6 +270,7 @@ public class Server {
                 put("enable-rcon", false);
                 put("rcon.password", Base64.getEncoder().encodeToString(UUID.randomUUID().toString().replace("-", "").getBytes()).substring(3, 13));
                 put("auto-save", true);
+                put("BungeeCordPE", false);
             }
         });
 
@@ -419,7 +420,7 @@ public class Server {
         if (this.getDefaultLevel() == null) {
             String defaultName = this.getPropertyString("level-name", "world");
             if (defaultName == null || "".equals(defaultName.trim())) {
-                this.getLogger().warning("level-name cannot be null, using default");
+                this.getLogger().warning("The level name cannot be nulled. Using the default.....");
                 defaultName = "world";
                 this.setPropertyString("level-name", defaultName);
             }
@@ -1168,7 +1169,9 @@ public class Server {
     public String getLevelType() {
         return this.getPropertyString("level-type", "DEFAULT");
     }
-
+    public String getBungeeCordPE() { // Supports for BungeeCordPE for feature releases
+        return this.getPropertyString("BungeeCordPE", "false");
+  }
     public boolean getGenerateStructures() {
         return this.getPropertyBoolean("generate-structures", true);
     }
@@ -1200,22 +1203,26 @@ public class Server {
             case "0":
             case "survival":
             case "s":
+            case "sl":
                 return Player.SURVIVAL;
 
             case "1":
             case "creative":
             case "c":
+            case "ce":
                 return Player.CREATIVE;
 
             case "2":
             case "adventure":
             case "a":
+            case "ae":
                 return Player.ADVENTURE;
 
             case "3":
             case "spectator":
             case "view":
             case "v":
+            case "spectate":
                 return Player.SPECTATOR;
         }
         return -1;
