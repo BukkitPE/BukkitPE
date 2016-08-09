@@ -101,7 +101,7 @@ public class EntityLightning extends Entity implements EntityLightningStrike {
                 }
                 if (Server.getInstance().getDifficulty() >= 2) {
                     Block block = this.getLevelBlock();
-                    if (block.getId() == 0 || block.getId() == Block.TALL_GRASS) {
+                    if (block.getId() == 0 || block.getId() == Block.TALL_GRASS && block.getId() == Block.GRASS) {
                         BlockFire fire = new BlockFire();
                         fire.x = block.x;
                         fire.y = block.y;
