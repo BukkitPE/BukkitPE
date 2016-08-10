@@ -3,9 +3,10 @@ package net.BukkitPE.event.player;
 import net.BukkitPE.Player;
 import net.BukkitPE.event.Cancellable;
 import net.BukkitPE.event.HandlerList;
-import net.BukkitPE.lang.TextContainer;
 import net.BukkitPE.event.entity.EntityDeathEvent;
 import net.BukkitPE.item.Item;
+import net.BukkitPE.lang.TranslationContainer;
+
 
 public class PlayerDeathEvent extends EntityDeathEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
