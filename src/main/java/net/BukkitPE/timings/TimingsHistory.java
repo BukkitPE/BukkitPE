@@ -9,9 +9,10 @@ import net.BukkitPE.level.format.generic.BaseFullChunk;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.lang.management.ManagementFactory;
-import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static net.BukkitPE.timings.Timings.fullServerTickTimer;
@@ -80,14 +81,16 @@ public class TimingsHistory {
 
                 //count entities
                 for (Entity entity : chunk.getEntities().values()) {
-                    if (!entityCounts.containsKey(entity.getNetworkId())) entityCounts.put(entity.getNetworkId(), new AtomicInteger(0));
+               if (!entityCounts.containsKey(entity.getNetworkId()))
+                        entityCounts.put(entity.getNetworkId(), new AtomicInteger(0));
                     entityCounts.get(entity.getNetworkId()).incrementAndGet();
                     entityMap.put(entity.getNetworkId(), entity.getClass().getSimpleName());
                 }
 
                 //count block entities
                 for (BlockEntity blockEntity : chunk.getBlockEntities().values()) {
-                    if (!blockEntityCounts.containsKey(blockEntity.getBlock().getId())) blockEntityCounts.put(blockEntity.getBlock().getId(), new AtomicInteger(0));
+                   if (!blockEntityCounts.containsKey(blockEntity.getBlock().getId()))
+                        blockEntityCounts.put(blockEntity.getBlock().getId(), new AtomicInteger(0));
                     blockEntityCounts.get(blockEntity.getBlock().getId()).incrementAndGet();
                     blockEntityMap.put(blockEntity.getBlock().getId(), blockEntity.getClass().getSimpleName());
                 }
