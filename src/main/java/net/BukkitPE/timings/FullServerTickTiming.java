@@ -1,6 +1,6 @@
 package net.BukkitPE.timings;
 
-import static net.BukkitPE.timings.TimingsManager.*;
+import static cn.nukkit.timings.TimingsManager.*;
 import static net.BukkitPE.timings.TimingIdentifier.DEFAULT_GROUP;
 
 /**
