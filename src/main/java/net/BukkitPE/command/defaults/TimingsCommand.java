@@ -40,29 +40,24 @@ public class TimingsCommand extends VanillaCommand {
             return true;
         }
 
-             if (!Timings.isTimingsEnabled()) {
+        if (!Timings.isTimingsEnabled()) {
             sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.timingsDisabled"));
             return true;
         }
 
-        switch (mode) {
-            case "verbon":
-                sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.verboseEnable"));
-                Timings.setVerboseEnabled(true);
-                break;
-            case "verboff":
-                sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.verboseDisable"));
-                Timings.setVerboseEnabled(true);
-                break;
-            case "reset":
-                Timings.reset();
-                sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.reset"));
-                break;
-            case "report":
-            case "paste":
-                TimingsExport.reportTimings(sender);
-                break;
+        if (mode.equals("verbon")) {
+            sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.verboseEnable"));
+            Timings.setVerboseEnabled(true);
+        } else if (mode.equals("verboff")) {
+            sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.verboseDisable"));
+            Timings.setVerboseEnabled(true);
+        } else if (mode.equals("reset")) {
+            Timings.reset();
+            sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.reset"));
+        } else if (mode.equals("report") || mode.equals("paste")) {
+            TimingsExport.reportTimings(sender);
         }
         return true;
     }
 }
+

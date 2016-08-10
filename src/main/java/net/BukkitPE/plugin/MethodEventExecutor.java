@@ -1,5 +1,6 @@
 package net.BukkitPE.plugin;
 
+import net.BukkitPE.Server;
 import net.BukkitPE.event.Event;
 import net.BukkitPE.event.Listener;
 import net.BukkitPE.utils.EventException;

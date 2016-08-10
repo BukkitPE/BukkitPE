@@ -3,9 +3,9 @@ package net.BukkitPE.command.defaults;
 import net.BukkitPE.Player;
 import net.BukkitPE.command.Command;
 import net.BukkitPE.command.CommandSender;
+import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.event.entity.EntityDamageEvent;
 import net.BukkitPE.utils.TextFormat;
-import net.BukkitPE.lang.TranslationContainer;
 
 /**
  * Created on 2015/12/08 by Pub4Game.

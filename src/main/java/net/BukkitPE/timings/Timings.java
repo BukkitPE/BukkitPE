@@ -3,6 +3,7 @@ package net.BukkitPE.timings;
 import net.BukkitPE.Server;
 import net.BukkitPE.blockentity.BlockEntity;
 import net.BukkitPE.command.Command;
+import net.BukkitPE.command.PluginCommand;
 import net.BukkitPE.entity.Entity;
 import net.BukkitPE.event.Event;
 import net.BukkitPE.event.Listener;
@@ -198,7 +199,7 @@ public final class Timings {
         if (handler.getTask() instanceof PluginTask) {
             String owner = ((PluginTask) handler.getTask()).getOwner().getName();
             return TimingsManager.getTiming(owner, "PluginTask: " + handler.getTaskId() + repeating, schedulerSyncTimer);
-        } else if (!handler.isAsynchronous()) {
+        } else if (!handler.isAsynchronous()){
             return TimingsManager.getTiming(DEFAULT_GROUP.name, "Task: " + handler.getTaskId() + repeating, schedulerSyncTimer);
         } else {
             return null;

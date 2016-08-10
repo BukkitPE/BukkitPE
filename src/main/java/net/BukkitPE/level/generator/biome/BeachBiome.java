@@ -3,6 +3,7 @@ package net.BukkitPE.level.generator.biome;
 import net.BukkitPE.block.Block;
 import net.BukkitPE.block.BlockSand;
 import net.BukkitPE.block.BlockSandstone;
+import net.BukkitPE.level.generator.biome.SandyBiome;
 
 /**
  * Author: PeratX

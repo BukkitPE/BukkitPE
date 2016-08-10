@@ -13,10 +13,9 @@ import net.BukkitPE.level.format.FullChunk;
 import net.BukkitPE.math.Vector3;
 import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.nbt.tag.ListTag;
-import net.BukkitPE.nbt.NBTIO;
 
 /**
- * <p> Chest block entity </p>
+
  * BukkitPE Project
  */
 public class BlockEntityChest extends BlockEntitySpawnable implements InventoryHolder, BlockEntityContainer, BlockEntityNameable {
@@ -89,7 +88,7 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
             return new ItemBlock(new BlockAir(), 0, 0);
         } else {
             CompoundTag data = (CompoundTag) this.namedTag.getList("Items").get(i);
-         return NBTIO.getItemHelper(data);
+            return Item.get(data.getShort("id"), data.getShort("Damage"), data.getByte("Count"));
         }
     }
 
@@ -97,8 +96,12 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
     public void setItem(int index, Item item) {
         int i = this.getSlotIndex(index);
 
-     CompoundTag d = NBTIO.putItemHelper(item, index);
-     
+        CompoundTag d = new CompoundTag()
+                .putByte("Count", item.getCount())
+                .putByte("Slot", index)
+                .putShort("id", item.getId())
+                .putShort("Damage", item.getDamage());
+
         if (item.getId() == Item.AIR || item.getCount() <= 0) {
             if (i >= 0) {
                 this.namedTag.getList("Items").remove(i);

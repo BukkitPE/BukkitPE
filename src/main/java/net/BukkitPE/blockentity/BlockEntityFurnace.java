@@ -16,12 +16,9 @@ import net.BukkitPE.level.format.FullChunk;
 import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.nbt.tag.ListTag;
 import net.BukkitPE.network.protocol.ContainerSetDataPacket;
-import net.BukkitPE.nbt.NBTIO;
 
-
-/*
- *  <p> Furnace ENTITY block </p>
- * 
+/**
+ * @author MagicDroidX
  */
 public class BlockEntityFurnace extends BlockEntitySpawnable implements InventoryHolder, BlockEntityContainer, BlockEntityNameable {
 
@@ -129,7 +126,7 @@ public class BlockEntityFurnace extends BlockEntitySpawnable implements Inventor
             return new ItemBlock(new BlockAir(), 0, 0);
         } else {
             CompoundTag data = (CompoundTag) this.namedTag.getList("Items").get(i);
-           return NBTIO.getItemHelper(data);
+            return Item.get(data.getShort("id"), data.getShort("Damage"), data.getByte("Count"));
         }
     }
 
@@ -137,7 +134,11 @@ public class BlockEntityFurnace extends BlockEntitySpawnable implements Inventor
     public void setItem(int index, Item item) {
         int i = this.getSlotIndex(index);
 
-    CompoundTag d = NBTIO.putItemHelper(item, index);
+        CompoundTag d = new CompoundTag()
+                .putByte("Count", item.getCount())
+                .putByte("Slot", index)
+                .putShort("id", item.getId())
+                .putShort("Damage", item.getDamage());
 
         if (item.getId() == Item.AIR || item.getCount() <= 0) {
             if (i >= 0) {
