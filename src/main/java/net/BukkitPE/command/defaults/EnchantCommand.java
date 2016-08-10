@@ -3,14 +3,11 @@ package net.BukkitPE.command.defaults;
 import net.BukkitPE.Player;
 import net.BukkitPE.command.Command;
 import net.BukkitPE.command.CommandSender;
-import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.item.enchantment.Enchantment;
 import net.BukkitPE.utils.TextFormat;
+import net.BukkitPE.lang.TranslationContainer;
 
-/**
- * Created by Pub4Game on 23.01.2016.
- */
 public class EnchantCommand extends VanillaCommand {
 
     public EnchantCommand(String name) {
