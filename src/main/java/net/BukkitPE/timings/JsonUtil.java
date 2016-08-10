@@ -9,9 +9,9 @@ import java.util.*;
 import java.util.function.Function;
 
 /**
- * @author Tee7even
- *
+ *   <p>
  * Various methods for more compact JSON object constructing
+ *   </p>
  */
 @SuppressWarnings("unchecked")
 public class JsonUtil {
