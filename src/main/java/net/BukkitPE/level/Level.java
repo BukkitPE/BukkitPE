@@ -473,7 +473,7 @@ public class Level implements ChunkManager, Metadatable {
 
         for (Player player : new ArrayList<>(this.getPlayers().values())) {
             if (this == defaultLevel || defaultLevel == null) {
-                player.close(player.getLeaveMessage(), "Forced default level unload");
+                player.close(player.getLeaveMessage(), "The default level has been unloaded!");
             } else {
                 player.teleport(this.server.getDefaultLevel().getSafeSpawn());
             }
