@@ -48,18 +48,20 @@ public class UDPServerSocket extends ChannelInboundHandlerAdapter {
             channel = bootstrap.bind(interfaz, port).sync().channel();
         } catch (InterruptedException e) {
             this.logger.critical("**** FAILED TO BIND TO " + interfaz + ":" + port + "!");
+            this.logger.critical("-------------------------------------------------");
             this.logger.critical("There may be another server running on that port!");
+            this.logger.critical("--------------------------------------------------");
             System.exit(1);
         }
     }
 
     public void close() {
+        this.group.shutdownGracefully();
         try {
             this.channel.closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.group.shutdownGracefully();
     }
 
     public DatagramPacket readPacket() throws IOException {
