@@ -31,7 +31,7 @@ Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) 
 
 #Plugin Tutorial
 
-Take a quick look at this simple Plugin Tutorial made by one of BukkitPE staff member [here](https://forums.BukkitPE.net). Please note that it all depends on the software your using but again the format should be the same :) 
+Take a quick look at this simple Plugin Tutorial made by one of BukkitPE staff member [here](https://forums.bukkitpe.net/index.php?threads/plugin-tutorial-bukkitpe-java.107/). Please note that it all depends on the software your using but again the format should be the same :) 
 
 ## Quick Links
 
