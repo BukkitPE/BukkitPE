@@ -29,8 +29,9 @@ Why not? We're always looking for developers to help out with the project! Just 
 #Can I join the BukkitPE community?
 Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) now!
 
+#Plugin Tutorial
 
-
+Take a quick look at this simple Plugin Tutorial made by one of BukkitPE staff member [here](https://forums.BukkitPE.net). Please note that it all depends on the software your using but again the format should be the same :) 
 
 ## Quick Links
 
