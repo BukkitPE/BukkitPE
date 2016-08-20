@@ -17,6 +17,7 @@ import net.BukkitPE.event.*;
 import net.BukkitPE.event.level.LevelInitEvent;
 import net.BukkitPE.event.level.LevelLoadEvent;
 import net.BukkitPE.event.server.QueryRegenerateEvent;
+import net.BukkitPE.event.server.ServerShutdownEvent;
 import net.BukkitPE.inventory.*;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.item.enchantment.Enchantment;
@@ -167,6 +168,7 @@ public class Server {
     private QueryHandler queryHandler;
 
     private QueryRegenerateEvent queryRegenerateEvent;
+    private ServerShutdownEvent ServerShutdownEvent;
 
     private Config properties;
     private Config config;
@@ -696,7 +698,9 @@ public class Server {
             if (!this.isRunning) {
                 //todo sendUsage
             }
-
+            
+             // ServerShutdownEvent, still need to be rewrite such as cancel, ect. But other stuffs works fine! :)
+            			this.getPluginManager().callEvent(this.ServerShutdownEvent = new ServerShutdownEvent());
             // clean shutdown of console thread asap
             this.console.shutdown();
 
