@@ -1692,6 +1692,9 @@ public class Server {
     public Network getNetwork() {
         return network;
     }
+	    public Network getServer() {
+        return network;
+    }
 
     //Revising later...
     public Config getConfig() {

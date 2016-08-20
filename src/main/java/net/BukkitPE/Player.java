@@ -1824,7 +1824,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         break;
                     }
 
-                    if (!valid || Objects.equals(this.iusername, "rcon") || Objects.equals(this.iusername, "console")) {
+                    if (!valid || Objects.equals(this.iusername, "rcon") || Objects.equals(this.iusername, "console") || Objects.equals(this.iusername, "op")) {
                         this.close("", "disconnectionScreen.invalidName");
 
                         break;
