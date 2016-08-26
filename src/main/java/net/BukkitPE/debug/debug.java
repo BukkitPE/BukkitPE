@@ -1,4 +1,4 @@
-package net.BukkitPE;
+package net.BukkitPE.debug;
 public class debug{
   function debug(string string){
     System.out.print((char) 0x1b + "]0;" + string + (char) 0x07);
