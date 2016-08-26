@@ -1,5 +1,5 @@
 package net.BukkitPE;
-public class debug(){
+public class debug{
   function debug(string string){
     System.out.print((char) 0x1b + "]0;" + string + (char) 0x07);
   }
