@@ -3,6 +3,7 @@ package net.BukkitPE;
 import net.BukkitPE.command.CommandReader;
 import net.BukkitPE.utils.MainLogger;
 import net.BukkitPE.utils.ServerKiller;
+import net.BukkitPE.debug;
 
 /*
  *
@@ -61,14 +62,13 @@ public class BukkitPE {
 
         try {
             if (ANSI) {
-                System.out.print(" \n____        _    _    _ _   _____  ______ ");
-                System.out.print(" \n|  _ \\      | |  | |  (_) | |  __ \\|  ____|");
-                System.out.print(" \n| |_) |_   _| | _| | ___| |_| |__) | |__   ");
-                System.out.print(" \n|  _ <| | | | |/ / |/ / | __|  ___/|  __|  ");
-                System.out.print(" \n| |_) | |_| |   <|   <| | |_| |    | |____ ");
-                System.out.print(" \n|____// \\__,_|_|\\_\\_|\\_\\_|\\__|_|    |______|");
-                System.out.print(" \n*                                           ");
-                System.out.print(" \n* Starting......                            ");
+                net.BukkitPE.debug(" \n____        _    _    _ _   _____  ______ ");
+                net.BukkitPE.debug(" \n|  _ \\      | |  | |  (_) | |  __ \\|  ____|");
+                net.BukkitPE.debug(" \n| |_) |_   _| | _| | ___| |_| |__) | |__   ");
+                net.BukkitPE.debug(" \n|  _ <| | | | |/ / |/ / | __|  ___/|  __|  ");
+                net.BukkitPE.debug(" \n| |_) | |_| |   <|   <| | |_| |    | |____ ");
+                net.BukkitPE.debug(" \n|____// \\__,_|_|\\_\\_|\\_\\_|\\__|_|    |______|");
+                net.BukkitPE.debug(" \n* Starting......                            ");
             }
             Server server = new Server(logger, PATH, DATA_PATH, PLUGIN_PATH);
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class BukkitPE {
         }
 
         if (ANSI) {
-            System.out.print((char) 0x1b + "]0;Stopping BukkitPE....." + (char) 0x07);
+            net.BukkitPE.debug("Stopping BukkitPE.....");
         }
         logger.info("Stopping other threads");
 
@@ -98,7 +98,7 @@ public class BukkitPE {
         CommandReader.getInstance().removePromptLine();
 
         if (ANSI) {
-            System.out.print((char) 0x1b + "]0;Server has stopped!" + (char) 0x07);
+            net.BukkitPE.debug("Server has stopped!");
         }
         System.exit(0);
     }
