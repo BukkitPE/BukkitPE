@@ -3,7 +3,7 @@ package net.BukkitPE;
 import net.BukkitPE.command.CommandReader;
 import net.BukkitPE.utils.MainLogger;
 import net.BukkitPE.utils.ServerKiller;
-import net.BukkitPE.debug;
+import net.BukkitPE.debug.debug;
 
 /*
  *
