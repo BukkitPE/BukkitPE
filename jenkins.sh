@@ -1,3 +1,4 @@
 run:
- - clean package
+ - clean
+ - package
  - put /target*.jar
