@@ -24,7 +24,7 @@ For more information, please visit Forums.BukkitPE.net
 
 #Can I help out the team and contribute to BukkitPE?
 
-Why not? We're always looking for developers to help out with the project! Just make sure you test everything before and it works well. After that you're good to go! Just create a "Pull Request".
+Why not? We're always looking for developers to help out with the project! Although make sure your work is well tested, before creating a pull request!
 
 #Can I join the BukkitPE community?
 Of course you can! Check out the [BukkitPE Forums](https://forums.BukkitPE.net) now!

@@ -273,9 +273,12 @@ public class Server {
                 put("rcon.password", Base64.getEncoder().encodeToString(UUID.randomUUID().toString().replace("-", "").getBytes()).substring(3, 13));
                 put("auto-save", true);
                 put("BungeeCordPE", false);
+                put("online-mode", false);
             }
         });
-
+        if (this.getPropertyBoolean("online-mode", false)) {
+	   this.logger.info(" **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!\nWhile this makes the game possible to play without internet access, it also \nopens up the ability for hackers to connect with any username they choose.");
+   }
         this.forceLanguage = (Boolean) this.getConfig("settings.force-language", false);
         this.baseLang = new BaseLang((String) this.getConfig("settings.language", BaseLang.FALLBACK_LANGUAGE));
         this.logger.info(this.getLanguage().translateString("language.selected", new String[]{getLanguage().getName(), getLanguage().getLang()}));
@@ -680,7 +683,6 @@ public class Server {
         this.enablePlugins(PluginLoadOrder.POSTWORLD);
         Timings.reset();
     }
-
     public void shutdown() {
         if (this.isRunning) {
             ServerKiller killer = new ServerKiller(90);
@@ -700,7 +702,11 @@ public class Server {
             }
             
              // ServerShutdownEvent, still need to be rewrite such as cancel, ect. But other stuffs works fine! :)
-            			this.getPluginManager().callEvent(this.ServerShutdownEvent = new ServerShutdownEvent());
+			  // Need to be re-added for now.
+			  
+            			// this.getPluginManager().callEvent(this.ServerShutdownEvent = new ServerShutdownEvent());
+						
+						
             // clean shutdown of console thread asap
             this.console.shutdown();
 
@@ -749,7 +755,63 @@ public class Server {
             System.exit(1);
         }
     }
+    public void restart() {
+        if (this.isRunning) {
+            start();
+        }
+        this.isRunning = false;
+    }
 
+    public void forceRestart() {
+        if (this.hasStopped) {
+            return;
+        }
+
+        try {
+            if (!this.isRunning) {
+                //todo sendUsage
+            }
+            
+             // ServerShutdownEvent, still need to be rewrite such as cancel, ect. But other stuffs works fine! :)
+            			this.getPluginManager().callEvent(this.ServerShutdownEvent = new ServerShutdownEvent());
+            // clean shutdown of console thread asap
+
+            this.hasStopped = false;
+
+
+            if (this.rcon != null) {
+            }
+
+            this.getLogger().debug("Disabling all plugins");
+            this.pluginManager.disablePlugins();
+
+            for (Player player : new ArrayList<>(this.players.values())) {
+                player.close(player.getLeaveMessage(), (String) this.getConfig("settings.restart-message", "Server is restarting")); //Lang for "server-restart-message" still need to be added!
+            }
+
+            this.getLogger().debug("Unloading all levels");
+            for (Level level : new ArrayList<>(this.getLevels().values())) {
+                this.unloadLevel(level, true);
+            }
+
+            this.getLogger().debug("Removing event handlers");
+
+            this.getLogger().debug("Stopping all tasks");
+
+            this.getLogger().debug("Closing console");
+
+            this.getLogger().debug("Stopping network interfaces");
+            for (SourceInterface interfaz : this.network.getInterfaces()) {
+            }
+
+            this.getLogger().debug("Disabling timings");
+            Timings.stopServer();
+            //todo other things
+        } catch (Exception e) {
+            this.logger.logException(e); //todo remove this?
+            this.logger.emergency("Exception happened while shutting down, exit the process");
+        }
+    }
     public void start() {
         if (this.getPropertyBoolean("enable-query", true)) {
             this.queryHandler = new QueryHandler();

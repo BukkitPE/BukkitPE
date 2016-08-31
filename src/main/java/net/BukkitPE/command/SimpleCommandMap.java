@@ -29,6 +29,7 @@ public class SimpleCommandMap implements CommandMap {
         this.register("BukkitPE", new SeedCommand("seed"));
         this.register("BukkitPE", new HelpCommand("help"));
         this.register("BukkitPE", new StopCommand("stop"));
+        this.register("BukkitPE", new RestartCommand("restart"));
         this.register("BukkitPE", new TellCommand("tell"));
         this.register("BukkitPE", new DefaultGamemodeCommand("defaultgamemode"));
         this.register("BukkitPE", new BanCommand("ban"));
