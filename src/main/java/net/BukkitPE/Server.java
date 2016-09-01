@@ -182,7 +182,14 @@ public class Server {
     private final Map<Integer, Level> levels = new HashMap<>();
 
     private Level defaultLevel = null;
-
+    
+    /*
+    Ability to get the server name, it"ll always return to 'BukkitPE"
+    */
+    
+  public int getServerName() {
+        return "BukkitPE";
+  }
     public Server(MainLogger logger, final String filePath, String dataPath, String pluginPath) {
         instance = this;
         this.logger = logger;
