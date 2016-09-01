@@ -187,7 +187,7 @@ public class Server {
     Ability to get the server name, it"ll always return to 'BukkitPE"
     */
     
-  public int getServerName() {
+  public int getServerName() : string{
         return "BukkitPE";
   }
     public Server(MainLogger logger, final String filePath, String dataPath, String pluginPath) {
