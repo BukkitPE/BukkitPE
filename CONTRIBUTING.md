@@ -4,8 +4,8 @@
 # BukkitPE Contribution Guidelines
 
 ## I have a question
-* You may use our [Forum](https://forums.bukkitpe.net) to ask questions.
-* You may use our [Gitter chat](https://gitter.im/BukkitPE/BukkitPE) to ask questions and comment or socialise.
+* You may always use our [Forum](https://forums.bukkitpe.net) to ask questions.
+* You may always use our [Gitter chat](https://gitter.im/BukkitPE/BukkitPE) to ask questions and comment or socialise.
 
 ## Creating an Issue
  - First, visit the [Issue](https://github.com/BukkitPE/BukkitPE/issues) to check if anyone has the same issue as you..
