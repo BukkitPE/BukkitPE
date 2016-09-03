@@ -13,6 +13,8 @@ BukkitPE is software for hosting Minecraft : Pocket Edition servers. From contro
 *Jenkins Build Status*
       [![Jenkins Status](http://jenkins.bukkitpe.net:8080/job/BukkitPE/badge/icon)](http://jenkins.bukkitpe.net)
   
+*GitLab Build Status*
+      [![GitLab Status](https://gitlab.com/BukkitPE/BukkitPE/badges/master/build.svg)](https://gitlab.com/BukkitPE/BukkitPE/pipelines)
 *Gitter Chat Status*
     [![Glitter](https://badges.gitter.im/BukkitPE/BukkitPE.svg)](https://gitter.im/BukkitPE/BukkitPE?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
