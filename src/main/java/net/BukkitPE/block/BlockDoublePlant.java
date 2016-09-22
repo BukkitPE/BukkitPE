@@ -1,5 +1,9 @@
 package net.BukkitPE.block;
 
+
+import net.BukkitPE.Player;
+import net.BukkitPE.math.Vector3;
+import java.util.Vector;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.level.Level;
 import net.BukkitPE.utils.BlockColor;
