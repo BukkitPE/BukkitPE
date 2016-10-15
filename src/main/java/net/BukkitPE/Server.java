@@ -13,6 +13,7 @@ import net.BukkitPE.entity.passive.*;
 import net.BukkitPE.entity.projectile.EntityArrow;
 import net.BukkitPE.entity.projectile.EntitySnowball;
 import net.BukkitPE.entity.weather.EntityLightning;
+import net.BukkitPE.entity.ai.AIHolder;
 import net.BukkitPE.event.*;
 import net.BukkitPE.event.level.LevelInitEvent;
 import net.BukkitPE.event.level.LevelLoadEvent;
@@ -183,6 +184,12 @@ public class Server {
 
     private Level defaultLevel = null;
 
+    public String[] aiConfig = null;
+
+    public boolean aiEnable = false;
+
+    public String aiHolder = null;
+
     public Server(MainLogger logger, final String filePath, String dataPath, String pluginPath) {
         instance = this;
         this.logger = logger;
@@ -279,6 +286,21 @@ public class Server {
         if (this.getPropertyBoolean("online-mode", false)) {
 	   this.logger.info(" **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!\nWhile this makes the game possible to play without internet access, it also \nopens up the ability for hackers to connect with any username they choose.");
    }
+        this.aiEnabled = (boolean) this.getConfig("ai.enabled", true);
+        this.aiConfig = [
+            "cow" => (boolean) this.getConfig("ai.cow", true),
+            "chicken" => (boolean) this.getConfig("ai.chicken", true),
+            "zombie" => (boolean) this.getConfig("ai.zombie", true),
+            "skeleton" => (boolean) this.getConfig("ai.skeleton", true),
+            "pig" => (boolean) this.getConfig("ai.pig", true),
+            "sheep" => (boolean) this.getConfig("ai.sheep", true),
+            "creeper" => (boolean) this.getConfig("ai.creeper", true),
+            "irongolem" => (boolean) this.getConfig("ai.iron-golem", true),
+            "snowgolem" => (boolean) this.getConfig("ai.snow-golem", true),
+            "pigzombie" => (boolean) this.getConfig("ai.pigzombie", true),
+            "creeperexplode" => (boolean) this.getConfig("ai.creeper-explode-destroy-block", false),
+            "mobgenerate" => (boolean) this.getConfig("ai.mobgenerate", false),
+        ];
         this.forceLanguage = (Boolean) this.getConfig("settings.force-language", false);
         this.baseLang = new BaseLang((String) this.getConfig("settings.language", BaseLang.FALLBACK_LANGUAGE));
         this.logger.info(this.getLanguage().translateString("language.selected", new String[]{getLanguage().getName(), getLanguage().getLang()}));
@@ -458,6 +480,8 @@ public class Server {
         }
 
         this.enablePlugins(PluginLoadOrder.POSTWORLD);
+
+        if(this.aiEnabled) this.aiHolder = new AIHolder(this);
 
         this.start();
     }
@@ -1377,6 +1401,10 @@ public class Server {
 
     public int getTick() {
         return tickCounter;
+    }
+
+    public AIHolder getAIHolder() {
+        return aiHolder;
     }
 
     public float getTicksPerSecond() {
