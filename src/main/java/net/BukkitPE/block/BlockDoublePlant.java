@@ -49,13 +49,13 @@ public class BlockDoublePlant extends BlockFlowable {
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
             if ((this.meta & 0x08) == 8) {
-                //top
+                // Top
                 if (!(this.getSide(0).getId() == DOUBLE_PLANT)) {
-                    this.getLevel().useBreakOn(this);
+                    this.getLevel().setBlock(this, new BlockAir(), true, true);
                     return Level.BLOCK_UPDATE_NORMAL;
                 }
             } else {
-                //botom
+                // Bottom
                 if (this.getSide(0).isTransparent() || !(this.getSide(1).getId() == DOUBLE_PLANT)) {
                     this.getLevel().useBreakOn(this);
                     return Level.BLOCK_UPDATE_NORMAL;
@@ -66,8 +66,37 @@ public class BlockDoublePlant extends BlockFlowable {
     }
 
     @Override
+    public boolean place(Item item, Block block, Block target, int face, double fx, double fy, double fz, Player player) {
+        Block down = getSide(Vector3.SIDE_DOWN);
+        Block up = getSide(Vector3.SIDE_UP);
+
+        if (up.getId() == 0 && (down.getId() == GRASS || down.getId() == DIRT)) {
+            this.getLevel().setBlock(block, this, true, false); // If we update the bottom half, it will drop the item because there isn't a flower block above
+            this.getLevel().setBlock(up, new BlockDoublePlant(meta ^ 0x08), true, true);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean onBreak(Item item) {
+        Block down = getSide(Vector3.SIDE_DOWN);
+
+        if ((this.meta & 0x08) == 0x08) { // Top half
+            this.getLevel().useBreakOn(down);
+        } else {
+            this.getLevel().setBlock(this, new BlockAir(), true, true);
+        }
+
+        return true;
+    }
+
+    @Override
     public int[][] getDrops(Item item) {
-        //todo
+        if ((this.meta & 0x08) != 0x08) {
+            return new int[][]{{DOUBLE_PLANT, this.meta, 1}};
+        }
 
         return new int[0][0];
     }

@@ -33,6 +33,7 @@ import net.BukkitPE.timings.Timing;
 import net.BukkitPE.timings.Timings;
 import net.BukkitPE.timings.TimingsHistory;
 import net.BukkitPE.utils.ChunkException;
+import net.BukkitPE.event.player.PlayerInteractEvent;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -1023,10 +1024,23 @@ public abstract class Entity extends Location implements Metadatable {
             this.attack(ev);
         }
 
-        if (fallDistance > 1) {
+        if (fallDistance > 0.75) {
             Block down = this.level.getBlock(this.temporalVector.setComponents(getFloorX(), getFloorY() - 1, getFloorZ()));
 
             if (down.getId() == Item.FARMLAND) {
+				
+				if (this instanceof Player) {
+                     Player p = (Player) this;
+                     PlayerInteractEvent ev = new PlayerInteractEvent(p, p.getInventory().getItemInHand(), this.temporalVector.setComponents(down.x, down.y, down.z), PlayerInteractEvent.PHYSICAL);
+                     this.server.getPluginManager().callEvent(ev);
+                     if (ev.isCancelled()) {
+                         return;
+                     }
+                 }
+				
+				
+				
+				
                 this.level.setBlock(this.temporalVector.setComponents(down.x, down.y, down.z), new BlockDirt(), true, true);
             }
         }

@@ -7,7 +7,7 @@ import net.BukkitPE.level.particle.SmokeParticle;
 import net.BukkitPE.level.sound.FizzSound;
 import net.BukkitPE.math.AxisAlignedBB;
 import net.BukkitPE.math.Vector3;
-
+import net.BukkitPE.event.block.BlockFromToEvent;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -264,10 +264,18 @@ public abstract class BlockLiquid extends BlockTransparent {
 
             if (bottomBlock.canBeFlowedInto() || bottomBlock instanceof BlockLiquid) {
                 if (this instanceof BlockLava && bottomBlock instanceof BlockWater) {
-                    this.getLevel().setBlock(bottomBlock, new BlockStone(), true);
-                    this.triggerLavaMixEffects(bottomBlock);
+                  Block to = new BlockStone();
+				   to.setComponents(bottomBlock.getX(), bottomBlock.getY(), bottomBlock.getZ());
+				   to.setLevel(bottomBlock.getLevel());
+                     BlockFromToEvent ev = new BlockFromToEvent(bottomBlock, to);
+                     this.getLevel().getServer().getPluginManager().callEvent(ev);
+ 
+                     if (!ev.isCancelled()) {
+                         this.getLevel().setBlock(bottomBlock, ev.getTo(), true);
+                         this.triggerLavaMixEffects(bottomBlock);
                     return 0;
                 }
+			}
 
                 if (decay >= 8) {
                     this.flowIntoBlock(bottomBlock, decay);
@@ -453,14 +461,25 @@ public abstract class BlockLiquid extends BlockTransparent {
                 colliding = this.getSide(side) instanceof BlockWater;
             }
 
-            if (colliding) {
+           if (colliding) {
+                Block to;
                 if (this.getDamage() == 0) {
-                    this.getLevel().setBlock(this, new BlockObsidian(), true);
+                    to = new BlockObsidian();
                 } else if (this.getDamage() <= 4) {
-                    this.getLevel().setBlock(this, new BlockCobblestone(), true);
+                    to = new BlockCobblestone();
+                } else {
+                    return;
                 }
 
-                this.triggerLavaMixEffects(this);
+                to.setComponents(this.getX(), this.getY(), this.getZ());
+                to.setLevel(this.getLevel());
+                BlockFromToEvent ev = new BlockFromToEvent(this, to);
+                this.getLevel().getServer().getPluginManager().callEvent(ev);
+
+                if (!ev.isCancelled()) {
+                    this.getLevel().setBlock(this, ev.getTo(), true);
+                    this.triggerLavaMixEffects(this);
+                }
             }
         }
     }
