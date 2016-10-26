@@ -8,6 +8,6 @@ Before you make an issue, make sure your pull request matches the criteria below
 - [ ] This PR description and comments in code is understandable - feel free to use your native language to write if you are not comfortable with English.
 - [ ] This PR has comments written in clear English - please don't write unreadable comments just for your eyes.
 - [ ] This PR has descriptive titles for commits - don't use "Updated <file-name>" as your title for all your commits in the PR.
-If your PR matches this criteria, hooray! Submit this PR with no worries. If your PR doesn't match this criteria, please consider editing your PR to match it. Thanks for contributing to ImagicalMine!<br>
+If your PR matches this criteria, hooray! Submit this PR with no worries. If your PR doesn't match this criteria, please consider editing your PR to match it. Thanks for contributing to Bukkitpe<br>
 **START PR DETAILS BELOW**<br>
 --------------------------
