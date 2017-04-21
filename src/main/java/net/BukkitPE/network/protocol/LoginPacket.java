@@ -22,10 +22,12 @@ public class LoginPacket extends DataPacket {
 
     public String username;
     public int protocol;
+    public byte gameEdition;
     public UUID clientUUID;
     public long clientId;
     public String identityPublicKey;
     public String serverAddress;
+    public String deviceModel;
 
     public Skin skin;
 
@@ -37,9 +39,10 @@ public class LoginPacket extends DataPacket {
     @Override
     public void decode() {
         this.protocol = this.getInt();
+        this.gameEdition = (byte) this.getByte();
         byte[] str;
         try {
-            str = Zlib.inflate(this.get(this.getInt()), 64*1024*1024);
+            str = Zlib.inflate(this.get((int) this.getUnsignedVarInt()));
         } catch (Exception e) {
             return;
         }
@@ -83,6 +86,7 @@ public class LoginPacket extends DataPacket {
         if (skinToken.has("ServerAddress")) this.serverAddress = skinToken.get("ServerAddress").getAsString();
         if (skinToken.has("SkinId")) skinId = skinToken.get("SkinId").getAsString();
         if (skinToken.has("SkinData")) this.skin = new Skin(skinToken.get("SkinData").getAsString(), skinId);
+        if (skinToken.has("DeviceModel")) this.deviceModel = skinToken.get("DeviceModel").getAsString();
     }
 
     private JsonObject decodeToken(String token) {
