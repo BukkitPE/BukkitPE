@@ -4,7 +4,7 @@ import net.BukkitPE.command.CommandSender;
 import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.Player;
 
-public class TransferCommand {
+public class TransferCommand extends VanillaCommand{
     public TransferCommand(String name) {
         super(name, "Transfer to another server", "/transfer <address> <port>");
         this.setPermission("BukkitPE.command.transfer");
