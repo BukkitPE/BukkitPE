@@ -5,7 +5,7 @@ import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.Player;
 
 public class TransferCommand {
-    public TimingsCommand(String name) {
+    public TransferCommand(String name) {
         super(name, "Transfer to another server", "/transfer <address> <port>");
         this.setPermission("BukkitPE.command.transfer");
     }
