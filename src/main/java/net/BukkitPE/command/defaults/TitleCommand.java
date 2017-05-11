@@ -3,8 +3,7 @@ package net.BukkitPE.command.defaults;
 import net.BukkitPE.network.protocol.SetTitlePacket;
 import net.BukkitPE.command.CommandSender;
 
-class TitleCommand extends VanillaCommand {
-
+public class TitleCommand extends VanillaCommand {
     public TitleCommand($name){
         super(name, "Title command", "/title <title> <subtitle> [text]");
         this.setPermission("BukkitPE.command.title");
