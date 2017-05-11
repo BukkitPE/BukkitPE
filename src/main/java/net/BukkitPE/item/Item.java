@@ -454,6 +454,7 @@ public class Item implements Cloneable {
     protected String name;
     private byte[] tags = new byte[0];
     private CompoundTag cachedNBT = null;
+
     public Item(int id) {
         this(id, 0, 1, "Unknown");
     }

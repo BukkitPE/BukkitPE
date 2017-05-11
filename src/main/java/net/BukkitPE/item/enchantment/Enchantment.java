@@ -56,6 +56,7 @@ public abstract class Enchantment implements Cloneable {
     private final int weight;
     public EnchantmentType type;
     protected int level;
+
     protected Enchantment(int id, String name, int weight, EnchantmentType type) {
         this.id = id;
         this.weight = weight;

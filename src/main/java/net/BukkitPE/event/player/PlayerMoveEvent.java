@@ -9,6 +9,7 @@ public class PlayerMoveEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private Location from;
     private Location to;
+
     public PlayerMoveEvent(Player player, Location from, Location to) {
         this.player = player;
         this.from = from;

@@ -15,6 +15,7 @@ public class GenericSound extends Sound {
     public GenericSound(Vector3 pos, int id) {
         this(pos, id, 0);
     }
+
     public GenericSound(Vector3 pos, int id, float pitch) {
         super(pos.x, pos.y, pos.z);
         this.id = id;

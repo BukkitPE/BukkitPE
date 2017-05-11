@@ -15,6 +15,7 @@ public class EntityRegainHealthEvent extends EntityEvent implements Cancellable 
     private static final HandlerList handlers = new HandlerList();
     private final int reason;
     private float amount;
+
     public EntityRegainHealthEvent(Entity entity, float amount, int regainReason) {
         this.entity = entity;
         this.amount = amount;

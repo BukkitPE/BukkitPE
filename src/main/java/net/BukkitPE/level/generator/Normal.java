@@ -44,6 +44,7 @@ public class Normal extends Generator {
     private Simplex noiseRiver;
     private BiomeSelector selector;
     private int heightOffset;
+
     public Normal() {
         this(new HashMap<>());
     }

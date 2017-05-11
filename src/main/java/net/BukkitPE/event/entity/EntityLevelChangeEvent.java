@@ -12,6 +12,7 @@ public class EntityLevelChangeEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Level originLevel;
     private final Level targetLevel;
+
     public EntityLevelChangeEvent(Entity entity, Level originLevel, Level targetLevel) {
         this.entity = entity;
         this.originLevel = originLevel;

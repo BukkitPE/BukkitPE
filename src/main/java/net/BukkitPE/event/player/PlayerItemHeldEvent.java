@@ -14,6 +14,7 @@ public class PlayerItemHeldEvent extends PlayerEvent implements Cancellable {
     private final Item item;
     private final int slot;
     private final int inventorySlot;
+
     public PlayerItemHeldEvent(Player player, Item item, int inventorySlot, int slot) {
         this.player = player;
         this.item = item;

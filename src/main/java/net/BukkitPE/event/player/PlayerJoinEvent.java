@@ -26,11 +26,11 @@ public class PlayerJoinEvent extends PlayerEvent {
         return joinMessage;
     }
 
-    public void setJoinMessage(String joinMessage) {
-        this.setJoinMessage(new TextContainer(joinMessage));
-    }
-
     public void setJoinMessage(TextContainer joinMessage) {
         this.joinMessage = joinMessage;
+    }
+
+    public void setJoinMessage(String joinMessage) {
+        this.setJoinMessage(new TextContainer(joinMessage));
     }
 }

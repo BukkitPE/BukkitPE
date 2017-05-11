@@ -11,7 +11,9 @@ import net.BukkitPE.level.Level;
 import net.BukkitPE.level.format.generic.BaseFullChunk;
 
 import java.lang.management.ManagementFactory;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static net.BukkitPE.timings.Timings.fullServerTickTimer;

@@ -8,6 +8,7 @@ public class PlayerQuitEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
     protected TextContainer quitMessage;
     protected boolean autoSave = true;
+
     public PlayerQuitEvent(Player player, TextContainer quitMessage) {
         this(player, quitMessage, true);
     }
@@ -34,12 +35,12 @@ public class PlayerQuitEvent extends PlayerEvent {
         return quitMessage;
     }
 
-    public void setQuitMessage(String joinMessage) {
-        this.setQuitMessage(new TextContainer(joinMessage));
-    }
-
     public void setQuitMessage(TextContainer quitMessage) {
         this.quitMessage = quitMessage;
+    }
+
+    public void setQuitMessage(String joinMessage) {
+        this.setQuitMessage(new TextContainer(joinMessage));
     }
 
     public boolean getAutoSave() {

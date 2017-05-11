@@ -14,6 +14,7 @@ public class ExplosionPrimeEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     protected double force;
     private boolean blockBreaking;
+
     public ExplosionPrimeEvent(Entity entity, double force) {
         this.entity = entity;
         this.force = force;

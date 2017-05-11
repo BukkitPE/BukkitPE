@@ -16,6 +16,7 @@ public class BlockPlaceEvent extends BlockEvent implements Cancellable {
     protected final Item item;
     protected final Block blockReplace;
     protected final Block blockAgainst;
+
     public BlockPlaceEvent(Player player, Block blockPlace, Block blockReplace, Block blockAgainst, Item item) {
         super(blockPlace);
         this.blockReplace = blockReplace;

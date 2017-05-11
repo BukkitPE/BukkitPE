@@ -13,6 +13,7 @@ public class PlayerDeathEvent extends EntityDeathEvent implements Cancellable {
     private boolean keepInventory = false;
     private boolean keepExperience = false;
     private int experience;
+
     public PlayerDeathEvent(Player player, Item[] drops, TextContainer deathMessage, int experience) {
         super(player, drops);
         this.deathMessage = deathMessage;
@@ -36,12 +37,12 @@ public class PlayerDeathEvent extends EntityDeathEvent implements Cancellable {
         return deathMessage;
     }
 
-    public void setDeathMessage(String deathMessage) {
-        this.deathMessage = new TextContainer(deathMessage);
-    }
-
     public void setDeathMessage(TextContainer deathMessage) {
         this.deathMessage = deathMessage;
+    }
+
+    public void setDeathMessage(String deathMessage) {
+        this.deathMessage = new TextContainer(deathMessage);
     }
 
     public boolean getKeepInventory() {

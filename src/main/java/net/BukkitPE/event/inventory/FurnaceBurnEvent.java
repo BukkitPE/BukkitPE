@@ -16,6 +16,7 @@ public class FurnaceBurnEvent extends BlockEvent implements Cancellable {
     private final Item fuel;
     private short burnTime;
     private boolean burning = true;
+
     public FurnaceBurnEvent(BlockEntityFurnace furnace, Item fuel, short burnTime) {
         super(furnace.getBlock());
         this.fuel = fuel;

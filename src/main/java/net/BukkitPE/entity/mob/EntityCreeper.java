@@ -32,16 +32,6 @@ public class EntityCreeper extends EntityMob {
         return getDataPropertyBoolean(DATA_POWERED);
     }
 
-    public void setPowered(boolean powered) {
-        CreeperPowerEvent ev = new CreeperPowerEvent(this, powered ? CreeperPowerEvent.PowerCause.SET_ON : CreeperPowerEvent.PowerCause.SET_OFF);
-        this.getServer().getPluginManager().callEvent(ev);
-
-        if (!ev.isCancelled()) {
-            this.setDataProperty(new ByteEntityData(DATA_POWERED, powered ? 1 : 0));
-            this.namedTag.putBoolean("powered", powered);
-        }
-    }
-
     public void setPowered(EntityLightningStrike bolt) {
         CreeperPowerEvent ev = new CreeperPowerEvent(this, bolt, CreeperPowerEvent.PowerCause.LIGHTNING);
         this.getServer().getPluginManager().callEvent(ev);
@@ -49,6 +39,16 @@ public class EntityCreeper extends EntityMob {
         if (!ev.isCancelled()) {
             this.setDataProperty(new ByteEntityData(DATA_POWERED, 1));
             this.namedTag.putBoolean("powered", true);
+        }
+    }
+
+    public void setPowered(boolean powered) {
+        CreeperPowerEvent ev = new CreeperPowerEvent(this, powered ? CreeperPowerEvent.PowerCause.SET_ON : CreeperPowerEvent.PowerCause.SET_OFF);
+        this.getServer().getPluginManager().callEvent(ev);
+
+        if (!ev.isCancelled()) {
+            this.setDataProperty(new ByteEntityData(DATA_POWERED, powered ? 1 : 0));
+            this.namedTag.putBoolean("powered", powered);
         }
     }
 

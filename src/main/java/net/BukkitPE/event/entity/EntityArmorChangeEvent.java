@@ -13,6 +13,7 @@ public class EntityArmorChangeEvent extends EntityEvent implements Cancellable {
     private final Item oldItem;
     private final int slot;
     private Item newItem;
+
     public EntityArmorChangeEvent(Entity entity, Item oldItem, Item newItem, int slot) {
         this.entity = entity;
         this.oldItem = oldItem;

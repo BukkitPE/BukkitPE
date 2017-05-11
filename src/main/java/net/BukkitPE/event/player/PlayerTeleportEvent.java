@@ -13,6 +13,7 @@ public class PlayerTeleportEvent extends PlayerEvent implements Cancellable {
     private TeleportCause cause;
     private Location from;
     private Location to;
+
     private PlayerTeleportEvent(Player player) {
         this.player = player;
     }

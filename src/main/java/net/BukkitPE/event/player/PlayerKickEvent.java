@@ -34,11 +34,11 @@ public class PlayerKickEvent extends PlayerEvent implements Cancellable {
         return quitMessage;
     }
 
-    public void setQuitMessage(String joinMessage) {
-        this.setQuitMessage(new TextContainer(joinMessage));
-    }
-
     public void setQuitMessage(TextContainer quitMessage) {
         this.quitMessage = quitMessage;
+    }
+
+    public void setQuitMessage(String joinMessage) {
+        this.setQuitMessage(new TextContainer(joinMessage));
     }
 }

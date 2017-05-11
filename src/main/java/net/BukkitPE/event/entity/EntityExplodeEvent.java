@@ -18,6 +18,7 @@ public class EntityExplodeEvent extends EntityEvent implements Cancellable {
     protected final Position position;
     protected List<Block> blocks;
     protected double yield;
+
     public EntityExplodeEvent(Entity entity, Position position, List<Block> blocks, double yield) {
         this.entity = entity;
         this.position = position;

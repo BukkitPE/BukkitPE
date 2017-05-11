@@ -38,6 +38,7 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     private final int cause;
     private final Map<Integer, Float> modifiers;
     private final Map<Integer, Float> originals;
+
     public EntityDamageEvent(Entity entity, int cause, float damage) {
         this(entity, cause, new HashMap<Integer, Float>() {
             {

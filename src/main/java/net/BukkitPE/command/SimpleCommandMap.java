@@ -61,6 +61,7 @@ public class SimpleCommandMap implements CommandMap {
         this.register("BukkitPE", new ReloadCommand("reload"));
         this.register("BukkitPE", new WeatherCommand("weather"));
         this.register("BukkitPE", new XpCommand("xp"));
+        this.register("BukkitPE", new TransferCommand("transfer"));
 
         if ((boolean) this.server.getConfig("debug.commands", false)) {
             this.register("BukkitPE", new StatusCommand("status"));
