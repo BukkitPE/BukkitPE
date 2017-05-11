@@ -27,9 +27,7 @@ public class BukkitPE {
 
     public final static String VERSION = "1.0dev";
     public final static String API_VERSION = "1.0.0";
-    public final static String CODENAME = "CakeJava"; //It uses java so that'd only be logical.
-    public final static String MINECRAFT_VERSION = "1.0.7";
-    public final static String MINECRAFT_VERSION_NETWORK = "1.0.7";
+    public final static String CODENAME = "SharpKnife";
 
     public final static String PATH = System.getProperty("user.dir") + "/";
     public final static String DATA_PATH = System.getProperty("user.dir") + "/";

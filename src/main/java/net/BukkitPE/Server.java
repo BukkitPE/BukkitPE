@@ -1212,7 +1212,7 @@ public class Server {
     }
 
     public String getVersion() {
-        return BukkitPE.MINECRAFT_VERSION;
+        return ProtocolInfo.MINECRAFT_VERSION;
     }
 
     public String getApiVersion() {
