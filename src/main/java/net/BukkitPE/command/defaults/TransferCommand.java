@@ -1,4 +1,4 @@
-package BukkitPE.command.defaults;
+package net.BukkitPE.command.defaults;
 
 import net.BukkitPE.command.CommandSender;
 import net.BukkitPE.lang.TranslationContainer;
