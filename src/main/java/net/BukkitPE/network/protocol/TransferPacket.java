@@ -20,6 +20,6 @@ public class TransferPacket extends DataPacket {
     public void encode() {
         this.reset();
         this.putString(address);
-        this.putLShot(port);
+        this.putLShort(port);
     }
 }

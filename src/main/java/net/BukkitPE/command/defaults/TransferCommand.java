@@ -24,9 +24,8 @@ public class TransferCommand extends VanillaCommand{
         String address = args[0].toLowerCase();
         String port = args[1].toLowerCase();
 
-        if(sender instanceof Player) {
-            sender.transfer(address, port);
-        }
+        Player player = sender.getServer().getPlayer(sender.getName());
+        player.transfer(address, port);
 
         return true;
     }

@@ -5,7 +5,7 @@ package net.BukkitPE.network.protocol;
  */
 public class ReplaceSelectedItemPacket extends DataPacket {
 
-    public static final byte NETWORK_ID = ProtocolInfo.REPLACE_SELECTED_ITEM_PACKET;
+    public static final byte NETWORK_ID = ProtocolInfo.REPLACE_ITEM_IN_SLOT_PACKET;
 
     @Override
     public void decode() {

@@ -1,33 +1,30 @@
-package net.BukkitPE.utils;
+package cn.nukkit.utils;
 
-import net.BukkitPE.entity.data.Skin;
-import net.BukkitPE.item.Item;
+import cn.nukkit.entity.data.Skin;
+import cn.nukkit.item.Item;
+import cn.nukkit.math.BlockVector3;
+import cn.nukkit.math.Vector3f;
 
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.UUID;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.TimeUnit;
 
 /**
  * BukkitPE Project
  */
 public class BinaryStream {
-    public static final int DEFAULT_BLOCK_SIZE = 1024;
-    public static final ForkJoinPool POOL = new ForkJoinPool();
-    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
-    private final byte[] shortBuffer = new byte[2];
-    private final byte[] intBuffer = new byte[4];
-    private final byte[] longBuffer = new byte[8];
+
     public int offset;
-    private byte[] buffer;
-    private ArrayDeque<byte[]> buffers = new ArrayDeque<>();
+    private byte[] buffer = new byte[32];
     private int count;
 
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+
     public BinaryStream() {
-        this.buffer = new byte[35];
+        this.buffer = new byte[32];
+        this.offset = 0;
+        this.count = 0;
     }
 
     public BinaryStream(byte[] buffer) {
@@ -37,31 +34,23 @@ public class BinaryStream {
     public BinaryStream(byte[] buffer, int offset) {
         this.buffer = buffer;
         this.offset = offset;
-    }
-
-    private static int hugeCapacity(int minCapacity) {
-        if (minCapacity < 0) { // overflow
-            throw new OutOfMemoryError();
-        }
-        return (minCapacity > MAX_ARRAY_SIZE) ?
-                Integer.MAX_VALUE :
-                MAX_ARRAY_SIZE;
+        this.count = buffer.length;
     }
 
     public void reset() {
-        setBuffer(new byte[35]);
+        this.buffer = new byte[32];
+        this.offset = 0;
+        this.count = 0;
+    }
+
+    public void setBuffer(byte[] buffer) {
+        this.buffer = buffer;
+        this.count = buffer == null ? -1 : buffer.length;
     }
 
     public void setBuffer(byte[] buffer, int offset) {
         this.setBuffer(buffer);
         this.setOffset(offset);
-    }
-
-    private void addBuffer() {
-        buffers.addLast(buffer);
-        count += buffer.length;
-        buffer = new byte[DEFAULT_BLOCK_SIZE];
-        offset = 0;
     }
 
     public int getOffset() {
@@ -72,158 +61,41 @@ public class BinaryStream {
         this.offset = offset;
     }
 
-    public byte[][] getBuffers() {
-        if (offset > 0) {
-            byte[] buf2 = new byte[offset];
-            System.arraycopy(buffer, 0, buf2, 0, offset);
-            buffers.addLast(buf2);
-            count += offset;
-            offset = 0;
-        }
-        byte[][] res = new byte[buffers.size()][];
-        int i = 0;
-        for (byte[] bytes : buffers) {
-            res[i++] = bytes;
-        }
-        return res;
-    }
-
     public byte[] getBuffer() {
-        if (buffers.size() < 8) {
-            if (buffers.isEmpty()) {
-                buffer = Arrays.copyOfRange(buffer, 0, offset);
-                return buffer;
-            }
-            byte[] data = new byte[getCount()];
-
-            // Check if we have a list of buffers
-            int pos = 0;
-
-            if (buffers != null) {
-                for (byte[] bytes : buffers) {
-                    System.arraycopy(bytes, 0, data, pos, bytes.length);
-                    pos += bytes.length;
-                }
-            }
-
-            // write the internal buffer directly
-            System.arraycopy(buffer, 0, data, pos, offset);
-
-            this.buffer = data;
-            this.buffers.clear();
-            return this.buffer;
-        }
-        final byte[] data = new byte[getCount()];
-        // Check if we have a list of buffers
-        int pos = 0;
-        for (final byte[] bytes : buffers) {
-            final int finalPos = pos;
-            POOL.submit(new Callable() {
-                @Override
-                public Object call() throws Exception {
-                    System.arraycopy(bytes, 0, data, finalPos, bytes.length);
-                    return null;
-                }
-            });
-            pos += bytes.length;
-        }
-        POOL.awaitQuiescence(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-        // write the internal buffer directly
-        System.arraycopy(buffer, 0, data, pos, offset);
-
-        this.buffer = data;
-        this.buffers.clear();
-        return this.buffer;
-    }
-
-    public void setBuffer(byte[] buffer) {
-        if (!buffers.isEmpty()) {
-            buffers.clear();
-        }
-        this.offset = 0;
-        this.count = 0;
-        this.buffer = buffer;
+        return Arrays.copyOf(buffer, count);
     }
 
     public int getCount() {
-        return count + offset;
+        return count;
     }
 
     public byte[] get() {
-        return this.get(this.buffer.length - this.offset);
+        return this.get(this.count - this.offset);
     }
 
     public byte[] get(int len) {
         if (len < 0) {
-            this.offset = this.buffer.length - 1;
+            this.offset = this.count - 1;
             return new byte[0];
         }
-        len = Math.min(len, this.buffer.length - this.offset);
+        len = Math.min(len, this.getCount() - this.offset);
         this.offset += len;
         return Arrays.copyOfRange(this.buffer, this.offset - len, this.offset);
     }
 
-    public byte[] get(int len, byte[] useBuffer) {
-        if (len < 0) {
-            this.offset = this.buffer.length - 1;
-            return new byte[0];
+    public void put(byte[] bytes) {
+        if (bytes == null) {
+            return;
         }
-        len = Math.min(len, this.buffer.length - this.offset);
-        this.offset += len;
-        System.arraycopy(this.buffer, this.offset - len, useBuffer, 0, len);
-        return useBuffer;
-    }
 
-    public void put(byte[] b) {
-        if (b.length > buffer.length) {
-            if (offset > 0) {
-                byte[] buf2 = new byte[offset];
-                System.arraycopy(buffer, 0, buf2, 0, offset);
-                buffer = buf2;
-                addBuffer();
-            }
-            count += b.length;
-            buffers.addLast(b);
-        } else {
-            put(b, 0, b.length);
-        }
-    }
+        this.ensureCapacity(this.count + bytes.length);
 
-    public void put(int datum) {
-        if (offset == buffer.length) {
-            addBuffer();
-        }
-        // store the byte
-        buffer[offset++] = (byte) datum;
-    }
-
-    public void put(byte[] data, int offset, int length) {
-        if ((offset < 0) || ((offset + length) > data.length) || (length < 0)) {
-            throw new IndexOutOfBoundsException();
-        } else {
-            if ((this.offset + length) > buffer.length) {
-                int copyLength;
-
-                do {
-                    if (this.offset == buffer.length) {
-                        addBuffer();
-                    }
-                    copyLength = Math.min(buffer.length - this.offset, length);
-                    System.arraycopy(data, offset, buffer, this.offset, copyLength);
-                    offset += copyLength;
-                    this.offset += copyLength;
-                    length -= copyLength;
-                } while (length > 0);
-            } else {
-                // Copy in the subarray
-                System.arraycopy(data, offset, buffer, this.offset, length);
-                this.offset += length;
-            }
-        }
+        System.arraycopy(bytes, 0, this.buffer, this.count, bytes.length);
+        this.count += bytes.length;
     }
 
     public long getLong() {
-        return Binary.readLong(this.get(8, longBuffer));
+        return Binary.readLong(this.get(8));
     }
 
     public void putLong(long l) {
@@ -231,7 +103,7 @@ public class BinaryStream {
     }
 
     public int getInt() {
-        return Binary.readInt(this.get(4, intBuffer));
+        return Binary.readInt(this.get(4));
     }
 
     public void putInt(int i) {
@@ -239,7 +111,7 @@ public class BinaryStream {
     }
 
     public long getLLong() {
-        return Binary.readLLong(this.get(8, longBuffer));
+        return Binary.readLLong(this.get(8));
     }
 
     public void putLLong(long l) {
@@ -247,7 +119,7 @@ public class BinaryStream {
     }
 
     public int getLInt() {
-        return Binary.readLInt(this.get(4, intBuffer));
+        return Binary.readLInt(this.get(4));
     }
 
     public void putLInt(int i) {
@@ -255,39 +127,23 @@ public class BinaryStream {
     }
 
     public int getShort() {
-        return Binary.readShort(this.get(2, shortBuffer));
+        return Binary.readShort(this.get(2));
     }
 
     public void putShort(int s) {
         this.put(Binary.writeShort(s));
     }
 
-    public short getSignedShort() {
-        return Binary.readSignedShort(this.get(2, shortBuffer));
-    }
-
-    public void putSignedShort(short s) {
-        this.put(Binary.writeShort(s));
-    }
-
     public int getLShort() {
-        return Binary.readLShort(this.get(2, shortBuffer));
+        return Binary.readLShort(this.get(2));
     }
 
     public void putLShort(int s) {
         this.put(Binary.writeLShort(s));
     }
 
-    public short getSignedLShort() {
-        return Binary.readSignedLShort(this.get(2, shortBuffer));
-    }
-
-    public void putSignedLShort(short s) {
-        this.put(Binary.writeLShort(s));
-    }
-
     public float getFloat() {
-        return Binary.readFloat(this.get(4, intBuffer));
+        return Binary.readFloat(this.get(4));
     }
 
     public void putFloat(float v) {
@@ -295,7 +151,7 @@ public class BinaryStream {
     }
 
     public float getLFloat() {
-        return Binary.readLFloat(this.get(4, intBuffer));
+        return Binary.readLFloat(this.get(4));
     }
 
     public void putLFloat(float v) {
@@ -318,10 +174,6 @@ public class BinaryStream {
         this.put(Binary.writeLTriad(triad));
     }
 
-    public byte getSignedByte() {
-        return this.buffer[this.offset++];
-    }
-
     public boolean getBoolean() {
         return this.getByte() == 0x01;
     }
@@ -338,25 +190,6 @@ public class BinaryStream {
         this.put(new byte[]{b});
     }
 
-    public byte[][] getDataArray() {
-        return this.getDataArray(10);
-    }
-
-    public byte[][] getDataArray(int len) {
-        byte[][] data = new byte[len][];
-        for (int i = 0; i < len && !this.feof(); ++i) {
-            data[i] = this.get(this.getTriad());
-        }
-        return data;
-    }
-
-    public void putDataArray(byte[][] data) {
-        for (byte[] v : data) {
-            this.putTriad(v.length);
-            this.put(v);
-        }
-    }
-
     public void putUUID(UUID uuid) {
         this.put(Binary.writeUUID(uuid));
     }
@@ -367,28 +200,26 @@ public class BinaryStream {
 
     public void putSkin(Skin skin) {
         this.putString(skin.getModel());
-        this.putShort(skin.getData().length);
-        this.put(skin.getData());
+        this.putByteArray(skin.getData());
     }
 
     public Skin getSkin() {
         String modelId = this.getString();
-        byte[] skinData = this.get(this.getShort());
+        byte[] skinData = this.getByteArray();
         return new Skin(skinData, modelId);
     }
 
     public Item getSlot() {
-        short id = this.getSignedShort();
+        int id = this.getVarInt();
 
         if (id <= 0) {
             return Item.get(0, 0, 0);
         }
-        int cnt = this.getByte();
-
-        int data = this.getShort();
+        int auxValue = this.getVarInt();
+        int data = auxValue >> 8;
+        int cnt = auxValue & 0xff;
 
         int nbtLen = this.getLShort();
-
         byte[] nbt = new byte[0];
         if (nbtLen > 0) {
             nbt = this.get(nbtLen);
@@ -401,30 +232,124 @@ public class BinaryStream {
 
     public void putSlot(Item item) {
         if (item == null || item.getId() == 0) {
-            this.putShort(0);
+            this.putVarInt(0);
             return;
         }
 
-        this.putShort(item.getId());
-        this.putByte((byte) (item.getCount() & 0xff));
-        this.putShort(!item.hasMeta() ? -1 : item.getDamage());
-
+        this.putVarInt(item.getId());
+        int auxValue = ((item.hasMeta() ? item.getDamage() : -1) << 8) | item.getCount();
+        this.putVarInt(auxValue);
         byte[] nbt = item.getCompoundTag();
         this.putLShort(nbt.length);
         this.put(nbt);
     }
 
+    public byte[] getByteArray() {
+        return this.get((int) this.getUnsignedVarInt());
+    }
+
+    public void putByteArray(byte[] b) {
+        this.putUnsignedVarInt(b.length);
+        this.put(b);
+    }
+
     public String getString() {
-        return new String(this.get(this.getShort()), StandardCharsets.UTF_8);
+        return new String(this.getByteArray(), StandardCharsets.UTF_8);
     }
 
     public void putString(String string) {
         byte[] b = string.getBytes(StandardCharsets.UTF_8);
-        this.putShort(b.length);
-        this.put(b);
+        this.putByteArray(b);
+    }
+
+    public long getUnsignedVarInt() {
+        return VarInt.readUnsignedVarInt(this);
+    }
+
+    public void putUnsignedVarInt(long v) {
+        VarInt.writeUnsignedVarInt(this, v);
+    }
+
+    public int getVarInt() {
+        return VarInt.readVarInt(this);
+    }
+
+    public void putVarInt(int v) {
+        VarInt.writeVarInt(this, v);
+    }
+
+    public long getVarLong() {
+        return VarInt.readVarLong(this);
+    }
+
+    public void putVarLong(long v) {
+        VarInt.writeVarLong(this, v);
+    }
+
+    public BigInteger getUnsignedVarLong() {
+        return VarInt.readUnsignedVarLong(this);
+    }
+
+    public void putUnsignedVarLong(long v) {
+        VarInt.writeUnsignedVarLong(this, BigInteger.valueOf(v));
+    }
+
+    public void putUnsignedVarLong(BigInteger v) {
+        VarInt.writeUnsignedVarLong(this, v);
+    }
+
+    public BlockVector3 getBlockCoords() {
+        return new BlockVector3(this.getVarInt(), (int) this.getUnsignedVarInt(), this.getVarInt());
+    }
+
+    public void putBlockCoords(int x, int y, int z) {
+        this.putVarInt(x);
+        this.putUnsignedVarInt(y);
+        this.putVarInt(z);
+    }
+
+    public Vector3f getVector3f() {
+        return new Vector3f(this.getLFloat(), this.getLFloat(), this.getLFloat());
+    }
+
+    public void putVector3f(float x, float y, float z) {
+        this.putLFloat(x);
+        this.putLFloat(y);
+        this.putLFloat(z);
     }
 
     public boolean feof() {
         return this.offset < 0 || this.offset >= this.buffer.length;
+    }
+
+    private void ensureCapacity(int minCapacity) {
+        // overflow-conscious code
+        if (minCapacity - buffer.length > 0) {
+            grow(minCapacity);
+        }
+    }
+
+    private void grow(int minCapacity) {
+        // overflow-conscious code
+        int oldCapacity = buffer.length;
+        int newCapacity = oldCapacity << 1;
+
+        if (newCapacity - minCapacity < 0) {
+            newCapacity = minCapacity;
+        }
+
+        if (newCapacity - MAX_ARRAY_SIZE > 0) {
+            newCapacity = hugeCapacity(minCapacity);
+        }
+        this.buffer = Arrays.copyOf(buffer, newCapacity);
+    }
+
+    private static int hugeCapacity(int minCapacity) {
+        if (minCapacity < 0) { // overflow
+            throw new OutOfMemoryError();
+        }
+        return (minCapacity > MAX_ARRAY_SIZE) ?
+                Integer.MAX_VALUE :
+                MAX_ARRAY_SIZE;
     }
 }

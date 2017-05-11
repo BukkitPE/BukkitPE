@@ -7,7 +7,7 @@ package net.BukkitPE.network.protocol;
  */
 public class TelemetryEventPacket extends DataPacket {
 
-    public static final byte NETWORK_ID = ProtocolInfo.TELEMETRY_EVENT_PACKET;
+    public static final byte NETWORK_ID = ProtocolInfo.EVENT_PACKET;
 
     public long entityId;
     public int unknown1; //always 0x00000003?
