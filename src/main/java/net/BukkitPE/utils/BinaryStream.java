@@ -1,9 +1,9 @@
-package cn.nukkit.utils;
+package net.BukkitPE.utils;
 
-import cn.nukkit.entity.data.Skin;
-import cn.nukkit.item.Item;
-import cn.nukkit.math.BlockVector3;
-import cn.nukkit.math.Vector3f;
+import net.BukkitPE.entity.data.Skin;
+import net.BukkitPE.item.Item;
+import net.BukkitPE.math.BlockVector3;
+import net.BukkitPE.math.Vector3f;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
