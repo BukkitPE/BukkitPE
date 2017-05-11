@@ -11,7 +11,7 @@ public class PlayerTransferEvent extends PlayerEvent implements Cancellable {
     private int port;
 
     public PlayerAnimationEvent(Player player, String address, int port) {
-        this(player, ARM_SWING);
+        this.player = player;
         this.address = address;
         this.port = port;
     }
