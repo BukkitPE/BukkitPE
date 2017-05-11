@@ -4,7 +4,7 @@ import net.BukkitPE.Player;
 import net.BukkitPE.event.Cancellable;
 import net.BukkitPE.event.HandlerList;
 
-public class PlayerAnimationEvent extends PlayerEvent implements Cancellable {
+public class PlayerTransferEvent extends PlayerEvent implements Cancellable {
     public static final int ARM_SWING = 1;
     private static final HandlerList handlers = new HandlerList();
     private String address;
