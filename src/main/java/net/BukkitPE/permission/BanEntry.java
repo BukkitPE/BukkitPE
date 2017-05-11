@@ -1,8 +1,8 @@
 package net.BukkitPE.permission;
 
-import net.BukkitPE.Server;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import net.BukkitPE.Server;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
-
  * BukkitPE Project
  */
 public class BanEntry {
@@ -27,6 +26,34 @@ public class BanEntry {
     public BanEntry(String name) {
         this.name = name.toLowerCase();
         this.creationDate = new Date();
+    }
+
+    public static BanEntry fromMap(Map<String, String> map) {
+        BanEntry banEntry = new BanEntry(map.get("name"));
+        try {
+            banEntry.setCreationDate(new SimpleDateFormat(format).parse(map.get("creationDate")));
+            banEntry.setExpirationDate(!map.get("expireDate").equals("Forever") ? new SimpleDateFormat(format).parse(map.get("expireDate")) : null);
+        } catch (ParseException e) {
+            Server.getInstance().getLogger().logException(e);
+        }
+        banEntry.setSource(map.get("source"));
+        banEntry.setReason(map.get("reason"));
+        return banEntry;
+    }
+
+    public static BanEntry fromString(String str) {
+        Map<String, String> map = new Gson().fromJson(str, new TypeToken<TreeMap<String, String>>() {
+        }.getType());
+        BanEntry banEntry = new BanEntry(map.get("name"));
+        try {
+            banEntry.setCreationDate(new SimpleDateFormat(format).parse(map.get("creationDate")));
+            banEntry.setExpirationDate(!map.get("expireDate").equals("Forever") ? new SimpleDateFormat(format).parse(map.get("expireDate")) : null);
+        } catch (ParseException e) {
+            Server.getInstance().getLogger().logException(e);
+        }
+        banEntry.setSource(map.get("source"));
+        banEntry.setReason(map.get("reason"));
+        return banEntry;
     }
 
     public String getName() {
@@ -80,36 +107,8 @@ public class BanEntry {
         return map;
     }
 
-    public static BanEntry fromMap(Map<String, String> map) {
-        BanEntry banEntry = new BanEntry(map.get("name"));
-        try {
-            banEntry.setCreationDate(new SimpleDateFormat(format).parse(map.get("creationDate")));
-            banEntry.setExpirationDate(!map.get("expireDate").equals("Forever") ? new SimpleDateFormat(format).parse(map.get("expireDate")) : null);
-        } catch (ParseException e) {
-            Server.getInstance().getLogger().logException(e);
-        }
-        banEntry.setSource(map.get("source"));
-        banEntry.setReason(map.get("reason"));
-        return banEntry;
-    }
-
     public String getString() {
         return new Gson().toJson(this.getMap());
-    }
-
-    public static BanEntry fromString(String str) {
-        Map<String, String> map = new Gson().fromJson(str, new TypeToken<TreeMap<String, String>>() {
-        }.getType());
-        BanEntry banEntry = new BanEntry(map.get("name"));
-        try {
-            banEntry.setCreationDate(new SimpleDateFormat(format).parse(map.get("creationDate")));
-            banEntry.setExpirationDate(!map.get("expireDate").equals("Forever") ? new SimpleDateFormat(format).parse(map.get("expireDate")) : null);
-        } catch (ParseException e) {
-            Server.getInstance().getLogger().logException(e);
-        }
-        banEntry.setSource(map.get("source"));
-        banEntry.setReason(map.get("reason"));
-        return banEntry;
     }
 
 }

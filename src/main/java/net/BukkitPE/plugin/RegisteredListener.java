@@ -5,7 +5,6 @@ import net.BukkitPE.timings.Timing;
 import net.BukkitPE.utils.EventException;
 
 /**
-
  * BukkitPE Project
  */
 public class RegisteredListener {

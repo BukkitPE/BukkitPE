@@ -20,34 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class Normal extends Generator {
 
-    @Override
-    public int getId() {
-        return TYPE_INFINITE;
-    }
-
     private final List<Populator> populators = new ArrayList<>();
-
-    private ChunkManager level;
-
-    private BukkitPERandom random;
-
     private final List<Populator> generationPopulators = new ArrayList<>();
-
-    private Simplex noiseSeaFloor;
-    private Simplex noiseLand;
-    private Simplex noiseMountains;
-    private Simplex noiseBaseGround;
-    private Simplex noiseRiver;
-
-    private BiomeSelector selector;
-
-    private int heightOffset;
-
     private final int seaHeight = 62;
     private final int seaFloorHeight = 48;
     private final int beathStartHeight = 60;
@@ -57,13 +35,26 @@ public class Normal extends Generator {
     private final int landHeightRange = 18; // 36 / 2
     private final int mountainHeight = 13; // 26 / 2
     private final int basegroundHeight = 3;
-
+    private ChunkManager level;
+    private BukkitPERandom random;
+    private Simplex noiseSeaFloor;
+    private Simplex noiseLand;
+    private Simplex noiseMountains;
+    private Simplex noiseBaseGround;
+    private Simplex noiseRiver;
+    private BiomeSelector selector;
+    private int heightOffset;
     public Normal() {
         this(new HashMap<>());
     }
 
     public Normal(Map<String, Object> options) {
         //Nothing here. Just used for future update.
+    }
+
+    @Override
+    public int getId() {
+        return TYPE_INFINITE;
     }
 
     @Override

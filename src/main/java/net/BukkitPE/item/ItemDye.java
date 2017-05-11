@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.utils.BlockColor;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemDye extends Item {

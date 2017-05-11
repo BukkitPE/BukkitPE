@@ -1,7 +1,6 @@
 package net.BukkitPE.network;
 
 /**
-
  * BukkitPE Project
  */
 public interface AdvancedSourceInterface extends SourceInterface {

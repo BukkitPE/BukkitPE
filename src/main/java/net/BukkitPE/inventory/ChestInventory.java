@@ -6,7 +6,6 @@ import net.BukkitPE.level.Level;
 import net.BukkitPE.network.protocol.BlockEventPacket;
 
 /**
-
  * BukkitPE Project
  */
 public class ChestInventory extends ContainerInventory {

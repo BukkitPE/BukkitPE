@@ -9,7 +9,6 @@ import net.BukkitPE.network.protocol.ContainerOpenPacket;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class ContainerInventory extends BaseInventory {

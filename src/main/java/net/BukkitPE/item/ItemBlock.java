@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.Block;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemBlock extends Item {

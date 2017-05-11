@@ -4,7 +4,6 @@ import net.BukkitPE.entity.Entity;
 import net.BukkitPE.event.Event;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class EntityEvent extends Event {

@@ -1,7 +1,6 @@
 package net.BukkitPE.utils;
 
 /**
-
  * BukkitPE Project
  */
 public class EventException extends RuntimeException {
@@ -26,7 +25,7 @@ public class EventException extends RuntimeException {
     /**
      * Constructs a new EventException with the given message
      *
-     * @param cause The exception that caused this
+     * @param cause   The exception that caused this
      * @param message The message
      */
     public EventException(Throwable cause, String message) {

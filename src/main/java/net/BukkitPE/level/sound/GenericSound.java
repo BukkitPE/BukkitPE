@@ -9,18 +9,17 @@ import net.BukkitPE.network.protocol.LevelEventPacket;
  * Package net.BukkitPE.level.sound in project BukkitPE .
  */
 public class GenericSound extends Sound {
+    protected final int id;
+    protected float pitch = 0f;
+
     public GenericSound(Vector3 pos, int id) {
         this(pos, id, 0);
     }
-
     public GenericSound(Vector3 pos, int id, float pitch) {
         super(pos.x, pos.y, pos.z);
         this.id = id;
         this.pitch = pitch * 1000f;
     }
-
-    protected float pitch = 0f;
-    protected final int id;
 
     public float getPitch() {
         return this.pitch / 1000f;

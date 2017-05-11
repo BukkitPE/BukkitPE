@@ -6,7 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
-
  * BukkitPE Project
  */
 public class EncapsulatedPacket implements Cloneable {
@@ -25,10 +24,6 @@ public class EncapsulatedPacket implements Cloneable {
     public Integer identifierACK = null;
 
     private int offset;
-
-    public int getOffset() {
-        return offset;
-    }
 
     public static EncapsulatedPacket fromBinary(byte[] binary) {
         return fromBinary(binary, false);
@@ -79,6 +74,10 @@ public class EncapsulatedPacket implements Cloneable {
         packet.offset = offset;
 
         return packet;
+    }
+
+    public int getOffset() {
+        return offset;
     }
 
     public int getTotalLength() {

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class DoubleChestInventory extends ContainerInventory implements InventoryHolder {

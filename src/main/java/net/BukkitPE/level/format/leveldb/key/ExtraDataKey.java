@@ -1,7 +1,6 @@
 package net.BukkitPE.level.format.leveldb.key;
 
 /**
-
  * BukkitPE Project
  */
 public class ExtraDataKey extends BaseKey {

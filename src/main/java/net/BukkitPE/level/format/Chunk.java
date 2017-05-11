@@ -1,7 +1,6 @@
 package net.BukkitPE.level.format;
 
 /**
-
  * BukkitPE Project
  */
 public interface Chunk extends FullChunk {

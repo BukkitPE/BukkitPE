@@ -3,7 +3,6 @@ package net.BukkitPE.inventory;
 import java.util.Set;
 
 /**
-
  * BukkitPE Project
  */
 public interface TransactionGroup {

@@ -7,12 +7,9 @@ import net.BukkitPE.item.Item;
 import java.util.UUID;
 
 public class BrewingRecipe implements Recipe {
-    private UUID id;
-
     private final Item output;
-
     private final Item potion;
-
+    private UUID id;
     private Item ingredient;
 
     public BrewingRecipe(Item result, Item ingredient, Item potion) {
@@ -35,12 +32,12 @@ public class BrewingRecipe implements Recipe {
         this.id = uuid;
     }
 
-    public void setInput(Item item) {
-        ingredient = item.clone();
-    }
-
     public Item getInput() {
         return ingredient.clone();
+    }
+
+    public void setInput(Item item) {
+        ingredient = item.clone();
     }
 
     public Item getPotion() {

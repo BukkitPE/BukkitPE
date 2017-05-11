@@ -16,6 +16,11 @@ import net.BukkitPE.network.protocol.AddEntityPacket;
 public class EntityPrimedTNT extends Entity implements EntityExplosive {
 
     public static final int NETWORK_ID = 65;
+    protected int fuse;
+
+    public EntityPrimedTNT(FullChunk chunk, CompoundTag nbt) {
+        super(chunk, nbt);
+    }
 
     @Override
     public float getWidth() {
@@ -45,12 +50,6 @@ public class EntityPrimedTNT extends Entity implements EntityExplosive {
     @Override
     public boolean canCollide() {
         return false;
-    }
-
-    protected int fuse;
-
-    public EntityPrimedTNT(FullChunk chunk, CompoundTag nbt) {
-        super(chunk, nbt);
     }
 
     @Override

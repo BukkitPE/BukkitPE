@@ -8,15 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class PermissionAttachment {
 
-    private PermissionRemovedExecutor removed = null;
-
     private final Map<String, Boolean> permissions = new HashMap<>();
-
+    private PermissionRemovedExecutor removed = null;
     private Permissible permissible;
 
     private Plugin plugin;
@@ -33,21 +30,16 @@ public class PermissionAttachment {
         return plugin;
     }
 
-    public void setRemovalCallback(PermissionRemovedExecutor executor) {
-        this.removed = executor;
-    }
-
     public PermissionRemovedExecutor getRemovalCallback() {
         return removed;
     }
 
-    public Map<String, Boolean> getPermissions() {
-        return permissions;
+    public void setRemovalCallback(PermissionRemovedExecutor executor) {
+        this.removed = executor;
     }
 
-    public void clearPermissions() {
-        this.permissions.clear();
-        this.permissible.recalculatePermissions();
+    public Map<String, Boolean> getPermissions() {
+        return permissions;
     }
 
     public void setPermissions(Map<String, Boolean> permissions) {
@@ -56,6 +48,11 @@ public class PermissionAttachment {
             Boolean value = entry.getValue();
             this.permissions.put(key, value);
         }
+        this.permissible.recalculatePermissions();
+    }
+
+    public void clearPermissions() {
+        this.permissions.clear();
         this.permissible.recalculatePermissions();
     }
 

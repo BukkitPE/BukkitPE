@@ -6,7 +6,6 @@ import net.BukkitPE.block.BlockGrass;
 import net.BukkitPE.block.BlockSnowLayer;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class SnowyBiome extends NormalBiome {

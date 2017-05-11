@@ -22,27 +22,18 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
-
  * BukkitPE Project
  */
 public class RakNetInterface implements ServerInstance, AdvancedSourceInterface {
 
     private final Server server;
-
-    private Network network;
-
     private final RakNetServer raknet;
-
     private final Map<String, Player> players = new ConcurrentHashMap<>();
-
     private final Map<String, Integer> networkLatency = new ConcurrentHashMap<>();
-
     private final Map<Integer, String> identifiers = new ConcurrentHashMap<>();
-
     private final Map<String, Integer> identifiersACK = new ConcurrentHashMap<>();
-
     private final ServerHandler handler;
-
+    private Network network;
     private int[] channelCounts = new int[256];
 
     public RakNetInterface(Server server) {

@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 /**
-
  * BukkitPE Project
  */
 public interface Inventory {

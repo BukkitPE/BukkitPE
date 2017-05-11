@@ -6,7 +6,6 @@ import net.BukkitPE.utils.ChunkException;
 import java.util.Arrays;
 
 /**
-
  * BukkitPE Project
  */
 public class EmptyChunkSection implements ChunkSection {

@@ -5,7 +5,6 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import java.nio.ByteBuffer;
 
 /**
-
  * BukkitPE Project
  */
 public class ChunkSection implements net.BukkitPE.level.format.ChunkSection {

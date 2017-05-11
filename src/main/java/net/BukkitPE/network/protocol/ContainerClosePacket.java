@@ -1,18 +1,16 @@
 package net.BukkitPE.network.protocol;
 
 /**
-
  * BukkitPE Project
  */
 public class ContainerClosePacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.CONTAINER_CLOSE_PACKET;
+    public int windowid;
 
     @Override
     public byte pid() {
         return NETWORK_ID;
     }
-
-    public int windowid;
 
     @Override
     public void decode() {

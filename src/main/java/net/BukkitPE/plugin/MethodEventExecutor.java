@@ -1,6 +1,5 @@
 package net.BukkitPE.plugin;
 
-import net.BukkitPE.Server;
 import net.BukkitPE.event.Event;
 import net.BukkitPE.event.Listener;
 import net.BukkitPE.utils.EventException;
@@ -9,7 +8,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
-
  * BukkitPE Project
  */
 public class MethodEventExecutor implements EventExecutor {

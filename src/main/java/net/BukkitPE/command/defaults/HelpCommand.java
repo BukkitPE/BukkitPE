@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
-
  * BukkitPE Project
  */
 public class HelpCommand extends VanillaCommand {

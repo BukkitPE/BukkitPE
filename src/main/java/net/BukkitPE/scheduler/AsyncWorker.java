@@ -5,7 +5,6 @@ import net.BukkitPE.InterruptibleThread;
 import java.util.LinkedList;
 
 /**
-
  * BukkitPE Project
  */
 public class AsyncWorker extends Thread implements InterruptibleThread {

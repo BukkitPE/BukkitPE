@@ -3,7 +3,6 @@ package net.BukkitPE.raknet.server;
 import net.BukkitPE.raknet.protocol.EncapsulatedPacket;
 
 /**
-
  * BukkitPE Project
  */
 public interface ServerInstance {

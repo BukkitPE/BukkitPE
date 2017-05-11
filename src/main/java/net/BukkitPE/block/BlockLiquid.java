@@ -1,25 +1,25 @@
 package net.BukkitPE.block;
 
 import net.BukkitPE.entity.Entity;
+import net.BukkitPE.event.block.BlockFromToEvent;
 import net.BukkitPE.item.Item;
 import net.BukkitPE.level.Level;
 import net.BukkitPE.level.particle.SmokeParticle;
 import net.BukkitPE.level.sound.FizzSound;
 import net.BukkitPE.math.AxisAlignedBB;
 import net.BukkitPE.math.Vector3;
-import net.BukkitPE.event.block.BlockFromToEvent;
+
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BlockLiquid extends BlockTransparent {
 
-    public int adjacentSources = 0;
     public final boolean[] isOptimalFlowDirection = {false, false, false, false};
     public final int[] flowinCost = {0, 0, 0, 0};
+    public int adjacentSources = 0;
     private Vector3 temporalVector = null;
 
     protected BlockLiquid(int meta) {
@@ -264,18 +264,18 @@ public abstract class BlockLiquid extends BlockTransparent {
 
             if (bottomBlock.canBeFlowedInto() || bottomBlock instanceof BlockLiquid) {
                 if (this instanceof BlockLava && bottomBlock instanceof BlockWater) {
-                  Block to = new BlockStone();
-				   to.setComponents(bottomBlock.getX(), bottomBlock.getY(), bottomBlock.getZ());
-				   to.setLevel(bottomBlock.getLevel());
-                     BlockFromToEvent ev = new BlockFromToEvent(bottomBlock, to);
-                     this.getLevel().getServer().getPluginManager().callEvent(ev);
- 
-                     if (!ev.isCancelled()) {
-                         this.getLevel().setBlock(bottomBlock, ev.getTo(), true);
-                         this.triggerLavaMixEffects(bottomBlock);
-                    return 0;
+                    Block to = new BlockStone();
+                    to.setComponents(bottomBlock.getX(), bottomBlock.getY(), bottomBlock.getZ());
+                    to.setLevel(bottomBlock.getLevel());
+                    BlockFromToEvent ev = new BlockFromToEvent(bottomBlock, to);
+                    this.getLevel().getServer().getPluginManager().callEvent(ev);
+
+                    if (!ev.isCancelled()) {
+                        this.getLevel().setBlock(bottomBlock, ev.getTo(), true);
+                        this.triggerLavaMixEffects(bottomBlock);
+                        return 0;
+                    }
                 }
-			}
 
                 if (decay >= 8) {
                     this.flowIntoBlock(bottomBlock, decay);
@@ -461,7 +461,7 @@ public abstract class BlockLiquid extends BlockTransparent {
                 colliding = this.getSide(side) instanceof BlockWater;
             }
 
-           if (colliding) {
+            if (colliding) {
                 Block to;
                 if (this.getDamage() == 0) {
                     to = new BlockObsidian();

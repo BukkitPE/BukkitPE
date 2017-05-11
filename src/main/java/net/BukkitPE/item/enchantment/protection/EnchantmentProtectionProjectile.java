@@ -1,7 +1,6 @@
 package net.BukkitPE.item.enchantment.protection;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantmentProtectionProjectile extends EnchantmentProtection {

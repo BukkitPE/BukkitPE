@@ -1,7 +1,6 @@
 package net.BukkitPE.item;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemBootsIron extends ItemArmor {

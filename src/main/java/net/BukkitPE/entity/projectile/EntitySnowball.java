@@ -7,11 +7,18 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.network.protocol.AddEntityPacket;
 
 /**
-
  * BukkitPE Project
  */
 public class EntitySnowball extends EntityProjectile {
     public static final int NETWORK_ID = 81;
+
+    public EntitySnowball(FullChunk chunk, CompoundTag nbt) {
+        this(chunk, nbt, null);
+    }
+
+    public EntitySnowball(FullChunk chunk, CompoundTag nbt, Entity shootingEntity) {
+        super(chunk, nbt, shootingEntity);
+    }
 
     @Override
     public int getNetworkId() {
@@ -41,14 +48,6 @@ public class EntitySnowball extends EntityProjectile {
     @Override
     protected float getDrag() {
         return 0.01f;
-    }
-
-    public EntitySnowball(FullChunk chunk, CompoundTag nbt) {
-        this(chunk, nbt, null);
-    }
-
-    public EntitySnowball(FullChunk chunk, CompoundTag nbt, Entity shootingEntity) {
-        super(chunk, nbt, shootingEntity);
     }
 
     @Override

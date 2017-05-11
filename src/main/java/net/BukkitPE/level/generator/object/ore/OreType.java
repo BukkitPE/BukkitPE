@@ -3,7 +3,6 @@ package net.BukkitPE.level.generator.object.ore;
 import net.BukkitPE.block.Block;
 
 /**
-
  * BukkitPE Project
  */
 public class OreType {

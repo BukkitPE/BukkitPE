@@ -8,7 +8,6 @@ import net.BukkitPE.scheduler.AsyncTask;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public interface LevelProvider {
@@ -92,5 +91,6 @@ public interface LevelProvider {
     void close();
 
     void saveLevelData();
-	void updateLevelName(String name);
+
+    void updateLevelName(String name);
 }

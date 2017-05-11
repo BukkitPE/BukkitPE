@@ -5,7 +5,6 @@ import net.BukkitPE.utils.LogLevel;
 import net.BukkitPE.utils.Logger;
 
 /**
-
  * BukkitPE Project
  */
 public class PluginLogger implements Logger {

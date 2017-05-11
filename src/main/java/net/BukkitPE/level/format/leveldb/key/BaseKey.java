@@ -1,14 +1,9 @@
 package net.BukkitPE.level.format.leveldb.key;
 
 /**
-
  * BukkitPE Project
  */
 public class BaseKey {
-    private final int chunkX;
-    private final int chunkZ;
-    private final byte type;
-
     public static final byte DATA_VERSION = 0x76;
     public static final byte DATA_FLAGS = 0x66;
     public static final byte DATA_EXTRA_DATA = 0x34;
@@ -16,6 +11,9 @@ public class BaseKey {
     public static final byte DATA_ENTITIES = 0x32;
     public static final byte DATA_TILES = 0x31;
     public static final byte DATA_TERRAIN = 0x30;
+    private final int chunkX;
+    private final int chunkZ;
+    private final byte type;
 
     protected BaseKey(int chunkX, int chunkZ, byte type) {
         this.chunkX = chunkX;

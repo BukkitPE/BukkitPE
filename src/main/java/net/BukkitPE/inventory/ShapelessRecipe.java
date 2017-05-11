@@ -8,16 +8,13 @@ import java.util.List;
 import java.util.UUID;
 
 /**
-
  * BukkitPE Project
  */
 public class ShapelessRecipe implements Recipe {
 
     private final Item output;
-
-    private UUID uuid = null;
-
     private final List<Item> ingredients = new ArrayList<>();
+    private UUID uuid = null;
 
     public ShapelessRecipe(Item result) {
         this.output = result.clone();

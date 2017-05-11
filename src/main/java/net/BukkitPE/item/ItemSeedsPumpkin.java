@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockStemPumpkin;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemSeedsPumpkin extends Item {

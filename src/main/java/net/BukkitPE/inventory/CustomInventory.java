@@ -5,7 +5,6 @@ import net.BukkitPE.item.Item;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class CustomInventory extends ContainerInventory {

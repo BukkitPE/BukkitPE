@@ -1,10 +1,10 @@
 package net.BukkitPE.utils;
 
-import net.BukkitPE.Server;
-import net.BukkitPE.scheduler.FileWriteTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import net.BukkitPE.Server;
+import net.BukkitPE.scheduler.FileWriteTask;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -16,7 +16,6 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
-
  * BukkitPE
  */
 public class Config {
@@ -30,14 +29,6 @@ public class Config {
     //public static final int SERIALIZED = 4; // .sl
     public static final int ENUM = 5; // .txt, .list, .enum
     public static final int ENUMERATION = Config.ENUM;
-
-    //private LinkedHashMap<String, Object> config = new LinkedHashMap<>();
-    private ConfigSection config = new ConfigSection();
-    private final Map<String, Object> nestedCache = new HashMap<>();
-    private File file;
-    private boolean correct = false;
-    private int type = Config.DETECT;
-
     public static final Map<String, Integer> format = new TreeMap<>();
 
     static {
@@ -55,6 +46,13 @@ public class Config {
         format.put("list", Config.ENUM);
         format.put("enum", Config.ENUM);
     }
+
+    private final Map<String, Object> nestedCache = new HashMap<>();
+    //private LinkedHashMap<String, Object> config = new LinkedHashMap<>();
+    private ConfigSection config = new ConfigSection();
+    private File file;
+    private boolean correct = false;
+    private int type = Config.DETECT;
 
     /**
      * Constructor for Config instance with undefined file object
@@ -395,10 +393,6 @@ public class Config {
         this.config = new ConfigSection(map);
     }
 
-    public void setAll(ConfigSection section) {
-        this.config = section;
-    }
-
     public boolean exists(String key) {
         return config.exists(key);
     }
@@ -413,6 +407,10 @@ public class Config {
 
     public Map<String, Object> getAll() {
         return this.config.getAllMap();
+    }
+
+    public void setAll(ConfigSection section) {
+        this.config = section;
     }
 
     /**

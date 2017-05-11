@@ -5,7 +5,6 @@ import net.BukkitPE.block.BlockDirt;
 import net.BukkitPE.block.BlockGrass;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class GrassyBiome extends NormalBiome {

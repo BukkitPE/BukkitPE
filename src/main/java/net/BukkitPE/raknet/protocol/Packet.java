@@ -7,14 +7,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class Packet implements Cloneable {
 
-    protected int offset = 0;
     public byte[] buffer;
     public Long sendTime;
+    protected int offset = 0;
 
     public abstract byte getID();
 

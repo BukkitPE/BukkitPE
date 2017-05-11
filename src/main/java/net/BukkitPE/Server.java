@@ -83,104 +83,59 @@ public class Server {
     public static final String BROADCAST_CHANNEL_USERS = "BukkitPE.broadcast.user";
 
     private static Server instance = null;
-
-    private BanList banByName = null;
-
-    private BanList banByIP = null;
-
-    private Config operators = null;
-
-    private Config whitelist = null;
-
-    private boolean isRunning = true;
-
-    private boolean hasStopped = false;
-
-    private PluginManager pluginManager = null;
-
-    private int profilingTickrate = 20;
-
-    private ServerScheduler scheduler = null;
-
-    private int tickCounter;
-
-    private long nextTick;
-
     private final float[] tickAverage = {20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20};
-
     private final float[] useAverage = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-    private float maxTick = 20;
-
-    private float maxUse = 0;
-
-    private int sendUsageTicker = 0;
-
-    private boolean dispatchSignals = false;
-
     private final MainLogger logger;
-
     private final CommandReader console;
-
-    private SimpleCommandMap commandMap;
-
-    private CraftingManager craftingManager;
-
-    private ConsoleCommandSender consoleSender;
-
-    private int maxPlayers;
-
-    private boolean autoSave;
-
-    private RCON rcon;
-
-    private EntityMetadataStore entityMetadata;
-
-    private PlayerMetadataStore playerMetadata;
-
-    private LevelMetadataStore levelMetadata;
-
-    private Network network;
-
-    private boolean networkCompressionAsync = true;
+    private final String filePath;
+    private final String dataPath;
+    private final String pluginPath;
+    private final Set<UUID> uniquePlayers = new HashSet<>();
+    private final Map<String, Player> players = new HashMap<>();
+    private final Map<UUID, Player> playerList = new HashMap<>();
+    private final Map<Integer, String> identifier = new HashMap<>();
+    private final Map<Integer, Level> levels = new HashMap<>();
     public int networkCompressionLevel = 7;
-
+    private BanList banByName = null;
+    private BanList banByIP = null;
+    private Config operators = null;
+    private Config whitelist = null;
+    private boolean isRunning = true;
+    private boolean hasStopped = false;
+    private PluginManager pluginManager = null;
+    private int profilingTickrate = 20;
+    private ServerScheduler scheduler = null;
+    private int tickCounter;
+    private long nextTick;
+    private float maxTick = 20;
+    private float maxUse = 0;
+    private int sendUsageTicker = 0;
+    private boolean dispatchSignals = false;
+    private SimpleCommandMap commandMap;
+    private CraftingManager craftingManager;
+    private ConsoleCommandSender consoleSender;
+    private int maxPlayers;
+    private boolean autoSave;
+    private RCON rcon;
+    private EntityMetadataStore entityMetadata;
+    private PlayerMetadataStore playerMetadata;
+    private LevelMetadataStore levelMetadata;
+    private Network network;
+    private boolean networkCompressionAsync = true;
     private boolean autoTickRate = true;
     private int autoTickRateLimit = 20;
     private boolean alwaysTickPlayers = false;
     private int baseTickRate = 1;
-
     private int autoSaveTicker = 0;
     private int autoSaveTicks = 6000;
-
     private BaseLang baseLang;
-
     private boolean forceLanguage = false;
-
     private UUID serverID;
-
-    private final String filePath;
-    private final String dataPath;
-    private final String pluginPath;
-
-    private final Set<UUID> uniquePlayers = new HashSet<>();
-
     private QueryHandler queryHandler;
-
     private QueryRegenerateEvent queryRegenerateEvent;
     private ServerShutdownEvent ServerShutdownEvent;
-
     private Config properties;
     private Config config;
-
-    private final Map<String, Player> players = new HashMap<>();
-
-    private final Map<UUID, Player> playerList = new HashMap<>();
-
-    private final Map<Integer, String> identifier = new HashMap<>();
-
-    private final Map<Integer, Level> levels = new HashMap<>();
-
     private Level defaultLevel = null;
 
     public Server(MainLogger logger, final String filePath, String dataPath, String pluginPath) {
@@ -277,8 +232,8 @@ public class Server {
             }
         });
         if (this.getPropertyBoolean("online-mode", false)) {
-	   this.logger.info(" **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!\nWhile this makes the game possible to play without internet access, it also \nopens up the ability for hackers to connect with any username they choose.");
-   }
+            this.logger.info(" **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!\nWhile this makes the game possible to play without internet access, it also \nopens up the ability for hackers to connect with any username they choose.");
+        }
         this.forceLanguage = (Boolean) this.getConfig("settings.force-language", false);
         this.baseLang = new BaseLang((String) this.getConfig("settings.language", BaseLang.FALLBACK_LANGUAGE));
         this.logger.info(this.getLanguage().translateString("language.selected", new String[]{getLanguage().getName(), getLanguage().getLang()}));
@@ -462,6 +417,100 @@ public class Server {
         this.start();
     }
 
+    public static void broadcastPacket(Collection<Player> players, DataPacket packet) {
+        broadcastPacket(players.stream().toArray(Player[]::new), packet);
+    }
+
+    public static void broadcastPacket(Player[] players, DataPacket packet) {
+        packet.encode();
+        packet.isEncoded = true;
+        if (Network.BATCH_THRESHOLD >= 0 && packet.getBuffer().length >= Network.BATCH_THRESHOLD) {
+            Server.getInstance().batchPackets(players, new DataPacket[]{packet}, false);
+            return;
+        }
+
+        for (Player player : players) {
+            player.dataPacket(packet);
+        }
+
+        if (packet.encapsulatedPacket != null) {
+            packet.encapsulatedPacket = null;
+        }
+    }
+
+    public static String getGamemodeString(int mode) {
+        switch (mode) {
+            case Player.SURVIVAL:
+                return "%gameMode.survival";
+            case Player.CREATIVE:
+                return "%gameMode.creative";
+            case Player.ADVENTURE:
+                return "%gameMode.adventure";
+            case Player.SPECTATOR:
+                return "%gameMode.spectator";
+        }
+        return "UNKNOWN";
+    }
+
+    public static int getGamemodeFromString(String str) {
+        switch (str.trim().toLowerCase()) {
+            case "0":
+            case "survival":
+            case "s":
+            case "sl":
+                return Player.SURVIVAL;
+
+            case "1":
+            case "creative":
+            case "c":
+            case "ce":
+                return Player.CREATIVE;
+
+            case "2":
+            case "adventure":
+            case "a":
+            case "ae":
+                return Player.ADVENTURE;
+
+            case "3":
+            case "spectator":
+            case "view":
+            case "v":
+            case "spectate":
+                return Player.SPECTATOR;
+        }
+        return -1;
+    }
+
+    public static int getDifficultyFromString(String str) {
+        switch (str.trim().toLowerCase()) {
+            case "0":
+            case "peaceful":
+            case "p":
+                return 0;
+
+            case "1":
+            case "easy":
+            case "e":
+                return 1;
+
+            case "2":
+            case "normal":
+            case "n":
+                return 2;
+
+            case "3":
+            case "hard":
+            case "h":
+                return 3;
+        }
+        return -1;
+    }
+
+    public static Server getInstance() {
+        return instance;
+    }
+
     public int broadcastMessage(String message) {
         return this.broadcast(message, BROADCAST_CHANNEL_USERS);
     }
@@ -528,28 +577,6 @@ public class Server {
         }
 
         return recipients.size();
-    }
-
-
-    public static void broadcastPacket(Collection<Player> players, DataPacket packet) {
-        broadcastPacket(players.stream().toArray(Player[]::new), packet);
-    }
-
-    public static void broadcastPacket(Player[] players, DataPacket packet) {
-        packet.encode();
-        packet.isEncoded = true;
-        if (Network.BATCH_THRESHOLD >= 0 && packet.getBuffer().length >= Network.BATCH_THRESHOLD) {
-            Server.getInstance().batchPackets(players, new DataPacket[]{packet}, false);
-            return;
-        }
-
-        for (Player player : players) {
-            player.dataPacket(packet);
-        }
-
-        if (packet.encapsulatedPacket != null) {
-            packet.encapsulatedPacket = null;
-        }
     }
 
     public void batchPackets(Player[] players, DataPacket[] packets) {
@@ -683,6 +710,7 @@ public class Server {
         this.enablePlugins(PluginLoadOrder.POSTWORLD);
         Timings.reset();
     }
+
     public void shutdown() {
         if (this.isRunning) {
             ServerKiller killer = new ServerKiller(90);
@@ -700,13 +728,13 @@ public class Server {
             if (!this.isRunning) {
                 //todo sendUsage
             }
-            
-             // ServerShutdownEvent, still need to be rewrite such as cancel, ect. But other stuffs works fine! :)
-			  // Need to be re-added for now.
-			  
-            			// this.getPluginManager().callEvent(this.ServerShutdownEvent = new ServerShutdownEvent());
-						
-						
+
+            // ServerShutdownEvent, still need to be rewrite such as cancel, ect. But other stuffs works fine! :)
+            // Need to be re-added for now.
+
+            // this.getPluginManager().callEvent(this.ServerShutdownEvent = new ServerShutdownEvent());
+
+
             // clean shutdown of console thread asap
             this.console.shutdown();
 
@@ -755,6 +783,7 @@ public class Server {
             System.exit(1);
         }
     }
+
     public void restart() {
         if (this.isRunning) {
             start();
@@ -771,9 +800,9 @@ public class Server {
             if (!this.isRunning) {
                 //todo sendUsage
             }
-            
-             // ServerShutdownEvent, still need to be rewrite such as cancel, ect. But other stuffs works fine! :)
-            			this.getPluginManager().callEvent(this.ServerShutdownEvent = new ServerShutdownEvent());
+
+            // ServerShutdownEvent, still need to be rewrite such as cancel, ect. But other stuffs works fine! :)
+            this.getPluginManager().callEvent(this.ServerShutdownEvent = new ServerShutdownEvent());
             // clean shutdown of console thread asap
 
             this.hasStopped = false;
@@ -812,6 +841,7 @@ public class Server {
             this.logger.emergency("Exception happened while shutting down, exit the process");
         }
     }
+
     public void start() {
         if (this.getPropertyBoolean("enable-query", true)) {
             this.queryHandler = new QueryHandler();
@@ -1235,9 +1265,11 @@ public class Server {
     public String getLevelType() {
         return this.getPropertyString("level-type", "DEFAULT");
     }
+
     public String getBungeeCordPE() { // Supports for BungeeCordPE for feature releases
         return this.getPropertyString("BungeeCordPE", "false");
-  }
+    }
+
     public boolean getGenerateStructures() {
         return this.getPropertyBoolean("generate-structures", true);
     }
@@ -1248,75 +1280,6 @@ public class Server {
 
     public boolean getForceGamemode() {
         return this.getPropertyBoolean("force-gamemode", false);
-    }
-
-    public static String getGamemodeString(int mode) {
-        switch (mode) {
-            case Player.SURVIVAL:
-                return "%gameMode.survival";
-            case Player.CREATIVE:
-                return "%gameMode.creative";
-            case Player.ADVENTURE:
-                return "%gameMode.adventure";
-            case Player.SPECTATOR:
-                return "%gameMode.spectator";
-        }
-        return "UNKNOWN";
-    }
-
-    public static int getGamemodeFromString(String str) {
-        switch (str.trim().toLowerCase()) {
-            case "0":
-            case "survival":
-            case "s":
-            case "sl":
-                return Player.SURVIVAL;
-
-            case "1":
-            case "creative":
-            case "c":
-            case "ce":
-                return Player.CREATIVE;
-
-            case "2":
-            case "adventure":
-            case "a":
-            case "ae":
-                return Player.ADVENTURE;
-
-            case "3":
-            case "spectator":
-            case "view":
-            case "v":
-            case "spectate":
-                return Player.SPECTATOR;
-        }
-        return -1;
-    }
-
-    public static int getDifficultyFromString(String str) {
-        switch (str.trim().toLowerCase()) {
-            case "0":
-            case "peaceful":
-            case "p":
-                return 0;
-
-            case "1":
-            case "easy":
-            case "e":
-                return 1;
-
-            case "2":
-            case "normal":
-            case "n":
-                return 2;
-
-            case "3":
-            case "hard":
-            case "h":
-                return 3;
-        }
-        return -1;
     }
 
     public int getDifficulty() {
@@ -1431,7 +1394,7 @@ public class Server {
         String path = this.getDataPath() + "players/";
         File file = new File(path + name + ".dat");
 
-       if (this.shouldSavePlayerData() && file.exists()) {
+        if (this.shouldSavePlayerData() && file.exists()) {
             try {
                 return NBTIO.readCompressed(new FileInputStream(file));
             } catch (Exception e) {
@@ -1477,27 +1440,28 @@ public class Server {
     }
 
     public void saveOfflinePlayerData(String name, CompoundTag tag, boolean async) {
-       if (this.shouldSavePlayerData()) {
-             try {
-              if (async) {
-             this.getScheduler().scheduleAsyncTask(new 
-               FileWriteTask(this.getDataPath() + "players/" + name.toLowerCase() + ".dat", NBTIO.writeGZIPCompressed(tag, ByteOrder.BIG_ENDIAN)));
-          } else {
-        
-    Utils.writeFile(this.getDataPath() + "players/" + name.toLowerCase() + ".dat", new ByteArrayInputStream(NBTIO.writeGZIPCompressed(tag, ByteOrder.BIG_ENDIAN)));
-		  }
-			 } catch (Exception e) {
-				 this.logger.critical(this.getLanguage().translateString("nukkit.data.saveError", new String[]{name, e.getMessage()}));
-				 if(BukkitPE.DEBUG > 1) {
-					   this.logger.logException(e);
-				 }
-			 }
-	   }
-	}
+        if (this.shouldSavePlayerData()) {
+            try {
+                if (async) {
+                    this.getScheduler().scheduleAsyncTask(new
+                            FileWriteTask(this.getDataPath() + "players/" + name.toLowerCase() + ".dat", NBTIO.writeGZIPCompressed(tag, ByteOrder.BIG_ENDIAN)));
+                } else {
 
-            public boolean shouldSavePlayerData() {
-         return this.getPropertyBoolean("player.save-player-data", true);
-     }
+                    Utils.writeFile(this.getDataPath() + "players/" + name.toLowerCase() + ".dat", new ByteArrayInputStream(NBTIO.writeGZIPCompressed(tag, ByteOrder.BIG_ENDIAN)));
+                }
+            } catch (Exception e) {
+                this.logger.critical(this.getLanguage().translateString("nukkit.data.saveError", new String[]{name, e.getMessage()}));
+                if (BukkitPE.DEBUG > 1) {
+                    this.logger.logException(e);
+                }
+            }
+        }
+    }
+
+    public boolean shouldSavePlayerData() {
+        return this.getPropertyBoolean("player.save-player-data", true);
+    }
+
     public Player getPlayer(String name) {
         Player found = null;
         name = name.toLowerCase();
@@ -1765,7 +1729,8 @@ public class Server {
     public Network getNetwork() {
         return network;
     }
-	    public Network getServer() {
+
+    public Network getServer() {
         return network;
     }
 
@@ -1975,10 +1940,6 @@ public class Server {
         BlockEntity.registerBlockEntity(BlockEntity.FLOWER_POT, BlockEntityFlowerPot.class);
         BlockEntity.registerBlockEntity(BlockEntity.BREWING_STAND, BlockEntityBrewingStand.class);
         BlockEntity.registerBlockEntity(BlockEntity.ITEM_FRAME, BlockEntityItemFrame.class);
-    }
-
-    public static Server getInstance() {
-        return instance;
     }
 
 }

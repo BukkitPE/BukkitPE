@@ -3,17 +3,10 @@ package net.BukkitPE.network.protocol;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class AddItemEntityPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.ADD_ITEM_ENTITY_PACKET;
-
-    @Override
-    public byte pid() {
-        return NETWORK_ID;
-    }
-
     public long eid;
     public Item item;
     public float x;
@@ -22,6 +15,11 @@ public class AddItemEntityPacket extends DataPacket {
     public float speedX;
     public float speedY;
     public float speedZ;
+
+    @Override
+    public byte pid() {
+        return NETWORK_ID;
+    }
 
     @Override
     public void decode() {

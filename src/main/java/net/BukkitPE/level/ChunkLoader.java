@@ -4,7 +4,6 @@ import net.BukkitPE.level.format.FullChunk;
 import net.BukkitPE.math.Vector3;
 
 /**
-
  * BukkitPE Project
  */
 public interface ChunkLoader {

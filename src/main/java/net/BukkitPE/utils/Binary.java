@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
-
  * BukkitPE Project
  */
 public class Binary {

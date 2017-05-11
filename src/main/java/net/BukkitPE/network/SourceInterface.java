@@ -5,7 +5,6 @@ import net.BukkitPE.network.protocol.DataPacket;
 
 
 /**
-
  * BukkitPE Project
  */
 public interface SourceInterface {

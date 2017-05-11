@@ -9,31 +9,20 @@ import net.BukkitPE.level.Position;
 import net.BukkitPE.math.Vector3;
 
 /**
-
  * BukkitPE Project
  */
 public class PlayerInteractEvent extends PlayerEvent implements Cancellable {
-
-    private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
 
     public static final int LEFT_CLICK_BLOCK = 0;
     public static final int RIGHT_CLICK_BLOCK = 1;
     public static final int LEFT_CLICK_AIR = 2;
     public static final int RIGHT_CLICK_AIR = 3;
     public static final int PHYSICAL = 4;
-
+    private static final HandlerList handlers = new HandlerList();
     protected final Block blockTouched;
-
     protected final Vector3 touchVector;
-
     protected final int blockFace;
-
     protected final Item item;
-
     protected final int action;
 
     public PlayerInteractEvent(Player player, Item item, Vector3 block, int face) {
@@ -53,6 +42,10 @@ public class PlayerInteractEvent extends PlayerEvent implements Cancellable {
         this.item = item;
         this.blockFace = face;
         this.action = action;
+    }
+
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
     public int getAction() {

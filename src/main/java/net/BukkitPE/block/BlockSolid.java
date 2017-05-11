@@ -3,7 +3,6 @@ package net.BukkitPE.block;
 import net.BukkitPE.utils.BlockColor;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BlockSolid extends Block {

@@ -6,7 +6,6 @@ import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.utils.TextFormat;
 
 /**
-
  * BukkitPE Project
  */
 public class ReloadCommand extends VanillaCommand {

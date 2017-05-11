@@ -5,7 +5,6 @@ import net.BukkitPE.item.Item;
 import java.util.UUID;
 
 /**
-
  * BukkitPE Project
  */
 public interface Recipe {

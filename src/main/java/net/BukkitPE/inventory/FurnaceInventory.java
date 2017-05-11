@@ -4,7 +4,6 @@ import net.BukkitPE.blockentity.BlockEntityFurnace;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class FurnaceInventory extends ContainerInventory {

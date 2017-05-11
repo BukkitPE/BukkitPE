@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockSignPost;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemSign extends Item {

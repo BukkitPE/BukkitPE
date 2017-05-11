@@ -19,27 +19,17 @@ public class EntityCreeper extends EntityMob {
     public static final int DATA_SWELL_OLD = 18;
     public static final int DATA_POWERED = 19;
 
+    public EntityCreeper(FullChunk chunk, CompoundTag nbt) {
+        super(chunk, nbt);
+    }
+
     @Override
     public int getNetworkId() {
         return NETWORK_ID;
     }
 
-    public EntityCreeper(FullChunk chunk, CompoundTag nbt) {
-        super(chunk, nbt);
-    }
-
     public boolean isPowered() {
         return getDataPropertyBoolean(DATA_POWERED);
-    }
-
-    public void setPowered(EntityLightningStrike bolt) {
-        CreeperPowerEvent ev = new CreeperPowerEvent(this, bolt, CreeperPowerEvent.PowerCause.LIGHTNING);
-        this.getServer().getPluginManager().callEvent(ev);
-
-        if (!ev.isCancelled()) {
-            this.setDataProperty(new ByteEntityData(DATA_POWERED, 1));
-            this.namedTag.putBoolean("powered", true);
-        }
     }
 
     public void setPowered(boolean powered) {
@@ -49,6 +39,16 @@ public class EntityCreeper extends EntityMob {
         if (!ev.isCancelled()) {
             this.setDataProperty(new ByteEntityData(DATA_POWERED, powered ? 1 : 0));
             this.namedTag.putBoolean("powered", powered);
+        }
+    }
+
+    public void setPowered(EntityLightningStrike bolt) {
+        CreeperPowerEvent ev = new CreeperPowerEvent(this, bolt, CreeperPowerEvent.PowerCause.LIGHTNING);
+        this.getServer().getPluginManager().callEvent(ev);
+
+        if (!ev.isCancelled()) {
+            this.setDataProperty(new ByteEntityData(DATA_POWERED, 1));
+            this.namedTag.putBoolean("powered", true);
         }
     }
 

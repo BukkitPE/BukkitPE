@@ -5,7 +5,6 @@ import net.BukkitPE.level.format.FullChunk;
 import net.BukkitPE.nbt.tag.CompoundTag;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockEntityEnchantTable extends BlockEntitySpawnable implements BlockEntityNameable {
@@ -25,11 +24,6 @@ public class BlockEntityEnchantTable extends BlockEntitySpawnable implements Blo
     }
 
     @Override
-    public boolean hasName() {
-        return this.namedTag.contains("CustomName");
-    }
-
-    @Override
     public void setName(String name) {
         if (name == null || name.equals("")) {
             this.namedTag.remove("CustomName");
@@ -37,6 +31,11 @@ public class BlockEntityEnchantTable extends BlockEntitySpawnable implements Blo
         }
 
         this.namedTag.putString("CustomName", name);
+    }
+
+    @Override
+    public boolean hasName() {
+        return this.namedTag.contains("CustomName");
     }
 
     @Override

@@ -13,7 +13,6 @@ import net.BukkitPE.nbt.tag.ListTag;
 import java.util.Random;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemSpawnEgg extends Item {

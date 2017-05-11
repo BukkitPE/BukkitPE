@@ -4,18 +4,16 @@ import net.BukkitPE.raknet.RakNet;
 import net.BukkitPE.raknet.protocol.Packet;
 
 /**
-
  * BukkitPE Project
  */
 public class UNCONNECTED_PING extends Packet {
     public static final byte ID = (byte) 0x01;
+    public long pingID;
 
     @Override
     public byte getID() {
         return ID;
     }
-
-    public long pingID;
 
     @Override
     public void encode() {

@@ -4,7 +4,6 @@ import net.BukkitPE.math.Vector3;
 import net.BukkitPE.network.protocol.LevelEventPacket;
 
 /**
-
  * BukkitPE Project
  */
 public class LeverSound extends GenericSound {

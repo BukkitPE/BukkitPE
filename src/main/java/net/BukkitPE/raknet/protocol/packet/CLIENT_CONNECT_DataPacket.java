@@ -3,20 +3,18 @@ package net.BukkitPE.raknet.protocol.packet;
 import net.BukkitPE.raknet.protocol.Packet;
 
 /**
-
  * BukkitPE Project
  */
 public class CLIENT_CONNECT_DataPacket extends Packet {
     public static final byte ID = (byte) 0x09;
+    public long clientID;
+    public long sendPing;
+    public boolean useSecurity = false;
 
     @Override
     public byte getID() {
         return ID;
     }
-
-    public long clientID;
-    public long sendPing;
-    public boolean useSecurity = false;
 
     @Override
     public void encode() {

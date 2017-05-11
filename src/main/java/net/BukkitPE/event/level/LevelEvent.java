@@ -4,7 +4,6 @@ import net.BukkitPE.event.Event;
 import net.BukkitPE.level.Level;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class LevelEvent extends Event {

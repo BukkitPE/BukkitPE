@@ -3,7 +3,6 @@ package net.BukkitPE.metadata;
 import net.BukkitPE.level.Level;
 
 /**
-
  * BukkitPE Project
  */
 public class LevelMetadataStore extends MetadataStore {

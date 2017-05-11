@@ -9,7 +9,6 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.network.protocol.AddEntityPacket;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class EntityAnimal extends EntityCreature implements EntityAgeable {

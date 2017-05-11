@@ -6,7 +6,6 @@ import net.BukkitPE.level.Level;
 import net.BukkitPE.utils.BlockColor;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockIce extends BlockTransparent {

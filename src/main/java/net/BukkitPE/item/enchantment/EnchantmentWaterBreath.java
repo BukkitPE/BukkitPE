@@ -1,7 +1,6 @@
 package net.BukkitPE.item.enchantment;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantmentWaterBreath extends Enchantment {

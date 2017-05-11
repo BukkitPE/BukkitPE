@@ -3,7 +3,6 @@ package net.BukkitPE.item.enchantment.bow;
 import net.BukkitPE.item.enchantment.Enchantment;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantmentBowKnockback extends EnchantmentBow {

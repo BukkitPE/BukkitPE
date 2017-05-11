@@ -15,7 +15,6 @@ import net.BukkitPE.utils.BlockColor;
 import java.util.Random;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockLava extends BlockLiquid {

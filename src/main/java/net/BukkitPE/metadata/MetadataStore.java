@@ -7,7 +7,6 @@ import net.BukkitPE.utils.ServerException;
 import java.util.*;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class MetadataStore {

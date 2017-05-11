@@ -25,19 +25,14 @@ import java.nio.ByteOrder;
 import java.util.*;
 
 /**
-
  * BukkitPE Project
  */
 public class LevelDB implements LevelProvider {
 
-    protected Map<String, Chunk> chunks = new HashMap<>();
-
-    protected DB db;
-
-    protected Level level;
-
     protected final String path;
-
+    protected Map<String, Chunk> chunks = new HashMap<>();
+    protected DB db;
+    protected Level level;
     protected CompoundTag levelData;
 
     public LevelDB(Level level, String path) {
@@ -135,6 +130,10 @@ public class LevelDB implements LevelProvider {
 
         DB db = Iq80DBFactory.factory.open(new File(path + "/db"), new Options().createIfMissing(true));
         db.close();
+    }
+
+    public static ChunkSection createChunkSection(int Y) {
+        return null;
     }
 
     @Override
@@ -357,10 +356,6 @@ public class LevelDB implements LevelProvider {
         this.chunks.put(index, (Chunk) chunk);
     }
 
-    public static ChunkSection createChunkSection(int Y) {
-        return null;
-    }
-
     private boolean chunkExists(int chunkX, int chunkZ) {
         return this.db.get(VersionKey.create(chunkX, chunkZ).toArray()) != null;
     }
@@ -497,9 +492,9 @@ public class LevelDB implements LevelProvider {
         return levelData;
     }
 
-    public void updateLevelName(String name){
-        if (!this.getName().equals(name)){
-            this.levelData.putString("LevelName",name);
+    public void updateLevelName(String name) {
+        if (!this.getName().equals(name)) {
+            this.levelData.putString("LevelName", name);
         }
     }
 }

@@ -20,11 +20,9 @@ import java.util.List;
 
 public class BlockEntityBrewingStand extends BlockEntitySpawnable implements InventoryHolder, BlockEntityContainer, BlockEntityNameable {
 
-    protected final BrewingInventory inventory;
-
     public static final int MAX_BREW_TIME = 400;
-
     public static final List<Integer> ingredients = new ArrayList<>();
+    protected final BrewingInventory inventory;
 
     public BlockEntityBrewingStand(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -53,11 +51,6 @@ public class BlockEntityBrewingStand extends BlockEntitySpawnable implements Inv
     }
 
     @Override
-    public boolean hasName() {
-        return namedTag.contains("CustomName");
-    }
-
-    @Override
     public void setName(String name) {
         if (name == null || name.equals("")) {
             namedTag.remove("CustomName");
@@ -65,6 +58,11 @@ public class BlockEntityBrewingStand extends BlockEntitySpawnable implements Inv
         }
 
         namedTag.putString("CustomName", name);
+    }
+
+    @Override
+    public boolean hasName() {
+        return namedTag.contains("CustomName");
     }
 
     @Override

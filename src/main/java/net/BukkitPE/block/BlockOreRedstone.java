@@ -8,7 +8,6 @@ import net.BukkitPE.math.BukkitPERandom;
 import java.util.Random;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockOreRedstone extends BlockSolid {

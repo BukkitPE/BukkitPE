@@ -4,7 +4,6 @@ import net.BukkitPE.raknet.protocol.AcknowledgePacket;
 import net.BukkitPE.raknet.protocol.Packet;
 
 /**
-
  * BukkitPE Project
  */
 public class ACK extends AcknowledgePacket {

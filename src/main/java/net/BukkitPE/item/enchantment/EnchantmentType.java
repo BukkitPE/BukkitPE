@@ -6,7 +6,6 @@ import net.BukkitPE.item.ItemBow;
 import net.BukkitPE.item.ItemFishingRod;
 
 /**
-
  * BukkitPE Project
  */
 public enum EnchantmentType {

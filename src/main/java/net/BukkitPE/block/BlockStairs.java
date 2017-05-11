@@ -6,7 +6,6 @@ import net.BukkitPE.item.ItemTool;
 import net.BukkitPE.math.AxisAlignedBB;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BlockStairs extends BlockTransparent {

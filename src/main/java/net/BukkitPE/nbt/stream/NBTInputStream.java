@@ -8,7 +8,6 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 
 /**
-
  * BukkitPE Project
  */
 public class NBTInputStream implements DataInput, AutoCloseable {

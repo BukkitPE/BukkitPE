@@ -5,7 +5,6 @@ import net.BukkitPE.event.HandlerList;
 import net.BukkitPE.plugin.Plugin;
 
 /**
-
  * BukkitPE Project
  */
 public class PluginEvent extends Event {

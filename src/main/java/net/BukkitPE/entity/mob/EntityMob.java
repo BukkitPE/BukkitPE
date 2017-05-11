@@ -5,7 +5,6 @@ import net.BukkitPE.level.format.FullChunk;
 import net.BukkitPE.nbt.tag.CompoundTag;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class EntityMob extends EntityCreature {

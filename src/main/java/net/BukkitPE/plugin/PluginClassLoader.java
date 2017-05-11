@@ -9,14 +9,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
-
  * BukkitPE Project
  */
 public class PluginClassLoader extends URLClassLoader {
 
-    private JavaPluginLoader loader;
-
     private final Map<String, Class> classes = new HashMap<>();
+    private JavaPluginLoader loader;
 
     public PluginClassLoader(JavaPluginLoader loader, ClassLoader parent, File file) throws MalformedURLException {
         super(new URL[]{file.toURI().toURL()}, parent);

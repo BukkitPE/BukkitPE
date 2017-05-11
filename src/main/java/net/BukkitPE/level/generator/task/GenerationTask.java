@@ -8,12 +8,11 @@ import net.BukkitPE.level.generator.Generator;
 import net.BukkitPE.scheduler.AsyncTask;
 
 /**
-
  * BukkitPE Project
  */
 public class GenerationTask extends AsyncTask {
-    public boolean state;
     public final int levelId;
+    public boolean state;
     public BaseFullChunk chunk;
 
     public GenerationTask(Level level, BaseFullChunk chunk) {

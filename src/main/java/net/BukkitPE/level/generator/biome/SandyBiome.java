@@ -7,7 +7,6 @@ import net.BukkitPE.level.generator.populator.PopulatorCactus;
 import net.BukkitPE.level.generator.populator.PopulatorDeadBush;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class SandyBiome extends NormalBiome {

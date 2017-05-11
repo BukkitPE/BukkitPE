@@ -5,7 +5,6 @@ import net.BukkitPE.item.ItemTool;
 import net.BukkitPE.math.BukkitPERandom;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockOreCoal extends BlockSolid {

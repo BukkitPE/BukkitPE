@@ -13,12 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
-
  * BukkitPE Project
  */
 public class Network {
-    public static int BATCH_THRESHOLD = 512;
-
     public static final byte CHANNEL_NONE = 0;
     public static final byte CHANNEL_PRIORITY = 1; //Priority channel, only to be used when it matters
     public static final byte CHANNEL_WORLD_CHUNKS = 2; //Chunk sending
@@ -28,15 +25,11 @@ public class Network {
     public static final byte CHANNEL_ENTITY_SPAWNING = 6; //Entity spawn/despawn channel
     public static final byte CHANNEL_TEXT = 7; //Chat and other text stuff
     public static final byte CHANNEL_END = 31;
-
-    private Class<? extends DataPacket>[] packetPool = new Class[256];
-
+    public static int BATCH_THRESHOLD = 512;
     private final Server server;
-
     private final Set<SourceInterface> interfaces = new HashSet<>();
-
     private final Set<AdvancedSourceInterface> advancedInterfaces = new HashSet<>();
-
+    private Class<? extends DataPacket>[] packetPool = new Class[256];
     private double upload = 0;
     private double download = 0;
 
@@ -99,13 +92,13 @@ public class Network {
         this.advancedInterfaces.remove(interfaz);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
         this.updateName();
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void updateName() {

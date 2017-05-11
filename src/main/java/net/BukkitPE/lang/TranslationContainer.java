@@ -1,7 +1,6 @@
 package net.BukkitPE.lang;
 
 /**
-
  * BukkitPE Project
  */
 public class TranslationContainer extends TextContainer implements Cloneable {

@@ -12,13 +12,12 @@ import net.BukkitPE.potion.Effect;
  */
 public class PlayerFood {
 
-    private int foodLevel = 20;
     private final int maxFoodLevel;
+    private final Player player;
+    private int foodLevel = 20;
     private float foodSaturationLevel = 20f;
     private int foodTickTimer = 0;
     private double foodExpLevel = 0;
-
-    private final Player player;
 
     public PlayerFood(Player player, int foodLevel, float foodSaturationLevel) {
         this.player = player;
@@ -35,12 +34,12 @@ public class PlayerFood {
         return this.foodLevel;
     }
 
-    public int getMaxLevel() {
-        return this.maxFoodLevel;
-    }
-
     public void setLevel(int foodLevel) {
         this.setLevel(foodLevel, -1);
+    }
+
+    public int getMaxLevel() {
+        return this.maxFoodLevel;
     }
 
     public void setLevel(int foodLevel, float saturationLevel) {

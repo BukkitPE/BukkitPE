@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockSugarcane;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemSugarcane extends Item {

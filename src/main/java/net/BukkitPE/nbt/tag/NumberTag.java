@@ -1,7 +1,6 @@
 package net.BukkitPE.nbt.tag;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class NumberTag<T extends Number> extends Tag {

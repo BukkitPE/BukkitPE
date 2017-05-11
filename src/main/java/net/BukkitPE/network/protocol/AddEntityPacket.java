@@ -4,17 +4,11 @@ import net.BukkitPE.entity.data.EntityMetadata;
 import net.BukkitPE.utils.Binary;
 
 /**
-
  * BukkitPE Project
  */
 public class AddEntityPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.ADD_ENTITY_PACKET;
-
-    @Override
-    public byte pid() {
-        return NETWORK_ID;
-    }
-
+    public final Object[][] links = new Object[0][3];
     public long eid;
     public int type;
     public float x;
@@ -27,7 +21,11 @@ public class AddEntityPacket extends DataPacket {
     public float pitch;
     public int modifiers;
     public EntityMetadata metadata;
-    public final Object[][] links = new Object[0][3];
+
+    @Override
+    public byte pid() {
+        return NETWORK_ID;
+    }
 
     @Override
     public void decode() {

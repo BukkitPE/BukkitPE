@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockDoorIron;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemDoorIron extends Item {

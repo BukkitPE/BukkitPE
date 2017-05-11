@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockStemMelon;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemSeedsMelon extends Item {

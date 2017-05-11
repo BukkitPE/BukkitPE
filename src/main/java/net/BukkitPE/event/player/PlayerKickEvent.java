@@ -7,14 +7,8 @@ import net.BukkitPE.lang.TextContainer;
 
 public class PlayerKickEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
-    protected TextContainer quitMessage;
-
     protected final String reason;
+    protected TextContainer quitMessage;
 
     public PlayerKickEvent(Player player, String reason, TextContainer quitMessage) {
         this.player = player;
@@ -28,6 +22,10 @@ public class PlayerKickEvent extends PlayerEvent implements Cancellable {
         this.reason = reason;
     }
 
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
+
     public String getReason() {
         return reason;
     }
@@ -36,11 +34,11 @@ public class PlayerKickEvent extends PlayerEvent implements Cancellable {
         return quitMessage;
     }
 
-    public void setQuitMessage(TextContainer quitMessage) {
-        this.quitMessage = quitMessage;
-    }
-
     public void setQuitMessage(String joinMessage) {
         this.setQuitMessage(new TextContainer(joinMessage));
+    }
+
+    public void setQuitMessage(TextContainer quitMessage) {
+        this.quitMessage = quitMessage;
     }
 }

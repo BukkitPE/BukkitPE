@@ -5,7 +5,6 @@ import net.BukkitPE.command.CommandSender;
 import net.BukkitPE.lang.TranslationContainer;
 
 /**
-
  * BukkitPE Project
  */
 public class PardonCommand extends VanillaCommand {

@@ -1,7 +1,6 @@
 package net.BukkitPE.block;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockWood2 extends BlockWood {

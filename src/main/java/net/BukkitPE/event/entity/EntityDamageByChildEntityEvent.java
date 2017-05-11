@@ -3,7 +3,6 @@ package net.BukkitPE.event.entity;
 import net.BukkitPE.entity.Entity;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityDamageByChildEntityEvent extends EntityDamageByEntityEvent {

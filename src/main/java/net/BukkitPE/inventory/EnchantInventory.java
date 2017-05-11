@@ -18,7 +18,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantInventory extends ContainerInventory {

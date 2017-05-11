@@ -5,7 +5,6 @@ import net.BukkitPE.plugin.Plugin;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public interface Permissible extends ServerOperator {

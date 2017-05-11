@@ -13,7 +13,6 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import java.util.Random;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class EntityProjectile extends Entity {
@@ -21,11 +20,6 @@ public abstract class EntityProjectile extends Entity {
     public static final int DATA_SHOOTER_ID = 17;
 
     public Entity shootingEntity = null;
-
-    protected double getDamage() {
-        return 0;
-    }
-
     public boolean hadCollision = false;
 
     public EntityProjectile(FullChunk chunk, CompoundTag nbt) {
@@ -38,6 +32,10 @@ public abstract class EntityProjectile extends Entity {
         if (shootingEntity != null) {
             this.setDataProperty(new LongEntityData(DATA_SHOOTER_ID, shootingEntity.getId()));
         }
+    }
+
+    protected double getDamage() {
+        return 0;
     }
 
     public void attack(EntityDamageEvent source) {

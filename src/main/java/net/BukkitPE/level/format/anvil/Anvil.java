@@ -23,7 +23,6 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
-
  * BukkitPE Project
  */
 public class Anvil extends BaseLevelProvider {
@@ -108,6 +107,18 @@ public class Anvil extends BaseLevelProvider {
 
     public static int getRegionIndexZ(int chunkZ) {
         return chunkZ >> 5;
+    }
+
+    public static ChunkSection createChunkSection(int Y) {
+        CompoundTag nbt = new CompoundTag();
+        nbt.putByte("Y", Y);
+        nbt.putByteArray("Blocks", new byte[4096]);
+        nbt.putByteArray("Data", new byte[2048]);
+        byte[] sl = new byte[2048];
+        Arrays.fill(sl, (byte) 0xff);
+        nbt.putByteArray("SkyLight", sl);
+        nbt.putByteArray("BlockLight", new byte[2048]);
+        return new ChunkSection(nbt);
     }
 
     @Override
@@ -313,18 +324,6 @@ public class Anvil extends BaseLevelProvider {
         chunk.setZ(chunkZ);
         String index = Level.chunkHash(chunkX, chunkZ);
         this.chunks.put(index, (Chunk) chunk);
-    }
-
-    public static ChunkSection createChunkSection(int Y) {
-        CompoundTag nbt = new CompoundTag();
-        nbt.putByte("Y", Y);
-        nbt.putByteArray("Blocks", new byte[4096]);
-        nbt.putByteArray("Data", new byte[2048]);
-        byte[] sl = new byte[2048];
-        Arrays.fill(sl, (byte) 0xff);
-        nbt.putByteArray("SkyLight", sl);
-        nbt.putByteArray("BlockLight", new byte[2048]);
-        return new ChunkSection(nbt);
     }
 
     @Override

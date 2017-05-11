@@ -3,7 +3,6 @@ package net.BukkitPE.network;
 import net.BukkitPE.raknet.protocol.EncapsulatedPacket;
 
 /**
-
  * BukkitPE Project
  */
 public class CacheEncapsulatedPacket extends EncapsulatedPacket {

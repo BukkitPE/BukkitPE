@@ -1,7 +1,6 @@
 package net.BukkitPE.item.enchantment.damage;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantmentDamageSmite extends EnchantmentDamage {

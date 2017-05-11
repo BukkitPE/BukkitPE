@@ -6,7 +6,6 @@ import net.BukkitPE.nbt.tag.ByteTag;
 import net.BukkitPE.nbt.tag.Tag;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class ItemTool extends Item {

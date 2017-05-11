@@ -12,16 +12,9 @@ import net.BukkitPE.potion.Effect;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class EnchantmentDamage extends Enchantment {
-
-    public enum TYPE {
-        ALL,
-        SMITE,
-        ARTHROPODS
-    }
 
     protected final TYPE damageType;
 
@@ -77,5 +70,11 @@ public abstract class EnchantmentDamage extends Enchantment {
     @Override
     public String getName() {
         return "%enchantment.damage." + this.name;
+    }
+
+    public enum TYPE {
+        ALL,
+        SMITE,
+        ARTHROPODS
     }
 }

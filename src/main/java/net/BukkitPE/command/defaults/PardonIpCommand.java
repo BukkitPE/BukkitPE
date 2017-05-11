@@ -7,7 +7,6 @@ import net.BukkitPE.lang.TranslationContainer;
 import java.util.regex.Pattern;
 
 /**
-
  * BukkitPE Project
  */
 public class PardonIpCommand extends VanillaCommand {

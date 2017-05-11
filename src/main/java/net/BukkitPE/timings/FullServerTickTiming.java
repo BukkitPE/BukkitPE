@@ -1,7 +1,7 @@
 package net.BukkitPE.timings;
 
-import static net.BukkitPE.timings.TimingsManager.*;
 import static net.BukkitPE.timings.TimingIdentifier.DEFAULT_GROUP;
+import static net.BukkitPE.timings.TimingsManager.*;
 
 /**
  * @author Tee7even

@@ -10,13 +10,29 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.network.protocol.AddEntityPacket;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityArrow extends EntityProjectile {
     public static final int NETWORK_ID = 80;
 
     public static final int DATA_SOURCE_ID = 17;
+    protected float gravity = 0.05f;
+    protected float drag = 0.01f;
+    protected double damage = 2;
+    protected boolean isCritical;
+
+    public EntityArrow(FullChunk chunk, CompoundTag nbt) {
+        this(chunk, nbt, null);
+    }
+
+    public EntityArrow(FullChunk chunk, CompoundTag nbt, Entity shootingEntity) {
+        this(chunk, nbt, shootingEntity, false);
+    }
+
+    public EntityArrow(FullChunk chunk, CompoundTag nbt, Entity shootingEntity, boolean critical) {
+        super(chunk, nbt, shootingEntity);
+        this.isCritical = critical;
+    }
 
     @Override
     public int getNetworkId() {
@@ -51,26 +67,6 @@ public class EntityArrow extends EntityProjectile {
     @Override
     protected double getDamage() {
         return 2;
-    }
-
-    protected float gravity = 0.05f;
-    protected float drag = 0.01f;
-
-    protected double damage = 2;
-
-    protected boolean isCritical;
-
-    public EntityArrow(FullChunk chunk, CompoundTag nbt) {
-        this(chunk, nbt, null);
-    }
-
-    public EntityArrow(FullChunk chunk, CompoundTag nbt, Entity shootingEntity) {
-        this(chunk, nbt, shootingEntity, false);
-    }
-
-    public EntityArrow(FullChunk chunk, CompoundTag nbt, Entity shootingEntity, boolean critical) {
-        super(chunk, nbt, shootingEntity);
-        this.isCritical = critical;
     }
 
     @Override

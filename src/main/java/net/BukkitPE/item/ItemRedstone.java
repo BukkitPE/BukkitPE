@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockRedstoneWire;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemRedstone extends Item {

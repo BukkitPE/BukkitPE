@@ -10,22 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityDamageEvent extends EntityEvent implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
     public static final int MODIFIER_BASE = 0;
     public static final int MODIFIER_ARMOR = 1;
     public static final int MODIFIER_STRENGTH = 2;
     public static final int MODIFIER_WEAKNESS = 3;
     public static final int MODIFIER_RESISTANCE = 4;
-
     public static final int CAUSE_CONTACT = 0;
     public static final int CAUSE_ENTITY_ATTACK = 1;
     public static final int CAUSE_PROJECTILE = 2;
@@ -42,12 +34,10 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     public static final int CAUSE_MAGIC = 13;
     public static final int CAUSE_CUSTOM = 14;
     public static final int CAUSE_LIGHTNING = 15;
-
+    private static final HandlerList handlers = new HandlerList();
     private final int cause;
-
     private final Map<Integer, Float> modifiers;
     private final Map<Integer, Float> originals;
-
     public EntityDamageEvent(Entity entity, int cause, float damage) {
         this(entity, cause, new HashMap<Integer, Float>() {
             {
@@ -72,6 +62,10 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
         }
     }
 
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
+
     public int getCause() {
         return cause;
     }
@@ -92,16 +86,16 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
         return this.getDamage(MODIFIER_BASE);
     }
 
+    public void setDamage(float damage) {
+        this.setDamage(damage, MODIFIER_BASE);
+    }
+
     public float getDamage(int type) {
         if (this.modifiers.containsKey(type)) {
             return this.modifiers.get(type);
         }
 
         return 0;
-    }
-
-    public void setDamage(float damage) {
-        this.setDamage(damage, MODIFIER_BASE);
     }
 
     public void setDamage(float damage, int type) {

@@ -6,20 +6,15 @@ import net.BukkitPE.item.Item;
 import java.util.*;
 
 /**
-
  * BukkitPE Project
  */
 public class ShapedRecipe implements Recipe {
 
-    private Item output;
-
-    private UUID uuid = null;
-
     private final Map<Character, String> shapes = new HashMap<>();
-
     private final Map<Integer, Map<Integer, Item>> ingredients = new HashMap<>();
-
     private final Map<Character, List<Entry>> shapeItems = new HashMap<>();
+    private Item output;
+    private UUID uuid = null;
 
     public ShapedRecipe(Item result, String... shape) {
         if (shape.length == 0) {

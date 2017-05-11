@@ -3,7 +3,6 @@ package net.BukkitPE.level;
 import net.BukkitPE.level.format.generic.BaseFullChunk;
 
 /**
-
  * BukkitPE Project
  */
 public interface ChunkManager {

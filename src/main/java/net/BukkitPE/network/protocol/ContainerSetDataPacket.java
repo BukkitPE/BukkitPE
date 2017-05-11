@@ -1,20 +1,18 @@
 package net.BukkitPE.network.protocol;
 
 /**
-
  * BukkitPE Project
  */
 public class ContainerSetDataPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.CONTAINER_SET_DATA_PACKET;
+    public byte windowid;
+    public int property;
+    public int value;
 
     @Override
     public byte pid() {
         return NETWORK_ID;
     }
-
-    public byte windowid;
-    public int property;
-    public int value;
 
     @Override
     public void decode() {

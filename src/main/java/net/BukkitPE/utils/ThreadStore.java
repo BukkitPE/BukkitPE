@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
-
  * BukkitPE Project
  */
 public class ThreadStore {

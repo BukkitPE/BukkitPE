@@ -6,7 +6,6 @@ import net.BukkitPE.level.generator.populator.PopulatorTallGrass;
 import net.BukkitPE.level.generator.populator.PopulatorTallSugarcane;
 
 /**
-
  * BukkitPE Project
  */
 public class RiverBiome extends WateryBiome {

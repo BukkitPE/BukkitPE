@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.ByteOrder;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BlockEntitySpawnable extends BlockEntity {

@@ -4,7 +4,6 @@ import net.BukkitPE.math.Vector3;
 import net.BukkitPE.utils.LevelException;
 
 /**
-
  * BukkitPE Project
  */
 public class Location extends Position {

@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
-
  * BukkitPE Project
  */
 public class McRegion extends BaseLevelProvider {
@@ -112,6 +111,10 @@ public class McRegion extends BaseLevelProvider {
 
     public static int getRegionIndexZ(int chunkZ) {
         return chunkZ >> 5;
+    }
+
+    public static ChunkSection createChunkSection(int Y) {
+        return null;
     }
 
     @Override
@@ -323,10 +326,6 @@ public class McRegion extends BaseLevelProvider {
             this.unloadChunk(chunkX, chunkZ, false);
         }
         this.chunks.put(index, (Chunk) chunk);
-    }
-
-    public static ChunkSection createChunkSection(int Y) {
-        return null;
     }
 
     @Override

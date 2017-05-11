@@ -4,7 +4,6 @@ import net.BukkitPE.Player;
 import net.BukkitPE.event.Event;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class PlayerEvent extends Event {

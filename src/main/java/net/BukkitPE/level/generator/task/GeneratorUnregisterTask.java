@@ -4,7 +4,6 @@ import net.BukkitPE.level.Level;
 import net.BukkitPE.scheduler.AsyncTask;
 
 /**
-
  * BukkitPE Project
  */
 public class GeneratorUnregisterTask extends AsyncTask {

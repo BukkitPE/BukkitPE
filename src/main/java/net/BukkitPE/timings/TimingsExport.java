@@ -1,14 +1,14 @@
 package net.BukkitPE.timings;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import net.BukkitPE.Server;
 import net.BukkitPE.command.CommandSender;
 import net.BukkitPE.command.ConsoleCommandSender;
 import net.BukkitPE.command.RemoteConsoleCommandSender;
 import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.utils.TextFormat;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import java.io.*;
 import java.lang.management.ManagementFactory;
@@ -196,7 +196,7 @@ public class TimingsExport extends Thread {
             response = getResponse(con);
 
             if (con.getResponseCode() != 302) {
-                this.sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.uploadError", new String[] {String.valueOf(con.getResponseCode()), con.getResponseMessage()}));
+                this.sender.sendMessage(new TranslationContainer("BukkitPE.command.timings.uploadError", new String[]{String.valueOf(con.getResponseCode()), con.getResponseMessage()}));
                 if (response != null) {
                     Server.getInstance().getLogger().alert(response);
                 }

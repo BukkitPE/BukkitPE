@@ -3,7 +3,6 @@ package net.BukkitPE.level.generator.noise;
 import net.BukkitPE.math.BukkitPERandom;
 
 /**
-
  * BukkitPE Project
  */
 public class Perlin extends Noise {

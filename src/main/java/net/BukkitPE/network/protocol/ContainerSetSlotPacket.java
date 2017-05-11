@@ -3,21 +3,19 @@ package net.BukkitPE.network.protocol;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class ContainerSetSlotPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.CONTAINER_SET_SLOT_PACKET;
+    public int windowid;
+    public int slot;
+    public int hotbarSlot;
+    public Item item;
 
     @Override
     public byte pid() {
         return NETWORK_ID;
     }
-
-    public int windowid;
-    public int slot;
-    public int hotbarSlot;
-    public Item item;
 
     @Override
     public void decode() {

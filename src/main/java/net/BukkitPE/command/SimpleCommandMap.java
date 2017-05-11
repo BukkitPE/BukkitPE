@@ -10,7 +10,6 @@ import net.BukkitPE.utils.Utils;
 import java.util.*;
 
 /**
-
  * BukkitPE Project
  */
 public class SimpleCommandMap implements CommandMap {

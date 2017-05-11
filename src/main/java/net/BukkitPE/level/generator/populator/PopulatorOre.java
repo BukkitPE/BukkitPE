@@ -7,7 +7,6 @@ import net.BukkitPE.math.BukkitPEMath;
 import net.BukkitPE.math.BukkitPERandom;
 
 /**
-
  * BukkitPE Project
  */
 public class PopulatorOre extends Populator {

@@ -4,7 +4,6 @@ import net.BukkitPE.level.ChunkManager;
 import net.BukkitPE.math.BukkitPERandom;
 
 /**
-
  * BukkitPE Project
  */
 public class ObjectTallBirchTree extends ObjectBirchTree {

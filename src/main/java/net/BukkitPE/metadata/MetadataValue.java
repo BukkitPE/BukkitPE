@@ -5,7 +5,6 @@ import net.BukkitPE.plugin.Plugin;
 import java.lang.ref.WeakReference;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class MetadataValue {

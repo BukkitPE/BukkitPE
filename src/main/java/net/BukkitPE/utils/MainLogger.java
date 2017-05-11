@@ -13,17 +13,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
-
  * BukkitPE
  */
 public class MainLogger extends ThreadedLogger {
 
+    protected static MainLogger logger;
     protected File logFile;
     protected String logStream = "";
     protected boolean shutdown;
     protected boolean logDebug = false;
-
-    protected static MainLogger logger;
 
     public MainLogger(String logFile) {
         this(logFile, false);

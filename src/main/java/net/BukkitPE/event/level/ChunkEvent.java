@@ -3,7 +3,6 @@ package net.BukkitPE.event.level;
 import net.BukkitPE.level.format.FullChunk;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class ChunkEvent extends LevelEvent {

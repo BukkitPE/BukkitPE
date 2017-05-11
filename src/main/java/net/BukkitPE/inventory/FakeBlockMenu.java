@@ -3,7 +3,6 @@ package net.BukkitPE.inventory;
 import net.BukkitPE.level.Position;
 
 /**
-
  * BukkitPE Project
  */
 public class FakeBlockMenu extends Position implements InventoryHolder {

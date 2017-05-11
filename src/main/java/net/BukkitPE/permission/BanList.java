@@ -1,10 +1,10 @@
 package net.BukkitPE.permission;
 
-import net.BukkitPE.utils.MainLogger;
-import net.BukkitPE.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import net.BukkitPE.utils.MainLogger;
+import net.BukkitPE.utils.Utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -13,15 +13,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
-
  * BukkitPE Project
  */
 public class BanList {
 
-    private LinkedHashMap<String, BanEntry> list = new LinkedHashMap<>();
-
     private final String file;
-
+    private LinkedHashMap<String, BanEntry> list = new LinkedHashMap<>();
     private boolean enable = true;
 
     public BanList(String file) {

@@ -4,7 +4,6 @@ import net.BukkitPE.item.Item;
 import net.BukkitPE.math.AxisAlignedBB;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockAir extends BlockTransparent {

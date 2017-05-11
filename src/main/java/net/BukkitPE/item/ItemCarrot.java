@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockCarrot;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemCarrot extends ItemEdible {

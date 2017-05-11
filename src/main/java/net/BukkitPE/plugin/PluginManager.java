@@ -24,25 +24,16 @@ import java.util.regex.Pattern;
  */
 public class PluginManager {
 
-    private final Server server;
-
-    private final SimpleCommandMap commandMap;
-
     protected final Map<String, Plugin> plugins = new LinkedHashMap<>();
-
     protected final Map<String, Permission> permissions = new HashMap<>();
-
     protected final Map<String, Permission> defaultPerms = new HashMap<>();
-
     protected final Map<String, Permission> defaultPermsOp = new HashMap<>();
-
     protected final Map<String, WeakHashMap<Permissible, Permissible>> permSubs = new HashMap<>();
-
     protected final Map<Permissible, Permissible> defSubs = new WeakHashMap<>();
-
     protected final Map<Permissible, Permissible> defSubsOp = new WeakHashMap<>();
-
     protected final Map<String, PluginLoader> fileAssociations = new HashMap<>();
+    private final Server server;
+    private final SimpleCommandMap commandMap;
 
     public PluginManager(Server server, SimpleCommandMap commandMap) {
         this.server = server;
@@ -517,9 +508,9 @@ public class PluginManager {
     }
 
     public void disablePlugins() {
-        ListIterator<Plugin> plugins = new ArrayList<>(this.getPlugins().values()).listIterator(this.getPlugins().size());	 
-         while (plugins.hasPrevious()) {
-             this.disablePlugin(plugins.previous());
+        ListIterator<Plugin> plugins = new ArrayList<>(this.getPlugins().values()).listIterator(this.getPlugins().size());
+        while (plugins.hasPrevious()) {
+            this.disablePlugin(plugins.previous());
         }
     }
 

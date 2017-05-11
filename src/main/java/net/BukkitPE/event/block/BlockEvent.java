@@ -4,7 +4,6 @@ import net.BukkitPE.block.Block;
 import net.BukkitPE.event.Event;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BlockEvent extends Event {

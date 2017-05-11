@@ -6,7 +6,6 @@ import net.BukkitPE.potion.Effect;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityDamageByEntityEvent extends EntityDamageEvent {

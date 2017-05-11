@@ -11,7 +11,6 @@ import net.BukkitPE.utils.BlockColor;
 import java.util.Random;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BlockCrops extends BlockFlowable {

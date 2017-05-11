@@ -4,7 +4,6 @@ import net.BukkitPE.item.ItemTool;
 import net.BukkitPE.utils.BlockColor;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockSand extends BlockFallable {

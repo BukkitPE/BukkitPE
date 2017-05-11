@@ -4,7 +4,6 @@ import net.BukkitPE.entity.Entity;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class SlotEntityData extends EntityData<Item> {

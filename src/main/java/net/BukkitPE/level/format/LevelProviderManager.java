@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class LevelProviderManager {

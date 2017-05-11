@@ -20,6 +20,10 @@ public class EntityMinecartEmpty extends EntityVehicle {
     public static final int DATA_VEHICLE_DISPLAY_OFFSET = 21;
     public static final int DATA_VEHICLE_CUSTOM_DISPLAY = 22;
 
+    public EntityMinecartEmpty(FullChunk chunk, CompoundTag nbt) {
+        super(chunk, nbt);
+    }
+
     // TODO: 2016/1/30 check if these numbers correct
     @Override
     public float getHeight() {
@@ -44,10 +48,6 @@ public class EntityMinecartEmpty extends EntityVehicle {
     @Override
     public int getNetworkId() {
         return NETWORK_ID;
-    }
-
-    public EntityMinecartEmpty(FullChunk chunk, CompoundTag nbt) {
-        super(chunk, nbt);
     }
 
     @Override

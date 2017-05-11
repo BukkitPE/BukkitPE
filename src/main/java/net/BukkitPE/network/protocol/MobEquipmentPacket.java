@@ -3,21 +3,19 @@ package net.BukkitPE.network.protocol;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class MobEquipmentPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.MOB_EQUIPMENT_PACKET;
+    public long eid;
+    public Item item;
+    public int slot;
+    public int selectedSlot;
 
     @Override
     public byte pid() {
         return NETWORK_ID;
     }
-
-    public long eid;
-    public Item item;
-    public int slot;
-    public int selectedSlot;
 
     @Override
     public void decode() {

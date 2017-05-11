@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockBeetroot;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemSeedsBeetroot extends Item {

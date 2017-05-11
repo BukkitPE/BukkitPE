@@ -1,7 +1,6 @@
 package net.BukkitPE.event;
 
 /**
-
  * BukkitPE Project
  */
 public enum EventPriority {

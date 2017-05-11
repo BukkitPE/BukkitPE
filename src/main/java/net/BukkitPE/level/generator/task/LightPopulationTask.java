@@ -6,7 +6,6 @@ import net.BukkitPE.level.format.generic.BaseFullChunk;
 import net.BukkitPE.scheduler.AsyncTask;
 
 /**
-
  * BukkitPE Project
  */
 public class LightPopulationTask extends AsyncTask {

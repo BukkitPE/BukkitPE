@@ -1,7 +1,6 @@
 package net.BukkitPE.level.generator.noise;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class Noise {

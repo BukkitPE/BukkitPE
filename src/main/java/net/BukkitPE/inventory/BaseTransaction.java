@@ -3,7 +3,6 @@ package net.BukkitPE.inventory;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class BaseTransaction implements Transaction {

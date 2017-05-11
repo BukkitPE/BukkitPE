@@ -1,7 +1,6 @@
 package net.BukkitPE.level.generator.biome;
 
 /**
-
  * BukkitPE Project
  */
 public class DesertBiome extends SandyBiome {

@@ -1,6 +1,5 @@
 package net.BukkitPE.raknet.server;
 
-import net.BukkitPE.utils.ThreadedLogger;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -10,13 +9,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.nio.NioDatagramChannel;
+import net.BukkitPE.utils.ThreadedLogger;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
-
  * BukkitPE Project
  */
 public class UDPServerSocket extends ChannelInboundHandlerAdapter {

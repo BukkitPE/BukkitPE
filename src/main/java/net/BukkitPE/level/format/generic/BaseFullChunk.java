@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BaseFullChunk implements FullChunk {
@@ -167,13 +166,13 @@ public abstract class BaseFullChunk implements FullChunk {
         return x;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
     @Override
     public int getZ() {
         return z;
-    }
-
-    public void setX(int x) {
-        this.x = x;
     }
 
     public void setZ(int z) {
@@ -476,13 +475,13 @@ public abstract class BaseFullChunk implements FullChunk {
     }
 
     @Override
-    public void setLightPopulated() {
-        this.setLightPopulated(true);
+    public void setLightPopulated(boolean value) {
+
     }
 
     @Override
-    public void setLightPopulated(boolean value) {
-
+    public void setLightPopulated() {
+        this.setLightPopulated(true);
     }
 
 }

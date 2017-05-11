@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class ObjectTree {
@@ -24,22 +23,6 @@ public abstract class ObjectTree {
             put(Block.LEAVES2, true);
         }
     };
-
-    public int getType() {
-        return 0;
-    }
-
-    public int getTrunkBlock() {
-        return Block.LOG;
-    }
-
-    public int getLeafBlock() {
-        return Block.LEAVES;
-    }
-
-    public int getTreeHeight() {
-        return 7;
-    }
 
     public static void growTree(ChunkManager level, int x, int y, int z, BukkitPERandom random) {
         growTree(level, x, y, z, random, 0);
@@ -77,6 +60,21 @@ public abstract class ObjectTree {
         }
     }
 
+    public int getType() {
+        return 0;
+    }
+
+    public int getTrunkBlock() {
+        return Block.LOG;
+    }
+
+    public int getLeafBlock() {
+        return Block.LEAVES;
+    }
+
+    public int getTreeHeight() {
+        return 7;
+    }
 
     public boolean canPlaceObject(ChunkManager level, int x, int y, int z, BukkitPERandom random) {
         int radiusToCheck = 0;

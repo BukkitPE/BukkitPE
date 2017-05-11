@@ -3,7 +3,6 @@ package net.BukkitPE.command;
 import java.util.List;
 
 /**
-
  * BukkitPE Project
  */
 public interface CommandMap {

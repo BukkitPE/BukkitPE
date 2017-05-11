@@ -6,7 +6,6 @@ import net.BukkitPE.utils.BinaryStream;
 import java.util.TreeMap;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class AcknowledgePacket extends Packet {

@@ -7,7 +7,6 @@ import net.BukkitPE.level.generator.biome.Biome;
 import net.BukkitPE.math.BukkitPERandom;
 
 /**
-
  * BukkitPE Project
  */
 public class PopulatorGroundCover extends Populator {

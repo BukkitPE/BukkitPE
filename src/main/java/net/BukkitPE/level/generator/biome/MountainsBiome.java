@@ -5,7 +5,6 @@ import net.BukkitPE.level.generator.populator.PopulatorTallGrass;
 import net.BukkitPE.level.generator.populator.PopulatorTree;
 
 /**
-
  * BukkitPE Project
  */
 public class MountainsBiome extends GrassyBiome {

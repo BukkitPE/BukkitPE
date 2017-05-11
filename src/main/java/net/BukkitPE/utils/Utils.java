@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 /**
-
  * BukkitPE Project
  */
 public class Utils {

@@ -8,7 +8,6 @@ import net.BukkitPE.level.format.FullChunk;
 import net.BukkitPE.nbt.tag.CompoundTag;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class EntityVehicle extends Entity implements EntityRideable {

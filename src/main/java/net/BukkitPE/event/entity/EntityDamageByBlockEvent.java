@@ -4,7 +4,6 @@ import net.BukkitPE.block.Block;
 import net.BukkitPE.entity.Entity;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityDamageByBlockEvent extends EntityDamageEvent {

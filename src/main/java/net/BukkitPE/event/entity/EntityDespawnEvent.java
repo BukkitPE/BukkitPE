@@ -10,21 +10,19 @@ import net.BukkitPE.event.HandlerList;
 import net.BukkitPE.level.Position;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityDespawnEvent extends EntityEvent {
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
     private final int entityType;
 
     public EntityDespawnEvent(Entity entity) {
         this.entity = entity;
         this.entityType = entity.getNetworkId();
+    }
+
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
     public Position getPosition() {

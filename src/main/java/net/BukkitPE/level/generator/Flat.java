@@ -18,46 +18,18 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
-
  * BukkitPE Project
  */
 public class Flat extends Generator {
 
-    @Override
-    public int getId() {
-        return TYPE_FLAT;
-    }
-
-    private ChunkManager level;
-
-    private BaseFullChunk chunk;
-
-    private BukkitPERandom random;
-
     private final List<Populator> populators = new ArrayList<>();
-
-    private int[][] structure;
-
     private final Map<String, Object> options;
-
+    private ChunkManager level;
+    private BaseFullChunk chunk;
+    private BukkitPERandom random;
+    private int[][] structure;
     private int floorLevel;
-
     private String preset;
-
-    @Override
-    public ChunkManager getChunkManager() {
-        return level;
-    }
-
-    @Override
-    public Map<String, Object> getSettings() {
-        return this.options;
-    }
-
-    @Override
-    public String getName() {
-        return "flat";
-    }
 
     public Flat() {
         this(new HashMap<>());
@@ -82,6 +54,26 @@ public class Flat extends Generator {
             });
             this.populators.add(ores);
         }
+    }
+
+    @Override
+    public int getId() {
+        return TYPE_FLAT;
+    }
+
+    @Override
+    public ChunkManager getChunkManager() {
+        return level;
+    }
+
+    @Override
+    public Map<String, Object> getSettings() {
+        return this.options;
+    }
+
+    @Override
+    public String getName() {
+        return "flat";
     }
 
     protected void parsePreset(String preset, int chunkX, int chunkZ) {

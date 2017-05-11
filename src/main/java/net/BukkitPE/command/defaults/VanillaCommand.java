@@ -3,7 +3,6 @@ package net.BukkitPE.command.defaults;
 import net.BukkitPE.command.Command;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class VanillaCommand extends Command {

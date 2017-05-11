@@ -15,6 +15,13 @@ import net.BukkitPE.network.protocol.AddEntityPacket;
 public class EntityXPOrb extends Entity {
 
     public static final int NETWORK_ID = 69;
+    private int age = 0;
+    private int pickupDelay = 0;
+    private int exp = 0;
+
+    public EntityXPOrb(FullChunk chunk, CompoundTag nbt) {
+        super(chunk, nbt);
+    }
 
     @Override
     public int getNetworkId() {
@@ -50,14 +57,6 @@ public class EntityXPOrb extends Entity {
     public boolean canCollide() {
         return false;
     }
-
-    public EntityXPOrb(FullChunk chunk, CompoundTag nbt) {
-        super(chunk, nbt);
-    }
-
-    private int age = 0;
-    private int pickupDelay = 0;
-    private int exp = 0;
 
     @Override
     protected void initEntity() {

@@ -12,7 +12,6 @@ import net.BukkitPE.utils.MainLogger;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class ConsoleCommandSender implements CommandSender {

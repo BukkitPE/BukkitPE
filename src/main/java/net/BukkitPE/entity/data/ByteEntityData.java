@@ -3,7 +3,6 @@ package net.BukkitPE.entity.data;
 import net.BukkitPE.entity.Entity;
 
 /**
-
  * BukkitPE Project
  */
 public class ByteEntityData extends EntityData<Integer> {

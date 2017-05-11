@@ -5,7 +5,6 @@ import net.BukkitPE.utils.Binary;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class DataPacket extends Packet {

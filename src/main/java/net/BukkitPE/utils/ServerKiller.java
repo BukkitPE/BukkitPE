@@ -1,7 +1,6 @@
 package net.BukkitPE.utils;
 
 /**
-
  * BukkitPE Project
  */
 public class ServerKiller extends Thread {

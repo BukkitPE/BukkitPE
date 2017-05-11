@@ -2,6 +2,7 @@ package net.BukkitPE.utils;
 
 import net.BukkitPE.entity.data.Skin;
 import net.BukkitPE.item.Item;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -11,22 +12,19 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 
 /**
-
  * BukkitPE Project
  */
 public class BinaryStream {
     public static final int DEFAULT_BLOCK_SIZE = 1024;
     public static final ForkJoinPool POOL = new ForkJoinPool();
-
-    public int offset;
-    private byte[] buffer;
-    private ArrayDeque<byte[]> buffers = new ArrayDeque<>();
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
     private final byte[] shortBuffer = new byte[2];
     private final byte[] intBuffer = new byte[4];
     private final byte[] longBuffer = new byte[8];
+    public int offset;
+    private byte[] buffer;
+    private ArrayDeque<byte[]> buffers = new ArrayDeque<>();
     private int count;
-
-    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     public BinaryStream() {
         this.buffer = new byte[35];
@@ -41,17 +39,17 @@ public class BinaryStream {
         this.offset = offset;
     }
 
-    public void reset() {
-        setBuffer(new byte[35]);
+    private static int hugeCapacity(int minCapacity) {
+        if (minCapacity < 0) { // overflow
+            throw new OutOfMemoryError();
+        }
+        return (minCapacity > MAX_ARRAY_SIZE) ?
+                Integer.MAX_VALUE :
+                MAX_ARRAY_SIZE;
     }
 
-    public void setBuffer(byte[] buffer) {
-        if (!buffers.isEmpty()) {
-            buffers.clear();
-        }
-        this.offset = 0;
-        this.count = 0;
-        this.buffer = buffer;
+    public void reset() {
+        setBuffer(new byte[35]);
     }
 
     public void setBuffer(byte[] buffer, int offset) {
@@ -136,6 +134,15 @@ public class BinaryStream {
         this.buffer = data;
         this.buffers.clear();
         return this.buffer;
+    }
+
+    public void setBuffer(byte[] buffer) {
+        if (!buffers.isEmpty()) {
+            buffers.clear();
+        }
+        this.offset = 0;
+        this.count = 0;
+        this.buffer = buffer;
     }
 
     public int getCount() {
@@ -419,14 +426,5 @@ public class BinaryStream {
 
     public boolean feof() {
         return this.offset < 0 || this.offset >= this.buffer.length;
-    }
-
-    private static int hugeCapacity(int minCapacity) {
-        if (minCapacity < 0) { // overflow
-            throw new OutOfMemoryError();
-        }
-        return (minCapacity > MAX_ARRAY_SIZE) ?
-                Integer.MAX_VALUE :
-                MAX_ARRAY_SIZE;
     }
 }

@@ -15,7 +15,6 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.nbt.tag.ListTag;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockEntityChest extends BlockEntitySpawnable implements InventoryHolder, BlockEntityContainer, BlockEntityNameable {
@@ -154,11 +153,6 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
     }
 
     @Override
-    public boolean hasName() {
-        return this.namedTag.contains("CustomName");
-    }
-
-    @Override
     public void setName(String name) {
         if (name == null || name.equals("")) {
             this.namedTag.remove("CustomName");
@@ -166,6 +160,11 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
         }
 
         this.namedTag.putString("CustomName", name);
+    }
+
+    @Override
+    public boolean hasName() {
+        return this.namedTag.contains("CustomName");
     }
 
     public boolean isPaired() {

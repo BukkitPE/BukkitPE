@@ -5,7 +5,6 @@ import net.BukkitPE.math.AxisAlignedBB;
 import net.BukkitPE.math.Vector3;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockWall extends BlockTransparent {

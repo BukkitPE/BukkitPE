@@ -8,7 +8,6 @@ import net.BukkitPE.utils.BlockColor;
 import net.BukkitPE.utils.TextFormat;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockBed extends BlockTransparent {

@@ -7,17 +7,10 @@ import net.BukkitPE.utils.Binary;
 import java.util.UUID;
 
 /**
-
  * BukkitPE Project
  */
 public class AddPlayerPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.ADD_PLAYER_PACKET;
-
-    @Override
-    public byte pid() {
-        return NETWORK_ID;
-    }
-
     public UUID uuid;
     public String username;
     public long eid;
@@ -31,6 +24,11 @@ public class AddPlayerPacket extends DataPacket {
     public float yaw;
     public Item item;
     public EntityMetadata metadata;
+
+    @Override
+    public byte pid() {
+        return NETWORK_ID;
+    }
 
     @Override
     public void decode() {

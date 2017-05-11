@@ -3,7 +3,6 @@ package net.BukkitPE.metadata;
 import net.BukkitPE.IPlayer;
 
 /**
-
  * BukkitPE Project
  */
 public class PlayerMetadataStore extends MetadataStore {

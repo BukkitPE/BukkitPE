@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.Base64;
 
 /**
-
  * BukkitPE Project
  */
 public class Skin {
@@ -131,15 +130,15 @@ public class Skin {
         return data;
     }
 
-    public String getModel() {
-        return model;
-    }
-
     public void setData(byte[] data) {
         if (data.length != SINGLE_SKIN_SIZE && data.length != DOUBLE_SKIN_SIZE) {
             throw new IllegalArgumentException("Invalid skin");
         }
         this.data = data;
+    }
+
+    public String getModel() {
+        return model;
     }
 
     public void setModel(String model) {

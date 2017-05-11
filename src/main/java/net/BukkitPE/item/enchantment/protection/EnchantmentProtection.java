@@ -5,18 +5,9 @@ import net.BukkitPE.item.enchantment.Enchantment;
 import net.BukkitPE.item.enchantment.EnchantmentType;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class EnchantmentProtection extends Enchantment {
-
-    public enum TYPE {
-        ALL,
-        FIRE,
-        FALL,
-        EXPLOSION,
-        PROJECTILE
-    }
 
     protected final TYPE protectionType;
 
@@ -70,5 +61,13 @@ public abstract class EnchantmentProtection extends Enchantment {
     @Override
     public String getName() {
         return "%enchantment.protect." + this.name;
+    }
+
+    public enum TYPE {
+        ALL,
+        FIRE,
+        FALL,
+        EXPLOSION,
+        PROJECTILE
     }
 }

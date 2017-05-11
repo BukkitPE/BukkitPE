@@ -1,24 +1,22 @@
 package net.BukkitPE.network.protocol;
 
 /**
-
  * BukkitPE Project
  */
 public class ContainerOpenPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.CONTAINER_OPEN_PACKET;
-
-    @Override
-    public byte pid() {
-        return NETWORK_ID;
-    }
-
+    public final long entityId = -1;
     public byte windowid;
     public byte type;
     public int slots;
     public int x;
     public int y;
     public int z;
-    public final long entityId = -1;
+
+    @Override
+    public byte pid() {
+        return NETWORK_ID;
+    }
 
     @Override
     public void decode() {

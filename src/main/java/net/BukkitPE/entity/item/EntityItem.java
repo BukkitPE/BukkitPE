@@ -18,6 +18,10 @@ public class EntityItem extends Entity {
     public static final int NETWORK_ID = 64;
 
     public static final int DATA_SOURCE_ID = 17;
+    protected String owner = null;
+    protected String thrower = null;
+    protected Item item;
+    protected int pickupDelay = 0;
 
     public EntityItem(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -27,13 +31,6 @@ public class EntityItem extends Entity {
     public int getNetworkId() {
         return NETWORK_ID;
     }
-
-    protected String owner = null;
-    protected String thrower = null;
-
-    protected Item item;
-
-    protected int pickupDelay = 0;
 
     @Override
     public float getWidth() {

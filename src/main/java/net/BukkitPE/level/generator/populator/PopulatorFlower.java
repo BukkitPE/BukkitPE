@@ -18,11 +18,10 @@ import java.util.List;
 
 public class PopulatorFlower extends Populator {
 
+    private final List<int[]> flowerTypes = new ArrayList<>();
     private ChunkManager level;
     private int randomAmount;
     private int baseAmount;
-
-    private final List<int[]> flowerTypes = new ArrayList<>();
 
     public void setRandomAmount(int randomAmount) {
         this.randomAmount = randomAmount;

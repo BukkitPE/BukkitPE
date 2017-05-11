@@ -23,7 +23,6 @@ import java.nio.ByteOrder;
 import java.util.*;
 
 /**
-
  * BukkitPE Project
  */
 public class Chunk extends BaseFullChunk {
@@ -106,6 +105,126 @@ public class Chunk extends BaseFullChunk {
         this.NBTentities = entityData == null ? new ArrayList<>() : entityData;
         this.NBTtiles = tileData == null ? new ArrayList<>() : tileData;
         this.extraData = extraData == null ? new HashMap<>() : extraData;
+    }
+
+    public static Chunk fromBinary(byte[] data) {
+        return fromBinary(data, null);
+    }
+
+    public static Chunk fromBinary(byte[] data, LevelProvider provider) {
+        try {
+
+            int chunkX = Binary.readLInt(new byte[]{data[0], data[1], data[2], data[3]});
+            int chunkZ = Binary.readLInt(new byte[]{data[4], data[5], data[6], data[7]});
+            byte[] chunkData = Binary.subBytes(data, 8, data.length - 1);
+
+            int flags = data[data.length - 1];
+
+            List<CompoundTag> entities = new ArrayList<>();
+            List<CompoundTag> tiles = new ArrayList<>();
+
+            Map<Integer, Integer> extraDataMap = new HashMap<>();
+
+            if (provider instanceof LevelDB) {
+                byte[] entityData = ((LevelDB) provider).getDatabase().get(EntitiesKey.create(chunkX, chunkZ).toArray());
+                if (entityData != null && entityData.length > 0) {
+                    try (NBTInputStream nbtInputStream = new NBTInputStream(new ByteArrayInputStream(entityData), ByteOrder.LITTLE_ENDIAN)) {
+                        while (nbtInputStream.available() > 0) {
+                            Tag tag = Tag.readNamedTag(nbtInputStream);
+                            if (!(tag instanceof CompoundTag)) {
+                                throw new IOException("Root tag must be a named compound tag");
+                            }
+                            entities.add((CompoundTag) tag);
+                        }
+                    }
+                }
+
+                byte[] tileData = ((LevelDB) provider).getDatabase().get(TilesKey.create(chunkX, chunkZ).toArray());
+                if (tileData != null && tileData.length > 0) {
+                    try (NBTInputStream nbtInputStream = new NBTInputStream(new ByteArrayInputStream(tileData), ByteOrder.LITTLE_ENDIAN)) {
+                        while (nbtInputStream.available() > 0) {
+                            Tag tag = Tag.readNamedTag(nbtInputStream);
+                            if (!(tag instanceof CompoundTag)) {
+                                throw new IOException("Root tag must be a named compound tag");
+                            }
+                            tiles.add((CompoundTag) tag);
+                        }
+                    }
+                }
+
+                byte[] extraData = ((LevelDB) provider).getDatabase().get(ExtraDataKey.create(chunkX, chunkZ).toArray());
+                if (extraData != null && extraData.length > 0) {
+                    BinaryStream stream = new BinaryStream(tileData);
+                    int count = stream.getInt();
+                    for (int i = 0; i < count; ++i) {
+                        int key = stream.getInt();
+                        int value = stream.getShort();
+                        extraDataMap.put(key, value);
+                    }
+                }
+
+                /*if (!entities.isEmpty() || !blockEntities.isEmpty()) {
+                    CompoundTag ct = new CompoundTag();
+                    ListTag<CompoundTag> entityList = new ListTag<>("entities");
+                    ListTag<CompoundTag> tileList = new ListTag<>("blockEntities");
+
+                    entityList.list = entities;
+                    tileList.list = blockEntities;
+                    ct.putList(entityList);
+                    ct.putList(tileList);
+                    NBTIO.write(ct, new File(BukkitPE.DATA_PATH + chunkX + "_" + chunkZ + ".dat"));
+                }*/
+
+
+                Chunk chunk = new Chunk(provider, chunkX, chunkZ, chunkData, entities, tiles, extraDataMap);
+
+                if ((flags & 0x01) > 0) {
+                    chunk.setGenerated();
+                }
+
+                if ((flags & 0x02) > 0) {
+                    chunk.setPopulated();
+                }
+
+                if ((flags & 0x04) > 0) {
+                    chunk.setLightPopulated();
+                }
+                return chunk;
+            }
+        } catch (Exception e) {
+            Server.getInstance().getLogger().logException(e);
+        }
+        return null;
+    }
+
+    public static Chunk fromFastBinary(byte[] data) {
+        return fromFastBinary(data, null);
+    }
+
+    public static Chunk fromFastBinary(byte[] data, LevelProvider provider) {
+        return fromBinary(data, provider);
+    }
+
+    public static Chunk getEmptyChunk(int chunkX, int chunkZ) {
+        return getEmptyChunk(chunkX, chunkZ, null);
+    }
+
+    public static Chunk getEmptyChunk(int chunkX, int chunkZ, LevelProvider provider) {
+        try {
+            Chunk chunk;
+            if (provider != null) {
+                chunk = new Chunk(provider, chunkX, chunkZ, new byte[DATA_LENGTH]);
+            } else {
+                chunk = new Chunk(LevelDB.class, chunkX, chunkZ, new byte[DATA_LENGTH]);
+            }
+
+            byte[] skyLight = new byte[16384];
+            Arrays.fill(skyLight, (byte) 0xff);
+            chunk.skyLight = skyLight;
+            return chunk;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -275,13 +394,13 @@ public class Chunk extends BaseFullChunk {
     }
 
     @Override
-    public void setLightPopulated() {
-        this.setLightPopulated(true);
+    public void setLightPopulated(boolean value) {
+        this.isLightPopulated = value;
     }
 
     @Override
-    public void setLightPopulated(boolean value) {
-        this.isLightPopulated = value;
+    public void setLightPopulated() {
+        this.setLightPopulated(true);
     }
 
     @Override
@@ -290,13 +409,13 @@ public class Chunk extends BaseFullChunk {
     }
 
     @Override
-    public void setPopulated() {
-        this.setPopulated(true);
+    public void setPopulated(boolean value) {
+        this.isPopulated = true;
     }
 
     @Override
-    public void setPopulated(boolean value) {
-        this.isPopulated = true;
+    public void setPopulated() {
+        this.setPopulated(true);
     }
 
     @Override
@@ -305,111 +424,13 @@ public class Chunk extends BaseFullChunk {
     }
 
     @Override
-    public void setGenerated() {
-        this.setGenerated(true);
-    }
-
-    @Override
     public void setGenerated(boolean value) {
         this.isGenerated = true;
     }
 
-    public static Chunk fromBinary(byte[] data) {
-        return fromBinary(data, null);
-    }
-
-    public static Chunk fromBinary(byte[] data, LevelProvider provider) {
-        try {
-
-            int chunkX = Binary.readLInt(new byte[]{data[0], data[1], data[2], data[3]});
-            int chunkZ = Binary.readLInt(new byte[]{data[4], data[5], data[6], data[7]});
-            byte[] chunkData = Binary.subBytes(data, 8, data.length - 1);
-
-            int flags = data[data.length - 1];
-
-            List<CompoundTag> entities = new ArrayList<>();
-            List<CompoundTag> tiles = new ArrayList<>();
-
-            Map<Integer, Integer> extraDataMap = new HashMap<>();
-
-            if (provider instanceof LevelDB) {
-                byte[] entityData = ((LevelDB) provider).getDatabase().get(EntitiesKey.create(chunkX, chunkZ).toArray());
-                if (entityData != null && entityData.length > 0) {
-                    try (NBTInputStream nbtInputStream = new NBTInputStream(new ByteArrayInputStream(entityData), ByteOrder.LITTLE_ENDIAN)) {
-                        while (nbtInputStream.available() > 0) {
-                            Tag tag = Tag.readNamedTag(nbtInputStream);
-                            if (!(tag instanceof CompoundTag)) {
-                                throw new IOException("Root tag must be a named compound tag");
-                            }
-                            entities.add((CompoundTag) tag);
-                        }
-                    }
-                }
-
-                byte[] tileData = ((LevelDB) provider).getDatabase().get(TilesKey.create(chunkX, chunkZ).toArray());
-                if (tileData != null && tileData.length > 0) {
-                    try (NBTInputStream nbtInputStream = new NBTInputStream(new ByteArrayInputStream(tileData), ByteOrder.LITTLE_ENDIAN)) {
-                        while (nbtInputStream.available() > 0) {
-                            Tag tag = Tag.readNamedTag(nbtInputStream);
-                            if (!(tag instanceof CompoundTag)) {
-                                throw new IOException("Root tag must be a named compound tag");
-                            }
-                            tiles.add((CompoundTag) tag);
-                        }
-                    }
-                }
-
-                byte[] extraData = ((LevelDB) provider).getDatabase().get(ExtraDataKey.create(chunkX, chunkZ).toArray());
-                if (extraData != null && extraData.length > 0) {
-                    BinaryStream stream = new BinaryStream(tileData);
-                    int count = stream.getInt();
-                    for (int i = 0; i < count; ++i) {
-                        int key = stream.getInt();
-                        int value = stream.getShort();
-                        extraDataMap.put(key, value);
-                    }
-                }
-
-                /*if (!entities.isEmpty() || !blockEntities.isEmpty()) {
-                    CompoundTag ct = new CompoundTag();
-                    ListTag<CompoundTag> entityList = new ListTag<>("entities");
-                    ListTag<CompoundTag> tileList = new ListTag<>("blockEntities");
-
-                    entityList.list = entities;
-                    tileList.list = blockEntities;
-                    ct.putList(entityList);
-                    ct.putList(tileList);
-                    NBTIO.write(ct, new File(BukkitPE.DATA_PATH + chunkX + "_" + chunkZ + ".dat"));
-                }*/
-
-
-                Chunk chunk = new Chunk(provider, chunkX, chunkZ, chunkData, entities, tiles, extraDataMap);
-
-                if ((flags & 0x01) > 0) {
-                    chunk.setGenerated();
-                }
-
-                if ((flags & 0x02) > 0) {
-                    chunk.setPopulated();
-                }
-
-                if ((flags & 0x04) > 0) {
-                    chunk.setLightPopulated();
-                }
-                return chunk;
-            }
-        } catch (Exception e) {
-            Server.getInstance().getLogger().logException(e);
-        }
-        return null;
-    }
-
-    public static Chunk fromFastBinary(byte[] data) {
-        return fromFastBinary(data, null);
-    }
-
-    public static Chunk fromFastBinary(byte[] data, LevelProvider provider) {
-        return fromBinary(data, provider);
+    @Override
+    public void setGenerated() {
+        this.setGenerated(true);
     }
 
     @Override
@@ -505,28 +526,6 @@ public class Chunk extends BaseFullChunk {
             throw new RuntimeException(e);
         }
 
-    }
-
-    public static Chunk getEmptyChunk(int chunkX, int chunkZ) {
-        return getEmptyChunk(chunkX, chunkZ, null);
-    }
-
-    public static Chunk getEmptyChunk(int chunkX, int chunkZ, LevelProvider provider) {
-        try {
-            Chunk chunk;
-            if (provider != null) {
-                chunk = new Chunk(provider, chunkX, chunkZ, new byte[DATA_LENGTH]);
-            } else {
-                chunk = new Chunk(LevelDB.class, chunkX, chunkZ, new byte[DATA_LENGTH]);
-            }
-
-            byte[] skyLight = new byte[16384];
-            Arrays.fill(skyLight, (byte) 0xff);
-            chunk.skyLight = skyLight;
-            return chunk;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

@@ -53,109 +53,47 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- BukkitPE Project
+ * BukkitPE Project
  */
 public class Level implements ChunkManager, Metadatable {
-
-    private static int levelIdCounter = 1;
-    private static int chunkLoaderCounter = 1;
-    public static int COMPRESSION_LEVEL = 8;
 
     public static final int BLOCK_UPDATE_NORMAL = 1;
     public static final int BLOCK_UPDATE_RANDOM = 2;
     public static final int BLOCK_UPDATE_SCHEDULED = 3;
     public static final int BLOCK_UPDATE_WEAK = 4;
     public static final int BLOCK_UPDATE_TOUCH = 5;
-
     public static final int TIME_DAY = 0;
     public static final int TIME_SUNSET = 12000;
     public static final int TIME_NIGHT = 14000;
     public static final int TIME_SUNRISE = 23000;
-
     public static final int TIME_FULL = 24000;
-
     public static final int DIMENSION_OVERWORLD = 0;
     public static final int DIMENSION_NETHER = 1;
-
+    public static int COMPRESSION_LEVEL = 8;
+    private static int levelIdCounter = 1;
+    private static int chunkLoaderCounter = 1;
+    public final Map<Long, Entity> updateEntities = new HashMap<>();
+    public final Map<Long, BlockEntity> updateBlockEntities = new HashMap<>();
+    public final java.util.Random rand = new java.util.Random();
     private final Map<Long, BlockEntity> blockEntities = new HashMap<>();
-
-    private Map<String, Map<Long, SetEntityMotionPacket.Entry>> motionToSend = new HashMap<>();
-    private Map<String, Map<Long, MoveEntityPacket>> moveToSend = new HashMap<>();
-    private Map<String, Map<Long, MovePlayerPacket>> playerMoveToSend = new HashMap<>();
-
     private final Map<Long, Player> players = new HashMap<>();
 
     private final Map<Long, Entity> entities = new HashMap<>();
-
-    public final Map<Long, Entity> updateEntities = new HashMap<>();
-
-    public final Map<Long, BlockEntity> updateBlockEntities = new HashMap<>();
-
-    private Map<String, Block> blockCache = new HashMap<>();
-
-    private Map<String, DataPacket> chunkCache = new HashMap<>();
-
-    private boolean cacheChunks = false;
-
-    private int sendTimeTicker = 0;
-
     private final Server server;
-
     private final int levelId;
-
-    private LevelProvider provider;
-
     private final Map<Integer, ChunkLoader> loaders = new HashMap<>();
-
     private final Map<Integer, Integer> loaderCounter = new HashMap<>();
-
     private final Map<String, Map<Integer, ChunkLoader>> chunkLoaders = new HashMap<>();
-
     private final Map<String, Map<Integer, Player>> playerLoaders = new HashMap<>();
-
-    private Map<String, List<DataPacket>> chunkPackets = new HashMap<>();
-
     private final Map<String, Long> unloadQueue = new HashMap<>();
-
-    private float time;
-    public boolean stopTime;
-
-    private String folderName;
-
     private final Map<String, BaseFullChunk> chunks = new HashMap<>();
-
-    private Map<String, Map<String, Vector3>> changedBlocks = new HashMap<>();
-
-    private PriorityQueue<PriorityObject> updateQueue;
     private final Map<String, Integer> updateQueueIndex = new HashMap<>();
-
     private final Map<String, Map<Integer, Player>> chunkSendQueue = new HashMap<>();
     private final Map<String, Boolean> chunkSendTasks = new HashMap<>();
-
     private final Map<String, Boolean> chunkPopulationQueue = new HashMap<>();
     private final Map<String, Boolean> chunkPopulationLock = new HashMap<>();
     private final Map<String, Boolean> chunkGenerationQueue = new HashMap<>();
-    private int chunkGenerationQueueSize = 8;
-    private int chunkPopulationQueueSize = 2;
-
-    private boolean autoSave = true;
-
-    private BlockMetadataStore blockMetadata;
-
-    private boolean useSections;
-    private byte blockOrder;
-
-    private Position temporalPosition;
-    private Vector3 temporalVector;
-
     private final Block[] blockStates;
-
-    public int sleepTicks = 0;
-
-    private int chunkTickRadius;
-    private Map<String, Integer> chunkTickList = new HashMap<>();
-    private int chunksPerTicks;
-    private boolean clearChunksOnTick;
     private final HashMap<Integer, Class<? extends Block>> randomTickBlocks = new HashMap<Integer, Class<? extends Block>>() {
         {
             put(Block.GRASS, BlockGrass.class);
@@ -187,27 +125,46 @@ public class Level implements ChunkManager, Metadatable {
             put(Block.GLOWING_REDSTONE_ORE, BlockOreRedstoneGlowing.class);
         }
     };
-
-    protected int updateLCG = (new Random()).nextInt();
-
+    private final int dimension = DIMENSION_OVERWORLD;
+    public boolean stopTime;
+    public int sleepTicks = 0;
     public LevelTimings timings;
-
-    private int tickRate;
     public int tickRateTime = 0;
     public int tickRateCounter = 0;
-
+    protected int updateLCG = (new Random()).nextInt();
+    private Map<String, Map<Long, SetEntityMotionPacket.Entry>> motionToSend = new HashMap<>();
+    private Map<String, Map<Long, MoveEntityPacket>> moveToSend = new HashMap<>();
+    private Map<String, Map<Long, MovePlayerPacket>> playerMoveToSend = new HashMap<>();
+    private Map<String, Block> blockCache = new HashMap<>();
+    private Map<String, DataPacket> chunkCache = new HashMap<>();
+    private boolean cacheChunks = false;
+    private int sendTimeTicker = 0;
+    private LevelProvider provider;
+    private Map<String, List<DataPacket>> chunkPackets = new HashMap<>();
+    private float time;
+    private String folderName;
+    private Map<String, Map<String, Vector3>> changedBlocks = new HashMap<>();
+    private PriorityQueue<PriorityObject> updateQueue;
+    private int chunkGenerationQueueSize = 8;
+    private int chunkPopulationQueueSize = 2;
+    private boolean autoSave = true;
+    private BlockMetadataStore blockMetadata;
+    private boolean useSections;
+    private byte blockOrder;
+    private Position temporalPosition;
+    private Vector3 temporalVector;
+    private int chunkTickRadius;
+    private Map<String, Integer> chunkTickList = new HashMap<>();
+    private int chunksPerTicks;
+    private boolean clearChunksOnTick;
+    private int tickRate;
     private Class<? extends Generator> generator;
     private Generator generatorInstance;
-
-    public final java.util.Random rand = new java.util.Random();
     private boolean raining = false;
     private int rainTime = 0;
     private boolean thundering = false;
     private int thunderTime = 0;
-
     private long levelCurrentTick = 0;
-
-    private final int dimension = DIMENSION_OVERWORLD;
 
     public Level(Server server, String name, String path, Class<? extends LevelProvider> provider) {
         this.blockStates = Block.fullList;
@@ -221,7 +178,7 @@ public class Level implements ChunkManager, Metadatable {
         } catch (Exception e) {
             throw new LevelException("Caused by " + Utils.getExceptionMessage(e));
         }
-                   this.provider.updateLevelName(name);
+        this.provider.updateLevelName(name);
         this.server.getLogger().info(this.server.getLanguage().translateString("BukkitPE.level.preparing",
                 TextFormat.GREEN + this.provider.getName() + TextFormat.WHITE));
 
@@ -309,12 +266,12 @@ public class Level implements ChunkManager, Metadatable {
         return tickRate;
     }
 
-    public int getTickRateTime() {
-        return tickRateTime;
-    }
-
     public void setTickRate(int tickRate) {
         this.tickRate = tickRate;
+    }
+
+    public int getTickRateTime() {
+        return tickRateTime;
     }
 
     public void initLevel() {
@@ -2259,7 +2216,7 @@ public class Level implements ChunkManager, Metadatable {
             this.players.remove(entity.getId());
             this.checkSleep();
         } else {
-		
+
             entity.close();
         }
 
@@ -2506,17 +2463,17 @@ public class Level implements ChunkManager, Metadatable {
         return (int) time;
     }
 
+    public void setTime(int time) {
+        this.time = time;
+        this.sendTime();
+    }
+
     public String getName() {
         return this.provider.getName();
     }
 
     public String getFolderName() {
         return this.folderName;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-        this.sendTime();
     }
 
     public void stopTime() {

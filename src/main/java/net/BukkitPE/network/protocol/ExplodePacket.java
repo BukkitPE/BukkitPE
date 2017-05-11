@@ -3,7 +3,6 @@ package net.BukkitPE.network.protocol;
 import net.BukkitPE.math.Vector3;
 
 /**
-
  * BukkitPE Project
  */
 public class ExplodePacket extends DataPacket {

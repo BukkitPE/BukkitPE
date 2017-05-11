@@ -4,7 +4,6 @@ import net.BukkitPE.item.enchantment.Enchantment;
 import net.BukkitPE.item.enchantment.EnchantmentType;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantmentLootWeapon extends EnchantmentLoot {

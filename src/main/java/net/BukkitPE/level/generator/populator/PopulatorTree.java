@@ -8,15 +8,13 @@ import net.BukkitPE.math.BukkitPEMath;
 import net.BukkitPE.math.BukkitPERandom;
 
 /**
-
  * BukkitPE Project
  */
 public class PopulatorTree extends Populator {
+    private final int type;
     private ChunkManager level;
     private int randomAmount;
     private int baseAmount;
-
-    private final int type;
 
     public PopulatorTree() {
         this(BlockSapling.OAK);

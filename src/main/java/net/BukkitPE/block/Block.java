@@ -18,7 +18,6 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class Block extends Position implements Metadatable, Cloneable {

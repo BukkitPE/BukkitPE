@@ -3,7 +3,6 @@ package net.BukkitPE.metadata;
 import net.BukkitPE.entity.Entity;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityMetadataStore extends MetadataStore {

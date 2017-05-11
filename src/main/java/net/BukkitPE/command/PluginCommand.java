@@ -4,7 +4,6 @@ import net.BukkitPE.lang.TranslationContainer;
 import net.BukkitPE.plugin.Plugin;
 
 /**
-
  * BukkitPE Project
  */
 public class PluginCommand<T extends Plugin> extends Command implements PluginIdentifiableCommand {

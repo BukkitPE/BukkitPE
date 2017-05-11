@@ -8,7 +8,6 @@ import net.BukkitPE.level.generator.populator.PopulatorLilyPad;
 import net.BukkitPE.level.generator.populator.PopulatorTree;
 
 /**
-
  * BukkitPE Project
  */
 public class SwampBiome extends GrassyBiome {

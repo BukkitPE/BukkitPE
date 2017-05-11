@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-
  * BukkitPE Project
  */
 public class CompressBatchedTask extends AsyncTask {

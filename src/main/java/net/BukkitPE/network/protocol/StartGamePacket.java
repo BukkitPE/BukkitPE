@@ -6,32 +6,26 @@ package net.BukkitPE.network.protocol;
 public class StartGamePacket extends DataPacket {
 
     public static final byte NETWORK_ID = ProtocolInfo.START_GAME_PACKET;
+    public int seed;
+    public byte dimension;
+    public int generator;
+    public int gamemode;
+    public long eid;
+    public int spawnX;
+    public int spawnY;
+    public int spawnZ;
+    public float x;
+    public float y;
+    public float z;
+    public boolean b1;
+    public boolean b2;
+    public boolean b3;
+    public String unknownstr;
 
     @Override
     public byte pid() {
         return NETWORK_ID;
     }
-
-    public int seed;
-
-    public byte dimension;
-    public int generator;
-    public int gamemode;
-
-    public long eid;
-
-    public int spawnX;
-    public int spawnY;
-    public int spawnZ;
-
-    public float x;
-    public float y;
-    public float z;
-
-    public boolean b1;
-    public boolean b2;
-    public boolean b3;
-    public String unknownstr;
 
     @Override
     public void decode() {

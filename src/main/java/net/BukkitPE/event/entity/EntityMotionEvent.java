@@ -6,21 +6,19 @@ import net.BukkitPE.event.HandlerList;
 import net.BukkitPE.math.Vector3;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityMotionEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
     private final Vector3 motion;
 
     public EntityMotionEvent(Entity entity, Vector3 motion) {
         this.entity = entity;
         this.motion = motion;
+    }
+
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
     @Deprecated

@@ -4,7 +4,6 @@ import net.BukkitPE.entity.Entity;
 import net.BukkitPE.math.Vector3;
 
 /**
-
  * BukkitPE Project
  */
 public class MovingObjectPosition {

@@ -9,7 +9,6 @@ import net.BukkitPE.event.player.PlayerBucketFillEvent;
 import net.BukkitPE.level.Level;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemBucket extends Item {

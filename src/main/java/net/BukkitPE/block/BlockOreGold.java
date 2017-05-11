@@ -4,7 +4,6 @@ import net.BukkitPE.item.Item;
 import net.BukkitPE.item.ItemTool;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockOreGold extends BlockSolid {

@@ -11,19 +11,16 @@ public class Timing implements AutoCloseable {
     final int id = idPool++;
 
     final String name;
-    private final boolean verbose;
-
     final Map<Integer, TimingData> children = new HashMap<>();
-    private Timing parent;
-
-    private final Timing groupTiming;
     final TimingData record;
-
+    private final boolean verbose;
+    private final Timing groupTiming;
+    boolean timed;
+    boolean enabled;
+    private Timing parent;
     private long start = 0;
     private int timingDepth = 0;
     private boolean added;
-    boolean timed;
-    boolean enabled;
 
     Timing(TimingIdentifier id) {
         if (id.name.startsWith("##")) {
@@ -93,7 +90,8 @@ public class Timing implements AutoCloseable {
         if (TimingsManager.CURRENT == this) {
             TimingsManager.CURRENT = this.parent;
             if (this.parent != null) {
-                if (!this.parent.children.containsKey(this.id)) this.parent.children.put(this.id, new TimingData(this.id));
+                if (!this.parent.children.containsKey(this.id))
+                    this.parent.children.put(this.id, new TimingData(this.id));
                 this.parent.children.get(this.id).add(diff);
             }
         }
@@ -108,7 +106,8 @@ public class Timing implements AutoCloseable {
         if (this.groupTiming != null) {
             this.groupTiming.addDiff(diff);
 
-            if (!this.groupTiming.children.containsKey(this.id)) this.groupTiming.children.put(this.id, new TimingData(this.id));
+            if (!this.groupTiming.children.containsKey(this.id))
+                this.groupTiming.children.put(this.id, new TimingData(this.id));
             this.groupTiming.children.get(this.id).add(diff);
         }
     }

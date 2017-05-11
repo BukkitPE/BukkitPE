@@ -4,7 +4,6 @@ import net.BukkitPE.Player;
 import net.BukkitPE.level.Position;
 
 /**
-
  * BukkitPE Project
  */
 public class AnvilInventory extends ContainerInventory {

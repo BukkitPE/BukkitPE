@@ -7,7 +7,6 @@ import net.BukkitPE.utils.Binary;
 import java.nio.charset.StandardCharsets;
 
 /**
-
  * BukkitPE Project
  */
 public class ServerHandler {

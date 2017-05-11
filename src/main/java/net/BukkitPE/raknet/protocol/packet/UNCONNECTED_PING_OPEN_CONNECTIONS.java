@@ -3,7 +3,6 @@ package net.BukkitPE.raknet.protocol.packet;
 import net.BukkitPE.raknet.protocol.Packet;
 
 /**
-
  * BukkitPE Project
  */
 public class UNCONNECTED_PING_OPEN_CONNECTIONS extends UNCONNECTED_PING {

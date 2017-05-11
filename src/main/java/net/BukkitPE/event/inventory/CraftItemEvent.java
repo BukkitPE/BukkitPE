@@ -8,27 +8,23 @@ import net.BukkitPE.inventory.Recipe;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class CraftItemEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
-    private Item[] input = new Item[0];
-
     private final Recipe recipe;
-
     private final Player player;
+    private Item[] input = new Item[0];
 
     public CraftItemEvent(Player player, Item[] input, Recipe recipe) {
         this.player = player;
         this.input = input;
         this.recipe = recipe;
+    }
+
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
     public Item[] getInput() {

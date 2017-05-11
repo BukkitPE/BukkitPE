@@ -9,7 +9,6 @@ import net.BukkitPE.level.Level;
 import net.BukkitPE.math.Vector3;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemFlintSteel extends ItemTool {

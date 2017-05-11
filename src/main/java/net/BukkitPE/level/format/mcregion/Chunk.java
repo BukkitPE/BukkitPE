@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class Chunk extends BaseFullChunk {
@@ -134,6 +133,101 @@ public class Chunk extends BaseFullChunk {
         this.nbt.remove("BiomeColors");
         this.nbt.remove("HeightMap");
         this.nbt.remove("Biomes");
+    }
+
+    public static Chunk fromBinary(byte[] data) {
+        return fromBinary(data, null);
+    }
+
+    public static Chunk fromBinary(byte[] data, LevelProvider provider) {
+        try {
+            CompoundTag chunk = NBTIO.read(new ByteArrayInputStream(Zlib.inflate(data)), ByteOrder.BIG_ENDIAN);
+
+            if (!chunk.contains("Level") || !(chunk.get("Level") instanceof CompoundTag)) {
+                return null;
+            }
+            return new Chunk(provider != null ? provider : McRegion.class.newInstance(), chunk.getCompound("Level"));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Chunk fromFastBinary(byte[] data) {
+        return fromFastBinary(data, null);
+    }
+
+    public static Chunk fromFastBinary(byte[] data, LevelProvider provider) {
+        try {
+            int offset = 0;
+            Chunk chunk = new Chunk(provider != null ? provider : McRegion.class.newInstance(), null);
+            chunk.provider = provider;
+            chunk.x = Binary.readInt(Arrays.copyOfRange(data, offset, offset + 3));
+            offset += 4;
+            chunk.z = Binary.readInt(Arrays.copyOfRange(data, offset, offset + 3));
+            offset += 4;
+            chunk.blocks = Arrays.copyOfRange(data, offset, offset + 32767);
+            offset += 32768;
+            chunk.data = Arrays.copyOfRange(data, offset, offset + 16383);
+            offset += 16384;
+            chunk.skyLight = Arrays.copyOfRange(data, offset, offset + 16383);
+            offset += 16384;
+            chunk.blockLight = Arrays.copyOfRange(data, offset, offset + 16383);
+            offset += 16384;
+            chunk.heightMap = new int[256];
+            for (int i = 0; i < 256; i++) {
+                chunk.heightMap[i] = data[offset] & 0xff;
+                offset++;
+            }
+            chunk.biomeColors = new int[256];
+            for (int i = 0; i < 256; i++) {
+                chunk.biomeColors[i] = Binary.readInt(Arrays.copyOfRange(data, offset, offset + 3));
+                offset += 4;
+            }
+            byte flags = data[offset++];
+            chunk.nbt.putByte("TerrainGenerated", (flags & 0b1));
+            chunk.nbt.putByte("TerrainPopulated", ((flags >> 1) & 0b1));
+            chunk.nbt.putByte("LightPopulated", ((flags >> 2) & 0b1));
+            return chunk;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Chunk getEmptyChunk(int chunkX, int chunkZ) {
+        return getEmptyChunk(chunkX, chunkZ, null);
+    }
+
+    public static Chunk getEmptyChunk(int chunkX, int chunkZ, LevelProvider provider) {
+        try {
+            Chunk chunk;
+            if (provider != null) {
+                chunk = new Chunk(provider, null);
+            } else {
+                chunk = new Chunk(McRegion.class, null);
+            }
+
+            chunk.x = chunkX;
+            chunk.z = chunkZ;
+            chunk.data = new byte[16384];
+            chunk.blocks = new byte[32768];
+            byte[] skyLight = new byte[16384];
+            Arrays.fill(skyLight, (byte) 0xff);
+            chunk.skyLight = skyLight;
+            chunk.blockLight = chunk.data;
+
+            chunk.heightMap = new int[256];
+            chunk.biomeColors = new int[256];
+
+            chunk.nbt.putByte("V", 1);
+            chunk.nbt.putLong("InhabitedTime", 0);
+            chunk.nbt.putBoolean("TerrainGenerated", false);
+            chunk.nbt.putBoolean("TerrainPopulated", false);
+            chunk.nbt.putBoolean("LightPopulated", false);
+
+            return chunk;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -303,14 +397,14 @@ public class Chunk extends BaseFullChunk {
     }
 
     @Override
-    public void setLightPopulated() {
-        this.setLightPopulated(true);
-    }
-
-    @Override
     public void setLightPopulated(boolean value) {
         this.nbt.putBoolean("LightPopulated", value);
         this.hasChanged = true;
+    }
+
+    @Override
+    public void setLightPopulated() {
+        this.setLightPopulated(true);
     }
 
     @Override
@@ -319,14 +413,14 @@ public class Chunk extends BaseFullChunk {
     }
 
     @Override
-    public void setPopulated() {
-        this.setPopulated(true);
-    }
-
-    @Override
     public void setPopulated(boolean value) {
         this.nbt.putBoolean("TerrainPopulated", value);
         this.hasChanged = true;
+    }
+
+    @Override
+    public void setPopulated() {
+        this.setPopulated(true);
     }
 
     @Override
@@ -340,74 +434,15 @@ public class Chunk extends BaseFullChunk {
     }
 
     @Override
-    public void setGenerated() {
-        this.setGenerated(true);
-    }
-
-    @Override
     public void setGenerated(boolean value) {
         this.nbt.putBoolean("TerrainGenerated", value);
         this.hasChanged = true;
     }
 
-    public static Chunk fromBinary(byte[] data) {
-        return fromBinary(data, null);
+    @Override
+    public void setGenerated() {
+        this.setGenerated(true);
     }
-
-    public static Chunk fromBinary(byte[] data, LevelProvider provider) {
-        try {
-            CompoundTag chunk = NBTIO.read(new ByteArrayInputStream(Zlib.inflate(data)), ByteOrder.BIG_ENDIAN);
-
-            if (!chunk.contains("Level") || !(chunk.get("Level") instanceof CompoundTag)) {
-                return null;
-            }
-            return new Chunk(provider != null ? provider : McRegion.class.newInstance(), chunk.getCompound("Level"));
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public static Chunk fromFastBinary(byte[] data) {
-        return fromFastBinary(data, null);
-    }
-
-    public static Chunk fromFastBinary(byte[] data, LevelProvider provider) {
-        try {
-            int offset = 0;
-            Chunk chunk = new Chunk(provider != null ? provider : McRegion.class.newInstance(), null);
-            chunk.provider = provider;
-            chunk.x = Binary.readInt(Arrays.copyOfRange(data, offset, offset + 3));
-            offset += 4;
-            chunk.z = Binary.readInt(Arrays.copyOfRange(data, offset, offset + 3));
-            offset += 4;
-            chunk.blocks = Arrays.copyOfRange(data, offset, offset + 32767);
-            offset += 32768;
-            chunk.data = Arrays.copyOfRange(data, offset, offset + 16383);
-            offset += 16384;
-            chunk.skyLight = Arrays.copyOfRange(data, offset, offset + 16383);
-            offset += 16384;
-            chunk.blockLight = Arrays.copyOfRange(data, offset, offset + 16383);
-            offset += 16384;
-            chunk.heightMap = new int[256];
-            for (int i = 0; i < 256; i++) {
-                chunk.heightMap[i] = data[offset] & 0xff;
-                offset++;
-            }
-            chunk.biomeColors = new int[256];
-            for (int i = 0; i < 256; i++) {
-                chunk.biomeColors[i] = Binary.readInt(Arrays.copyOfRange(data, offset, offset + 3));
-                offset += 4;
-            }
-            byte flags = data[offset++];
-            chunk.nbt.putByte("TerrainGenerated", (flags & 0b1));
-            chunk.nbt.putByte("TerrainPopulated", ((flags >> 1) & 0b1));
-            chunk.nbt.putByte("LightPopulated", ((flags >> 2) & 0b1));
-            return chunk;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
     @Override
     public byte[] toFastBinary() {
@@ -487,42 +522,5 @@ public class Chunk extends BaseFullChunk {
 
     public CompoundTag getNBT() {
         return nbt;
-    }
-
-    public static Chunk getEmptyChunk(int chunkX, int chunkZ) {
-        return getEmptyChunk(chunkX, chunkZ, null);
-    }
-
-    public static Chunk getEmptyChunk(int chunkX, int chunkZ, LevelProvider provider) {
-        try {
-            Chunk chunk;
-            if (provider != null) {
-                chunk = new Chunk(provider, null);
-            } else {
-                chunk = new Chunk(McRegion.class, null);
-            }
-
-            chunk.x = chunkX;
-            chunk.z = chunkZ;
-            chunk.data = new byte[16384];
-            chunk.blocks = new byte[32768];
-            byte[] skyLight = new byte[16384];
-            Arrays.fill(skyLight, (byte) 0xff);
-            chunk.skyLight = skyLight;
-            chunk.blockLight = chunk.data;
-
-            chunk.heightMap = new int[256];
-            chunk.biomeColors = new int[256];
-
-            chunk.nbt.putByte("V", 1);
-            chunk.nbt.putLong("InhabitedTime", 0);
-            chunk.nbt.putBoolean("TerrainGenerated", false);
-            chunk.nbt.putBoolean("TerrainPopulated", false);
-            chunk.nbt.putBoolean("LightPopulated", false);
-
-            return chunk;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

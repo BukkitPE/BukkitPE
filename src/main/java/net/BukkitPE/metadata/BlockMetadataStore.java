@@ -7,7 +7,6 @@ import net.BukkitPE.plugin.Plugin;
 import java.util.List;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockMetadataStore extends MetadataStore {

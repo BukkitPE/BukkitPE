@@ -7,16 +7,15 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public interface FullChunk extends Cloneable {
 
     int getX();
 
-    int getZ();
-
     void setX(int x);
+
+    int getZ();
 
     void setZ(int z);
 
@@ -82,21 +81,21 @@ public interface FullChunk extends Cloneable {
 
     boolean isLightPopulated();
 
-    void setLightPopulated();
-
     void setLightPopulated(boolean value);
+
+    void setLightPopulated();
 
     boolean isPopulated();
 
-    void setPopulated();
-
     void setPopulated(boolean value);
+
+    void setPopulated();
 
     boolean isGenerated();
 
-    void setGenerated();
-
     void setGenerated(boolean value);
+
+    void setGenerated();
 
     void addEntity(Entity entity);
 

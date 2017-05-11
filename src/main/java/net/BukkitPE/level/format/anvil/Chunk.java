@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class Chunk extends BaseChunk {
@@ -152,47 +151,6 @@ public class Chunk extends BaseChunk {
         this.nbt.remove("ExtraData");
     }
 
-    @Override
-    public boolean isPopulated() {
-        return this.nbt.contains("TerrainPopulated") && this.nbt.getBoolean("TerrainPopulated");
-    }
-
-    @Override
-    public void setPopulated() {
-        this.setPopulated(true);
-    }
-
-    @Override
-    public void setPopulated(boolean value) {
-        this.nbt.putBoolean("TerrainPopulated", value);
-        this.hasChanged = true;
-    }
-
-    @Override
-    public boolean isGenerated() {
-        if (this.nbt.contains("TerrainGenerated")) {
-            return this.nbt.getBoolean("TerrainGenerated");
-        } else if (this.nbt.contains("TerrainPopulated")) {
-            return this.nbt.getBoolean("TerrainPopulated");
-        }
-        return false;
-    }
-
-    @Override
-    public void setGenerated() {
-        this.setGenerated(true);
-    }
-
-    @Override
-    public void setGenerated(boolean value) {
-        this.nbt.putBoolean("TerrainGenerated", value);
-        this.hasChanged = true;
-    }
-
-    public CompoundTag getNBT() {
-        return nbt;
-    }
-
     public static Chunk fromBinary(byte[] data) {
         return fromBinary(data, null);
     }
@@ -212,7 +170,6 @@ public class Chunk extends BaseChunk {
         }
     }
 
-
     public static Chunk fromFastBinary(byte[] data) {
         return fromFastBinary(data, null);
     }
@@ -230,6 +187,82 @@ public class Chunk extends BaseChunk {
         }
     }
 
+    public static Chunk getEmptyChunk(int chunkX, int chunkZ) {
+        return getEmptyChunk(chunkX, chunkZ, null);
+    }
+
+    public static Chunk getEmptyChunk(int chunkX, int chunkZ, LevelProvider provider) {
+        try {
+            Chunk chunk;
+            if (provider != null) {
+                chunk = new Chunk(provider, null);
+            } else {
+                chunk = new Chunk(Anvil.class, null);
+            }
+
+            chunk.x = chunkX;
+            chunk.z = chunkZ;
+
+            chunk.sections = new net.BukkitPE.level.format.ChunkSection[8];
+            for (int y = 0; y < 8; ++y) {
+                chunk.sections[y] = new EmptyChunkSection(y);
+            }
+
+            chunk.heightMap = new int[256];
+            chunk.biomeColors = new int[256];
+
+            chunk.nbt.putByte("V", 1);
+            chunk.nbt.putLong("InhabitedTime", 0);
+            chunk.nbt.putBoolean("TerrainGenerated", false);
+            chunk.nbt.putBoolean("TerrainPopulated", false);
+            chunk.nbt.putBoolean("LightPopulated", false);
+
+            return chunk;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean isPopulated() {
+        return this.nbt.contains("TerrainPopulated") && this.nbt.getBoolean("TerrainPopulated");
+    }
+
+    @Override
+    public void setPopulated(boolean value) {
+        this.nbt.putBoolean("TerrainPopulated", value);
+        this.hasChanged = true;
+    }
+
+    @Override
+    public void setPopulated() {
+        this.setPopulated(true);
+    }
+
+    @Override
+    public boolean isGenerated() {
+        if (this.nbt.contains("TerrainGenerated")) {
+            return this.nbt.getBoolean("TerrainGenerated");
+        } else if (this.nbt.contains("TerrainPopulated")) {
+            return this.nbt.getBoolean("TerrainPopulated");
+        }
+        return false;
+    }
+
+    @Override
+    public void setGenerated(boolean value) {
+        this.nbt.putBoolean("TerrainGenerated", value);
+        this.hasChanged = true;
+    }
+
+    @Override
+    public void setGenerated() {
+        this.setGenerated(true);
+    }
+
+    public CompoundTag getNBT() {
+        return nbt;
+    }
 
     @Override
     public byte[] toFastBinary() {
@@ -356,42 +389,6 @@ public class Chunk extends BaseChunk {
             return Zlib.deflate(NBTIO.write(chunk, ByteOrder.BIG_ENDIAN), RegionLoader.COMPRESSION_LEVEL);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    public static Chunk getEmptyChunk(int chunkX, int chunkZ) {
-        return getEmptyChunk(chunkX, chunkZ, null);
-    }
-
-    public static Chunk getEmptyChunk(int chunkX, int chunkZ, LevelProvider provider) {
-        try {
-            Chunk chunk;
-            if (provider != null) {
-                chunk = new Chunk(provider, null);
-            } else {
-                chunk = new Chunk(Anvil.class, null);
-            }
-
-            chunk.x = chunkX;
-            chunk.z = chunkZ;
-
-            chunk.sections = new net.BukkitPE.level.format.ChunkSection[8];
-            for (int y = 0; y < 8; ++y) {
-                chunk.sections[y] = new EmptyChunkSection(y);
-            }
-
-            chunk.heightMap = new int[256];
-            chunk.biomeColors = new int[256];
-
-            chunk.nbt.putByte("V", 1);
-            chunk.nbt.putLong("InhabitedTime", 0);
-            chunk.nbt.putBoolean("TerrainGenerated", false);
-            chunk.nbt.putBoolean("TerrainPopulated", false);
-            chunk.nbt.putBoolean("LightPopulated", false);
-
-            return chunk;
-        } catch (Exception e) {
-            return null;
         }
     }
 }

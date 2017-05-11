@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
-
  * BukkitPE Project
  */
 
@@ -21,6 +20,10 @@ public class RegionLoader extends BaseRegionLoader {
 
     public RegionLoader(LevelProvider level, int regionX, int regionZ) {
         super(level, regionX, regionZ, "mcr");
+    }
+
+    protected static int getChunkOffset(int x, int z) {
+        return x + (z << 5);
     }
 
     @Override
@@ -146,10 +149,6 @@ public class RegionLoader extends BaseRegionLoader {
         this.lastUsed = System.currentTimeMillis();
         byte[] chunkData = chunk.toBinary();
         this.saveChunk(chunk.getX() - (this.getX() * 32), chunk.getZ() - (this.getZ() * 32), chunkData);
-    }
-
-    protected static int getChunkOffset(int x, int z) {
-        return x + (z << 5);
     }
 
     @Override

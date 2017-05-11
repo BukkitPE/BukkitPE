@@ -5,7 +5,6 @@ import net.BukkitPE.event.Event;
 import net.BukkitPE.inventory.Inventory;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class InventoryEvent extends Event {

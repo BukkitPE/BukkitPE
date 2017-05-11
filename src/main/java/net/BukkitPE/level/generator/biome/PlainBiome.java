@@ -5,7 +5,6 @@ import net.BukkitPE.block.BlockFlower;
 import net.BukkitPE.level.generator.populator.*;
 
 /**
-
  * BukkitPE Project
  */
 public class PlainBiome extends GrassyBiome {

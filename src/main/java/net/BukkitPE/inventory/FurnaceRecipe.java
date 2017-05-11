@@ -6,15 +6,12 @@ import net.BukkitPE.item.Item;
 import java.util.UUID;
 
 /**
-
  * BukkitPE Project
  */
 public class FurnaceRecipe implements Recipe {
 
-    private UUID uuid = null;
-
     private final Item output;
-
+    private UUID uuid = null;
     private Item ingredient;
 
     public FurnaceRecipe(Item result, Item ingredient) {
@@ -22,12 +19,12 @@ public class FurnaceRecipe implements Recipe {
         this.ingredient = ingredient.clone();
     }
 
-    public void setInput(Item item) {
-        this.ingredient = item.clone();
-    }
-
     public Item getInput() {
         return this.ingredient.clone();
+    }
+
+    public void setInput(Item item) {
+        this.ingredient = item.clone();
     }
 
     @Override

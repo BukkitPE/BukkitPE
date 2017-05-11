@@ -6,23 +6,20 @@ import net.BukkitPE.event.HandlerList;
 import net.BukkitPE.network.protocol.DataPacket;
 
 /**
-
  * BukkitPE Project
  */
 public class DataPacketSendEvent extends ServerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
     private final DataPacket packet;
     private final Player player;
-
     public DataPacketSendEvent(Player player, DataPacket packet) {
         this.packet = packet;
         this.player = player;
+    }
+
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
     public Player getPlayer() {

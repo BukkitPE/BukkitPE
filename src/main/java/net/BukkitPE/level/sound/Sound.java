@@ -4,7 +4,6 @@ import net.BukkitPE.math.Vector3;
 import net.BukkitPE.network.protocol.DataPacket;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class Sound extends Vector3 {

@@ -12,16 +12,15 @@ import net.BukkitPE.potion.Potion;
 public class PotionApplyEvent extends PotionEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
     private final Entity entity;
 
     public PotionApplyEvent(Potion potion, Entity entity) {
         super(potion);
         this.entity = entity;
+    }
+
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
     public Entity getEntity() {

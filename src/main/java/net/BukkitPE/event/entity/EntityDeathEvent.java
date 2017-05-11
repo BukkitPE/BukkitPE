@@ -6,16 +6,10 @@ import net.BukkitPE.event.HandlerList;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityDeathEvent extends EntityEvent {
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
     private Item[] drops = new Item[0];
 
     public EntityDeathEvent(EntityLiving entity) {
@@ -25,6 +19,10 @@ public class EntityDeathEvent extends EntityEvent {
     public EntityDeathEvent(EntityLiving entity, Item[] drops) {
         this.entity = entity;
         this.drops = drops;
+    }
+
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
     @Override

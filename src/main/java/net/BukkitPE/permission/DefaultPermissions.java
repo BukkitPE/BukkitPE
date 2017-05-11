@@ -3,7 +3,6 @@ package net.BukkitPE.permission;
 import net.BukkitPE.Server;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class DefaultPermissions {

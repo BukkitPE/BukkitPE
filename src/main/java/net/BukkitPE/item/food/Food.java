@@ -80,6 +80,9 @@ public abstract class Food {
             .addEffect(Effect.getEffect(Effect.NAUSEA).setAmplifier(1).setDuration(15 * 20))
             .addEffect(Effect.getEffect(Effect.POISON).setAmplifier(4).setDuration(60 * 20))
             .addRelative(Item.PUFFERFISH));
+    protected final List<NodeIDMeta> relativeIDs = new ArrayList<>();
+    protected int restoreFood = 0;
+    protected float restoreSaturation = 0;
 
     //Opened API for plugins
     public static Food registerFood(Food food, Plugin plugin) {
@@ -116,10 +119,6 @@ public abstract class Food {
         }
         return result[0];
     }
-
-    protected int restoreFood = 0;
-    protected float restoreSaturation = 0;
-    protected final List<NodeIDMeta> relativeIDs = new ArrayList<>();
 
     public final boolean eatenBy(Player player) {
         PlayerEatFoodEvent event = new PlayerEatFoodEvent(player, this);

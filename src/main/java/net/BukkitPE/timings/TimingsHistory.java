@@ -1,14 +1,14 @@
 package net.BukkitPE.timings;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import net.BukkitPE.Player;
 import net.BukkitPE.Server;
 import net.BukkitPE.blockentity.BlockEntity;
 import net.BukkitPE.entity.Entity;
 import net.BukkitPE.level.Level;
 import net.BukkitPE.level.format.generic.BaseFullChunk;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.lang.management.ManagementFactory;
 import java.util.*;
@@ -27,12 +27,10 @@ public class TimingsHistory {
     public static long entityTicks;
     public static long tileEntityTicks;
     public static long activatedEntityTicks;
-
-    private static int levelIdPool = 1;
     static Map<String, Integer> levelMap = new HashMap<>();
     static Map<Integer, String> entityMap = new HashMap<>();
     static Map<Integer, String> blockEntityMap = new HashMap<>();
-
+    private static int levelIdPool = 1;
     private final long endTime;
     private final long startTime;
     private final long totalTicks;
@@ -80,14 +78,16 @@ public class TimingsHistory {
 
                 //count entities
                 for (Entity entity : chunk.getEntities().values()) {
-                    if (!entityCounts.containsKey(entity.getNetworkId())) entityCounts.put(entity.getNetworkId(), new AtomicInteger(0));
+                    if (!entityCounts.containsKey(entity.getNetworkId()))
+                        entityCounts.put(entity.getNetworkId(), new AtomicInteger(0));
                     entityCounts.get(entity.getNetworkId()).incrementAndGet();
                     entityMap.put(entity.getNetworkId(), entity.getClass().getSimpleName());
                 }
 
                 //count block entities
                 for (BlockEntity blockEntity : chunk.getBlockEntities().values()) {
-                    if (!blockEntityCounts.containsKey(blockEntity.getBlock().getId())) blockEntityCounts.put(blockEntity.getBlock().getId(), new AtomicInteger(0));
+                    if (!blockEntityCounts.containsKey(blockEntity.getBlock().getId()))
+                        blockEntityCounts.put(blockEntity.getBlock().getId(), new AtomicInteger(0));
                     blockEntityCounts.get(blockEntity.getBlock().getId()).incrementAndGet();
                     blockEntityMap.put(blockEntity.getBlock().getId(), blockEntity.getClass().getSimpleName());
                 }

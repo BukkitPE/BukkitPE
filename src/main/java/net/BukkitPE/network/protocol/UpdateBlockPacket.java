@@ -1,7 +1,6 @@
 package net.BukkitPE.network.protocol;
 
 /**
-
  * BukkitPE Project
  */
 public class UpdateBlockPacket extends DataPacket {

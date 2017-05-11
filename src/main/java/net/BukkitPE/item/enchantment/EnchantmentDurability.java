@@ -5,12 +5,15 @@ import net.BukkitPE.item.Item;
 import java.util.Random;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantmentDurability extends Enchantment {
     protected EnchantmentDurability() {
         super(ID_DURABILITY, "durability", 5, EnchantmentType.BREAKABLE);
+    }
+
+    public static boolean negateDamage(Item item, int level, Random random) {
+        return !(item.isArmor() && random.nextFloat() < 0.6f) && random.nextInt(level + 1) > 0;
     }
 
     @Override
@@ -36,9 +39,5 @@ public class EnchantmentDurability extends Enchantment {
     @Override
     public boolean canEnchant(Item item) {
         return item.getMaxDurability() >= 0 || super.canEnchant(item);
-    }
-
-    public static boolean negateDamage(Item item, int level, Random random) {
-        return !(item.isArmor() && random.nextFloat() < 0.6f) && random.nextInt(level + 1) > 0;
     }
 }

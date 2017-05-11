@@ -4,7 +4,6 @@ import net.BukkitPE.raknet.protocol.DataPacket;
 import net.BukkitPE.raknet.protocol.Packet;
 
 /**
-
  * BukkitPE Project
  */
 public class DATA_PACKET_0 extends DataPacket {

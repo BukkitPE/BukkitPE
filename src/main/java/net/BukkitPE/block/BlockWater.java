@@ -6,7 +6,6 @@ import net.BukkitPE.item.Item;
 import net.BukkitPE.utils.BlockColor;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockWater extends BlockLiquid {

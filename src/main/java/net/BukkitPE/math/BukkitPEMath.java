@@ -1,7 +1,6 @@
 package net.BukkitPE.math;
 
 /**
-
  * BukkitPE Project
  */
 public class BukkitPEMath {

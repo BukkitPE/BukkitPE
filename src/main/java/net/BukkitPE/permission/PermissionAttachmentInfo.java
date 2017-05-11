@@ -1,7 +1,6 @@
 package net.BukkitPE.permission;
 
 /**
-
  * BukkitPE Project
  */
 public class PermissionAttachmentInfo {

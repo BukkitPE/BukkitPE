@@ -11,7 +11,6 @@ import net.BukkitPE.scheduler.AsyncTask;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class GeneratorRegisterTask extends AsyncTask {

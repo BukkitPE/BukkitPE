@@ -3,25 +3,22 @@ package net.BukkitPE.network.protocol;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class ContainerSetContentPacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.CONTAINER_SET_CONTENT_PACKET;
+    public static final byte SPECIAL_INVENTORY = 0;
+    public static final byte SPECIAL_ARMOR = 0x78;
+    public static final byte SPECIAL_CREATIVE = 0x79;
+    public static final byte SPECIAL_CRAFTING = 0x7a;
+    public int windowid;
+    public Item[] slots = new Item[0];
+    public int[] hotbar = new int[0];
 
     @Override
     public byte pid() {
         return NETWORK_ID;
     }
-
-    public static final byte SPECIAL_INVENTORY = 0;
-    public static final byte SPECIAL_ARMOR = 0x78;
-    public static final byte SPECIAL_CREATIVE = 0x79;
-    public static final byte SPECIAL_CRAFTING = 0x7a;
-
-    public int windowid;
-    public Item[] slots = new Item[0];
-    public int[] hotbar = new int[0];
 
     @Override
     public DataPacket clean() {

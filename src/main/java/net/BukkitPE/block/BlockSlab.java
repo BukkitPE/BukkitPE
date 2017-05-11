@@ -7,7 +7,6 @@ import net.BukkitPE.math.AxisAlignedBB;
 import net.BukkitPE.utils.BlockColor;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockSlab extends BlockTransparent {

@@ -4,19 +4,17 @@ import net.BukkitPE.raknet.RakNet;
 import net.BukkitPE.raknet.protocol.Packet;
 
 /**
-
  * BukkitPE Project
  */
 public class OPEN_CONNECTION_REQUEST_1 extends Packet {
     public static final byte ID = (byte) 0x05;
+    public byte protocol = RakNet.PROTOCOL;
+    public short mtuSize;
 
     @Override
     public byte getID() {
         return ID;
     }
-
-    public byte protocol = RakNet.PROTOCOL;
-    public short mtuSize;
 
     @Override
     public void encode() {

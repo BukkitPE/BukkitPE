@@ -10,7 +10,6 @@ import net.BukkitPE.network.protocol.MobEffectPacket;
 import net.BukkitPE.utils.ServerException;
 
 /**
-
  * BukkitPE Project
  */
 public class Effect implements Cloneable {
@@ -43,6 +42,25 @@ public class Effect implements Cloneable {
     public static final int SATURATION = 23;
 
     protected static Effect[] effects;
+    protected final int id;
+    protected final String name;
+    protected final boolean bad;
+    protected int duration;
+    protected int amplifier;
+    protected int color;
+    protected boolean show = true;
+    protected boolean ambient = false;
+
+    public Effect(int id, String name, int r, int g, int b) {
+        this(id, name, r, g, b, false);
+    }
+
+    public Effect(int id, String name, int r, int g, int b, boolean isBad) {
+        this.id = id;
+        this.name = name;
+        this.bad = isBad;
+        this.setColor(r, g, b);
+    }
 
     public static void init() {
         effects = new Effect[256];
@@ -93,33 +111,6 @@ public class Effect implements Cloneable {
         }
     }
 
-    protected final int id;
-
-    protected final String name;
-
-    protected int duration;
-
-    protected int amplifier;
-
-    protected int color;
-
-    protected boolean show = true;
-
-    protected boolean ambient = false;
-
-    protected final boolean bad;
-
-    public Effect(int id, String name, int r, int g, int b) {
-        this(id, name, r, g, b, false);
-    }
-
-    public Effect(int id, String name, int r, int g, int b, boolean isBad) {
-        this.id = id;
-        this.name = name;
-        this.bad = isBad;
-        this.setColor(r, g, b);
-    }
-
     public String getName() {
         return name;
     }
@@ -128,13 +119,13 @@ public class Effect implements Cloneable {
         return id;
     }
 
+    public int getDuration() {
+        return duration;
+    }
+
     public Effect setDuration(int ticks) {
         this.duration = ticks;
         return this;
-    }
-
-    public int getDuration() {
-        return duration;
     }
 
     public boolean isVisible() {

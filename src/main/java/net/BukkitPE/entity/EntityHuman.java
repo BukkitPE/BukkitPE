@@ -18,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityHuman extends EntityCreature implements InventoryHolder {
@@ -33,6 +32,11 @@ public class EntityHuman extends EntityCreature implements InventoryHolder {
 
     protected UUID uuid;
     protected byte[] rawUUID;
+    protected Skin skin;
+
+    public EntityHuman(FullChunk chunk, CompoundTag nbt) {
+        super(chunk, nbt);
+    }
 
     @Override
     public float getWidth() {
@@ -54,19 +58,17 @@ public class EntityHuman extends EntityCreature implements InventoryHolder {
         return 1.62f;
     }
 
-    protected Skin skin;
-
     @Override
     public int getNetworkId() {
         return -1;
     }
 
-    public EntityHuman(FullChunk chunk, CompoundTag nbt) {
-        super(chunk, nbt);
-    }
-
     public Skin getSkin() {
         return skin;
+    }
+
+    public void setSkin(Skin skin) {
+        this.skin = skin;
     }
 
     public UUID getUniqueId() {
@@ -75,10 +77,6 @@ public class EntityHuman extends EntityCreature implements InventoryHolder {
 
     public byte[] getRawUniqueId() {
         return rawUUID;
-    }
-
-    public void setSkin(Skin skin) {
-        this.skin = skin;
     }
 
     @Override

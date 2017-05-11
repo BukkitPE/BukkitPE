@@ -5,20 +5,21 @@ import net.BukkitPE.event.Cancellable;
 import net.BukkitPE.event.HandlerList;
 
 /**
-
  * BukkitPE Project
  */
 public class ServerCommandEvent extends ServerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-
-    protected String command;
-
     protected final CommandSender sender;
+    protected String command;
 
     public ServerCommandEvent(CommandSender sender, String command) {
         this.sender = sender;
         this.command = command;
+    }
+
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
     public CommandSender getSender() {
@@ -31,9 +32,5 @@ public class ServerCommandEvent extends ServerEvent implements Cancellable {
 
     public void setCommand(String command) {
         this.command = command;
-    }
-
-    public static HandlerList getHandlers() {
-        return handlers;
     }
 }

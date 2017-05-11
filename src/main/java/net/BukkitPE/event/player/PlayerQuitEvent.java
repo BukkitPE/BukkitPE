@@ -6,14 +6,8 @@ import net.BukkitPE.lang.TextContainer;
 
 public class PlayerQuitEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
-
-    public static HandlerList getHandlers() {
-        return handlers;
-    }
-
     protected TextContainer quitMessage;
     protected boolean autoSave = true;
-
     public PlayerQuitEvent(Player player, TextContainer quitMessage) {
         this(player, quitMessage, true);
     }
@@ -32,27 +26,31 @@ public class PlayerQuitEvent extends PlayerEvent {
         this.autoSave = autoSave;
     }
 
-    public TextContainer getQuitMessage() {
-        return quitMessage;
+    public static HandlerList getHandlers() {
+        return handlers;
     }
 
-    public void setQuitMessage(TextContainer quitMessage) {
-        this.quitMessage = quitMessage;
+    public TextContainer getQuitMessage() {
+        return quitMessage;
     }
 
     public void setQuitMessage(String joinMessage) {
         this.setQuitMessage(new TextContainer(joinMessage));
     }
 
+    public void setQuitMessage(TextContainer quitMessage) {
+        this.quitMessage = quitMessage;
+    }
+
     public boolean getAutoSave() {
         return this.autoSave;
     }
 
-    public void setAutoSave() {
-        this.setAutoSave(true);
-    }
-
     public void setAutoSave(boolean autoSave) {
         this.autoSave = autoSave;
+    }
+
+    public void setAutoSave() {
+        this.setAutoSave(true);
     }
 }

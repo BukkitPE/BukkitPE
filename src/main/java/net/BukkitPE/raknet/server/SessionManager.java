@@ -1,5 +1,7 @@
 package net.BukkitPE.raknet.server;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.socket.DatagramPacket;
 import net.BukkitPE.raknet.RakNet;
 import net.BukkitPE.raknet.protocol.EncapsulatedPacket;
 import net.BukkitPE.raknet.protocol.Packet;
@@ -7,46 +9,30 @@ import net.BukkitPE.raknet.protocol.packet.*;
 import net.BukkitPE.utils.Binary;
 import net.BukkitPE.utils.ThreadedLogger;
 
-
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.socket.DatagramPacket;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
-
  * BukkitPE Project
  */
 public class SessionManager {
+    public final long serverId;
     protected final Packet.PacketFactory[] packetPool = new Packet.PacketFactory[256];
-
     protected final RakNetServer server;
-
     protected final UDPServerSocket socket;
-
-    protected int receiveBytes = 0;
-    protected int sendBytes = 0;
-
     protected final Map<String, Session> sessions = new HashMap<>();
-
-    protected String name = "";
-
-    protected int packetLimit = 1000;
-
-    protected boolean shutdown = false;
-
-    protected long ticks = 0;
-    protected long lastMeasure;
-
     protected final Map<String, Long> block = new HashMap<>();
     protected final Map<String, Integer> ipSec = new HashMap<>();
-
     public boolean portChecking = true;
-
-    public final long serverId;
-
+    protected int receiveBytes = 0;
+    protected int sendBytes = 0;
+    protected String name = "";
+    protected int packetLimit = 1000;
+    protected boolean shutdown = false;
+    protected long ticks = 0;
+    protected long lastMeasure;
     protected String currentSource = "";
 
     public SessionManager(RakNetServer server, UDPServerSocket socket) throws Exception {

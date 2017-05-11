@@ -7,7 +7,6 @@ import net.BukkitPE.math.BukkitPERandom;
 import java.util.Random;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockOreLapis extends BlockSolid {

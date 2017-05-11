@@ -6,14 +6,13 @@ import com.google.gson.JsonArray;
  * @author Tee7even
  */
 class TimingData {
-    private int id;
     int count = 0;
-    private int lagCount = 0;
     long totalTime = 0;
-    private long lagTotalTime = 0;
-
     int curTickCount = 0;
     int curTickTotal = 0;
+    private int id;
+    private int lagCount = 0;
+    private long lagTotalTime = 0;
 
     TimingData(int id) {
         this.id = id;

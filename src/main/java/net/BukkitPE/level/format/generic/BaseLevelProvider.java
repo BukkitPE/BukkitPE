@@ -16,14 +16,11 @@ import java.io.IOException;
 import java.nio.ByteOrder;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BaseLevelProvider implements LevelProvider {
-    protected Level level;
-
     protected final String path;
-
+    protected Level level;
     protected CompoundTag levelData;
 
     public BaseLevelProvider(Level level, String path) throws IOException {
@@ -169,9 +166,9 @@ public abstract class BaseLevelProvider implements LevelProvider {
         }
     }
 
-    public void updateLevelName(String name){
-        if (!this.getName().equals(name)){
-            this.levelData.putString("LevelName",name);
+    public void updateLevelName(String name) {
+        if (!this.getName().equals(name)) {
+            this.levelData.putString("LevelName", name);
         }
     }
 }

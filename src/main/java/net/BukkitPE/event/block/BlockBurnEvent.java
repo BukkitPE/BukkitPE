@@ -5,7 +5,6 @@ import net.BukkitPE.event.Cancellable;
 import net.BukkitPE.event.HandlerList;
 
 /**
-
  * BukkitPE Project
  */
 public class BlockBurnEvent extends BlockEvent implements Cancellable {

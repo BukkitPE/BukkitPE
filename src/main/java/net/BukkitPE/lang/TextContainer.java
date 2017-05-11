@@ -3,7 +3,6 @@ package net.BukkitPE.lang;
 import net.BukkitPE.Server;
 
 /**
-
  * BukkitPE Project
  */
 public class TextContainer implements Cloneable {
@@ -13,12 +12,12 @@ public class TextContainer implements Cloneable {
         this.text = text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public String getText() {
         return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override

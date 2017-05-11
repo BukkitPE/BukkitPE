@@ -8,7 +8,6 @@ import net.BukkitPE.lang.TranslationContainer;
 import java.util.Objects;
 
 /**
-
  * BukkitPE Project
  */
 public class BanCommand extends VanillaCommand {

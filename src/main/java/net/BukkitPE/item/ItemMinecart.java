@@ -10,7 +10,6 @@ import net.BukkitPE.nbt.tag.FloatTag;
 import net.BukkitPE.nbt.tag.ListTag;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemMinecart extends Item {

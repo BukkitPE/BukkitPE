@@ -3,7 +3,6 @@ package net.BukkitPE.item.enchantment;
 import net.BukkitPE.item.Item;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantmentSilkTouch extends Enchantment {

@@ -12,7 +12,6 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
-
  * BukkitPE Project
  */
 

@@ -3,7 +3,6 @@ package net.BukkitPE.item.enchantment.protection;
 import net.BukkitPE.item.enchantment.Enchantment;
 
 /**
-
  * BukkitPE Project
  */
 public class EnchantmentProtectionAll extends EnchantmentProtection {

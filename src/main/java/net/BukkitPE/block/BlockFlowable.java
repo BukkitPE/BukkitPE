@@ -3,7 +3,6 @@ package net.BukkitPE.block;
 import net.BukkitPE.math.AxisAlignedBB;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class BlockFlowable extends BlockTransparent {

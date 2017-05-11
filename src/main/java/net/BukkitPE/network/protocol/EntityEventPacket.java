@@ -1,7 +1,6 @@
 package net.BukkitPE.network.protocol;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityEventPacket extends DataPacket {
@@ -23,14 +22,13 @@ public class EntityEventPacket extends DataPacket {
     public static final byte SQUID_INK_CLOUD = 15;
     public static final byte AMBIENT_SOUND = 16;
     public static final byte RESPAWN = 17;
+    public long eid;
+    public byte event;
 
     @Override
     public byte pid() {
         return NETWORK_ID;
     }
-
-    public long eid;
-    public byte event;
 
     @Override
     public void decode() {

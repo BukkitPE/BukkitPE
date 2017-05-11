@@ -3,7 +3,6 @@ package net.BukkitPE.entity.data;
 import java.util.Objects;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class EntityData<T> {

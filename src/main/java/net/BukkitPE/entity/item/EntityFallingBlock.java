@@ -22,6 +22,12 @@ public class EntityFallingBlock extends Entity {
     public static final int NETWORK_ID = 66;
 
     public static final int DATA_BLOCK_INFO = 20;
+    protected int blockId;
+    protected int damage;
+
+    public EntityFallingBlock(FullChunk chunk, CompoundTag nbt) {
+        super(chunk, nbt);
+    }
 
     @Override
     public float getWidth() {
@@ -51,13 +57,6 @@ public class EntityFallingBlock extends Entity {
     @Override
     public boolean canCollide() {
         return false;
-    }
-
-    protected int blockId;
-    protected int damage;
-
-    public EntityFallingBlock(FullChunk chunk, CompoundTag nbt) {
-        super(chunk, nbt);
     }
 
     @Override

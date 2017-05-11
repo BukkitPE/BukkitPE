@@ -11,7 +11,6 @@ import net.BukkitPE.nbt.tag.CompoundTag;
 import net.BukkitPE.network.protocol.AddPaintingPacket;
 
 /**
-
  * BukkitPE Project
  */
 public class EntityPainting extends EntityHanging {

@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 /**
-
  * BukkitPE Project
  */
 public class FileWriteTask extends AsyncTask {

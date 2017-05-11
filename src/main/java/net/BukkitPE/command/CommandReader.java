@@ -1,31 +1,24 @@
 package net.BukkitPE.command;
 
+import jline.console.ConsoleReader;
+import jline.console.CursorBuffer;
 import net.BukkitPE.InterruptibleThread;
 import net.BukkitPE.Server;
 import net.BukkitPE.event.server.ServerCommandEvent;
 import net.BukkitPE.timings.Timings;
-import jline.console.ConsoleReader;
-import jline.console.CursorBuffer;
 
 import java.io.IOException;
 
 /**
-
  * BukkitPE
  */
 public class CommandReader extends Thread implements InterruptibleThread {
 
-    private ConsoleReader reader;
-
     public static CommandReader instance;
-
+    private ConsoleReader reader;
     private CursorBuffer stashed;
 
     private boolean running = true;
-
-    public static CommandReader getInstance() {
-        return instance;
-    }
 
     public CommandReader() {
         if (instance != null) {
@@ -39,6 +32,10 @@ public class CommandReader extends Thread implements InterruptibleThread {
             Server.getInstance().getLogger().error("Unable to start Console Reader", e);
         }
         this.setName("Console");
+    }
+
+    public static CommandReader getInstance() {
+        return instance;
     }
 
     public String readLine() {

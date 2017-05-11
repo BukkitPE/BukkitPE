@@ -11,9 +11,8 @@ import java.util.List;
 
 public class ListTag<T extends Tag> extends Tag {
 
-    private List<T> list = new ArrayList<>();
-
     public byte type;
+    private List<T> list = new ArrayList<>();
 
     public ListTag() {
         super("");
@@ -75,11 +74,11 @@ public class ListTag<T extends Tag> extends Tag {
 
     public ListTag<T> add(int index, T tag) {
         type = tag.getId();
-         if (index >= list.size()) {
-             list.add(index, tag);
+        if (index >= list.size()) {
+            list.add(index, tag);
         } else {
-             list.set(index, tag);
-         }
+            list.set(index, tag);
+        }
         return this;
     }
 

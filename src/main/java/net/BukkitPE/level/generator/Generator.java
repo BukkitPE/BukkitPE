@@ -9,18 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public abstract class Generator {
     public static final int TYPE_OLD = 0;
     public static final int TYPE_INFINITE = 1;
     public static final int TYPE_FLAT = 2;
-
-    public abstract int getId();
-
     private static final Map<String, Class<? extends Generator>> nameList = new HashMap<>();
-
     private static final Map<Integer, Class<? extends Generator>> typeList = new HashMap<>();
 
     public static boolean addGenerator(Class<? extends Generator> clazz, String name, int type) {
@@ -206,6 +201,8 @@ public abstract class Generator {
 
         return noiseArray;
     }
+
+    public abstract int getId();
 
     public abstract void init(ChunkManager level, BukkitPERandom random);
 

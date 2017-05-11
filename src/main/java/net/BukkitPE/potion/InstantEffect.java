@@ -1,7 +1,6 @@
 package net.BukkitPE.potion;
 
 /**
-
  * BukkitPE Project
  */
 public class InstantEffect extends Effect {

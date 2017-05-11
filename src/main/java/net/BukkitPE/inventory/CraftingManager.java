@@ -9,20 +9,36 @@ import net.BukkitPE.utils.Utils;
 import java.util.*;
 
 /**
-
  * BukkitPE Project
  */
 public class CraftingManager {
 
+    private static int RECIPE_COUNT = 0;
     public final Map<UUID, Recipe> recipes = new HashMap<>();
-
-    protected final Map<String, Map<String, Recipe>> recipeLookup = new HashMap<>();
-
     public final Map<String, FurnaceRecipe> furnaceRecipes = new HashMap<>();
 
     public final Map<String, BrewingRecipe> brewingRecipes = new HashMap<>();
-
-    private static int RECIPE_COUNT = 0;
+    public final Comparator<Item> comparator = new Comparator<Item>() {
+        @Override
+        public int compare(Item i1, Item i2) {
+            if (i1.getId() > i2.getId()) {
+                return 1;
+            } else if (i1.getId() < i2.getId()) {
+                return -1;
+            } else if (i1.getDamage() > i2.getDamage()) {
+                return 1;
+            } else if (i1.getDamage() < i2.getDamage()) {
+                return -1;
+            } else if (i1.getCount() > i2.getCount()) {
+                return 1;
+            } else if (i1.getCount() < i2.getCount()) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    };
+    protected final Map<String, Map<String, Recipe>> recipeLookup = new HashMap<>();
 
     public CraftingManager() {
         this.registerFurnace();
@@ -952,27 +968,6 @@ public class CraftingManager {
 
     }
 
-    public final Comparator<Item> comparator = new Comparator<Item>() {
-        @Override
-        public int compare(Item i1, Item i2) {
-            if (i1.getId() > i2.getId()) {
-                return 1;
-            } else if (i1.getId() < i2.getId()) {
-                return -1;
-            } else if (i1.getDamage() > i2.getDamage()) {
-                return 1;
-            } else if (i1.getDamage() < i2.getDamage()) {
-                return -1;
-            } else if (i1.getCount() > i2.getCount()) {
-                return 1;
-            } else if (i1.getCount() < i2.getCount()) {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
-    };
-
     public Recipe getRecipe(UUID id) {
         return this.recipes.containsKey(id) ? this.recipes.get(id) : null;
     }
@@ -1115,9 +1110,11 @@ public class CraftingManager {
             this.registerFurnaceRecipe((FurnaceRecipe) recipe);
         }
     }
+
     public Recipe[] getRecipesByResult(Item result) {
-         return recipeLookup.get(result.getId() + ":" + result.getDamage()).values().stream().toArray(Recipe[]::new);
-     }
+        return recipeLookup.get(result.getId() + ":" + result.getDamage()).values().stream().toArray(Recipe[]::new);
+    }
+
     public static class Entry {
         final int resultItemId;
         final int resultMeta;

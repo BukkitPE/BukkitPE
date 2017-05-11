@@ -8,13 +8,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
-
  * BukkitPE Project
  */
 public class SimpleChunkManager implements ChunkManager {
-    protected Map<String, FullChunk> chunks = new ConcurrentHashMap<>();
-
     protected final long seed;
+    protected Map<String, FullChunk> chunks = new ConcurrentHashMap<>();
 
     public SimpleChunkManager(long seed) {
         this.seed = seed;

@@ -3,7 +3,6 @@ package net.BukkitPE.item;
 import net.BukkitPE.block.BlockPotato;
 
 /**
-
  * BukkitPE Project
  */
 public class ItemPotato extends ItemEdible {

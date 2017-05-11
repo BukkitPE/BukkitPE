@@ -1,7 +1,6 @@
 package net.BukkitPE.network.protocol;
 
 /**
-
  * BukkitPE Project
  */
 public class FullChunkDataPacket extends DataPacket {
@@ -9,16 +8,15 @@ public class FullChunkDataPacket extends DataPacket {
 
     public static final byte ORDER_COLUMNS = 0;
     public static final byte ORDER_LAYERED = 1;
+    public int chunkX;
+    public int chunkZ;
+    public byte order = ORDER_COLUMNS;
+    public byte[] data;
 
     @Override
     public byte pid() {
         return NETWORK_ID;
     }
-
-    public int chunkX;
-    public int chunkZ;
-    public byte order = ORDER_COLUMNS;
-    public byte[] data;
 
     @Override
     public void decode() {

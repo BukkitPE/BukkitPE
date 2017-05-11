@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-
  * BukkitPE Project
  */
 public class InventoryType {
@@ -29,6 +28,12 @@ public class InventoryType {
     private final String title;
     private final int typeId;
 
+    public InventoryType(int defaultSize, String defaultBlockEntity, int typeId) {
+        this.size = defaultSize;
+        this.title = defaultBlockEntity;
+        this.typeId = typeId;
+    }
+
     public static InventoryType get(int index) {
         return defaults.containsKey(index) ? defaults.get(index) : null;
     }
@@ -51,12 +56,6 @@ public class InventoryType {
         defaults.put(DISPENSER, new InventoryType(9, "Dispenser", 6)); //9 CONTAINER
         defaults.put(DROPPER, new InventoryType(9, "Dropper", 7)); //9 CONTAINER
         defaults.put(HOPPER, new InventoryType(5, "Hopper", 8)); //5 CONTAINER
-    }
-
-    public InventoryType(int defaultSize, String defaultBlockEntity, int typeId) {
-        this.size = defaultSize;
-        this.title = defaultBlockEntity;
-        this.typeId = typeId;
     }
 
     public int getDefaultSize() {

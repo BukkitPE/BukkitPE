@@ -11,19 +11,15 @@ import java.util.List;
 import java.util.Set;
 
 /**
-
  * BukkitPE Project
  */
 public class SimpleTransactionGroup implements TransactionGroup {
 
+    protected final Set<Inventory> inventories = new HashSet<>();
+    protected final Set<Transaction> transactions = new HashSet<>();
     private final long creationTime;
     protected boolean hasExecuted = false;
-
     protected Player source = null;
-
-    protected final Set<Inventory> inventories = new HashSet<>();
-
-    protected final Set<Transaction> transactions = new HashSet<>();
 
     public SimpleTransactionGroup() {
         this(null);

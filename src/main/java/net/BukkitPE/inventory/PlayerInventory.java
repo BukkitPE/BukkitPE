@@ -18,14 +18,12 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
-
  * BukkitPE Project
  */
 public class PlayerInventory extends BaseInventory {
 
-    protected int itemInHandIndex = 0;
-
     protected final int[] hotbar;
+    protected int itemInHandIndex = 0;
 
     public PlayerInventory(EntityHuman player) {
         super(player, InventoryType.get(InventoryType.PLAYER));
@@ -285,6 +283,26 @@ public class PlayerInventory extends BaseInventory {
         return armor;
     }
 
+    public void setArmorContents(Item[] items) {
+        if (items.length < 4) {
+            Item[] newItems = new Item[4];
+            System.arraycopy(items, 0, newItems, 0, items.length);
+            items = newItems;
+        }
+
+        for (int i = 0; i < 4; ++i) {
+            if (items[i] == null) {
+                items[i] = new ItemBlock(new BlockAir(), null, 0);
+            }
+
+            if (items[i].getId() == Item.AIR) {
+                this.clear(this.getSize() + i);
+            } else {
+                this.setItem(this.getSize() + 1, items[i]);
+            }
+        }
+    }
+
     @Override
     public void clearAll() {
         int limit = this.getSize() + 4;
@@ -314,26 +332,6 @@ public class PlayerInventory extends BaseInventory {
                 player.dataPacket(pk2);
             } else {
                 player.dataPacket(pk);
-            }
-        }
-    }
-
-    public void setArmorContents(Item[] items) {
-        if (items.length < 4) {
-            Item[] newItems = new Item[4];
-            System.arraycopy(items, 0, newItems, 0, items.length);
-            items = newItems;
-        }
-
-        for (int i = 0; i < 4; ++i) {
-            if (items[i] == null) {
-                items[i] = new ItemBlock(new BlockAir(), null, 0);
-            }
-
-            if (items[i].getId() == Item.AIR) {
-                this.clear(this.getSize() + i);
-            } else {
-                this.setItem(this.getSize() + 1, items[i]);
             }
         }
     }

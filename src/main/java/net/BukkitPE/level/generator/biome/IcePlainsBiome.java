@@ -3,7 +3,6 @@ package net.BukkitPE.level.generator.biome;
 import net.BukkitPE.level.generator.populator.PopulatorTallGrass;
 
 /**
-
  * BukkitPE Project
  */
 public class IcePlainsBiome extends GrassyBiome {

@@ -109,6 +109,7 @@ import java.util.*;
  */
 public class PluginDescription {
 
+    private final List<String> authors = new ArrayList<>();
     private String name;
     private String main;
     private boolean signed;
@@ -119,7 +120,6 @@ public class PluginDescription {
     private String version;
     private Map<String, Object> commands = new HashMap<>();
     private String description;
-    private final List<String> authors = new ArrayList<>();
     private String website;
     private String prefix;
     private PluginLoadOrder order = PluginLoadOrder.POSTWORLD;

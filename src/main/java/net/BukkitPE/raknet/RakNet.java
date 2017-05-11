@@ -1,7 +1,6 @@
 package net.BukkitPE.raknet;
 
 /**
-
  * BukkitPE Project
  * UDP network library that follows the RakNet protocol for BukkitPE Project
  * This is not affiliated with Jenkins Software LLC nor RakNet.
