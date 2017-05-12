@@ -1,6 +1,6 @@
 package net.BukkitPE.network.protocol;
 
-class SetTitlePacket extends DataPacket{
+public class SetTitlePacket extends DataPacket{
 	public static final byte NETWORK_ID = ProtocolInfo::SET_TITLE_PACKET;
 
 	public int TYPE_CLEAR_TITLE = 0;
@@ -31,5 +31,9 @@ class SetTitlePacket extends DataPacket{
         this.putVarInt(this.fadeInTime);
         this.putVarInt(this.stayTime);
         this.putVarInt(this.fadeOutTime);
+    }
+
+    public byte pid(){
+        return NETWORK_ID;
     }
 }
