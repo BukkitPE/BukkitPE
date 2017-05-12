@@ -1,7 +1,7 @@
 package net.BukkitPE.network.protocol;
 
 public class SetTitlePacket extends DataPacket{
-	public static final byte NETWORK_ID = ProtocolInfo::SET_TITLE_PACKET;
+	public static final byte NETWORK_ID = ProtocolInfo.SET_TITLE_PACKET;
 
 	public int TYPE_CLEAR_TITLE = 0;
     public int TYPE_RESET_TITLE = 1;
