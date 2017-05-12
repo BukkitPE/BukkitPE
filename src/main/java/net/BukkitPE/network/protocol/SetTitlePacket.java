@@ -32,8 +32,4 @@ class SetTitlePacket extends DataPacket{
         this.putVarInt(this.stayTime);
         this.putVarInt(this.fadeOutTime);
     }
-
-    public byte pid(){
-        return NETWORK_ID;
-    }
 }

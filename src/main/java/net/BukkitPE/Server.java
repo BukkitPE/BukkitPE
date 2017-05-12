@@ -51,7 +51,7 @@ import net.BukkitPE.network.SourceInterface;
 import net.BukkitPE.network.protocol.BatchPacket;
 import net.BukkitPE.network.protocol.CraftingDataPacket;
 import net.BukkitPE.network.protocol.DataPacket;
-import net.BukkitPE.network.protocol.ProtocolInfo   ;
+import net.BukkitPE.network.protocol.ProtocolInfo;
 import net.BukkitPE.network.protocol.PlayerListPacket;
 import net.BukkitPE.network.query.QueryHandler;
 import net.BukkitPE.network.rcon.RCON;
