@@ -10,11 +10,11 @@ class SetTitlePacket extends DataPacket{
     public int TYPE_SET_ACTIONBAR_MESSAGE = 4;
     public int TYPE_SET_ANIMATION_TIMES = 5;
 
-    public int $type;
-    public String $text;
-    public int $fadeInTime;
-    public int $stayTime;
-    public int $fadeOutTime;
+    public int type;
+    public String text;
+    public int fadeInTime;
+    public int stayTime;
+    public int fadeOutTime;
 
     public void decode(){
         this.type = this.getVarInt();
@@ -26,11 +26,11 @@ class SetTitlePacket extends DataPacket{
 
     public void encode(){
         this.reset();
-        this.putVarInt($this.type);
-        this.putString($this.text);
-        this.putVarInt($this.fadeInTime);
-        this.putVarInt($this.stayTime);
-        this.putVarInt($this.fadeOutTime);
+        this.putVarInt(this.type);
+        this.putString(this.text);
+        this.putVarInt(this.fadeInTime);
+        this.putVarInt(this.stayTime);
+        this.putVarInt(this.fadeOutTime);
     }
 
     public int pid(){
