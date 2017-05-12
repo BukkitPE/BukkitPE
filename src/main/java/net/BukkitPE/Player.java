@@ -1075,8 +1075,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         return new Item[0];
     }
 
-    @Override
-    public void transfer(String address, int port) {
+    public boolean transfer(String address, int port) {
         PlayerTransferEvent ev = new PlayerTransferEvent(this, address, port);
         this.server.getPluginManager().callEvent(ev);
         if (ev.isCancelled()) {
@@ -1086,7 +1085,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         pk.address = address;
         pk.port = port;
         dataPacket(pk);
-
+        return true;
     }
 
     @Override

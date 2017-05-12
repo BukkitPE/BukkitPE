@@ -26,11 +26,11 @@ public class Vector2f {
     }
 
     public int getFloorX() {
-        return NukkitMath.floorFloat(this.x);
+        return BukkitPEMath.floorFloat(this.x);
     }
 
     public int getFloorY() {
-        return NukkitMath.floorFloat(this.y);
+        return BukkitPEMath.floorFloat(this.y);
     }
 
     public Vector2f add(float x) {

@@ -22,7 +22,7 @@ public class TransferCommand extends VanillaCommand{
         }
 
         String address = args[0].toLowerCase();
-        String port = args[1].toLowerCase();
+        String port = Integer.parseInt(args[1]);
 
         Player player = sender.getServer().getPlayer(sender.getName());
         player.transfer(address, port);
