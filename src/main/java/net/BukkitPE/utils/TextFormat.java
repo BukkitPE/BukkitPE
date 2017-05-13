@@ -33,7 +33,7 @@ public final class TextFormat {
     }
 
     public static String clean(String message, boolean removeFormat) {
-        String message = message.replaceAll((char) 0x1b + "[0-9;\\[\\(]+[Bm]", "");
+        message = message.replaceAll((char) 0x1b + "[0-9;\\[\\(]+[Bm]", "");
         return removeFormat ? message.replaceAll(ESCAPE + "[0123456789abcdefklmnor]", "") : message;
     }
 
